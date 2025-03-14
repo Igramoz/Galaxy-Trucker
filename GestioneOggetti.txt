@@ -1,0 +1,120 @@
+## 1. Gestione dei Collegamenti tra le Parti
+
+### a. Tipi di Connessione  
+
+public enum ConnectionType {
+    SIMPLE,    // Connessione base
+    DOUBLE,    // Richiede doppio abbinamento
+    UNIVERSAL; // Può collegarsi a qualsiasi tipo
+}
+
+
+Ogni *connessione* (o "tubo") può essere rappresentata come un oggetto con:
+- **Tipo** (come sopra)
+- **Orientazione** (che può essere rappresentato come un valore enum o un intero: 0, 1, 2, 3 oppure coi gradi)
+- **Stato di connessione** (se è attualmente collegato o no)
+
+### b. Associazione ai Componenti  
+La classe astratta `Component` (o il componente specifico) includerà una struttura dati, per esempio una mappa o un array, in cui ogni elemento rappresenta un punto di connessione (es. in alto, destra, in basso, sinistra). Ogni punto conterrà un oggetto `Conn ection`:
+
+
+public class Connection {
+    private ConnectionType type;
+    private Direction direction; // Enum per UP, DOWN, LEFT, RIGHT
+
+    // Costruttori, getter e setter...
+}
+
+
+Nel componente:
+
+public abstract class Component {
+    // Ad esempio, per un componente con 4 lati:
+    protected Map<Direction, Connection> connectors;
+
+    public Component() {
+        connectors = new EnumMap<>(Direction.class);
+        // Inizializza i connettori per ciascun lato
+    }
+
+    public void rotateClockwise() {
+        // Ruota i connettori: ad esempio, ogni connettore passa al lato successivo
+    }
+}
+
+--
+
+## 2. Permettere la Rotazione dei Componenti
+
+
+
+### b. UI per la Rotazione  
+Offri comandi semplici (es. digitando “r” o “rotate”) per applicare la rotazione e mostra l’anteprima aggiornata del componente nel prompt.
+Oppure un pulsante
+---
+
+## 3. Generazione dei Pezzi e dei Loro “Tubi”
+
+### a. Strategia di Generazione  
+Puoi seguire uno dei due approcci:
+- **Generazione a due fasi:**  
+  1. **Definisci il tipo di pezzo**   
+  2. **Assegna in modo casuale** il tipo di ciascun connettore (SIMPLE, DOUBLE, UNIVERSAL) per ogni lato.
+
+### b. Implementazione con il Factory Pattern  
+Crea ad esempio una `ComponentFactory` che, in base al tipo di componente richiesto, istanzia l’oggetto e imposta i connettori:
+
+
+public class ComponentFactory {
+    public static Component createComponent(ComponentType type) {
+        Component comp = null;
+        switch (type) {
+            case CABINA:
+                comp = new Cabina();
+                break;
+            case MOTORE:
+                comp = new Motore();
+                break;
+            // altri casi...
+        }
+        // Imposta in modo casuale o predefinito i connettori:
+        comp.initializeConnectors();
+        return comp;
+    }
+}
+
+
+---
+
+## 4. Rappresentazione Grafica dei “Tubi”
+
+### a. Visualizzazione in Modalità Testuale  
+
+- Il bordo superiore visualizza il connettore del lato UP, ad es. con “-” per SIMPLE, “=” per DOUBLE, “#” per UNIVERSAL.
+- I lati laterali usano simboli come “|”, “||” o altri simboli testuali.
+
+### b. Aggiornamento in Tempo Reale  
+Ogni volta che il componente viene ruotato o posizionato, aggiorna la visualizzazione nel prompt per riflettere l’orientamento attuale dei connettori.
+
+### c. Metodo di Rotazione  
+Implementa un metodo di rotazione nella classe base che aggiorna l’orientamento dei connettori (i turbo non si possono girare)
+Questo permette all’utente, tramite l’interfaccia a prompt, di “girare” il pezzo prima del posizionamento.
+
+
+---
+
+public class PlanciaDiVolo
+	contiene array bidimensionale di celle, a seconda del livello l'array.
+ogni cella conterrà un'oggetto.
+
+una funzione setCella(cella,ConnectionType orientazione,int xCoord,int yCoord)
+
+
+l'oggetto navicella ha la funzione distruggi navicella.
+controllare se l'utente si può salvare, chiedergli se è disposto a pagare energia per salvarsi.
+quando un'asteroide colpisce la navicella bisogna chiamare una funzione che si occupa di distruggere la navicella.
+bisogna creare tutti i path possibili che partono dalla cabina, bisogna individuare quali path passano dalla sezione colpita e poi bisogna distruggere tutti i pezzi legati attraversati dai path che passano dalla sezione colpiata a partire dalla sezione colpita stessa.
+
+
+
+
