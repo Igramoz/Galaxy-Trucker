@@ -1,3 +1,4 @@
+```markdown
        src/                              // Root del progetto
         ├── main/                        // Contiene il punto d’ingresso dell’applicazione
         |   └── Main.java                // Avvia il gioco e gestisce l’interfaccia a prompt
@@ -60,3 +61,4 @@
             ├── LoggerUtil.java          // Gestione del logging
             ├── FileUtil.java            // Operazioni di salvataggio/caricamento dati
             └── RandomUtil.java          // Genera numeri casuali per dadi, eventi e estrazioni
+```
