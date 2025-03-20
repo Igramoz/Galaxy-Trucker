@@ -14,10 +14,6 @@ Ogni *connessione* (o "tubo") può essere rappresentata come un oggetto con:
 - **Orientazione** (che può essere rappresentato come un valore enum o un intero: 0, 1, 2, 3 oppure coi gradi)
 - **Stato di connessione** (se è attualmente collegato o no)
 
-### b. Associazione ai Componenti  
-La classe astratta `Component` (o il componente specifico) includerà una struttura dati, per esempio una mappa o un array, in cui ogni elemento rappresenta un punto di connessione (es. in alto, destra, in basso, sinistra). Ogni punto conterrà un oggetto `Conn ection`:
-
-
 public class Connection {
     private ConnectionType type;
     private Direction direction; // Enum per UP, DOWN, LEFT, RIGHT
@@ -26,80 +22,12 @@ public class Connection {
 }
 
 
-Nel componente:
-
-public abstract class Component {
-    // Ad esempio, per un componente con 4 lati:
-    protected Map<Direction, Connection> connectors;
-
-    public Component() {
-        connectors = new EnumMap<>(Direction.class);
-        // Inizializza i connettori per ciascun lato
-    }
-
-    public void rotateClockwise() {
-        // Ruota i connettori: ad esempio, ogni connettore passa al lato successivo
-    }
-}
-
---
-
-## 2. Permettere la Rotazione dei Componenti
-
-
-
-### b. UI per la Rotazione  
-Offri comandi semplici (es. digitando “r” o “rotate”) per applicare la rotazione e mostra l’anteprima aggiornata del componente nel prompt.
-Oppure un pulsante
----
-
-## 3. Generazione dei Pezzi e dei Loro “Tubi”
-
-### a. Strategia di Generazione  
-Puoi seguire uno dei due approcci:
-- **Generazione a due fasi:**  
-  1. **Definisci il tipo di pezzo**   
-  2. **Assegna in modo casuale** il tipo di ciascun connettore (SIMPLE, DOUBLE, UNIVERSAL) per ogni lato.
-
-### b. Implementazione con il Factory Pattern  
-Crea ad esempio una `ComponentFactory` che, in base al tipo di componente richiesto, istanzia l’oggetto e imposta i connettori:
-
-
-public class ComponentFactory {
-    public static Component createComponent(ComponentType type) {
-        Component comp = null;
-        switch (type) {
-            case CABINA:
-                comp = new Cabina();
-                break;
-            case MOTORE:
-                comp = new Motore();
-                break;
-            // altri casi...
-        }
-        // Imposta in modo casuale o predefinito i connettori:
-        comp.initializeConnectors();
-        return comp;
-    }
-}
-
-
----
-
 ## 4. Rappresentazione Grafica dei “Tubi”
 
 ### a. Visualizzazione in Modalità Testuale  
 
 - Il bordo superiore visualizza il connettore del lato UP, ad es. con “-” per SIMPLE, “=” per DOUBLE, “#” per UNIVERSAL.
 - I lati laterali usano simboli come “|”, “||” o altri simboli testuali.
-
-### b. Aggiornamento in Tempo Reale  
-Ogni volta che il componente viene ruotato o posizionato, aggiorna la visualizzazione nel prompt per riflettere l’orientamento attuale dei connettori.
-
-### c. Metodo di Rotazione  
-Implementa un metodo di rotazione nella classe base che aggiorna l’orientamento dei connettori (i turbo non si possono girare)
-Questo permette all’utente, tramite l’interfaccia a prompt, di “girare” il pezzo prima del posizionamento.
-
 
 ---
 
@@ -116,5 +44,129 @@ quando un'asteroide colpisce la navicella bisogna chiamare una funzione che si o
 bisogna creare tutti i path possibili che partono dalla cabina, bisogna individuare quali path passano dalla sezione colpita e poi bisogna distruggere tutti i pezzi legati attraversati dai path che passano dalla sezione colpiata a partire dalla sezione colpita stessa.
 
 
+# Ruolo Dettagliato di Ciascun Package e Classe
 
+## main
+- **Main.java:**  
+  - Avvia l'applicazione, imposta il ciclo di gioco e avvia l'interfaccia a prompt.
+
+## model
+Definisce il dominio del gioco.
+- **Game.java:**  
+  - Gestisce lo stato globale della partita e le transizioni tra i turni.  
+  - Coordina l’inizializzazione, l’avanzamento e la conclusione del gioco.  
+  - Funziona da tramite tra l’input dell’utente e la logica di business.
+- **Player.java:**  
+  - Memorizza dati del giocatore (nave, risorse, punteggio).
+- **Coordinate.java:**  
+  - Gestisce la posizione nella griglia della nave.
+- **Merce.java:**  
+  - Rappresenta il cargo con attributi colore e valore.
+- **Dadi.java:**  
+  - Incapsula la logica per simulare 2 dadi.
+- **Connettori.java:**  
+  - Definisce regole e connessioni tra componenti della nave.
+
+### equipaggio/
+- **Pedina.java:**  
+  - Rappresenta una pedina da inserire nelle cabine.
+- **TipoPedina.java:**  
+  - Enum per distinguere tra astronauta e alieni (viola/marrone) con bonus.
+
+### enums/
+- **ColoreMerce.java:**  
+  - Definisce i colori della merce (ROSSA, GIALLA, VERDE, BLU).
+- **TipoTubo.java:**  
+  - Specifica eventuali tipologie di tubo.
+
+## componenti
+Gestisce i componenti della nave.
+- **AbstractComponent.java:**  
+  - Classe base per tutti i componenti.
+- **TubiFognari.java**
+- **TrivellaAlPlasma.java**
+- **Scaldabagni.java**
+- **UnitaAbitative.java**
+- **UnitaAbitativeCentrale.java**
+- **ScompartoDiStoccaggio.java**
+- **SovrastrutturaAliena.java**
+- **GeneratoreDiScudi.java**
+
+## cartaAvventura
+Gestisce le carte avventura che influenzano il gioco.
+- **AbstractCarta.java:**  
+  - Classe base per tutte le carte.
+- **PianetiCarta.java**
+- **StazioneAbbandonataCarta.java**
+- **NaveAbbandonataCarta.java**
+- **ContrabbandieriCarta.java**
+- **SpazioApertoCarta.java**
+- **PioggiaDiMeteoritiCarta.java**
+- **ZonaDiGuerraCarta.java**
+- **PolvereStellareCarta.java**
+- **PiratiCarta.java**
+- **SchiavistiCarta.java**
+- **EpidemiaCarta.java**
+- **SabotaggioCarta.java**
+
+## controllers
+Gestisce il flusso di gioco e l'interazione utente.
+- **GameController.java:**  
+  - Coordina l’avvio e l’evoluzione della partita.  
+  - Interpreta gli input dell’utente per avviare azioni e transizioni di stato.  
+  - Collabora con i services per applicare la logica di gioco.
+- **BuildController.java:**  
+  - Gestisce la fase di costruzione e configurazione della nave.  
+  - Riceve e interpreta i comandi dell’utente per assemblare i componenti.  
+  - Comunica con il BuildService per validare e registrare le scelte di costruzione.
+- **CartaController.java:**  
+  - Amministra la distribuzione e l’applicazione delle carte avventura.  
+  - Gestisce l’estrazione e l’effetto delle carte sul gioco.  
+  - Interagisce con CartaService per garantire una selezione casuale e corretta.
+- **UIController.java:**  
+  - Si occupa dell’interfaccia testuale e della gestione dei prompt.  
+  - Visualizza le informazioni di gioco e raccoglie gli input dell’utente.  
+  - Facilita la comunicazione tra il giocatore e il sistema di gioco.
+
+## services
+Incapsula la logica di business e le operazioni complesse.
+- **ScoreService.java:**  
+  - Calcola i punteggi finali e gestisce le eventuali penalità.  
+  - Valuta l’impatto delle azioni di gioco sul risultato del giocatore.  
+  - Fornisce metodi per aggiornare e recuperare i punteggi durante la partita.
+- **EventService.java:**  
+  - Gestisce l’attivazione e la risoluzione degli eventi casuali e programmati.  
+  - Coordina la logica degli imprevisti che influenzano il volo e lo stato della nave.  
+  - Comunica con altri services per integrare gli effetti degli eventi nel gioco.
+- **BuildService.java:**  
+  - Estrae e gestisce la selezione randomica dei componenti della nave.  
+  - Memorizza i componenti prenotati e scartati durante il processo di costruzione.  
+  - Verifica la validità e la compatibilità dei componenti assemblati.
+- **CartaService.java:**  
+  - Estrae randomicamente le carte avventura da un mazzo predefinito.  
+  - Gestisce la logica degli effetti specifici di ogni carta.  
+  - Assicura che la distribuzione delle carte sia equilibrata e casuale.
+- **DistruzioneComponentiService.java:**  
+  - Esegue la funzione complessa di distruzione dei componenti della nave.  
+  - Suddivide il processo in più fasi ausiliarie per una gestione modulare.  
+  - Accede agli attributi della nave per aggiornare il conteggio dei componenti distrutti.
+
+## util
+Fornisce utility comuni.
+- **Util.java:**  
+  - Fornisce funzioni generiche di supporto utilizzate in tutto il progetto.  
+  - Incapsula metodi per operazioni comuni, riducendo la duplicazione di codice.  
+  - Agisce da libreria helper per trasformazioni e validazioni di base.
+- **LoggerUtil.java:**  
+  - Gestisce la registrazione di log per monitorare eventi e debug.  
+  - Consente di tracciare il flusso del gioco e gli errori in modo centralizzato.  
+  - Fornisce metodi per scrivere log in differenti formati e livelli di dettaglio.
+- **FileUtil.java:**  
+  - Gestisce operazioni di salvataggio e caricamento dei dati di gioco.  
+  - Permette la persistenza dello stato del gioco su file esterni.  
+  - Incapsula la logica di lettura/scrittura per semplificare l’I/O.
+- **RandomUtil.java:**  
+  - Genera numeri casuali per supportare meccaniche come i dadi e l’estrazione di carte.  
+  - Fornisce metodi per ottenere valori randomici in diversi range e formati.  
+  - Assicura una distribuzione uniforme per elementi critici del gioco.
 
