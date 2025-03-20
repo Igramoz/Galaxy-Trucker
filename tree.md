@@ -9,8 +9,8 @@
         |    ├── Player.java              // Rappresenta il giocatore (nave, risorse, punteggio)
         |    ├── Coordinate.java          // Gestisce le posizioni nella griglia della nave
         |    ├── Merce.java               // Rappresenta la merce con colore e valore
-        |    ├── Dadi.java                // Simula i 2 dadi per generare numeri casuali
-        |    ├── Connettori.java
+        |    ├── Dado.java                // Simula i 2 dadi per generare numeri casuali
+        |    ├── Connettore.java
         |    ├── equipaggio/
         |    |   ├── Pedina.java
         |    |   └── TipoPedina.java      // Enum: ASTRONAUTA, ALIENO_VIOLA, ALIENO_MARRONE (bonus)
@@ -19,7 +19,7 @@
         |       └── TipoTubo.java
         |
         ├── componenti/
-        |    ├── AbstractComponent.java
+        |    ├── Componente.java
         |    ├── TubiFognari.java
         |    ├── TrivellaAlPlasma.java
         |    ├── Scaldabagni.java
@@ -30,7 +30,7 @@
         |    └── GeneratoreDiScudi.java
         |
         ├── cartaAvventura/
-        |   ├── AbstractCarta.java
+        |   ├── Carta.java
         |   ├── PianetiCarta.java
         |   ├── StazioneAbbandonataCarta.java
         |   ├── NaveAbbandonataCarta.java
