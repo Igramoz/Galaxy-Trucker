@@ -1,3 +1,5 @@
+```markdown
+
 src/
 ├── main/
 │   └── Main.java // Punto di ingresso del gioco
@@ -25,3 +27,4 @@ src/
 └── utilità/
     ├── LoggerUtil.java // Utilità per i log
     └── FileUtil.java // Utilità per i file
+```
