@@ -1,11 +1,22 @@
+public enum Direzioni{
+	SOPRA, SINISTRA, SOTTO, DESTRA;
+}
+
+public astract class Componente{
+// ho bisogno del metodo .copia() che mi restituisce una copia dell'oggetto (non lo stesso oggetto, un'oggetto diverso con gli stessi attributi del primo.
+ //deve contenere i 4 tubi nelle 4 direzioni 
+ //DEFINIRE LA FUNZIONE EQUALS() CONTROLLA LE I 2 OGGETTI HANNO GLI STESSI TUBI NELLE STESSE DIREZIONI E SONO DELLO STESSO TIPO.
+}
+
 ## 1. Gestione dei Collegamenti tra le Parti
 
 ### a. Tipi di Connessione  
 
-public enum ConnectionType {
-    SIMPLE,    // Connessione base
-    DOUBLE,    // Richiede doppio abbinamento
-    UNIVERSAL; // Può collegarsi a qualsiasi tipo
+public enum TipoTubo {
+	NESSUNO,
+    SINGOLO,    // Connessione base
+    DOPPIO,    // Richiede doppio abbinamento
+    UNIVERSALE; // Può collegarsi a qualsiasi tipo
 }
 
 
