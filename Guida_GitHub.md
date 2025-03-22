@@ -48,7 +48,7 @@ git pull
 
 ### Eseguire commit e push
 
-Dopo aver fatto le modifiche, esegui i seguenti comandi:
+Dopo aver fatto le modifiche, esegui i seguenti comandi (uno alla volta):
 
 ```bash
 git add .
