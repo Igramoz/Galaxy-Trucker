@@ -26,7 +26,7 @@ Nel progetto importato, crea le classi e scrivi il codice (oppure copia il codic
 
 1. Apri la cartella `Galaxy-Trucker` sul tuo computer.
 2. Fai clic con il tasto destro e seleziona `Apri nel terminale`.
-3. Esegui i seguenti comandi:
+3. Esegui i seguenti comandi (uno alla volta):
 
 ```bash
 git add .
