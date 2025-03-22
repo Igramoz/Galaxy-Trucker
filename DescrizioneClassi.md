@@ -57,3 +57,14 @@
   - `public void distruggiSingoloComponente(Coordinate coordinate)`: Distrugge il componente alla posizione specificata.
     - **Input:** `Coordinate coordinate` - Le coordinate del componente da distruggere.
     - **Output:** Nessuno.
+
+### Classe: Coordinate
+- **Attributi pubblici:** Nessuno
+- **Metodi pubblici:**
+  - `public int getX()`: Restituisce l'intero x della coordinata.
+    - **Input:** Nessuno.
+    - **Output:** `int x`.
+  - `public int getY()`: Restituisce l'intero y della coordinata.
+    - **Input:** Nessuno.
+    - **Output:** `int y`.
+
