@@ -1,6 +1,8 @@
 package model;
 
 import java.util.Arrays;
+
+import componenti.Componente;
 import util.Util;
 
 public class Nave {

@@ -120,3 +120,4 @@ tmp/
 *.njsproj
 *.sln
 *.sw?
+/.metadata/
