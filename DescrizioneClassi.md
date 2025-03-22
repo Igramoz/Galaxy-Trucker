@@ -68,3 +68,36 @@
     - **Input:** Nessuno.
     - **Output:** `int y`.
 
+---
+
+## Package: componenti
+
+---
+
+### Classe: Componente
+- **Attributi pubblici:** Nessuno
+- **Metodi pubblici:**
+  - `public Componente(TipoComponente t, boolean usaEnergia, int energia)`: Costruttore della classe Componente.
+    - **Input:** `TipoComponente t`, `boolean usaEnergia`, `int energia`
+    - **Output:** Nessuno.
+  - `public Componente(Componente com)`: Costruttore di copia della classe Componente.
+    - **Input:** `Componente com`
+    - **Output:** Nessuno.
+  - `public TipoComponente getTipo()`: Restituisce il tipo di componente.
+    - **Input:** Nessuno.
+    - **Output:** `TipoComponente`
+  - `public boolean getRichiestaEnergia()`: Restituisce se il componente richiede energia.
+    - **Input:** Nessuno.
+    - **Output:** `boolean`
+  - `public int getMaxEnergia()`: Restituisce l'energia massima del componente.
+    - **Input:** Nessuno.
+    - **Output:** `int`
+  - `public void setMaxEnergia(int maxEnergia)`: Imposta l'energia massima del componente.
+    - **Input:** `int maxEnergia`
+    - **Output:** Nessuno.
+  - `public abstract void consumaEnergia()`: Metodo astratto per consumare energia.
+    - **Input:** Nessuno.
+    - **Output:** Nessuno.
+  - `public boolean equals(Componente other)`: Confronta l'uguaglianza tra due componenti.
+    - **Input:** `Componente other`
+    - **Output:** `boolean`
