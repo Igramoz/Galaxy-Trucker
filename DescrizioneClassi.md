@@ -22,7 +22,10 @@
 ### Classe: Util
 - **Attributi pubblici:**
   - `public final static int SIZE = 12`: Costante che rappresenta la dimensione della griglia.
-- **Metodi pubblici:** Nessuno
+- **Metodi pubblici:**
+  - `public static boolean contieneCoordinata(List<Set<Coordinate>> listaCoordinateComponentiControllati, Coordinate coordinate)`: Controlla se nel set di coordinate è presente una coordinata. Restituisce true se è presente.
+    - **Input:** `List<Set<Coordinate>> listaCoordinateComponentiControllati`, `Coordinate coordinate`
+    - **Output:** `boolean` - True se la coordinata è presente, altrimenti False
 
 ---
 
@@ -54,19 +57,6 @@
   - `public void incrementaPezziDistrutti()`: Incrementa il contatore dei pezzi distrutti.
     - **Input:** Nessuno.
     - **Output:** Nessuno.
-  - `public void distruggiSingoloComponente(Coordinate coordinate)`: Distrugge il componente alla posizione specificata. PUO' ESSERE CHIAMATO SOLO DALLA CLASSE CLASSE EVENT SISTEM.
-    - **Input:** `Coordinate coordinate` - Le coordinate del componente da distruggere.
-    - **Output:** Nessuno.
-
-### Classe: Coordinate
-- **Attributi pubblici:** Nessuno
-- **Metodi pubblici:**
-  - `public int getX()`: Restituisce l'intero x della coordinata.
-    - **Input:** Nessuno.
-    - **Output:** `int x`.
-  - `public int getY()`: Restituisce l'intero y della coordinata.
-    - **Input:** Nessuno.
-    - **Output:** `int y`.
 
 ---
 
@@ -101,3 +91,41 @@
   - `public boolean equals(Componente other)`: Confronta l'uguaglianza tra due componenti.
     - **Input:** `Componente other`
     - **Output:** `boolean`
+
+---
+
+## Package: controller
+
+---
+
+### Classe: EventService
+
+### Metodi
+
+- `distruggiComponenti(Nave nave, Coordinate coordinate)`
+  - Distrugge i componenti di una nave a partire da una determinata coordinata.
+  
+- `controllaConnessioneComponente(Nave nave, Coordinate coordinate, Set<Coordinate> coordinateComponentiControllati)`
+  - Controlla quali componenti della nave sono connessi partendo da una determinata coordinata.
+  
+- `controllaConnessioneInDirezione(Nave nave, Componente componente, Coordinate coordinate, Componente.DirezioneTubo direzione, Set<Coordinate> coordinateComponentiControllati)`
+  - Controlla la connessione dei componenti della nave in una direzione specifica.
+  
+- `distruggiComponentiNonCollegate(Nave nave, Set<Coordinate> coordinateComponentiControllati)`
+  - Distrugge i componenti della nave che non sono collegati a partire da una determinata coordinata.
+  
+- `contieneCoordinata(List<Set<Coordinate>> coordinateComponentiControllatiList, Coordinate coordinate)`
+  - Restituisce `true` se nella lista di set è presente una coordinata.
+
+---
+
+## Package: utils
+
+---
+
+### Classe: Direzioni
+
+### Metodi
+
+- `direzioneTubo()`
+  - Metodo che gestisce le direzioni del tubo all'interno della nave.
