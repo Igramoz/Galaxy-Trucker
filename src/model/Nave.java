@@ -33,7 +33,8 @@ public class Nave {
     }
     
     public Componente getComponente(Coordinate coordinate) {
-        return grigliaComponenti[coordinate.getX()][coordinate.getY()];
+    	Componente copiaComponente = new Componente(grigliaComponenti[coordinate.getX()][coordinate.getY()]);
+        return copiaComponente;
     }
     
     public void setComponente(Componente componente, Coordinate coordinate) {
