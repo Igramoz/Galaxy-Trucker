@@ -8,6 +8,8 @@ public astract class Componente{
  //DEFINIRE LA FUNZIONE EQUALS() CONTROLLA LE I 2 OGGETTI HANNO GLI STESSI TUBI NELLE STESSE DIREZIONI E SONO DELLO STESSO TIPO.
 }
 
+
+
 ## 1. Gestione dei Collegamenti tra le Parti
 
 ### a. Tipi di Connessione  
@@ -25,7 +27,7 @@ Ogni *connessione* (o "tubo") può essere rappresentata come un oggetto con:
 - **Orientazione** (che può essere rappresentato come un valore enum o un intero: 0, 1, 2, 3 oppure coi gradi)
 - **Stato di connessione** (se è attualmente collegato o no)
 
-public class Connection {
+public class Tubo {
     private ConnectionType type;
     private Direction direction; // Enum per UP, DOWN, LEFT, RIGHT
 

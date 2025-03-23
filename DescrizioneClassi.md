@@ -54,7 +54,7 @@
   - `public void incrementaPezziDistrutti()`: Incrementa il contatore dei pezzi distrutti.
     - **Input:** Nessuno.
     - **Output:** Nessuno.
-  - `public void distruggiSingoloComponente(Coordinate coordinate)`: Distrugge il componente alla posizione specificata.
+  - `public void distruggiSingoloComponente(Coordinate coordinate)`: Distrugge il componente alla posizione specificata. PUO' ESSERE CHIAMATO SOLO DALLA CLASSE CLASSE EVENT SISTEM.
     - **Input:** `Coordinate coordinate` - Le coordinate del componente da distruggere.
     - **Output:** Nessuno.
 

@@ -3,7 +3,8 @@ package model;
 import java.util.Arrays;
 
 import componenti.Componente;
-import util.Util;
+import util.*;
+import services.EventService;
 
 public class Nave {
     
@@ -64,15 +65,34 @@ public class Nave {
         return false;
     }
     
-    // Metodo pezzi distrutti
+    // Metodi pezzi distrutti
+    public int getPezziDistrutti() {
+    	return pezziDistrutti;
+    }
+    
     public void incrementaPezziDistrutti() {
         pezziDistrutti++;
     }
     
+    // Il metodo può essere chiamto solo dalla funzione distruggiComponenti della classe EventService
     public void distruggiSingoloComponente(Coordinate coordinate) {
-        if (grigliaComponenti[coordinate.getX()][coordinate.getY()] != null) {
-            grigliaComponenti[coordinate.getX()][coordinate.getY()] = null;
-            incrementaPezziDistrutti();
+    	 if (isCalledByEventService()) {
+             if (grigliaComponenti[coordinate.getX()][coordinate.getY()] != null) {
+                 grigliaComponenti[coordinate.getX()][coordinate.getY()] = null;
+                 incrementaPezziDistrutti();
+             }
+         } else {
+             throw new SecurityException("Accesso non autorizzato al metodo distruggiSingoloComponente");
+         }
+    }
+    
+    private boolean isCalledByEventService() {
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        for (StackTraceElement element : stackTrace) {
+            if (element.getClassName().equals(EventService.class.getName())) {
+                return true;
+            }
         }
+        return false;
     }
 }

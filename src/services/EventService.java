@@ -1,22 +1,56 @@
 package services;
 
 import model.*;
-import util.Util;
+import componenti.Componente;
+import util.*;
+
 import java.util.HashSet;
 import java.util.Set;
+import java.util.List;
+import java.util.ArrayList;
 
 public class EventService {
     
     public void distruggiComponenti(Nave nave, Coordinate coordinate) {
 
         // Distruggo il componente colpito
-        nave.distruggiSingoloComponente(coordinate);
+        nave.distruggiSingoloComponente(coordinate);      
 
-        Coordinate coordinateDiPartenza = new Coordinate(7, 7);
-        // Controllo quali componenti sono rimasti collegati
-        Set<Coordinate> coordinateComponentiControllati = new HashSet<>();
-        controllaConnessioneComponente(nave, coordinateDiPartenza, coordinateComponentiControllati);
+        // Salvo tutti i tronconi che si formano dopo la distruzione del pezzo in una lista di set.
+        // La lista è di tipo Set che è a sua volta di tipo Coordinate
+        // <> con quest'espressione il compilatore automaticamente capisce il tipo della lista
+        // List è un interfaccia fornita dalla classe ArrayList
+        List<Set<Coordinate>> listaCoordinateControllate = new ArrayList<>();
+        
+        Set<Coordinate> nuovoSet; // Set che verrà aggiunto alla lista
 
+        Coordinate cordinateDaControllare;// Controllo se a queste coordinate c'è un componente e se è già stato controllato 
+        
+        // Aggiungo ai set tutti i pezzi della nave cosicché possa controllare tutti i tronconi
+        // Ogni set è un troncone
+        for(int x =0; x < 12; x++)
+        	for(int y = 0; y < 12; y++) {
+        		cordinateDaControllare = new Coordinate(x, y);
+        		
+        		// Controllo se la coordinata è già stata aggiunta ad un set
+        		if(!Util.contieneCoordinata(listaCoordinateControllate, cordinateDaControllare)) {
+        	        
+        			nuovoSet = new HashSet<>(); // Creo il set per il nuovo troncone
+        			
+        			// Assegno a nuovo set le coordinate di tutti i pezzi del troncone
+        			controllaConnessioneComponente(nave, cordinateDaControllare, nuovoSet);
+
+        			// Controllo se il set contiene almeno un elemento e aggiungo alla lista
+        			if (!nuovoSet.isEmpty()) {
+        			    listaCoordinateControllate.add(nuovoSet);
+        			}        			
+        		}        		
+        	}
+        
+        // Creo un array di navi per far vedere all'utente ciascun troncone.
+        Nave[] array
+        
+        //TODO creare array di navi, una per ogni troncone, stamparle a video, chiedere all'utente quale nave vuole tenere, distruggere tutti i tronconi diversi da quella che ha tenuto
         // Distruggo i componenti non collegati
         distruggiComponentiNonCollegate(nave, coordinateComponentiControllati);
     }
@@ -66,6 +100,8 @@ public class EventService {
             }
         }
     }
+    
+    
 }
 // TODO al posto di eliminare le celle non salvate, posso provare a generare un'array di set. cioè a generare un'altro set dove salvare gli elementi distrutti non attaccati alla cabina di 
 // pilotaggio. In questo modo risolverei anche il caso in cui essa è distrutta. Bisogna chiedere all'utente quale tra i vari set tenere, e dopo si distruggono tutti gli elementi presenti negli altri set.
