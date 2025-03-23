@@ -58,7 +58,6 @@
         |   ├── CartaService.java        // Genera ed estrae randomicamente le carte avventura
         |   └── DistruzioneComponentiService.java  // Funzione complessa per distruggere i componenti della nave (accesso agli attributi della nave)
         |
-	|
 	├── ui/
 	|   ├── PromptUI.java            // Classe principale per l'interfaccia a prompt
         |   ├── MenuUI.java              // Classe per la gestione del menu
