@@ -16,6 +16,7 @@
         |    |   └── TipoPedina.java      // Enum: ASTRONAUTA, ALIENO_VIOLA, ALIENO_MARRONE (bonus)
         |    └── enums/
         |       ├── ColoreMerce.java     // Enum per i colori della merce: ROSSA, GIALLA, VERDE, BLU
+	|	├── Direzione.java	  // Enum per la direzione: SOPRA, DESTRA, SOTTO, SINISTRA
         |       └── TipoTubo.java
         |
         ├── componenti/
@@ -56,6 +57,13 @@
         |   ├── BuildService.java        // Genera ed estrae randomicamente i componenti della nave; gestisce componenti prenotati e scartati
         |   ├── CartaService.java        // Genera ed estrae randomicamente le carte avventura
         |   └── DistruzioneComponentiService.java  // Funzione complessa per distruggere i componenti della nave (accesso agli attributi della nave)
+        |
+	|
+	├── ui/
+	|   ├── PromptUI.java            // Classe principale per l'interfaccia a prompt
+        |   ├── MenuUI.java              // Classe per la gestione del menu
+        |   ├── GameUI.java              // Classe per la gestione del gioco tramite prompt
+        |   └── ...                      // Altri file di interfaccia a prompt
         |
         └── util/
             ├── Util.java                // Funzioni generiche di supporto
