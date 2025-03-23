@@ -59,8 +59,6 @@ public class GeneratoreDiScudi extends Componente {
         this.direzione2 = d2;
     }
 
-    
-
     @Override
     public void consumaEnergia() {
         if (getRichiestaEnergia() && getMaxEnergia() > 0) {

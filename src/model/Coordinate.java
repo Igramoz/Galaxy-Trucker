@@ -21,6 +21,10 @@ public class Coordinate {
         this.y = y;
     }
     
+    public Coordinate(Coordinate c) {  //costruttore di copia
+		this(c.getX(), c.getY());
+	}
+    
 
     public int getX() {
         return x;
