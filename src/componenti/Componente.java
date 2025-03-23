@@ -1,50 +1,76 @@
 package componenti;
 
+import java.util.Map; // Libreria standard di java
+import java.util.EnumMap;
+
+import model.enums.*;
+
 public abstract class Componente {
+	
 	private final TipoComponente tipo;
-	private final boolean richiedeEnergia;
-	private int maxEnergia;
-	// attributo (array forse) per le direzioni possibili?
+	private Map <Direzione, TipoTubo> tubi; // Map è una struct che memorizza coppie chiave-valore (le chiavi sono uniche)
 
-	public Componente(TipoComponente t, boolean usaEnergia, int energia) {
-		tipo = t;
-		richiedeEnergia = usaEnergia;
-		setMaxEnergia(energia);
+	
+    public Componente(TipoComponente tipo, Map<Direzione, TipoTubo> tubiIniziali) {
+		this.tipo = tipo;
+        this.tubi = new EnumMap<>(Direzione.class);        
+        
+        // Inizializza le direzioni con i tipi di tubi specificati
+        for (Direzione direzione : Direzione.values()) {        
+        	
+        	// setto i tubi, se manca la direzione, di default nessuno
+            this.tubi.put(direzione, tubiIniziali.getOrDefault(direzione, TipoTubo.NESSUNO)); 
+            }
 	}
-
-	public Componente(Componente com) { // costruttore di copia
-		this.tipo = com.tipo;
-		this.richiedeEnergia = com.richiedeEnergia;
-		this.maxEnergia = com.maxEnergia;
+    
+    // Costruttore di copia
+    public Componente(Componente componente) {
+		this(componente.tipo, componente.tubi); // chiama l'altro costruttore 	
+    }
+    
+    
+    public boolean equals(Componente altroComponente) {
+    	if(this == altroComponente) return true; // confronto i riferimenti
+    	if(altroComponente == null || this.tipo != altroComponente.getTipo()) return false; // se l'altro oggetto è null o se sono di tipi diversi 
+    	
+    	Direzione[] direzione = Direzione.values();
+    	
+    	int offset = -1; // I tubi sono uguali anche se ruotati di offset volte
+    	
+    	// Cerco se altroComponente ha un tubo uguale a quello in alto di this
+    	for(int i = 0; i < direzione.length; i++) {
+			if(this.getTubo(direzione[0]) == altroComponente.getTubo(direzione[i])) {
+				offset = i;
+				break;
+			}
+		}
+		if(offset == -1) return false; // Non hanno neanche un tubo uguale
+    	
+    	// Gli oggetti sono uguali anche se hanno gli stessi tubi ruotati
+    	for (int i = 0; i < direzione.length; i++)
+    		if( this.getTubo(direzione[i]) != altroComponente.getTubo(direzione[i + offset]) ) 
+    			return false; // Se dopo l'offset hanno un tubo diverso i 2 componenti non sono uguali
+    	
+		return true;
 	}
-
+    
+    
 	public TipoComponente getTipo() {
 		return tipo;
 	}
-
-	public boolean getRichiestaEnergia() {
-		return richiedeEnergia;
+	
+	
+	public TipoTubo getTubo(Direzione direzione) {
+		return tubi.get(direzione);
 	}
-
-	public int getMaxEnergia() {
-		return maxEnergia;
+	
+	public void ruota() {
+		// Ruota i tubi in senso antorario
+		TipoTubo tempTubo = tubi.get(Direzione.SOPRA);
+		tubi.put(Direzione.SOPRA, tubi.get(Direzione.DESTRA));
+		tubi.put(Direzione.DESTRA, tubi.get(Direzione.SOTTO));
+		tubi.put(Direzione.SOTTO, tubi.get(Direzione.SINISTRA));
+		tubi.put(Direzione.SINISTRA, tempTubo);
 	}
-
-	public void setMaxEnergia(int maxEnergia) {
-		this.maxEnergia = maxEnergia;
-	}
-
-	// nei componenti in cui ciò è possibile, la funzione dovrà fare maxEnergia--;,
-	// controllando se il tipo può
-	// consumare energia e se maxEnergia > 0
-	public abstract void consumaEnergia();
-
-	// serve la classe Direzione per gestire le direzioni dei tubi
-
-	public boolean equals(Componente other) {
-		/*if (tipo == other.tipo &&) {
-			&& controllo direzione uguale di tutti i tubi (manca la classe direzione).
-		}*/
-		return false;
-	}
+	
 }

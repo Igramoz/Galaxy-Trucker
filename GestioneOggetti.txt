@@ -1,6 +1,3 @@
-public enum Direzioni{
-	SOPRA, SINISTRA, SOTTO, DESTRA;
-}
 
 public astract class Componente{
 // ho bisogno del metodo .copia() che mi restituisce una copia dell'oggetto (non lo stesso oggetto, un'oggetto diverso con gli stessi attributi del primo.
@@ -13,13 +10,6 @@ public astract class Componente{
 ## 1. Gestione dei Collegamenti tra le Parti
 
 ### a. Tipi di Connessione  
-
-public enum TipoTubo {
-	NESSUNO,
-    SINGOLO,    // Connessione base
-    DOPPIO,    // Richiede doppio abbinamento
-    UNIVERSALE; // Può collegarsi a qualsiasi tipo
-}
 
 
 Ogni *connessione* (o "tubo") può essere rappresentata come un oggetto con:

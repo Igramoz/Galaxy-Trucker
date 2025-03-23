@@ -35,7 +35,6 @@ public class EventService {
                 if (!nuovoSet.isEmpty()) tronconiNave.add(nuovoSet);
             }
         }
-
                 
         // Creo una nave per ciascun troncone.
         Nave[] tronconi= generaTronconi(nave,tronconiNave);

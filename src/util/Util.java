@@ -6,7 +6,7 @@ import java.util.Set;
 import java.util.List;
 
 public class Util {
-	public final static int SIZE = 12;
+	public final static int SIZE = 10; // le coordinate vanno da 0 a 10, i dadi vanno da 2 a 12. 
 	
 	// Controlla se nel set di coordinate è presente una coordinata. True se è presente
 	public static boolean contieneCoordinata(List<Set<Coordinate>> listaCoordinateComponentiControllati, Coordinate coordinate) {

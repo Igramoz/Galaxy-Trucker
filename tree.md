@@ -1,22 +1,22 @@
 ```markdown
-       src/                              // Root del progetto
+        src/                              // Root del progetto
         ├── main/                        // Contiene il punto d’ingresso dell’applicazione
         |   └── Main.java                // Avvia il gioco e gestisce l’interfaccia a prompt
         |
         ├── model/                       // Rappresenta il dominio del gioco e gli oggetti di stato
-        |    ├── Game.java                // Stato complessivo della partita e gestione dei turni
-        |    ├── Nave.java                // Rappresenta il giocatore (nave, risorse, punteggio)
-        |    ├── Player.java              // Rappresenta il giocatore (nave, risorse, punteggio)
-        |    ├── Coordinate.java          // Gestisce le posizioni nella griglia della nave
-        |    ├── Merce.java               // Rappresenta la merce con colore e valore
-        |    ├── Dado.java                // Simula i 2 dadi per generare numeri casuali
+        |    ├── Game.java               // Stato complessivo della partita e gestione dei turni
+        |    ├── Nave.java               // Rappresenta il giocatore (nave, risorse, punteggio)
+        |    ├── Player.java             // Rappresenta il giocatore (nave, risorse, punteggio)
+        |    ├── Coordinate.java         // Gestisce le posizioni nella griglia della nave
+        |    ├── Merce.java              // Rappresenta la merce con colore e valore
+        |    ├── Dado.java               // Simula i 2 dadi per generare numeri casuali
         |    ├── Connettore.java
         |    ├── equipaggio/
         |    |   ├── Pedina.java
         |    |   └── TipoPedina.java      // Enum: ASTRONAUTA, ALIENO_VIOLA, ALIENO_MARRONE (bonus)
         |    └── enums/
         |       ├── ColoreMerce.java     // Enum per i colori della merce: ROSSA, GIALLA, VERDE, BLU
-	|	├── Direzione.java	  // Enum per la direzione: SOPRA, DESTRA, SOTTO, SINISTRA
+        |       ├── Direzione.java       // Enum per la direzione: SOPRA, DESTRA, SOTTO, SINISTRA
         |       └── TipoTubo.java
         |
         ├── componenti/
@@ -58,13 +58,11 @@
         |   ├── CartaService.java        // Genera ed estrae randomicamente le carte avventura
         |   └── DistruzioneComponentiService.java  // Funzione complessa per distruggere i componenti della nave (accesso agli attributi della nave)
         |
-	├── ui/
-	|   ├── PromptUI.java            // Classe principale per l'interfaccia a prompt
-        |   ├── MenuUI.java              // Classe per la gestione del menu
-        |   ├── GameUI.java              // Classe per la gestione del gioco tramite prompt
-        |   └── ...                      // Altri file di interfaccia a prompt
+        ├── grafica/                     // Gestione della grafica del gioco
+        |   ├── AssociatoreGrafico.java  // Associa i simboli grafici ai componenti
+        |   └── GestoreGrafica.java      // Gestisce la stampa a video dei componenti e dell'interfaccia grafica
         |
-        └── util/
+        └── util/                        // Funzioni generiche di supporto
             ├── Util.java                // Funzioni generiche di supporto
             ├── LoggerUtil.java          // Gestione del logging
             ├── FileUtil.java            // Operazioni di salvataggio/caricamento dati

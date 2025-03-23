@@ -4,5 +4,5 @@ public enum Direzione {
     SOPRA,
     DESTRA,
     SINISTRA,
-    SOTTO
+    SOTTO;
 }
