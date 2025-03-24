@@ -1,6 +1,7 @@
 package services;
 
 import model.*;
+import model.enums.*;
 import componenti.Componente;
 import util.*;
 
@@ -41,7 +42,7 @@ public class EventService {
         
         //TODO STAMPARE CIASCUN TRONCONE A VIDEO
         
-        int tronconeDaTenere; //TODO fare scegliere all'utente quale troncone tenere. CONTROLLARE SE IL NUMERO è 0 BASED O 1 BASED     
+        int tronconeDaTenere=0; //TODO fare scegliere all'utente quale troncone tenere. CONTROLLARE SE IL NUMERO è 0 BASED O 1 BASED     
         
                 
         // Distruggo i tronconi scartati
@@ -66,14 +67,13 @@ public class EventService {
         coordinateComponentiControllati.add(coordinate);
 
         // Controlla connessioni nelle quattro direzioni
-     // Controlla connessioni nelle quattro direzioni
-        for (Componente.DirezioneTubo direzione : Componente.DirezioneTubo.values()) {
+        for (Direzione direzione : Direzione.values()) {
             controllaConnessioneInDirezione(nave, componente, coordinate, direzione, coordinateComponentiControllati);
-        }        
+        } 
     }
 
     // Verifica se un componente è connesso ad altri componenti nelle quattro direzioni.
-    private void controllaConnessioneInDirezione(Nave nave, Componente componente, Coordinate coordinate, Componente.DirezioneTubo direzione, Set<Coordinate> coordinateComponentiControllati) {
+    private void controllaConnessioneInDirezione(Nave nave, Componente componente, Coordinate coordinate, Direzione direzione, Set<Coordinate> coordinateComponentiControllati) {
         if (componente.getTubo(direzione) == TipoTubo.NESSUNO) {
             return;
         }
@@ -81,10 +81,10 @@ public class EventService {
      // Determina le nuove coordinate in base alla direzione
         int deltaX = 0, deltaY = 0;
         switch (direzione) {
-            case SOPRA:    deltaY = -1; break;
-            case SOTTO:    deltaY = 1; break;
-            case SINISTRA: deltaX = -1; break;
-            case DESTRA:   deltaX = 1; break;
+            case Direzione.SOPRA:    deltaY = -1; break;
+            case Direzione.SOTTO:    deltaY = 1; break;
+            case Direzione.SINISTRA: deltaX = -1; break;
+            case Direzione.DESTRA:   deltaX = 1; break;
         }
 
         // chiamo ricorsivamente la funzione per controllare il componente successivo
