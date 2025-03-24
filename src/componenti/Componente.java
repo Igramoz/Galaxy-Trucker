@@ -7,7 +7,7 @@ import model.enums.*;
 
 public abstract class Componente {
 	
-	private final TipoComponente tipo;
+	protected final TipoComponente tipo;
 	private Map <Direzione, TipoTubo> tubi; // Map è una struct che memorizza coppie chiave-valore (le chiavi sono uniche)
 
 	
@@ -71,6 +71,5 @@ public abstract class Componente {
 		tubi.put(Direzione.DESTRA, tubi.get(Direzione.SOTTO));
 		tubi.put(Direzione.SOTTO, tubi.get(Direzione.SINISTRA));
 		tubi.put(Direzione.SINISTRA, tempTubo);
-	}
-	
+	}	
 }
