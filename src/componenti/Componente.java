@@ -8,8 +8,8 @@ import model.enums.*;
 public abstract class Componente {
 	
 	protected final TipoComponente tipo;
-	private Map <Direzione, TipoTubo> tubi; // Map è una struct che memorizza coppie chiave-valore (le chiavi sono uniche)
-
+	protected Map <Direzione, TipoTubo> tubi;
+	
 	
     public Componente(TipoComponente tipo, Map<Direzione, TipoTubo> tubiIniziali) {
 		this.tipo = tipo;
@@ -48,12 +48,25 @@ public abstract class Componente {
     	
     	// Gli oggetti sono uguali anche se hanno gli stessi tubi ruotati
     	for (int i = 0; i < direzione.length; i++)
-    		if( this.getTubo(direzione[i]) != altroComponente.getTubo(direzione[i + offset]) ) 
+    		if( this.getTubo(direzione[i]) != altroComponente.getTubo(direzione[(i + offset) % direzione.length]) ) // % direzione.length per far ciclare i valori tra 0 e 3
     			return false; // Se dopo l'offset hanno un tubo diverso i 2 componenti non sono uguali
     	
 		return true;
 	}
     
+    public void ruota() {
+		// Ruota i tubi in senso antorario
+		TipoTubo tempTubo = tubi.get(Direzione.SOPRA);
+		tubi.put(Direzione.SOPRA, tubi.get(Direzione.DESTRA));
+		tubi.put(Direzione.DESTRA, tubi.get(Direzione.SOTTO));
+		tubi.put(Direzione.SOTTO, tubi.get(Direzione.SINISTRA));
+		tubi.put(Direzione.SINISTRA, tempTubo);
+	}	    
+    
+    // Metodi astratti per controllare il numero di istanze delle sottoclassi
+    protected abstract int getLimiteIstanziabili();
+    protected abstract int getIstanze();
+    protected abstract void incrementaIstanze();
     
 	public TipoComponente getTipo() {
 		return tipo;
@@ -63,13 +76,4 @@ public abstract class Componente {
 	public TipoTubo getTubo(Direzione direzione) {
 		return tubi.get(direzione);
 	}
-	
-	public void ruota() {
-		// Ruota i tubi in senso antorario
-		TipoTubo tempTubo = tubi.get(Direzione.SOPRA);
-		tubi.put(Direzione.SOPRA, tubi.get(Direzione.DESTRA));
-		tubi.put(Direzione.DESTRA, tubi.get(Direzione.SOTTO));
-		tubi.put(Direzione.SOTTO, tubi.get(Direzione.SINISTRA));
-		tubi.put(Direzione.SINISTRA, tempTubo);
-	}	
 }

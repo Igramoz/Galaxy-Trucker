@@ -47,7 +47,7 @@ public class Tracker {
     // Metodo per gestire la distruzione di un componente
     public void distruggiComponente(Coordinate coordinate) {
         // Esegui la distruzione del componente sulla nave
-        nave.distruggiSingoloComponente(coordinate);
+        //nave.distruggiSingoloComponente(coordinate); // DA RIMUOVERE LA FUNZIONE CHIAMA ERRORE
         aggiornaPezziDistrutti(coordinate);
     }
 

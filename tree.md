@@ -1,34 +1,36 @@
 ```markdown
-        src/                              // Root del progetto
+         src/                              // Root del progetto
         ├── main/                        // Contiene il punto d’ingresso dell’applicazione
         |   └── Main.java                // Avvia il gioco e gestisce l’interfaccia a prompt
         |
         ├── model/                       // Rappresenta il dominio del gioco e gli oggetti di stato
         |    ├── Game.java               // Stato complessivo della partita e gestione dei turni
         |    ├── Nave.java               // Rappresenta il giocatore (nave, risorse, punteggio)
-        |    ├── Player.java             // Rappresenta il giocatore (nave, risorse, punteggio)
+        |    ├── Giocatore.java          // Rappresenta il giocatore (nave, risorse, punteggio)
         |    ├── Coordinate.java         // Gestisce le posizioni nella griglia della nave
-        |    ├── Merce.java              // Rappresenta la merce con colore e valore
         |    ├── Dado.java               // Simula i 2 dadi per generare numeri casuali
         |    ├── Connettore.java
         |    ├── equipaggio/
         |    |   ├── Pedina.java
         |    |   └── TipoPedina.java      // Enum: ASTRONAUTA, ALIENO_VIOLA, ALIENO_MARRONE (bonus)
         |    └── enums/
-        |       ├── ColoreMerce.java     // Enum per i colori della merce: ROSSA, GIALLA, VERDE, BLU
+        |       ├── TipoMerce.java     // Enum per i colori della merce: ROSSA, GIALLA, VERDE, BLU
         |       ├── Direzione.java       // Enum per la direzione: SOPRA, DESTRA, SOTTO, SINISTRA
         |       └── TipoTubo.java
         |
         ├── componenti/
         |    ├── Componente.java
-        |    ├── TubiFognari.java
-        |    ├── TrivellaAlPlasma.java
-        |    ├── Scaldabagni.java
-        |    ├── UnitaAbitative.java
-        |    ├── UnitaAbitativeCentrale.java
-        |    ├── ScompartoDiStoccaggio.java
-        |    ├── SovrastrutturaAliena.java
-        |    └── GeneratoreDiScudi.java
+        |    ├── Tubo.java
+        |    ├── CannoneSingolo.java
+        |    ├── CannoneDoppio.java
+        |    ├── Scudo.java
+        |    ├── CabinaEquipaggio.java
+        |    ├── CabinaPartenza.java
+        |    ├── Stiva.java
+        |    ├── VanoBatteria.java
+        |    ├── ModuloSupportoAlieni.java
+        |    ├── MotoreSingolo.java
+        |    └── MotoreDoppio.java
         |
         ├── cartaAvventura/
         |   ├── Carta.java
@@ -67,4 +69,5 @@
             ├── LoggerUtil.java          // Gestione del logging
             ├── FileUtil.java            // Operazioni di salvataggio/caricamento dati
             └── RandomUtil.java          // Genera numeri casuali per dadi, eventi e estrazioni
+
 ```
