@@ -14,7 +14,7 @@ public class Stiva extends Componente {
 	private TipoMerce[] merci; // lista delle merci presenti nella stiva
 
 
-    private Stiva(Map<Direzione, TipoTubo> tubiIniziali, int scomparti, boolean speciale) {
+    public Stiva(Map<Direzione, TipoTubo> tubiIniziali, int scomparti, boolean speciale) {
         super(TipoComponente.STIVA, tubiIniziali);
 
         if (istanze >= LimiteIstanziabili) {
