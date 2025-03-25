@@ -150,13 +150,28 @@
 
 ---
 
-## Package: utils
-
----
-
 ### Classe: Direzioni
 
 ### Metodi
 
 - `direzioneTubo()`
   - Metodo che gestisce le direzioni del tubo all'interno della nave.
+ 
+--
+
+## Package: model.enums
+
+---
+
+### Classe: TipoMerce
+- **Attributi pubblici:**
+  - `BLU(1)`: Costante che rappresenta il tipo di merce blu con valore 1.
+  - `VERDE(2)`: Costante che rappresenta il tipo di merce verde con valore 2.
+  - `GIALLO(3)`: Costante che rappresenta il tipo di merce giallo con valore 3.
+  - `ROSSO(4)`: Costante che rappresenta il tipo di merce rosso con valore 4.
+- **Metodi pubblici:**
+  - `public int getValore()`: Restituisce il valore del tipo di merce.
+    - **Input:** Nessuno.
+    - **Output:** `int` - Il valore del tipo di merce.
+
+---
