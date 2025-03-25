@@ -92,6 +92,37 @@
     - **Input:** `Componente other`
     - **Output:** `boolean`
 
+### Classe: Stiva
+- **Attributi pubblici:** Nessuno
+- **Metodi pubblici:**
+  - `public Stiva(Map<Direzione, TipoTubo> tubiIniziali, int scomparti, boolean speciale)`: Costruttore privato della classe Stiva.
+    - **Input:** `Map<Direzione, TipoTubo> tubiIniziali`, `int scomparti`, `boolean speciale`
+    - **Output:** Nessuno.
+  - `public Stiva(Stiva stiva)`: Costruttore di copia della classe Stiva.
+    - **Input:** `Stiva stiva`
+    - **Output:** Nessuno.
+  - `public TipoMerce[] getMerci()`: Restituisce una copia dell'array delle merci.
+    - **Input:** Nessuno.
+    - **Output:** `TipoMerce[]` - Copia dell'array delle merci.
+  - `public boolean setMerci(TipoMerce merce)`: Aggiunge una merce alla stiva. Restituisce false se la stiva è piena o se la merce non può essere immagazzinata.
+    - **Input:** `TipoMerce merce`
+    - **Output:** `boolean` - True se la merce è stata aggiunta con successo, altrimenti False.
+  - `public int valoreMerci()`: Calcola il valore della merce trasportata nella stiva.
+    - **Input:** Nessuno.
+    - **Output:** `int` - Valore totale della merce trasportata.
+  - `public int getLimiteIstanziabili()`: Restituisce il limite massimo di istanze della stiva.
+    - **Input:** Nessuno.
+    - **Output:** `int`
+  - `public int getIstanze()`: Restituisce il numero corrente di istanze della stiva.
+    - **Input:** Nessuno.
+    - **Output:** `int`
+  - `public int getScomparti()`: Restituisce il numero di scomparti della stiva.
+    - **Input:** Nessuno.
+    - **Output:** `int`
+  - `public boolean isSpeciale()`: Restituisce se la stiva è speciale.
+    - **Input:** Nessuno.
+    - **Output:** `boolean`
+
 ---
 
 ## Package: controller
