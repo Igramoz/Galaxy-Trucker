@@ -6,7 +6,7 @@ import model.enums.*;
 
 public class Stiva extends Componente {
 
-	private static final int LimiteIstanziabili = 24;
+	public static final int LimiteIstanziabili = 24;
 	public static int istanze = 0;
 	
 	private final boolean speciale; // true se può ospitare merce rossa.
@@ -45,7 +45,14 @@ public class Stiva extends Componente {
 			this.merci[i] = stiva.merci[i];
 		}
 	}
-    
+	
+	@Override
+	public Componente creaCopia() {
+		// TODO decrementare istanze?
+		return new Stiva(this);		
+	}
+	
+   @Override
 	public void incrementaIstanze() {
 		istanze++;
 	}
@@ -94,7 +101,7 @@ public class Stiva extends Componente {
 	}
 	
 	// Elimino la merce dalla stiva, false se non è presente
-	private boolean eliminaMerci(TipoMerce merce) {	
+	public boolean eliminaMerci(TipoMerce merce) {	
 		
 		// Controllo se la merce è presente
 		for (int i = 0; i < scomparti; i++) {
@@ -104,6 +111,23 @@ public class Stiva extends Componente {
 			}
 		}
 		return false;
+	}
+	
+	// Elimino la merce dalla stiva, false se non è presente
+	public boolean eliminaMerci(int index) {
+		
+		// Controllo se l'indice è accettabile
+		if(index < 0 || index >= scomparti) {
+			return false;
+		}
+		
+		// Controllo se la merce è presente
+		if(merci[index] != null) {
+			merci[index] = null;
+			return true;
+		}else {
+			return false;
+		}		
 	}
 	
 	// Calcolo il valore della merce trasportata
@@ -116,14 +140,12 @@ public class Stiva extends Componente {
 		}
 		return valore;
 	}
-	
-	public int getLimiteIstanziabili() {
-		return LimiteIstanziabili;
-	}
-	
+		
+	@Override
 	public int getIstanze() {
 		return istanze;
 	}
+	
 	
 	public int getScomparti() {
 		return scomparti;

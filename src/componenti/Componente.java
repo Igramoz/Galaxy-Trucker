@@ -28,7 +28,10 @@ public abstract class Componente {
 		this(componente.tipo, componente.tubi); // chiama l'altro costruttore 	
     }
     
-    
+    public Componente creaCopia() {
+		// TODO decrementare istanze? 
+    	return null;
+    }
     public boolean equals(Componente altroComponente) {
     	if(this == altroComponente) return true; // confronto i riferimenti
     	if(altroComponente == null || this.tipo != altroComponente.getTipo()) return false; // se l'altro oggetto è null o se sono di tipi diversi 
@@ -64,9 +67,8 @@ public abstract class Componente {
 	}	    
     
     // Metodi astratti per controllare il numero di istanze delle sottoclassi
-    protected abstract int getLimiteIstanziabili();
-    protected abstract int getIstanze();
-    protected abstract void incrementaIstanze();
+    public abstract int getIstanze();
+    protected abstract void incrementaIstanze(); // TODO ha senso metterlo protected?
     
 	public TipoComponente getTipo() {
 		return tipo;

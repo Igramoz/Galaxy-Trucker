@@ -22,7 +22,7 @@
         |    ├── Componente.java
         |    ├── Tubo.java
         |    ├── CannoneSingolo.java
-        |    ├── CannoneDoppio.java
+        |    |		└── CannoneDoppio.java
         |    ├── Scudo.java
         |    ├── CabinaEquipaggio.java
         |    ├── CabinaPartenza.java
@@ -30,7 +30,7 @@
         |    ├── VanoBatteria.java
         |    ├── ModuloSupportoAlieni.java
         |    ├── MotoreSingolo.java
-        |    └── MotoreDoppio.java
+        |    		└── MotoreDoppio.java
         |
         ├── cartaAvventura/
         |   ├── Carta.java
