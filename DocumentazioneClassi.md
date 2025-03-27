@@ -1,4 +1,4 @@
-# Documentazione del Progetto Galaxy Trucker
+# Documentazione Classi del Progetto Galaxy Trucker
 
 ---
 
