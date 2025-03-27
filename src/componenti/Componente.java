@@ -28,10 +28,13 @@ public abstract class Componente {
 		this(componente.tipo, componente.tubi); // chiama l'altro costruttore 	
     }
     
-    public Componente creaCopia() {
-		// TODO decrementare istanze? 
-    	return null;
+    // Metodo che dovrà essere Override dalle sottoclassi
+    @Override
+    public Componente clone() {
+    	return null; // la funzione non verrà mai chiamata
     }
+    
+    
     public boolean equals(Componente altroComponente) {
     	if(this == altroComponente) return true; // confronto i riferimenti
     	if(altroComponente == null || this.tipo != altroComponente.getTipo()) return false; // se l'altro oggetto è null o se sono di tipi diversi 
@@ -69,8 +72,10 @@ public abstract class Componente {
     
     // Metodi astratti per controllare il numero di istanze delle sottoclassi
     public abstract int getIstanze();
+    public abstract int getMaxIstanze();
     protected abstract void incrementaIstanze();
     protected abstract void decrementaIstanze();
+
     
 	public TipoComponente getTipo() {
 		return tipo;
@@ -79,5 +84,14 @@ public abstract class Componente {
 	
 	public TipoTubo getTubo(Direzione direzione) {
 		return tubi.get(direzione);
+	}
+	
+	public Map<Direzione, TipoTubo> getTubi() {
+		Map<Direzione, TipoTubo> copiaTubi = new EnumMap<>(Direzione.class);
+		Direzione[] direzione = Direzione.values();
+		for (int i = 0; i < direzione.length; i++) {
+			tubi.put(direzione[i], this.tubi.get(direzione[i]));
+		}		
+		return copiaTubi;
 	}
 }

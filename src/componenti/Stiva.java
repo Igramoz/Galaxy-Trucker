@@ -37,20 +37,20 @@ public class Stiva extends Componente {
         
         incrementaIstanze();
     }
-
+    
+    // TODO sostituire limite istanziabili
+    // TODO fare la figlia stiva speciale
 	// Costruttore di copia
 	public Stiva(Stiva stiva) {
-		this(stiva.tubi, stiva.scomparti, stiva.speciale);
+		this(stiva.getTubi(), stiva.getScomparti(), stiva.speciale);
 		for (int i = 0; i < scomparti; i++) {
 			this.merci[i] = stiva.merci[i];
-		}
-		
+		}		
 		decrementaIstanze();
 	}
 	
 	@Override
-	public Componente creaCopia() {
-		// TODO decrementare istanze?
+	public Componente clone() {
 		return new Stiva(this);		
 	}
 	
