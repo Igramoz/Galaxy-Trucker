@@ -17,7 +17,7 @@
   --public int get istanze
   --protected void incrementa istanze
   --protected void decrementa istanze
-  --public void resetta istanze
+  --public void resetta istanze // azzera le istanze
 
 --get e set vari
   

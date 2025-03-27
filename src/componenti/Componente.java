@@ -72,10 +72,9 @@ public abstract class Componente {
     
     // Metodi astratti per controllare il numero di istanze delle sottoclassi
     public abstract int getIstanze();
-    public abstract int getMaxIstanze();
+    public abstract void resetIstanze();
     protected abstract void incrementaIstanze();
     protected abstract void decrementaIstanze();
-
     
 	public TipoComponente getTipo() {
 		return tipo;
@@ -86,6 +85,7 @@ public abstract class Componente {
 		return tubi.get(direzione);
 	}
 	
+	// genera uncopia dei tubi
 	public Map<Direzione, TipoTubo> getTubi() {
 		Map<Direzione, TipoTubo> copiaTubi = new EnumMap<>(Direzione.class);
 		Direzione[] direzione = Direzione.values();
@@ -94,4 +94,9 @@ public abstract class Componente {
 		}		
 		return copiaTubi;
 	}
+	
+	public int getMaxIstanze() {
+		return tipo.getMaxIstanze();
+	}
+	
 }
