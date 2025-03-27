@@ -45,6 +45,7 @@ public abstract class Componente {
 			if(this.getTubo(direzione[0]) == altroComponente.getTubo(direzione[i])) {
 				offset = i;
 				break;
+				
 			}
 		}
 		if(offset == -1) return false; // Non hanno neanche un tubo uguale
