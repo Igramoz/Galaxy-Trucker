@@ -11,12 +11,13 @@
   --chiama il costruttore padre con super() 
   --decrementare l'attributo private static int per il conteggio delle istanze
   
---public creacopia in @Override
+--public clone() in @Override //chiama il costruttore di copia passando this come argomento.
 
 --metodi astratti
   --public int get istanze
   --protected void incrementa istanze
   --protected void decrementa istanze
+
 
 --get e set vari
   
