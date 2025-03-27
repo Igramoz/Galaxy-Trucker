@@ -6,8 +6,8 @@ import model.enums.*;
 
 public class Stiva extends Componente {
 
-	public static final int LimiteIstanziabili = 24;
-	public static int istanze = 0;
+	public static final int LimiteIstanziabili = 24;// TODO vedere se va benen
+	private static int istanze = 0;
 	
 	private final boolean speciale; // true se può ospitare merce rossa.
 	private final int scomparti; // numero di scomparti della stiva
@@ -44,6 +44,8 @@ public class Stiva extends Componente {
 		for (int i = 0; i < scomparti; i++) {
 			this.merci[i] = stiva.merci[i];
 		}
+		
+		decrementaIstanze();
 	}
 	
 	@Override
@@ -56,6 +58,12 @@ public class Stiva extends Componente {
 	public void incrementaIstanze() {
 		istanze++;
 	}
+   
+   @Override
+   public void decrementaIstanze() {
+	   istanze--;	   
+   }
+   
 	
 	public TipoMerce[] getMerci() {
 		// Genero una copia dell'array di merci
@@ -112,6 +120,7 @@ public class Stiva extends Componente {
 		}
 		return false;
 	}
+	
 	
 	// Elimino la merce dalla stiva, false se non è presente
 	public boolean eliminaMerci(int index) {

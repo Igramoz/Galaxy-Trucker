@@ -7,7 +7,8 @@ import java.util.List;
 
 public class Util {
 	
-	public final static int SIZE = 10; // le coordinate vanno da 0 a 10, i dadi vanno da 2 a 12.
+	public final static int SIZE = 10; // Le coordinate vanno da 0 a 10, i dadi vanno da 2 a 12.
+	public final static int OFFSET = 2; // Differenza tra numeri visti dall'utente e utilizzati dal computer
 	
 	// Controlla se nel set di coordinate è presente una coordinata. True se è presente
 	public static boolean contieneCoordinata(List<Set<Coordinate>> listaCoordinateComponentiControllati, Coordinate coordinate) {

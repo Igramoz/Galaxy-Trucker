@@ -69,7 +69,8 @@ public abstract class Componente {
     
     // Metodi astratti per controllare il numero di istanze delle sottoclassi
     public abstract int getIstanze();
-    protected abstract void incrementaIstanze(); // TODO ha senso metterlo protected?
+    protected abstract void incrementaIstanze();
+    protected abstract void decrementaIstanze();
     
 	public TipoComponente getTipo() {
 		return tipo;
