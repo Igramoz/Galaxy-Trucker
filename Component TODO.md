@@ -5,6 +5,7 @@
 --costruttore (Map<Direzione, TipoTubo>, attributi della classe)
   --super (il tipo viene aggiunto direttamente dalla classe e non viene passato tra i parametri del costruttore)
   --attributi della classe
+  --incrementare l'istanze
   
 --costruttore di copia del figlio ()
   --chiama il costruttore padre con super() 
