@@ -6,17 +6,21 @@ import model.enums.TipoTubo;
 
 public class Cannone extends Componente {
 
-	private final float potenzaFuoco;
+	public static final int limiteIstanziabili = 36;
+	public static int istanze = 0;
+	private float potenzaFuoco;
 	private Direzione direzione; // Direzione in cui il cannone spara
-	private boolean integro; // true = integro false = distrutto
 
-	public Cannone(TipoComponente tipo, Map<Direzione, TipoTubo> tubiIniziali, Direzione direzioneIniziale) {
+	public Cannone(TipoComponente tipo, Map<Direzione, TipoTubo> tubiIniziali) {
 		super(tipo, tubiIniziali);
+		if (istanze >= limiteIstanziabili) {
+			throw new IllegalStateException("Limite massimo di istanze raggiunto per Cannone");
+		}
+
 		potenzaFuoco = gestisciPotenzaDiFuoco(tipo);
 		if (potenzaFuoco == -1)
 			return;
-		direzione = direzioneIniziale;
-		integro = true;
+		direzione = Direzione.SOPRA;
 	}
 
 	private int gestisciPotenzaDiFuoco(TipoComponente tipo) {
@@ -40,9 +44,14 @@ public class Cannone extends Componente {
 
 		// Controlla se c'è un tubo nella nuova direzione
 		if (super.getTubo(nuovaDirezione) != TipoTubo.NESSUNO) {
-			System.out.println("Rotazione bloccata! Il cannone colpirebbe un altro componente ");
+			System.out.println("Rotazione bloccata! Il cannone colpirebbe un altro componente"); // TODO: eccezione
 			return; // Blocca la rotazione
 		}
+
+		if (direzione == Direzione.SOPRA)
+			potenzaFuoco /= 2;
+		if (nuovaDirezione == Direzione.SOPRA)
+			potenzaFuoco *= 2;
 
 		// Se non ci sono ostacoli, ruota normalmente
 		super.ruota();
@@ -57,33 +66,34 @@ public class Cannone extends Componente {
 		return potenzaFuoco;
 	}
 
-	public boolean isIntegro() {
-		return integro;
-	}
-
-	public void distruggi() {
-		integro = false;
-	}
-
-	public float getPotenzaEffettiva() {
-		// Se il cannone non è rivolto in avanti, la potenza è dimezzata
-		return (direzione == Direzione.SOPRA) ? potenzaFuoco : potenzaFuoco / 2.0f;
-	}
-
 	public boolean spara(int batterieDisponibili) {
-		if (!integro)
-			return false;
-
 		// Solo il cannone doppio necessita di batteria
 		if (tipo == TipoComponente.CANNONE_DOPPIO) {
 			if (batterieDisponibili < 1) {
-				System.out.println("Impossibile sparare, batteria insufficiente");
+				System.out.println("Impossibile sparare, batteria insufficiente"); // TODO: ECCEZIONE
 				return false;
 			} else {
 				// TODO: bisogna diminuire la batteria di 1
 			}
 		}
-		System.out.println("Il cannone ha sparato con potenza: " + getPotenzaEffettiva());
+		System.out.println("Il cannone ha sparato con potenza: " + potenzaFuoco); // TODO: non stampare dalla
+																					// classe
 		return true;
 	}
+
+	@Override
+	public int getIstanze() {
+		return istanze;
+	}
+
+	@Override
+	protected void incrementaIstanze() {
+		istanze++;
+	}
+	
+	//@Override
+	//public Componente creaCopia() {
+	
+	//return new Compo 
+	//}
 }
