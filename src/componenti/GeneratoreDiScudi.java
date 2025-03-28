@@ -13,27 +13,27 @@ public class GeneratoreDiScudi extends Componente {
     private Direzione direzione1;
     private Direzione direzione2;
 
+    public GeneratoreDiScudi(Map<Direzione, TipoTubo> tubiIniziali) {
 
-
-    public GeneratoreDiScudi(Map<Direzione, TipoTubo> tubiIniziali, Direzione d1, Direzione d2) {
-
-        //
-        super(TipoComponente.SCUDO, tubiIniziali);
+        
+    	super(TipoComponente.SCUDO, tubiIniziali);
+    	if(istanze >= TipoComponente.SCUDO.getMaxIstanze()) {
+    		throw new IllegalStateException("Limite massimo di istanze raggiunto per GeneratoreDiScudi");
+    	}
+    	incrementaIstanze();
         this.statoScudo = false;
-        this.direzione1 = d1;
-        this.direzione2 = d2;
+        this.direzione1 = Direzione.SOPRA;
+        this.direzione2 = Direzione.SINISTRA;
     }
 
     public GeneratoreDiScudi(GeneratoreDiScudi g) { // costruttore di copia
 
-        //TODO decrementare istanze
         super(g);
         this.statoScudo = g.statoScudo;
         this.direzione1 = g.direzione1;
         this.direzione2 = g.direzione2;
+        decrementaIstanze();
     }
-
-    //TOOD crea copia 
 
     public void attivaScudo() {
         this.statoScudo = true;
@@ -55,23 +55,53 @@ public class GeneratoreDiScudi extends Componente {
         return direzione2;
     }
 
-    private void setDirezione1(Direzione d1) {
-        this.direzione1 = d1;
-    }
-
-    private void setDirezione2(Direzione d2) {
-        this.direzione2 = d2;
-    }
-
 
     @Override
     public void ruota() {
-
-        //TODO ruotano i tubi e le direzioni degli scudi
-        
+    	
+    	super.ruota();
+    	
+    	this.direzione1 = nuovaDirezione(direzione1);
+    	this.direzione2 = nuovaDirezione(direzione2);
     }
     
+    private Direzione nuovaDirezione(Direzione direzione) {
+        return switch (direzione) {
+            case SOPRA -> Direzione.SINISTRA;
+            case SINISTRA -> Direzione.SOTTO;
+            case SOTTO -> Direzione.DESTRA;
+            case DESTRA -> Direzione.SOPRA;
+            default -> null;//TODO eccezzione
+        }; 
+    }
+    
+    @Override
+    public Componente clone() {
+    	
+    	return new GeneratoreDiScudi(this); 
+    }
+    
+    @Override
+    public  int getIstanze() {
+    	
+    	return istanze;
+    	
+    }
+
+    @Override
+	public  void resetIstanze() {
+		istanze=0;
+	}
+    
+    @Override
+	protected  void incrementaIstanze() {
+		istanze++;
+	}
+
+    @Override
+	protected  void decrementaIstanze() {
+		istanze--;
+	}
+    
 }
-
-
 
