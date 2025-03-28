@@ -1,35 +1,39 @@
 package componenti;
 
+import java.util.Map;
+
 import model.enums.Direzione;
+import model.enums.TipoTubo;
 
 public class GeneratoreDiScudi extends Componente {
 
+
+    private static int istanze = 0;
     private boolean statoScudo;
     private Direzione direzione1;
     private Direzione direzione2;
 
 
 
-    public GeneratoreDiScudi() {
-        super(TipoComponente.SCUDO, true, 0);
-    }
+    public GeneratoreDiScudi(Map<Direzione, TipoTubo> tubiIniziali, Direzione d1, Direzione d2) {
 
-    public GeneratoreDiScudi(int energia) {
-        super(TipoComponente.SCUDO, true, energia);
-    }
-
-    public GeneratoreDiScudi(int energia, Direzione d1, Direzione d2) {
-        super(TipoComponente.SCUDO, true, energia);
+        //
+        super(TipoComponente.SCUDO, tubiIniziali);
+        this.statoScudo = false;
         this.direzione1 = d1;
         this.direzione2 = d2;
     }
 
     public GeneratoreDiScudi(GeneratoreDiScudi g) { // costruttore di copia
+
+        //TODO decrementare istanze
         super(g);
         this.statoScudo = g.statoScudo;
         this.direzione1 = g.direzione1;
         this.direzione2 = g.direzione2;
     }
+
+    //TOOD crea copia 
 
     public void attivaScudo() {
         this.statoScudo = true;
@@ -51,30 +55,23 @@ public class GeneratoreDiScudi extends Componente {
         return direzione2;
     }
 
-    public void setDirezione1(Direzione d1) {
+    private void setDirezione1(Direzione d1) {
         this.direzione1 = d1;
     }
 
-    public void setDirezione2(Direzione d2) {
+    private void setDirezione2(Direzione d2) {
         this.direzione2 = d2;
     }
 
-    @Override
-    public void consumaEnergia() {
-        if (getRichiestaEnergia() && getMaxEnergia() > 0) {
-            setMaxEnergia(getMaxEnergia() - 1);
-        }
-    }
 
     @Override
-    public boolean equals(Componente other) {
-        if (getTipo() == other.getTipo()) {
-            return true;
-        }
-        return false;
+    public void ruota() {
+
+        //TODO ruotano i tubi e le direzioni degli scudi
+        
     }
     
 }
 
 
-//TODO controllo sull l'energia non puo diminuire al di sotto dello zero
+

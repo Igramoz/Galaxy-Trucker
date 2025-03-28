@@ -7,19 +7,19 @@ public enum TipoComponente {
 	// La M di stiva significa Magazzino
 
 	private final String sigla;
-	private final int limiteMax;
-	//TODO: attributo colore
+	private final int maxIstanze;
 
-	private TipoComponente(String s, int max) {
+	private TipoComponente(String s, int maxIstanze) {
 		sigla = s;
-		limiteMax = max;
+		this.maxIstanze = maxIstanze;
 	}
 
-	public String getSigla() {
+	@Override
+	public String toString() {
 		return sigla;
 	}
 
-	public int getLimiteMax() {
-		return limiteMax;
+	public int getMaxIstanze() {
+		return maxIstanze;
 	}
 }

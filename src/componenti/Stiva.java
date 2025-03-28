@@ -6,77 +6,58 @@ import model.enums.*;
 
 public class Stiva extends Componente {
 
-	public static final int LimiteIstanziabili = 24;
-	public static int istanze = 0;
+	private static int istanze = 0;
 	
-	private final boolean speciale; // true se può ospitare merce rossa.
-	private final int scomparti; // numero di scomparti della stiva
-	private TipoMerce[] merci; // lista delle merci presenti nella stiva
+	protected final int scomparti; // numero di scomparti della stiva, devono essere ereditati
+	protected TipoMerce[] merci; // lista delle merci presenti nella stiva, devono essere ereditati
 
 
-    public Stiva(Map<Direzione, TipoTubo> tubiIniziali, int scomparti, boolean speciale) {
+    public Stiva(Map<Direzione, TipoTubo> tubiIniziali, int scomparti) {
         super(TipoComponente.STIVA, tubiIniziali);
 
-        if (istanze >= LimiteIstanziabili) {
+        if (istanze >= this.getTipo().getMaxIstanze()) {
             throw new IllegalStateException("Limite massimo di istanze raggiunto per Stiva");
         }
         // Controllo che abbia un numero di scomparti valido
-        if (speciale) {
-            if (scomparti < 1 || scomparti > 2) {
-                throw new IllegalArgumentException("Le stive speciali devono avere 1 o 2 scomparti.");
-            }
-        } else {
-            if (scomparti < 2 || scomparti > 3) {
-                throw new IllegalArgumentException("Le stive normali devono avere 2 o 3 scomparti.");
-            }
+        if (scomparti < 2 || scomparti > 3) {
+            throw new IllegalArgumentException("Le stive normali devono avere 2 o 3 scomparti.");
         }
         
-        this.scomparti = scomparti;
-        this.speciale = speciale;
-        this.merci = new TipoMerce[scomparti];
-        
-        incrementaIstanze();
+    	this.scomparti = scomparti; // non posso metterlo in inizializzaStiva perché è final
+    	this.merci = new TipoMerce[scomparti];
+		incrementaIstanze();    
+		}
+    
+    // Funzione per inizializzare la stiva senza controlli, cosicché possa chiamarla dal figlio
+    protected void inizializzaStiva(int scomparti) {
+		
     }
-
+    
 	// Costruttore di copia
 	public Stiva(Stiva stiva) {
-		this(stiva.tubi, stiva.scomparti, stiva.speciale);
+		this(stiva.getTubi(), stiva.getScomparti());
 		for (int i = 0; i < scomparti; i++) {
 			this.merci[i] = stiva.merci[i];
-		}
+		}		
+		decrementaIstanze();
 	}
 	
-	@Override
-	public Componente creaCopia() {
-		// TODO decrementare istanze?
-		return new Stiva(this);		
-	}
-	
-   @Override
-	public void incrementaIstanze() {
-		istanze++;
-	}
-	
-	public TipoMerce[] getMerci() {
-		// Genero una copia dell'array di merci
-		TipoMerce[] copiaMerci = new TipoMerce[scomparti];
-		
-		for (int i = 0; i < scomparti; i++) {
-			copiaMerci[i] = merci[i];
-		}
-		
-		return copiaMerci;
+	// Costruttore di copia per StivaSpeciale
+	protected Stiva(Map<Direzione, TipoTubo> tubiIniziali) {
+		super(TipoComponente.STIVA_SPECIALE , tubiIniziali);
 	}
 
+	
+	@Override
+	public Componente clone() {
+		return new Stiva(this);		
+	}	
+	
 	// Restituisco false se non è possibile aggiungere la merce
 	public boolean setMerci(TipoMerce merce) {
-		// Controllo se la stiva è piena
-		if(stivaPiena()) {
-			return false;
-		}
-		
+
 		// Controllo se la merce può essere immagazzinata in stiva
-		if(TipoMerce.ROSSO.equals(merce) && !speciale) {
+		if(TipoMerce.ROSSO.equals(merce)) {
 			return false;
 		}
 		
@@ -87,18 +68,9 @@ public class Stiva extends Componente {
 				return true;
 			}
 		}
-		return false; // Non può arrivare qui
+		return false; // la stiva è piena
 	}
 	
-	// Restituisco true se la stiva è piena
-	private boolean stivaPiena() {
-		for (int i = 0; i < scomparti; i++) {
-			if (merci[i] == null) {
-				return false;
-			}
-		}
-		return true;
-	}
 	
 	// Elimino la merce dalla stiva, false se non è presente
 	public boolean eliminaMerci(TipoMerce merce) {	
@@ -113,6 +85,7 @@ public class Stiva extends Componente {
 		return false;
 	}
 	
+	
 	// Elimino la merce dalla stiva, false se non è presente
 	public boolean eliminaMerci(int index) {
 		
@@ -125,9 +98,8 @@ public class Stiva extends Componente {
 		if(merci[index] != null) {
 			merci[index] = null;
 			return true;
-		}else {
-			return false;
-		}		
+		}
+		return false;
 	}
 	
 	// Calcolo il valore della merce trasportata
@@ -140,18 +112,48 @@ public class Stiva extends Componente {
 		}
 		return valore;
 	}
+	
+	public TipoMerce[] getMerci() {
+		// Genero una copia dell'array di merci
+		TipoMerce[] copiaMerci = new TipoMerce[scomparti];
+		
+		for (int i = 0; i < scomparti; i++) {
+			copiaMerci[i] = merci[i];
+		}
+		
+		return copiaMerci;
+	}
+
+	public int getScomparti() {
+		return scomparti;
+	}
+	
+	public boolean isStivaPiena() {
+		for (int i = 0; i < scomparti; i++) {
+			if (merci[i] == null) {
+				return false;
+			}
+		}
+		return true;
+	}
 		
 	@Override
 	public int getIstanze() {
 		return istanze;
 	}
 	
-	
-	public int getScomparti() {
-		return scomparti;
+   @Override
+	public void incrementaIstanze() {
+		istanze++;
 	}
-	
-	public boolean isSpeciale() {
-		return speciale;
-	}	
+   
+   @Override
+   public void decrementaIstanze() {
+	   istanze--;	   
+   }
+   
+   @Override
+   public void resetIstanze() {
+	   istanze = 0;
+   }
 }

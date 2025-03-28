@@ -25,7 +25,7 @@ public class Nave {
         for (int x = 0; x < Util.SIZE; x++) {
             for (int y = 0; y < Util.SIZE; y++) {
                 if (grigliaComponenti[x][y] != null) {
-                    copiaGrigliaComponenti[x][y] = grigliaComponenti[x][y].creaCopia();
+                    copiaGrigliaComponenti[x][y] = grigliaComponenti[x][y].clone();
                 }
             }
         }       
@@ -33,7 +33,7 @@ public class Nave {
     }
     
     public Componente getComponente(Coordinate coordinate) {
-    	Componente copiaComponente = grigliaComponenti[coordinate.getX()][coordinate.getY()].creaCopia();
+    	Componente copiaComponente = grigliaComponenti[coordinate.getX()][coordinate.getY()].clone();
         return copiaComponente;
     }
     

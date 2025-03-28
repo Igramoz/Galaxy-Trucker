@@ -90,10 +90,16 @@ public class Cannone extends Componente {
 	protected void incrementaIstanze() {
 		istanze++;
 	}
-	
-	//@Override
-	//public Componente creaCopia() {
-	
-	//return new Compo 
-	//}
+
+	@Override
+	public void resetIstanze() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void decrementaIstanze() {
+		// TODO Auto-generated method stub
+
+	}
 }
