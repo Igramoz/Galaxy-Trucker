@@ -4,6 +4,7 @@ import java.util.Map; // Libreria standard di java
 import java.util.EnumMap;
 
 import model.enums.*;
+import util.Util;
 
 public abstract class Componente {
 
@@ -64,12 +65,13 @@ public abstract class Componente {
 	}
 
 	public void ruota() {
-		// Ruota i tubi in senso antorario
+		// Ruota i tubi in senso antiorario
+		
 		TipoTubo tempTubo = tubi.get(Direzione.SOPRA);
-		tubi.put(Direzione.SOPRA, tubi.get(Direzione.DESTRA));
-		tubi.put(Direzione.DESTRA, tubi.get(Direzione.SOTTO));
-		tubi.put(Direzione.SOTTO, tubi.get(Direzione.SINISTRA));
-		tubi.put(Direzione.SINISTRA, tempTubo);
+		tubi.put(Util.ruotaDirezione(Direzione.DESTRA), tubi.get(Direzione.DESTRA));
+		tubi.put(Util.ruotaDirezione(Direzione.SOTTO), tubi.get(Direzione.SOTTO));
+		tubi.put(Util.ruotaDirezione(Direzione.SINISTRA), tubi.get(Direzione.SINISTRA));
+		tubi.put(Util.ruotaDirezione(Direzione.DESTRA), tempTubo);
 	}
 
 	// Metodi astratti per controllare il numero di istanze delle sottoclassi

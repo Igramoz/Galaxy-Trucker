@@ -6,8 +6,8 @@ import model.enums.Direzione;
 import model.enums.TipoTubo;
 
 public class VanoBatteria extends Componente {
-	
-    public static final int LimiteIstanziabili = 17;
+
+
     private static int istanze = 0;
 	
 	private final int capacitaMassima;// TODO capacita massima batteria privata è pubblica?
@@ -20,7 +20,7 @@ public class VanoBatteria extends Componente {
 			throw new IllegalArgumentException("La capacità massima della batteria deve essere compresa tra 1 e 3.");
 		}
 		
-		if(istanze >= LimiteIstanziabili) {
+		if(istanze >= this.getMaxIstanze()) {
 			throw new IllegalStateException("Limite massimo di istanze raggiunto per VanoBatteria");
 		}
 		this.capacitaMassima = capacitaMassima;
@@ -37,11 +37,11 @@ public class VanoBatteria extends Componente {
 	// Costruttore di copia
 	public VanoBatteria(VanoBatteria vanoBatteria) {
 		this(vanoBatteria.tubi, vanoBatteria.capacitaMassima, vanoBatteria.getBatterie());
-		// TODO decrementare istanze?
+		decrementaIstanze();
 	}
 	
 	@Override
-	public Componente creaCopia() {
+	public Componente clone() {
 		return new VanoBatteria(this);
 	}
 	
@@ -80,5 +80,16 @@ public class VanoBatteria extends Componente {
 	@Override
 	public int getIstanze() {
 		return istanze;
-	}	
+	}
+	
+	@Override
+	public void decrementaIstanze() {
+		istanze --;
+	}
+	
+	@Override
+	public void resetIstanze() {
+		istanze = 0;
+	}
+	
 }

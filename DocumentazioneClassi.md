@@ -22,10 +22,14 @@
 ### Classe: Util
 - **Attributi pubblici:**
   - `public final static int SIZE = 12`: Costante che rappresenta la dimensione della griglia.
+  - `public final static int OFFSET = 2`: Differenza tra numeri visti dall'utente e utilizzati dal computer.
 - **Metodi pubblici:**
   - `public static boolean contieneCoordinata(List<Set<Coordinate>> listaCoordinateComponentiControllati, Coordinate coordinate)`: Controlla se nel set di coordinate è presente una coordinata. Restituisce true se è presente.
     - **Input:** `List<Set<Coordinate>> listaCoordinateComponentiControllati`, `Coordinate coordinate`
-    - **Output:** `boolean` - True se la coordinata è presente, altrimenti False
+    - **Output:** `boolean` - True se la coordinata è presente, altrimenti False.
+  - `public static Direzione ruotaDirezione(Direzione direzione)`: Ruota la direzione in senso antiorario.
+    - **Input:** `Direzione direzione`
+    - **Output:** `Direzione` - La nuova direzione dopo la rotazione.
 
 ---
 
@@ -54,9 +58,82 @@
   - `public boolean rimuoviComponentiPrenotati(Componente componente)`: Rimuove un componente dalla lista dei componenti prenotati.
     - **Input:** `Componente componente` - Il componente da rimuovere.
     - **Output:** `boolean` - True se il componente è stato rimosso con successo, altrimenti False.
+  - `public int getPezziDistrutti()`: Restituisce il numero corrente di pezzi distrutti.
+    - **Input:** Nessuno.
+    - **Output:** `int` - Il numero di pezzi distrutti.
   - `public void incrementaPezziDistrutti()`: Incrementa il contatore dei pezzi distrutti.
     - **Input:** Nessuno.
     - **Output:** Nessuno.
+  - `public void distruggiSingoloComponente(Coordinate coordinate)`: Distrugge un singolo componente alla posizione specificata. Può essere chiamato solo da `EventService`.
+    - **Input:** `Coordinate coordinate` - Le coordinate del componente da distruggere.
+    - **Output:** Nessuno.
+
+
+### Classe: Coordinate
+- **Attributi pubblici:** Nessuno
+- **Metodi pubblici:**
+  - `public Coordinate(int x, int y)`: Costruttore che inizializza le coordinate.
+    - **Input:** `int x`, `int y` - Le coordinate da inizializzare.
+    - **Output:** Nessuno.
+  - `public Coordinate(Coordinate c)`: Costruttore di copia.
+    - **Input:** `Coordinate c` - L'oggetto `Coordinate` da copiare.
+    - **Output:** Nessuno.
+  - `public int getX()`: Restituisce il valore della coordinata x.
+    - **Input:** Nessuno.
+    - **Output:** `int` - Il valore della coordinata x.
+  - `public int getY()`: Restituisce il valore della coordinata y.
+    - **Input:** Nessuno.
+    - **Output:** `int` - Il valore della coordinata y.
+  - `public boolean isEqual(Coordinate c)`: Confronta se le coordinate sono uguali.
+    - **Input:** `Coordinate c` - L'oggetto `Coordinate` da confrontare.
+    - **Output:** `boolean` - True se le coordinate sono uguali, altrimenti False.
+
+---
+
+## Package: model.enums
+
+---
+
+### Enum: Direzione
+- **Costanti:**
+  - `SOPRA`: Rappresenta la direzione sopra.
+  - `DESTRA`: Rappresenta la direzione destra.
+  - `SINISTRA`: Rappresenta la direzione sinistra.
+  - `SOTTO`: Rappresenta la direzione sotto.
+
+
+### Enum: TipoMerce
+- **Costanti:**
+  - `BLU(1)`: Costante che rappresenta il tipo di merce blu con valore 1.
+  - `VERDE(2)`: Costante che rappresenta il tipo di merce verde con valore 2.
+  - `GIALLO(3)`: Costante che rappresenta il tipo di merce giallo con valore 3.
+  - `ROSSO(4)`: Costante che rappresenta il tipo di merce rosso con valore 4.
+- **Metodi pubblici:**
+  - `public int getValore()`: Restituisce il valore del tipo di merce.
+    - **Input:** Nessuno.
+    - **Output:** `int` - Il valore del tipo di merce.
+
+
+### Enum: TipoTubo
+- **Costanti:**
+  - `NESSUNO("", "")`: Rappresenta l'assenza di un tubo.
+  - `SINGOLO("|", "-")`: Rappresenta un tubo singolo con sigle orizzontali e verticali.
+  - `DOPPIO("||", "=")`: Rappresenta un tubo doppio con sigle orizzontali e verticali.
+  - `UNIVERSALE("#", "#")`: Rappresenta un tubo universale con sigle orizzontali e verticali.
+- **Attributi privati:**
+  - `private final String siglaOrizzontale`: Sigla da usare quando il tubo è orizzontale.
+  - `private final String siglaVerticale`: Sigla da usare quando il tubo è verticale.
+- **Costruttori privati:**
+  - `private TipoTubo()`: Costruttore predefinito che inizializza le sigle vuote.
+    - **Input:** Nessuno.
+    - **Output:** Nessuno.
+  - `private TipoTubo(String siglaOrizzontale, String siglaVerticale)`: Costruttore che inizializza le sigle orizzontali e verticali.
+    - **Input:** `String siglaOrizzontale`, `String siglaVerticale` - Le sigle da inizializzare.
+    - **Output:** Nessuno.
+- **Metodi pubblici:**
+  - `public String toString(Direzione direzione)`: Restituisce la sigla corrispondente alla direzione specificata.
+    - **Input:** `Direzione direzione` - La direzione del tubo.
+    - **Output:** `String` - La sigla corrispondente alla direzione specificata.
 
 ---
 
@@ -64,33 +141,91 @@
 
 ---
 
-### Classe: Componente
-- **Attributi pubblici:** Nessuno
+### Classe: Cannone
+- **Attributi pubblici:**
+  - `public static final int limiteIstanziabili`: Limite massimo di istanze di `Cannone` che possono essere create.
+  - `public static int istanze`: Contatore delle istanze create di `Cannone`.
+- **Attributi privati:**
+  - `private float potenzaFuoco`: La potenza di fuoco del cannone.
+  - `private Direzione direzione`: La direzione in cui il cannone spara.
+- **Costruttori:**
+  - `public Cannone(TipoComponente tipo, Map<Direzione, TipoTubo> tubiIniziali)`: Costruttore che inizializza il cannone.
+    - **Input:** `TipoComponente tipo`, `Map<Direzione, TipoTubo> tubiIniziali` - Il tipo di componente e i tubi iniziali.
+    - **Output:** Nessuno.
+- **Metodi privati:**
+  - `private int gestisciPotenzaDiFuoco(TipoComponente tipo)`: Gestisce la potenza di fuoco in base al tipo di componente.
+    - **Input:** `TipoComponente tipo` - Il tipo di componente.
+    - **Output:** `int` - La potenza di fuoco.
 - **Metodi pubblici:**
-  - `public Componente(TipoComponente t, boolean usaEnergia, int energia)`: Costruttore della classe Componente.
-    - **Input:** `TipoComponente t`, `boolean usaEnergia`, `int energia`
-    - **Output:** Nessuno.
-  - `public Componente(Componente com)`: Costruttore di copia della classe Componente.
-    - **Input:** `Componente com`
-    - **Output:** Nessuno.
-  - `public TipoComponente getTipo()`: Restituisce il tipo di componente.
-    - **Input:** Nessuno.
-    - **Output:** `TipoComponente`
-  - `public boolean getRichiestaEnergia()`: Restituisce se il componente richiede energia.
-    - **Input:** Nessuno.
-    - **Output:** `boolean`
-  - `public int getMaxEnergia()`: Restituisce l'energia massima del componente.
-    - **Input:** Nessuno.
-    - **Output:** `int`
-  - `public void setMaxEnergia(int maxEnergia)`: Imposta l'energia massima del componente.
-    - **Input:** `int maxEnergia`
-    - **Output:** Nessuno.
-  - `public abstract void consumaEnergia()`: Metodo astratto per consumare energia.
+  - `public void ruota()`: Ruota il cannone e aggiorna la potenza di fuoco in base alla nuova direzione.
     - **Input:** Nessuno.
     - **Output:** Nessuno.
-  - `public boolean equals(Componente other)`: Confronta l'uguaglianza tra due componenti.
-    - **Input:** `Componente other`
-    - **Output:** `boolean`
+  - `public Direzione getDirezione()`: Restituisce la direzione del cannone.
+    - **Input:** Nessuno.
+    - **Output:** `Direzione` - La direzione del cannone.
+  - `public float getPotenzaFuoco()`: Restituisce la potenza di fuoco del cannone.
+    - **Input:** Nessuno.
+    - **Output:** `float` - La potenza di fuoco del cannone.
+  - `public int getIstanze()`: Restituisce il numero di istanze create di `Cannone`.
+    - **Input:** Nessuno.
+    - **Output:** `int` - Il numero di istanze create.
+  - `protected void incrementaIstanze()`: Incrementa il contatore delle istanze create di `Cannone`.
+    - **Input:** Nessuno.
+    - **Output:** Nessuno.
+  - `public void resetIstanze()`: Resetta il contatore delle istanze create di `Cannone`.
+    - **Input:** Nessuno.
+    - **Output:** Nessuno.
+  - `protected void decrementaIstanze()`: Decrementa il contatore delle istanze create di `Cannone`.
+    - **Input:** Nessuno.
+    - **Output:** Nessuno.
+
+
+### Classe: Componente
+- **Attributi protetti:**
+  - `protected final TipoComponente tipo`: Il tipo del componente.
+  - `protected Map<Direzione, TipoTubo> tubi`: Mappa delle direzioni e dei rispettivi tubi.
+- **Costruttori:**
+  - `public Componente(TipoComponente tipo, Map<Direzione, TipoTubo> tubiIniziali)`: Costruttore che inizializza il componente con il tipo e i tubi iniziali.
+    - **Input:** `TipoComponente tipo`, `Map<Direzione, TipoTubo> tubiIniziali` - Il tipo di componente e i tubi iniziali.
+    - **Output:** Nessuno.
+  - `public Componente(Componente componente)`: Costruttore di copia.
+    - **Input:** `Componente componente` - Il componente da copiare.
+    - **Output:** Nessuno.
+- **Metodi pubblici:**
+  - `public Componente clone()`: Metodo che dovrà essere override dalle sottoclassi.
+    - **Input:** Nessuno.
+    - **Output:** `Componente` - Restituisce null.
+  - `public boolean equals(Componente altroComponente)`: Confronta se due componenti sono uguali.
+    - **Input:** `Componente altroComponente` - L'altro componente da confrontare.
+    - **Output:** `boolean` - True se i componenti sono uguali, altrimenti False.
+  - `public void ruota()`: Ruota i tubi in senso antiorario.
+    - **Input:** Nessuno.
+    - **Output:** Nessuno.
+  - `public abstract int getIstanze()`: Metodo astratto per ottenere il numero di istanze.
+    - **Input:** Nessuno.
+    - **Output:** `int` - Il numero di istanze.
+  - `public abstract void resetIstanze()`: Metodo astratto per resettare il numero di istanze.
+    - **Input:** Nessuno.
+    - **Output:** Nessuno.
+  - `protected abstract void incrementaIstanze()`: Metodo astratto per incrementare il numero di istanze.
+    - **Input:** Nessuno.
+    - **Output:** Nessuno.
+  - `protected abstract void decrementaIstanze()`: Metodo astratto per decrementare il numero di istanze.
+    - **Input:** Nessuno.
+    - **Output:** Nessuno.
+  - `public TipoComponente getTipo()`: Restituisce il tipo del componente.
+    - **Input:** Nessuno.
+    - **Output:** `TipoComponente` - Il tipo del componente.
+  - `public TipoTubo getTubo(Direzione direzione)`: Restituisce il tubo nella direzione specificata.
+    - **Input:** `Direzione direzione` - La direzione del tubo.
+    - **Output:** `TipoTubo` - Il tubo nella direzione specificata.
+  - `public Map<Direzione, TipoTubo> getTubi()`: Genera una copia dei tubi.
+    - **Input:** Nessuno.
+    - **Output:** `Map<Direzione, TipoTubo>` - La copia dei tubi.
+  - `public int getMaxIstanze()`: Restituisce il numero massimo di istanze.
+    - **Input:** Nessuno.
+    - **Output:** `int` - Il numero massimo di istanze.
+
 
 ### Classe: Stiva
 - **Attributi pubblici:** Nessuno
@@ -122,6 +257,155 @@
   - `public boolean isSpeciale()`: Restituisce se la stiva è speciale.
     - **Input:** Nessuno.
     - **Output:** `boolean`
+
+
+### Classe: StivaSpeciale
+- **Attributi privati:**
+  - `private static int istanze`: Contatore delle istanze create di `StivaSpeciale`.
+- **Costruttori:**
+  - `public StivaSpeciale(Map<Direzione, TipoTubo> tubiIniziali, int scomparti)`: Costruttore che inizializza la stiva speciale con i tubi iniziali e il numero di scomparti.
+    - **Input:** `Map<Direzione, TipoTubo> tubiIniziali`, `int scomparti` - I tubi iniziali e il numero di scomparti.
+    - **Output:** Nessuno.
+  - `public StivaSpeciale(StivaSpeciale stiva)`: Costruttore di copia.
+    - **Input:** `StivaSpeciale stiva` - La stiva speciale da copiare.
+    - **Output:** Nessuno.
+- **Metodi pubblici:**
+  - `public Componente clone()`: Clona la stiva speciale.
+    - **Input:** Nessuno.
+    - **Output:** `Componente` - Il clone della stiva speciale.
+  - `public boolean setMerci(TipoMerce merce)`: Imposta il tipo di merce nella stiva speciale.
+    - **Input:** `TipoMerce merce` - Il tipo di merce da impostare.
+    - **Output:** `boolean` - True se la merce è stata impostata con successo, altrimenti False.
+  - `public int getIstanze()`: Restituisce il numero di istanze create di `StivaSpeciale`.
+    - **Input:** Nessuno.
+    - **Output:** `int` - Il numero di istanze create.
+  - `public void incrementaIstanze()`: Incrementa il contatore delle istanze create di `StivaSpeciale`.
+    - **Input:** Nessuno.
+    - **Output:** Nessuno.
+  - `public void decrementaIstanze()`: Decrementa il contatore delle istanze create di `StivaSpeciale`.
+    - **Input:** Nessuno.
+    - **Output:** Nessuno.
+  - `public void resetIstanze()`: Resetta il contatore delle istanze create di `StivaSpeciale`.
+    - **Input:** Nessuno.
+    - **Output:** Nessuno.
+- **Metodi protetti:**
+  - `protected boolean isMerceAggiungibile(TipoMerce merce)`: Controlla se il tipo di merce è aggiungibile nella stiva speciale.
+    - **Input:** `TipoMerce merce` - Il tipo di merce da controllare.
+    - **Output:** `boolean` - True se la merce è aggiungibile, altrimenti False.
+
+
+
+### Classe: GeneratoreDiScudi
+- **Attributi privati:**
+  - `private static int istanze`: Contatore delle istanze create di `GeneratoreDiScudi`.
+  - `private boolean statoScudo`: Stato dello scudo (attivo o disattivo).
+  - `private Direzione direzione1`: Prima direzione dello scudo.
+  - `private Direzione direzione2`: Seconda direzione dello scudo.
+- **Costruttori:**
+  - `public GeneratoreDiScudi(Map<Direzione, TipoTubo> tubiIniziali)`: Costruttore che inizializza il generatore di scudi con i tubi iniziali.
+    - **Input:** `Map<Direzione, TipoTubo> tubiIniziali` - I tubi iniziali.
+    - **Output:** Nessuno.
+  - `public GeneratoreDiScudi(GeneratoreDiScudi g)`: Costruttore di copia.
+    - **Input:** `GeneratoreDiScudi g` - Il generatore di scudi da copiare.
+    - **Output:** Nessuno.
+- **Metodi pubblici:**
+  - `public void attivaScudo()`: Attiva lo scudo.
+    - **Input:** Nessuno.
+    - **Output:** Nessuno.
+  - `public void disattivaScudo()`: Disattiva lo scudo.
+    - **Input:** Nessuno.
+    - **Output:** Nessuno.
+  - `public boolean getstatoScudo()`: Restituisce lo stato dello scudo.
+    - **Input:** Nessuno.
+    - **Output:** `boolean` - Lo stato dello scudo.
+  - `public Direzione getDirezione1()`: Restituisce la prima direzione dello scudo.
+    - **Input:** Nessuno.
+    - **Output:** `Direzione` - La prima direzione dello scudo.
+  - `public Direzione getDirezione2()`: Restituisce la seconda direzione dello scudo.
+    - **Input:** Nessuno.
+    - **Output:** `Direzione` - La seconda direzione dello scudo.
+  - `public void ruota()`: Ruota il generatore di scudi e aggiorna le direzioni.
+    - **Input:** Nessuno.
+    - **Output:** Nessuno.
+  - `public Componente clone()`: Clona il generatore di scudi.
+    - **Input:** Nessuno.
+    - **Output:** `Componente` - Il clone del generatore di scudi.
+  - `public int getIstanze()`: Restituisce il numero di istanze create di `GeneratoreDiScudi`.
+    - **Input:** Nessuno.
+    - **Output:** `int` - Il numero di istanze create.
+  - `public void resetIstanze()`: Resetta il contatore delle istanze create di `GeneratoreDiScudi`.
+    - **Input:** Nessuno.
+    - **Output:** Nessuno.
+  - `protected void incrementaIstanze()`: Incrementa il contatore delle istanze create di `GeneratoreDiScudi`.
+    - **Input:** Nessuno.
+    - **Output:** Nessuno.
+  - `protected void decrementaIstanze()`: Decrementa il contatore delle istanze create di `GeneratoreDiScudi`.
+    - **Input:** Nessuno.
+    - **Output:** Nessuno.
+
+
+
+### Enum: TipoComponente
+- **Valori Enum:**
+  - `CABINA_EQUIPAGGIO("CE", 17)`: Cabina per l'equipaggio, massimo 17 istanze.
+  - `CABINA_PARTENZA("CP", 4)`: Cabina di partenza, massimo 4 istanze.
+  - `CANNONE_SINGOLO("CS", 25)`: Cannone singolo, massimo 25 istanze.
+  - `CANNONE_DOPPIO("CD", 11)`: Cannone doppio, massimo 11 istanze.
+  - `MOTORE_SINGOLO("MS", 21)`: Motore singolo, massimo 21 istanze.
+  - `MOTORE_DOPPIO("MD", 9)`: Motore doppio, massimo 9 istanze.
+  - `SCUDO("S", 8)`: Scudo, massimo 8 istanze.
+  - `STIVA("M", 25)`: Stiva (Magazzino), massimo 25 istanze.
+  - `STIVA_SPECIALE("MS", 9)`: Stiva speciale, massimo 9 istanze.
+  - `VANO_BATTERIA("B", 17)`: Vano batteria, massimo 17 istanze.
+  - `SOVRASTRUTTURA_ALIENA_VIOLA("SAV", 6)`: Sovrastruttura aliena viola, massimo 6 istanze.
+  - `SOVRASTRUTTURA_ALIENA_MARRONE("SAM", 6)`: Sovrastruttura aliena marrone, massimo 6 istanze.
+  - `TUBO("T", 8)`: Tubo, massimo 8 istanze.
+- **Attributi privati:**
+  - `private final String sigla`: Sigla del tipo di componente.
+  - `private final int maxIstanze`: Numero massimo di istanze del tipo di componente.
+- **Costruttori:**
+  - `private TipoComponente(String s, int maxIstanze)`: Costruttore che inizializza la sigla e il numero massimo di istanze.
+    - **Input:** `String s`, `int maxIstanze` - La sigla e il numero massimo di istanze.
+    - **Output:** Nessuno.
+- **Metodi pubblici:**
+  - `public String toString()`: Restituisce la sigla del tipo di componente.
+    - **Input:** Nessuno.
+    - **Output:** `String` - La sigla del tipo di componente.
+  - `public int getMaxIstanze()`: Restituisce il numero massimo di istanze del tipo di componente.
+    - **Input:** Nessuno.
+    - **Output:** `int` - Il numero massimo di istanze.
+
+
+
+### Enum: TipoComponente
+- **Valori Enum:**
+  - `CABINA_EQUIPAGGIO("CE", 17)`: Cabina per l'equipaggio, massimo 17 istanze.
+  - `CABINA_PARTENZA("CP", 4)`: Cabina di partenza, massimo 4 istanze.
+  - `CANNONE_SINGOLO("CS", 25)`: Cannone singolo, massimo 25 istanze.
+  - `CANNONE_DOPPIO("CD", 11)`: Cannone doppio, massimo 11 istanze.
+  - `MOTORE_SINGOLO("MS", 21)`: Motore singolo, massimo 21 istanze.
+  - `MOTORE_DOPPIO("MD", 9)`: Motore doppio, massimo 9 istanze.
+  - `SCUDO("S", 8)`: Scudo, massimo 8 istanze.
+  - `STIVA("M", 25)`: Stiva (Magazzino), massimo 25 istanze.
+  - `STIVA_SPECIALE("MS", 9)`: Stiva speciale, massimo 9 istanze.
+  - `VANO_BATTERIA("B", 17)`: Vano batteria, massimo 17 istanze.
+  - `SOVRASTRUTTURA_ALIENA_VIOLA("SAV", 6)`: Sovrastruttura aliena viola, massimo 6 istanze.
+  - `SOVRASTRUTTURA_ALIENA_MARRONE("SAM", 6)`: Sovrastruttura aliena marrone, massimo 6 istanze.
+  - `TUBO("T", 8)`: Tubo, massimo 8 istanze.
+- **Attributi privati:**
+  - `private final String sigla`: Sigla del tipo di componente.
+  - `private final int maxIstanze`: Numero massimo di istanze del tipo di componente.
+- **Costruttori:**
+  - `private TipoComponente(String s, int maxIstanze)`: Costruttore che inizializza la sigla e il numero massimo di istanze.
+    - **Input:** `String s`, `int maxIstanze` - La sigla e il numero massimo di istanze.
+    - **Output:** Nessuno.
+- **Metodi pubblici:**
+  - `public String toString()`: Restituisce la sigla del tipo di componente.
+    - **Input:** Nessuno.
+    - **Output:** `String` - La sigla del tipo di componente.
+  - `public int getMaxIstanze()`: Restituisce il numero massimo di istanze del tipo di componente.
+    - **Input:** Nessuno.
+    - **Output:** `int` - Il numero massimo di istanze.
 
 ---
 

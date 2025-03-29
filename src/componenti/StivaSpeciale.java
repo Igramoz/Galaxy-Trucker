@@ -9,18 +9,12 @@ public class StivaSpeciale extends Stiva {
 	private static int istanze = 0;
 
 	public StivaSpeciale(Map<Direzione, TipoTubo> tubiIniziali, int scomparti) {
-		super(TipoComponente.STIVA_SPECIALE, tubiIniziali); // Chiamo il costruttore restricted di Stiva
-
-		if (istanze >= this.getTipo().getMaxIstanze()) {
-			throw new IllegalStateException("Limite massimo di istanze raggiunto per Stiva");
-		}
+		super(TipoComponente.STIVA_SPECIALE, tubiIniziali, scomparti); // Chiamo il costruttore restricted di Stiva
 
 		if (scomparti < 1 || scomparti > 2) {
 			throw new IllegalArgumentException("Le stive speciali devono avere 1 o 2 scomparti.");
 		}
-
-		this.scomparti = scomparti;
-		this.merci = new TipoMerce[scomparti];
+		
 		incrementaIstanze();
 	}
 
@@ -39,23 +33,13 @@ public class StivaSpeciale extends Stiva {
 	}
 
 	@Override
-	public boolean setMerci(TipoMerce merce) {
-
-		// Controllo se la merce è già presente
-		for (int i = 0; i < scomparti; i++) {
-			if (merci[i] == merce) {
-				return false;
-			}
-		}
-
-		// Aggiungo la merce
-		for (int i = 0; i < scomparti; i++) {
-			if (merci[i] == null) {
-				merci[i] = merce;
-				return true;
-			}
-		}
-		return false; // Stiva piena
+	public boolean setMerci(TipoMerce merce) {		
+		return super.setMerci(merce);
+	}
+	
+	@Override // tutte le merci sono aggiungibili nelle stive speciali
+	protected boolean isMerceAggiungibile(TipoMerce merce) {
+		return true;
 	}
 
 	@Override

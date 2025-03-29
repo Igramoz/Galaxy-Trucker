@@ -3,6 +3,7 @@ package componenti;
 import java.util.Map;
 import model.enums.Direzione;
 import model.enums.TipoTubo;
+import util.Util;
 
 public class Cannone extends Componente {
 
@@ -34,26 +35,13 @@ public class Cannone extends Componente {
 
 	@Override
 	public void ruota() {
-		// Calcola la nuova direzione dopo la rotazione
-		Direzione nuovaDirezione = switch (direzione) {
-		case SOPRA -> Direzione.SINISTRA;
-		case SINISTRA -> Direzione.SOTTO;
-		case SOTTO -> Direzione.DESTRA;
-		case DESTRA -> Direzione.SOPRA;
-		};
-
-		// Controlla se c'è un tubo nella nuova direzione
-		if (super.getTubo(nuovaDirezione) != TipoTubo.NESSUNO) {
-			System.out.println("Rotazione bloccata! Il cannone colpirebbe un altro componente"); // TODO: eccezione
-			return; // Blocca la rotazione
-		}
-
+		Direzione nuovaDirezione = Util.ruotaDirezione(direzione);
+		
 		if (direzione == Direzione.SOPRA)
 			potenzaFuoco /= 2;
 		if (nuovaDirezione == Direzione.SOPRA)
 			potenzaFuoco *= 2;
 
-		// Se non ci sono ostacoli, ruota normalmente
 		super.ruota();
 		this.direzione = nuovaDirezione;
 	}
@@ -66,20 +54,21 @@ public class Cannone extends Componente {
 		return potenzaFuoco;
 	}
 
-	public boolean spara(int batterieDisponibili) {
-		// Solo il cannone doppio necessita di batteria
-		if (tipo == TipoComponente.CANNONE_DOPPIO) {
-			if (batterieDisponibili < 1) {
-				System.out.println("Impossibile sparare, batteria insufficiente"); // TODO: ECCEZIONE
-				return false;
-			} else {
-				// TODO: bisogna diminuire la batteria di 1
-			}
-		}
-		System.out.println("Il cannone ha sparato con potenza: " + potenzaFuoco); // TODO: non stampare dalla
-																					// classe
-		return true;
-	}
+	// TODO: da sistemare, la classe Cannone non dovrebbe stampare nulla, non spara e non toglie batterie
+//	public boolean spara(int batterieDisponibili) {
+//		// Solo il cannone doppio necessita di batteria
+//		if (tipo == TipoComponente.CANNONE_DOPPIO) {
+//			if (batterieDisponibili < 1) {
+//				System.out.println("Impossibile sparare, batteria insufficiente"); // TODO: ECCEZIONE
+//				return false;
+//			} else {
+//				// TODO: bisogna diminuire la batteria di 1
+//			}
+//		}
+//		System.out.println("Il cannone ha sparato con potenza: " + potenzaFuoco); // TODO: non stampare dalla
+//																					// classe
+//		return true;
+//	}
 
 	@Override
 	public int getIstanze() {
@@ -93,13 +82,12 @@ public class Cannone extends Componente {
 
 	@Override
 	public void resetIstanze() {
-		// TODO Auto-generated method stub
+		istanze = 0;
 
 	}
 
 	@Override
 	protected void decrementaIstanze() {
-		// TODO Auto-generated method stub
-
+		istanze--;
 	}
 }
