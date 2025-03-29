@@ -1,8 +1,6 @@
 package componenti;
 
 import java.util.Map;
-
-import model.Coordinate;
 import model.enums.Direzione;
 import model.enums.TipoTubo;
 import util.Util;
@@ -15,7 +13,6 @@ public class Cannone extends Componente {
 
 	public Cannone(Map<Direzione, TipoTubo> tubiIniziali) {
 		this(TipoComponente.CANNONE_SINGOLO, tubiIniziali);
-		incrementaIstanze();
 	}
 
 	protected Cannone(TipoComponente tipo, Map<Direzione, TipoTubo> tubiIniziali) {
@@ -24,6 +21,7 @@ public class Cannone extends Componente {
 			throw new IllegalStateException("Limite massimo di istanze raggiunto per Cannone");
 		}
 		direzione = Direzione.SOPRA;
+		incrementaIstanze();
 	}
 
 	public Cannone(Cannone can) {

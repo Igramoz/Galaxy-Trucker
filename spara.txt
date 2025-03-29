@@ -1,0 +1,22 @@
+	public boolean spara(Componente[][] griglia) {
+		int checkX = posizione.getX(), checkY = posizione.getY();
+		switch (direzione) {
+		case SOPRA:
+			checkY--;
+			break;
+		case SINISTRA:
+			checkX--;
+			break;
+		case SOTTO:
+			checkY++;
+			break;
+		case DESTRA:
+			checkX++;
+			break;
+		}
+		// il cannone non può sparare se la casella davanti è occupata
+		if (griglia[checkX][checkY] == null)
+			return true;
+		else
+			return false;
+	}
