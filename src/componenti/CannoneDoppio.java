@@ -8,23 +8,15 @@ public class CannoneDoppio extends Cannone {
 
 	private static int istanze = 0;
 
-	public CannoneDoppio(Map<Direzione, TipoTubo> tubiIniziali, int x, int y) {
-		super(TipoComponente.CANNONE_DOPPIO, tubiIniziali, x, y);
+	public CannoneDoppio(Map<Direzione, TipoTubo> tubiIniziali) {
+		super(TipoComponente.CANNONE_DOPPIO, tubiIniziali);
+		potenzaFuoco = 2;
 		this.incrementaIstanze();
 	}
 
 	public CannoneDoppio(CannoneDoppio can) {
-		this(can.tubi, can.posizione.getX(), can.posizione.getY());
-	}
-
-	public boolean spara(int numBatterie, Componente[][] griglia) {
-		if (numBatterie < 1)
-			return false;
-		else {
-			// TODO: diminuire di 1 le batterie
-			super.spara(griglia);
-		}
-		return true;
+		this(can.tubi);
+		decrementaIstanze();
 	}
 
 	@Override

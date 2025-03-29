@@ -10,36 +10,25 @@ import util.Util;
 public class Cannone extends Componente {
 
 	public static int istanze = 0;
-	private float potenzaFuoco;
+	protected float potenzaFuoco = 1;
 	private Direzione direzione; // Direzione in cui il cannone spara
-	protected Coordinate posizione;
 
-	public Cannone(TipoComponente tipo, Map<Direzione, TipoTubo> tubiIniziali, int x, int y) {
+	public Cannone(Map<Direzione, TipoTubo> tubiIniziali) {
+		this(TipoComponente.CANNONE_SINGOLO, tubiIniziali);
+		incrementaIstanze();
+	}
+
+	protected Cannone(TipoComponente tipo, Map<Direzione, TipoTubo> tubiIniziali) {
 		super(tipo, tubiIniziali);
 		if (istanze == getMaxIstanze()) {
 			throw new IllegalStateException("Limite massimo di istanze raggiunto per Cannone");
 		}
-
-		potenzaFuoco = gestisciPotenzaDiFuoco(tipo);
-		if (potenzaFuoco == -1)
-			throw new IllegalStateException("");
 		direzione = Direzione.SOPRA;
-		posizione = new Coordinate(x, y);
-
-		incrementaIstanze();
 	}
 
 	public Cannone(Cannone can) {
-		this(can.tipo, can.tubi, can.posizione.getX(), can.posizione.getY());
-	}
-
-	private int gestisciPotenzaDiFuoco(TipoComponente tipo) {
-		if (tipo == TipoComponente.CANNONE_SINGOLO)
-			return 1;
-		else if (tipo == TipoComponente.CANNONE_DOPPIO)
-			return 2;
-		else
-			return -1;
+		this(can.tipo, can.tubi);
+		decrementaIstanze();
 	}
 
 	@Override
@@ -61,29 +50,6 @@ public class Cannone extends Componente {
 
 	public float getPotenzaFuoco() {
 		return potenzaFuoco;
-	}
-
-	public boolean spara(Componente[][] griglia) {
-		int checkX = posizione.getX(), checkY = posizione.getY();
-		switch (direzione) {
-		case SOPRA:
-			checkY--;
-			break;
-		case SINISTRA:
-			checkX--;
-			break;
-		case SOTTO:
-			checkY++;
-			break;
-		case DESTRA:
-			checkX++;
-			break;
-		}
-		// il cannone non può sparare se la casella davanti è occupata
-		if (griglia[checkX][checkY] == null)
-			return true;
-		else
-			return false;
 	}
 
 	@Override
