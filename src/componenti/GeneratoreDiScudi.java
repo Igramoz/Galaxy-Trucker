@@ -9,10 +9,8 @@ public class GeneratoreDiScudi extends Componente {
 
 
     private static int istanze = 0;
-    private boolean statoScudo;
-    private Direzione direzione1;
-    private Direzione direzione2;
-
+    private Direzione[] direzione = new Direzione[2]; // array di direzioni degli scudi
+    
     public GeneratoreDiScudi(Map<Direzione, TipoTubo> tubiIniziali) {
 
         
@@ -21,51 +19,50 @@ public class GeneratoreDiScudi extends Componente {
     		throw new IllegalStateException("Limite massimo di istanze raggiunto per GeneratoreDiScudi");
     	}
     	incrementaIstanze();
-        this.statoScudo = false;
-        this.direzione1 = Direzione.SOPRA;
-        this.direzione2 = Direzione.SINISTRA;
+        this.direzione[0] = Direzione.SOPRA;
+        this.direzione[1] = Direzione.SINISTRA;
+    }
+
+    public GeneratoreDiScudi(Map<Direzione, TipoTubo> tubiIniziali, Direzione[] direzione) {
+
+        super(TipoComponente.SCUDO, tubiIniziali);
+        if(istanze >= TipoComponente.SCUDO.getMaxIstanze()) {
+    		throw new IllegalStateException("Limite massimo di istanze raggiunto per GeneratoreDiScudi");
+    	}
+    	incrementaIstanze();
+
+        //controllo che l'array di direzioni sia lungo 2 e che le direzioni siano valide
+
+        if (direzione.length != 2 || direzione[0] == null || direzione[1] == null || checkDirezioni(direzione)) {
+            throw new IllegalArgumentException("L'array di direzioni è errato");
+        }
+
+        this.direzione[0] = direzione[0];
+        this.direzione[1] = direzione[1];
     }
 
     public GeneratoreDiScudi(GeneratoreDiScudi g) { // costruttore di copia
 
         super(g);
-        this.statoScudo = g.statoScudo;
-        this.direzione1 = g.direzione1;
-        this.direzione2 = g.direzione2;
+        
+        this.direzione[0] = g.direzione[0];
+        this.direzione[1] = g.direzione[1];
         decrementaIstanze();
     }
 
-    public void attivaScudo() {
-        this.statoScudo = true;
+    
+    public Direzione[] getDirezione() {
+        return this.direzione;
     }
-
-    public void disattivaScudo() {
-        this.statoScudo = false;
-    }
-
-    public boolean getstatoScudo() {
-        return statoScudo;
-    }
-
-    public Direzione getDirezione1() {
-        return direzione1;
-    }
-
-    public Direzione getDirezione2() {
-        return direzione2;
-    }
-
 
     @Override
     public void ruota() {
     	
     	super.ruota();
     	
-    	this.direzione1 = Util.ruotaDirezione(direzione1);
-    	this.direzione2 = Util.ruotaDirezione(direzione2);
+    	this.direzione[0] = Util.ruotaDirezione(direzione[0]);
+    	this.direzione[1] = Util.ruotaDirezione(direzione[1]);
     }
-    
-   
     
     @Override
     public Componente clone() {
@@ -94,6 +91,12 @@ public class GeneratoreDiScudi extends Componente {
 	protected  void decrementaIstanze() {
 		istanze--;
 	}
+
+    private boolean  checkDirezioni(Direzione[] direzioni) {
+        // Controlla che le direzioni siano valide (non possono essere uguali e non possono essere opposte)
+        return !((direzioni[0] == direzioni[1]) || (direzioni[0] == Direzione.SOPRA && direzioni[1] == Direzione.SOTTO) || (direzioni[0] == Direzione.SOTTO && direzioni[1] == Direzione.SOPRA) || (direzioni[0] == Direzione.SINISTRA && direzioni[1] == Direzione.DESTRA) || (direzioni[0] == Direzione.DESTRA && direzioni[1] == Direzione.SINISTRA));
+
+    }
     
 }
 

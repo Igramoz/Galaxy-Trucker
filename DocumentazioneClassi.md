@@ -298,32 +298,22 @@
 ### Classe: GeneratoreDiScudi
 - **Attributi privati:**
   - `private static int istanze`: Contatore delle istanze create di `GeneratoreDiScudi`.
-  - `private boolean statoScudo`: Stato dello scudo (attivo o disattivo).
-  - `private Direzione direzione1`: Prima direzione dello scudo.
-  - `private Direzione direzione2`: Seconda direzione dello scudo.
+  - `private Direzione[] direzione = new Direzione[2]`: direzioni dello scudo.
 - **Costruttori:**
-  - `public GeneratoreDiScudi(Map<Direzione, TipoTubo> tubiIniziali)`: Costruttore che inizializza il generatore di scudi con i tubi iniziali.
+  - `public GeneratoreDiScudi(Map<Direzione, TipoTubo> tubiIniziali)`: Costruttore che inizializza il generatore di scudi con i tubi iniziali gli scudi sono settati di default in alto e a sinistra.
     - **Input:** `Map<Direzione, TipoTubo> tubiIniziali` - I tubi iniziali.
+    - **Output:** Nessuno.
+  - `public GeneratoreDiScudi(Map<Direzione, TipoTubo> tubiIniziali, Direzione[] direzione)`: Costruttore che inizializza il generatore di scudi con i tubi iniziali e le direzioni degli scudi.
+    - **Input:** `Map<Direzione, TipoTubo> tubiIniziali` - I tubi iniziali.
+    - **Input:** `Direzione[] direzione` - Direzioni dello scudo.
     - **Output:** Nessuno.
   - `public GeneratoreDiScudi(GeneratoreDiScudi g)`: Costruttore di copia.
     - **Input:** `GeneratoreDiScudi g` - Il generatore di scudi da copiare.
     - **Output:** Nessuno.
 - **Metodi pubblici:**
-  - `public void attivaScudo()`: Attiva lo scudo.
+  - `public Direzione[] getDirezione()`: Restituisce le direzioni dello scudo come array di due elementi.
     - **Input:** Nessuno.
-    - **Output:** Nessuno.
-  - `public void disattivaScudo()`: Disattiva lo scudo.
-    - **Input:** Nessuno.
-    - **Output:** Nessuno.
-  - `public boolean getstatoScudo()`: Restituisce lo stato dello scudo.
-    - **Input:** Nessuno.
-    - **Output:** `boolean` - Lo stato dello scudo.
-  - `public Direzione getDirezione1()`: Restituisce la prima direzione dello scudo.
-    - **Input:** Nessuno.
-    - **Output:** `Direzione` - La prima direzione dello scudo.
-  - `public Direzione getDirezione2()`: Restituisce la seconda direzione dello scudo.
-    - **Input:** Nessuno.
-    - **Output:** `Direzione` - La seconda direzione dello scudo.
+    - **Output:** `Direzione[]` - Le direzioni dello scudo.
   - `public void ruota()`: Ruota il generatore di scudi e aggiorna le direzioni.
     - **Input:** Nessuno.
     - **Output:** Nessuno.
