@@ -326,6 +326,7 @@
   - `public void resetIstanze()`: Resetta il contatore delle istanze create di `GeneratoreDiScudi`.
     - **Input:** Nessuno.
     - **Output:** Nessuno.
+- **Metodi protetti:**
   - `protected void incrementaIstanze()`: Incrementa il contatore delle istanze create di `GeneratoreDiScudi`.
     - **Input:** Nessuno.
     - **Output:** Nessuno.
@@ -334,6 +335,51 @@
     - **Output:** Nessuno.
 
 
+### Classe: CabinaPartenza
+- **Attributi privati:**
+  - `private static int istanze`: Contatore delle istanze create di `CabinaPartenza`.
+  - `private int equipaggio`: Numero di membri dell'equipaggio.
+- **Costruttori:**
+  - `public CabinaPartenza(Map<Direzione, TipoTubo> tubiIniziali)`: Costruttore che inizializza la cabina di partenza con i tubi iniziali e un equipaggio di default pari a 2.
+    - **Input:** `Map<Direzione, TipoTubo> tubiIniziali` - I tubi iniziali.
+    - **Output:** Nessuno.
+  - `public CabinaPartenza(Map<Direzione, TipoTubo> tubiIniziali, int equipaggio)`: Costruttore che inizializza la cabina di partenza con i tubi iniziali e un equipaggio specificato.
+    - **Input:** `Map<Direzione, TipoTubo> tubiIniziali` - I tubi iniziali.
+    - **Input:** `int equipaggio` - Numero di membri dell'equipaggio.
+    - **Output:** Nessuno.
+  - `public CabinaPartenza(CabinaPartenza c)`: Costruttore di copia.
+    - **Input:** `CabinaPartenza c` - La cabina di partenza da copiare.
+    - **Output:** Nessuno.
+- **Metodi pubblici:**
+  - `public int getEquipaggio()`: Restituisce il numero di membri dell'equipaggio.
+    - **Input:** Nessuno.
+    - **Output:** `int` - Numero di membri dell'equipaggio.
+  - `public boolean decrementaEquipaggio()`: Riduce di 1 il numero di membri dell'equipaggio se possibile.
+    - **Input:** Nessuno.
+    - **Output:** `boolean` - `true` se l'operazione ha successo, `false` altrimenti.
+  - `public boolean incrementaEquipaggio()`: Aumenta di 1 il numero di membri dell'equipaggio se possibile.
+    - **Input:** Nessuno.
+    - **Output:** `boolean` - `true` se l'operazione ha successo, `false` altrimenti.
+  - `public Componente clone()`: Clona la cabina di partenza.
+    - **Input:** Nessuno.
+    - **Output:** `Componente` - Il clone della cabina di partenza.
+  - `public int getIstanze()`: Restituisce il numero di istanze create di `CabinaPartenza`.
+    - **Input:** Nessuno.
+    - **Output:** `int` - Il numero di istanze create.
+  - `public void resetIstanze()`: Resetta il contatore delle istanze create di `CabinaPartenza`.
+    - **Input:** Nessuno.
+    - **Output:** Nessuno.
+- **Metodi protetti:**
+  - `protected void incrementaIstanze()`: Incrementa il contatore delle istanze create di `CabinaPartenza`.
+    - **Input:** Nessuno.
+    - **Output:** Nessuno.
+  - `protected void decrementaIstanze()`: Decrementa il contatore delle istanze create di `CabinaPartenza`.
+    - **Input:** Nessuno.
+    - **Output:** Nessuno.
+- **Metodi privati:**
+  - `private boolean checkTubi(Map<Direzione, TipoTubo> tubiIniziali)`: Controlla se tutti i tubi iniziali sono di tipo universale.
+    - **Input:** `Map<Direzione, TipoTubo> tubiIniziali` - I tubi iniziali.
+    - **Output:** `boolean` - `true` se almeno un tubo non è universale, `false` altrimenti.
 
 ### Enum: TipoComponente
 - **Valori Enum:**
