@@ -94,7 +94,11 @@ public class GeneratoreDiScudi extends Componente {
 
     private boolean  checkDirezioni(Direzione[] direzioni) {
         // Controlla che le direzioni siano valide (non possono essere uguali e non possono essere opposte)
-        return !((direzioni[0] == direzioni[1]) || (direzioni[0] == Direzione.SOPRA && direzioni[1] == Direzione.SOTTO) || (direzioni[0] == Direzione.SOTTO && direzioni[1] == Direzione.SOPRA) || (direzioni[0] == Direzione.SINISTRA && direzioni[1] == Direzione.DESTRA) || (direzioni[0] == Direzione.DESTRA && direzioni[1] == Direzione.SINISTRA));
+        return !((direzioni[0] == direzioni[1]) || //UGUALI
+        (direzioni[0] == Direzione.SOPRA && direzioni[1] == Direzione.SOTTO)|| 
+        (direzioni[0] == Direzione.SOTTO && direzioni[1] == Direzione.SOPRA)|| 
+        (direzioni[0] == Direzione.SINISTRA && direzioni[1] == Direzione.DESTRA)|| 
+        (direzioni[0] == Direzione.DESTRA && direzioni[1] == Direzione.SINISTRA));
 
     }
     
