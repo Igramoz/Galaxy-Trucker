@@ -61,7 +61,8 @@
         |   └── DistruzioneComponentiService.java  // Funzione complessa per distruggere i componenti della nave (accesso agli attributi della nave)
         |
         ├── grafica/                     // Gestione della grafica del gioco
-        |   ├── AssociatoreGrafico.java  // Associa i simboli grafici ai componenti
+        |   ├── ConvertitoreGrafico.java  // Associa i simboli grafici ai componenti
+	|   ├── FormatterGrafico.java 	  // Si occupa del formato della stampa come l'allineamento delle stringhe.
         |   └── GestoreGrafica.java      // Gestisce la stampa a video dei componenti e dell'interfaccia grafica
         |
         └── util/                        // Funzioni generiche di supporto
