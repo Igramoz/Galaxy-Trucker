@@ -495,3 +495,45 @@
     - **Output:** `int` - Il valore del tipo di merce.
 
 ---
+
+## Package: grafica
+
+---
+
+### Classe: FormatterGrafico
+- **Attributi pubblici:**
+  - `public static final int LARGHEZZA_SCHERMO = 50`: Numero di caratteri per ciascuna riga senza considerare il simbolo `A_CAPO`.
+  - `public static final String A_CAPO = "|"`: Simbolo stampato a destra dello schermo per indicare di essere andati a capo, di tipo `String` per concatenarla facilmente.
+- **Metodi pubblici:** Nessuno
+
+
+### Classe: TextAligner
+- **Attributi pubblici:** Nessuno
+- **Metodi privati:**
+  - `private void validareLunghezzaTesto(String testo)`: Valida la lunghezza del testo. Lancia un'eccezione se il testo è `null` o troppo lungo per lo schermo.
+    - **Input:** `String testo` - Il testo da validare.
+    - **Output:** Nessuno.
+    - **Errori lanciati:**
+      - `IllegalArgumentException` - Se il testo è `null`.
+      - `IllegalArgumentException` - Se il testo è troppo lungo per lo schermo.
+- **Metodi pubblici:**
+  - `public String alignLeft(String testo)`: Allinea il testo a sinistra e aggiunge un a capo alla fine.
+    - **Input:** `String testo` - Il testo da allineare.
+    - **Output:** `String` - Il testo allineato a sinistra con un a capo alla fine.
+    - **Errori lanciati:**
+      - `IllegalArgumentException` - Se il testo è `null`.
+      - `IllegalArgumentException` - Se il testo è troppo lungo per lo schermo.
+  - `public String alignCenter(String testo)`: Centra il testo nel prompt e aggiunge un a capo alla fine.
+    - **Input:** `String testo` - Il testo da centrare.
+    - **Output:** `String` - Il testo centrato con un a capo alla fine.
+    - **Errori lanciati:**
+      - `IllegalArgumentException` - Se il testo è `null`.
+      - `IllegalArgumentException` - Se il testo è troppo lungo per lo schermo.
+  - `public String alignRight(String testo)`: Allinea il testo a destra e aggiunge un a capo alla fine.
+    - **Input:** `String testo` - Il testo da allineare.
+    - **Output:** `String` - Il testo allineato a destra con un a capo alla fine.
+    - **Errori lanciati:**
+      - `IllegalArgumentException` - Se il testo è `null`.
+      - `IllegalArgumentException` - Se il testo è troppo lungo per lo schermo.
+
+---
