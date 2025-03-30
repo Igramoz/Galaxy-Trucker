@@ -36,12 +36,12 @@ public class VanoBatteria extends Componente {
 
 	// Costruttore di copia
 	public VanoBatteria(VanoBatteria vanoBatteria) {
-		this(vanoBatteria.tubi, vanoBatteria.capacitaMassima, vanoBatteria.getBatterie());
+		this(vanoBatteria.tubi, vanoBatteria.capacitaMassima, vanoBatteria.batterie);
 		decrementaIstanze();
 	}
 	
 	@Override
-	public Componente clone() {
+	public VanoBatteria clone() {
 		return new VanoBatteria(this);
 	}
 	

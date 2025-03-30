@@ -35,7 +35,7 @@ public class Stiva extends Componente {
 
 	// Costruttore di copia
 	public Stiva(Stiva stiva) {
-		this(stiva.getTubi(), stiva.getScomparti());
+		this(stiva.tubi, stiva.scomparti);
 		for (int i = 0; i < scomparti; i++) {
 			this.merci[i] = stiva.merci[i];
 		}
@@ -43,7 +43,7 @@ public class Stiva extends Componente {
 	}
 
 	@Override
-	public Componente clone() {
+	public Stiva clone() {
 		return new Stiva(this);
 	}
 

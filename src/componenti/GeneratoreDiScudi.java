@@ -65,8 +65,7 @@ public class GeneratoreDiScudi extends Componente {
     }
     
     @Override
-    public Componente clone() {
-    	
+    public GeneratoreDiScudi clone() {    	
     	return new GeneratoreDiScudi(this); 
     }
     

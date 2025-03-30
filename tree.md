@@ -21,16 +21,17 @@
         ├── componenti/
         |    ├── Componente.java
         |    ├── Tubo.java
-        |    ├── CannoneSingolo.java
-        |    |		└── CannoneDoppio.java
-        |    ├── Scudo.java
+        |    ├── Cannone.java
+        |    |	    └── CannoneDoppio.java
+        |    ├── GeneratoreDiScudi.java
         |    ├── CabinaEquipaggio.java
         |    ├── CabinaPartenza.java
         |    ├── Stiva.java
+ 	|    	    └── StivaSpeciale.java
         |    ├── VanoBatteria.java
         |    ├── ModuloSupportoAlieni.java
-        |    ├── MotoreSingolo.java
-        |    		└── MotoreDoppio.java
+        |    └── Motore.java
+        |    	    └── MotoreDoppio.java
         |
         ├── cartaAvventura/
         |   ├── Carta.java

@@ -3,13 +3,11 @@ package componenti;
 import java.util.Map;
 
 import model.enums.*;
-import util.Util;
 
 public class CabinaPartenza extends Componente{
 	
 	private static int istanze = 0;
 	private int equipaggio;
-	//TODO Aggiungere un attributo colore????
 	
 	
 	public CabinaPartenza(Map<Direzione, TipoTubo> tubiIniziali) {
@@ -58,7 +56,7 @@ public class CabinaPartenza extends Componente{
 	}
 		
 	@Override
-    public Componente clone() {
+    public CabinaPartenza clone() {
     	
     	return new CabinaPartenza(this); 
     }
@@ -97,7 +95,4 @@ public class CabinaPartenza extends Componente{
 		return false;
 		
 	}
-	
-	
-
 }

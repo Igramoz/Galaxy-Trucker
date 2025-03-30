@@ -1,20 +1,10 @@
 package grafica;
 
 public class TextAligner {
-
-	private void validareLunghezzaTesto(String testo) {
-		if (testo == null) {
-			throw new IllegalArgumentException("Il testo non può essere null.");
-		}
-
-		if (testo.length() > FormatterGrafico.LARGHEZZA_SCHERMO) {
-			throw new IllegalArgumentException("Il testo è troppo lungo per lo schermo.");
-		}
-	}
-
-	// TODO: valutare se rendere protected.
+	
+	// TODO: valutare se rendere protected e statiche.
 	// Allineo il testo a sinistra e aggiunga a capo alla fine.
-	public String alignLeft(String testo) {
+	public static String alignLeft(String testo) {
 
 		validareLunghezzaTesto(testo);
 
@@ -22,18 +12,8 @@ public class TextAligner {
 		return testo + " ".repeat(rightPadding) + FormatterGrafico.A_CAPO;
 	}
 
-	public String alignCenter(String testo) { // Centra il testo nel prompt
-
-		validareLunghezzaTesto(testo);
-
-		int leftPadding = (FormatterGrafico.LARGHEZZA_SCHERMO - testo.length()) / 2;
-		int rightPadding = FormatterGrafico.LARGHEZZA_SCHERMO - testo.length() - leftPadding;
-		return " ".repeat(leftPadding) + testo + " ".repeat(rightPadding) + FormatterGrafico.A_CAPO;
-
-	}
-
 	// Allineo il testo a destra e aggiunga a capo alla fine.
-	public String alignRight(String testo) {
+	public static String alignRight(String testo) {
 
 		validareLunghezzaTesto(testo);
 
@@ -48,4 +28,34 @@ public class TextAligner {
 			return " ".repeat(leftPadding) + testo + FormatterGrafico.A_CAPO;
 		}
 	}
+	
+	public static String centraTestoInLarghezza(String testo, int larghezza) {
+		
+		validareLunghezzaTesto(testo, larghezza);
+		
+		int leftPadding = (larghezza - testo.length()) / 2;
+		int rightPadding = larghezza - testo.length() - leftPadding;
+		return " ".repeat(leftPadding) + testo + " ".repeat(rightPadding);		
+	}
+	
+	public static String alignCenter(String testo) { // Centra il testo nel prompt
+		return centraTestoInLarghezza(testo, FormatterGrafico.LARGHEZZA_SCHERMO)+ FormatterGrafico.A_CAPO;
+	}
+	
+	// valida lo schermo per una lunghezza definita
+	private static void validareLunghezzaTesto(String testo, int spaziDisponibili) {
+		if (testo == null) {
+			throw new IllegalArgumentException("Il testo non può essere null.");
+		}
+
+		if (testo.length() > spaziDisponibili) {
+	        throw new IllegalArgumentException("Il testo \"" + testo + "\" è troppo lungo per lo spazio disponibile di " + spaziDisponibili + " caratteri.");
+		}
+	}
+	
+	// valida la lunghezza per tutto lo schermo
+	private static void validareLunghezzaTesto(String testo) {
+		validareLunghezzaTesto(testo, FormatterGrafico.LARGHEZZA_SCHERMO);
+	}
+	
 }

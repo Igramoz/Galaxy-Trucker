@@ -7,43 +7,51 @@ import util.Util;
 
 public class Cannone extends Componente {
 
-	public static int istanze = 0;
-	protected float potenzaFuoco = 1;
-	private Direzione direzione; // Direzione in cui il cannone spara
+	private static int istanze = 0;
+	protected float potenzaFuoco;
+	protected Direzione direzioneFuoco; // Direzione in cui il cannone spara
 
 	public Cannone(Map<Direzione, TipoTubo> tubiIniziali) {
-		this(TipoComponente.CANNONE_SINGOLO, tubiIniziali);
+		this(TipoComponente.CANNONE_SINGOLO, tubiIniziali, Direzione.SOPRA);
+		potenzaFuoco = 1;
 	}
 
-	protected Cannone(TipoComponente tipo, Map<Direzione, TipoTubo> tubiIniziali) {
+	protected Cannone(TipoComponente tipo, Map<Direzione, TipoTubo> tubiIniziali, Direzione direzioneFuoco) {
 		super(tipo, tubiIniziali);
-		if (istanze == getMaxIstanze()) {
-			throw new IllegalStateException("Limite massimo di istanze raggiunto per Cannone");
+		
+		// devo usare il get perché così, a seconda dei casi accedo al n max di istanze del figlio o del padre
+		if (this.getIstanze() == tipo.getMaxIstanze()) {
+			throw new IllegalStateException("Limite massimo di istanze raggiunto per il tipo: " + tipo.name());
 		}
-		direzione = Direzione.SOPRA;
-		incrementaIstanze();
+		this.direzioneFuoco = direzioneFuoco;
+		this.aggiornaPotenzaFuoco();
+		this.incrementaIstanze();
 	}
 
 	public Cannone(Cannone can) {
-		this(can.tipo, can.tubi);
-		decrementaIstanze();
+		this(can.tipo, can.tubi, can.direzioneFuoco);
+		this.decrementaIstanze();
+	}
+	
+	protected void aggiornaPotenzaFuoco() {
+		if(this.direzioneFuoco == Direzione.SOPRA) {
+			potenzaFuoco = 1.0f;
+		}else {
+			potenzaFuoco = 0.5f;
+		}		
 	}
 
 	@Override
 	public void ruota() {
-		Direzione nuovaDirezione = Util.ruotaDirezione(direzione);
-
-		if (direzione == Direzione.SOPRA)
-			potenzaFuoco /= 2;
-		if (nuovaDirezione == Direzione.SOPRA)
-			potenzaFuoco *= 2;
+		Direzione nuovaDirezione = Util.ruotaDirezione(direzioneFuoco);
 
 		super.ruota();
-		this.direzione = nuovaDirezione;
+		this.direzioneFuoco = nuovaDirezione;		
+		this.aggiornaPotenzaFuoco();
 	}
 
-	public Direzione getDirezione() {
-		return direzione;
+	public Direzione getDirezioneFuoco() {
+		return direzioneFuoco;
 	}
 
 	public float getPotenzaFuoco() {
@@ -51,7 +59,7 @@ public class Cannone extends Componente {
 	}
 
 	@Override
-	public Componente clone() {
+	public Cannone clone() {
 		return new Cannone(this);
 	}
 

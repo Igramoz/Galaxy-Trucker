@@ -381,6 +381,71 @@
     - **Input:** `Map<Direzione, TipoTubo> tubiIniziali` - I tubi iniziali.
     - **Output:** `boolean` - `true` se almeno un tubo non è universale, `false` altrimenti.
 
+
+
+
+### Classe: Motore
+- **Attributi pubblici:** Nessuno
+- **Metodi pubblici:**
+  - `public Motore(Map<Direzione, TipoTubo> tubiIniziali)`: Costruttore che inizializza un motore con una mappa di tubi iniziali.
+    - **Input:** `Map<Direzione, TipoTubo> tubiIniziali` - I tubi iniziali del motore.
+    - **Output:** Nessuno.
+  - `public Motore(Motore m)`: Costruttore di copia che crea una nuova istanza di motore basata su un motore esistente.
+    - **Input:** `Motore m` - Il motore da copiare.
+    - **Output:** Nessuno.
+  - `public Direzione getDirezioneMotore()`: Restituisce la direzione del motore.
+    - **Input:** Nessuno.
+    - **Output:** `Direzione` - La direzione del motore.
+  - `public Motore clone()`: Clona il motore.
+    - **Input:** Nessuno.
+    - **Output:** `Motore` - Il motore clonata.
+  - `public int getIstanze()`: Restituisce il numero di istanze correnti del motore.
+    - **Input:** Nessuno.
+    - **Output:** `int` - Il numero di istanze correnti.
+  - `public void resetIstanze()`: Resetta il contatore delle istanze del motore.
+    - **Input:** Nessuno.
+    - **Output:** Nessuno.
+
+- **Metodi protetti:**
+  - `protected Motore(TipoComponente tipo, Map<Direzione, TipoTubo> tubiIniziali)`: Costruttore che inizializza un motore con un tipo e una mappa di tubi iniziali.
+    - **Input:** `TipoComponente tipo`, `Map<Direzione, TipoTubo> tubiIniziali` - Il tipo di componente e i tubi iniziali.
+    - **Output:** Nessuno.
+  - `protected void incrementaIstanze()`: Incrementa il contatore delle istanze del motore.
+    - **Input:** Nessuno.
+    - **Output:** Nessuno.
+  - `protected void decrementaIstanze()`: Decrementa il contatore delle istanze del motore.
+    - **Input:** Nessuno.
+    - **Output:** Nessuno.
+
+
+### Classe: MotoreDoppio
+- **Attributi pubblici:** Nessuno
+- **Metodi pubblici:**
+  - `public MotoreDoppio(Map<Direzione, TipoTubo> tubiIniziali)`: Costruttore che inizializza un motore doppio con una mappa di tubi iniziali.
+    - **Input:** `Map<Direzione, TipoTubo> tubiIniziali` - I tubi iniziali del motore doppio.
+    - **Output:** Nessuno.
+  - `public MotoreDoppio(MotoreDoppio m)`: Costruttore di copia che crea una nuova istanza di motore doppio basata su un motore doppio esistente.
+    - **Input:** `MotoreDoppio m` - Il motore doppio da copiare.
+    - **Output:** Nessuno.
+  - `public MotoreDoppio clone()`: Clona il motore doppio.
+    - **Input:** Nessuno.
+    - **Output:** `MotoreDoppio` - Il motore doppio clonato.
+  - `public int getIstanze()`: Restituisce il numero di istanze correnti del motore doppio.
+    - **Input:** Nessuno.
+    - **Output:** `int` - Il numero di istanze correnti.
+  - `public void resetIstanze()`: Resetta il contatore delle istanze del motore doppio.
+    - **Input:** Nessuno.
+    - **Output:** Nessuno.
+
+- **Metodi protetti:**
+  - `protected void incrementaIstanze()`: Incrementa il contatore delle istanze del motore doppio.
+    - **Input:** Nessuno.
+    - **Output:** Nessuno.
+  - `protected void decrementaIstanze()`: Decrementa il contatore delle istanze del motore doppio.
+    - **Input:** Nessuno.
+    - **Output:** Nessuno.
+
+
 ### Enum: TipoComponente
 - **Valori Enum:**
   - `CABINA_EQUIPAGGIO("CE", 17)`: Cabina per l'equipaggio, massimo 17 istanze.
@@ -509,31 +574,31 @@
 
 ### Classe: TextAligner
 - **Attributi pubblici:** Nessuno
-- **Metodi privati:**
-  - `private void validareLunghezzaTesto(String testo)`: Valida la lunghezza del testo. Lancia un'eccezione se il testo è `null` o troppo lungo per lo schermo.
-    - **Input:** `String testo` - Il testo da validare.
-    - **Output:** Nessuno.
-    - **Errori lanciati:**
-      - `IllegalArgumentException` - Se il testo è `null`.
-      - `IllegalArgumentException` - Se il testo è troppo lungo per lo schermo.
 - **Metodi pubblici:**
-  - `public String alignLeft(String testo)`: Allinea il testo a sinistra e aggiunge un a capo alla fine.
+  - `public static String alignLeft(String testo)`: Allinea il testo a sinistra e aggiunge a capo alla fine.
     - **Input:** `String testo` - Il testo da allineare.
-    - **Output:** `String` - Il testo allineato a sinistra con un a capo alla fine.
-    - **Errori lanciati:**
-      - `IllegalArgumentException` - Se il testo è `null`.
-      - `IllegalArgumentException` - Se il testo è troppo lungo per lo schermo.
-  - `public String alignCenter(String testo)`: Centra il testo nel prompt e aggiunge un a capo alla fine.
+    - **Output:** `String` - Il testo allineato a sinistra con padding e a capo.
+  - `public static String alignRight(String testo)`: Allinea il testo a destra e aggiunge a capo alla fine.
+    - **Input:** `String testo` - Il testo da allineare.
+    - **Output:** `String` - Il testo allineato a destra con padding e a capo.
+  - `public static String centraTestoInLarghezza(String testo, int larghezza)`: Centra il testo in una larghezza specificata.
+    - **Input:** `String testo` - Il testo da centrare, `int larghezza` - La larghezza in cui centrare il testo.
+    - **Output:** `String` - Il testo centrato con padding.
+  - `public static String alignCenter(String testo)`: Centra il testo nel prompt.
     - **Input:** `String testo` - Il testo da centrare.
-    - **Output:** `String` - Il testo centrato con un a capo alla fine.
-    - **Errori lanciati:**
-      - `IllegalArgumentException` - Se il testo è `null`.
-      - `IllegalArgumentException` - Se il testo è troppo lungo per lo schermo.
-  - `public String alignRight(String testo)`: Allinea il testo a destra e aggiunge un a capo alla fine.
-    - **Input:** `String testo` - Il testo da allineare.
-    - **Output:** `String` - Il testo allineato a destra con un a capo alla fine.
-    - **Errori lanciati:**
-      - `IllegalArgumentException` - Se il testo è `null`.
-      - `IllegalArgumentException` - Se il testo è troppo lungo per lo schermo.
+    - **Output:** `String` - Il testo centrato con padding e a capo.
+
+### Classe: ConvertitoreGrafica
+- **Attributi pubblici:**
+  - `public final int LARGHEZZA_COMPONENTE = 5`: Numero di spazi per rappresentare un componente.
+    - **Input:** Nessuno.
+    - **Output:** `int` - La larghezza del componente, impostata a 5.
+- **Metodi pubblici:**
+  - Nessuno
+
+- **Metodi protetti:**
+  - `protected String[] rappresentaComponente(Componente componente)`: Converte un componente di gioco in una rappresentazione grafica testuale.
+    - **Input:** `Componente componente` - Il componente di gioco da rappresentare graficamente.
+    - **Output:** `String[]` - Un array di stringhe che rappresenta graficamente il componente.
 
 ---

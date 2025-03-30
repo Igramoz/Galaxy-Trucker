@@ -27,13 +27,7 @@ public abstract class Componente {
 	public Componente(Componente componente) {
 		this(componente.tipo, componente.tubi); // chiama l'altro costruttore
 	}
-
-	// Metodo che dovrà essere Override dalle sottoclassi
-	@Override
-	public Componente clone() {
-		return null; // la funzione non verrà mai chiamata
-	}
-
+	
 	public boolean equals(Componente altroComponente) {
 		if (this == altroComponente)
 			return true; // confronto i riferimenti
@@ -74,15 +68,6 @@ public abstract class Componente {
 		tubi.put(Util.ruotaDirezione(Direzione.DESTRA), tempTubo);
 	}
 
-	// Metodi astratti per controllare il numero di istanze delle sottoclassi
-	public abstract int getIstanze();
-
-	public abstract void resetIstanze();
-
-	protected abstract void incrementaIstanze();
-
-	protected abstract void decrementaIstanze();
-
 	public TipoComponente getTipo() {
 		return tipo;
 	}
@@ -104,4 +89,13 @@ public abstract class Componente {
 	public int getMaxIstanze() {
 		return tipo.getMaxIstanze();
 	}
+	
+	// Metodi astratti per controllare il numero di istanze delle sottoclassi
+	public abstract int getIstanze();
+	public abstract Componente clone();	
+	public abstract void resetIstanze();
+
+	protected abstract void incrementaIstanze();
+	protected abstract void decrementaIstanze();
+	
 }
