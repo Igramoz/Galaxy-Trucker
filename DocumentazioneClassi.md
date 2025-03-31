@@ -335,81 +335,91 @@
     - **Output:** Nessuno.
 
 
+
 ### Classe: ModuloSupportoAlieni
+- **Attributi pubblici:**
+  - Nessuno.
 - **Attributi privati:**
-  - `private final boolean alienoSupportato`: Indica il tipo di alieno supportato dal modulo.
-    - `true` → Supporta alieni marroni.
-    - `false` → Supporta alieni viola.
-  - `private final List<TipoPedina> alieni`: Lista contenente gli alieni presenti nel modulo.
-- **Costruttori:**
-  - `public ModuloSupportoAlieni(boolean alienoMarrone)`: Costruttore che inizializza il modulo specificando il tipo di alieno supportato.
-    - **Input:** `boolean alienoMarrone` - Se `true`, supporta alieni marroni; se `false`, supporta alieni viola.
-    - **Output:** Nessuno.
+  - `private static int istanze` – Contatore delle istanze della classe `ModuloSupportoAlieni`.
+  - `private final boolean supportaMarrone` – Booleano che indica se il modulo supporta alieni di colore marrone.
+  - `private final List<TipoPedina> alieni` – Lista che contiene gli alieni (viola o marrone) supportati dal modulo.
 - **Metodi pubblici:**
-  - `public boolean aggiungiAlieno(TipoPedina.Colore colore, int quantita)`: Aggiunge una quantità specificata di alieni nel modulo, se compatibili con il tipo supportato.
-    - **Input:**
-      - `TipoPedina.Colore colore` - Il colore dell'alieno da aggiungere.
-      - `int quantita` - Numero di alieni da aggiungere.
-    - **Output:** `boolean` - `true` se gli alieni sono stati aggiunti con successo, `false` se si supera il limite massimo consentito.
-    - **Eccezioni:**
-      - `IllegalArgumentException` se si cerca di aggiungere astronauti o un tipo di alieno non supportato.
-  - `public List<TipoPedina> getAlieni()`: Restituisce la lista degli alieni presenti nel modulo.
+  - `public ModuloSupportoAlieni(boolean supportaMarrone)`  
+    Costruttore della classe, inizializza il modulo supporto alieni.
+    - **Input:** `boolean supportaMarrone` – Indica se il modulo supporta alieni marroni (`true`) o alieni viola (`false`).
+    - **Output:** Nessuno.
+  - `public boolean aggiungiAlieno(TipoPedina alieno, int quantita)`  
+    Aggiunge uno o più alieni alla lista, in base al tipo supportato dal modulo.
+    - **Input:** `TipoPedina alieno` – L'alieno da aggiungere.
+    - **Input:** `int quantita` – La quantità di alieni da aggiungere.
+    - **Output:** `boolean` – `true` se gli alieni sono stati aggiunti correttamente, `false` se l'alieno non è supportato.
+  - `public List<TipoPedina> getAlieni()`  
+    Restituisce una copia della lista degli alieni presenti nel modulo.
     - **Input:** Nessuno.
-    - **Output:** `List<TipoPedina>` - Lista contenente gli alieni nel modulo.
-- **Metodi override:**
-  - `public String toString()`: Restituisce una rappresentazione testuale dell'oggetto.
+    - **Output:** `List<TipoPedina>` – Lista contenente gli alieni supportati dal modulo.
+  - `@Override public boolean equals(Object obj)`  
+    Confronta se due moduli di supporto alieni sono uguali in base al supporto per alieni e alla lista di alieni.
+    - **Input:** `Object obj` – L'oggetto da confrontare.
+    - **Output:** `boolean` – `true` se i moduli sono uguali, `false` altrimenti.
+  - `public static int getIstanze()`  
+    Restituisce il numero corrente di istanze della classe `ModuloSupportoAlieni`.
     - **Input:** Nessuno.
-    - **Output:** `String` - Rappresentazione dell'istanza, indicando il tipo di alieno supportato e la lista di alieni presenti.
+    - **Output:** `int` – Numero di istanze della classe.
+
 
 
 ### Classe: CabinaDiEquipaggio
+- **Attributi pubblici:**  
+  - Nessuno.
 - **Attributi privati:**
-  - `private static int istanze`: Contatore delle istanze create di `CabinaDiEquipaggio`.
-  - `private final List<TipoPedina> equipaggio`: Lista che rappresenta l'equipaggio della cabina.
-- **Costruttori:**
-  - `public CabinaDiEquipaggio(Map<Direzione, TipoTubo> tubiIniziali)`: Costruttore che inizializza la cabina dell'equipaggio con i tubi iniziali.
-    - **Input:** `Map<Direzione, TipoTubo> tubiIniziali` - I tubi iniziali.
-    - **Output:** Nessuno.
-    - **Eccezioni:** `IllegalStateException` se il numero massimo di istanze è stato raggiunto o se i tubi iniziali non sono validi.
-  - `public CabinaDiEquipaggio(Map<Direzione, TipoTubo> tubiIniziali, List<TipoPedina> equipaggioIniziale)`: Costruttore che inizializza la cabina con tubi e membri dell'equipaggio iniziali.
-    - **Input:** `Map<Direzione, TipoTubo> tubiIniziali` - I tubi iniziali.
-    - **Input:** `List<TipoPedina> equipaggioIniziale` - Lista di membri dell'equipaggio iniziali.
-    - **Output:** Nessuno.
-    - **Eccezioni:** `IllegalArgumentException` se il numero di membri supera il massimo consentito.
-  - `public CabinaDiEquipaggio(CabinaDiEquipaggio altra)`: Costruttore di copia.
-    - **Input:** `CabinaDiEquipaggio altra` - La cabina da copiare.
-    - **Output:** Nessuno.
+  - `private static int istanze` – Contatore delle istanze della classe `CabinaDiEquipaggio`.
+  - `private final List<TipoPedina> equipaggio` – Lista che rappresenta l'equipaggio della cabina.
 - **Metodi pubblici:**
-  - `public boolean aggiungiEquipaggio(Colore colore)`: Aggiunge un membro dell'equipaggio alla cabina.
-    - **Input:** `Colore colore` - Il colore della pedina da aggiungere.
-    - **Output:** `boolean` - `true` se l'aggiunta è avvenuta con successo, `false` se la cabina è piena.
-  - `public boolean rimuoviEquipaggio(Colore colore)`: Rimuove un membro dell'equipaggio della cabina.
-    - **Input:** `Colore colore` - Il colore della pedina da rimuovere.
-    - **Output:** `boolean` - `true` se la rimozione è avvenuta con successo, `false` se la pedina non è presente.
-  - `public List<TipoPedina> getEquipaggio()`: Restituisce la lista dell'equipaggio.
+  - `public CabinaDiEquipaggio(Map<Direzione, TipoTubo> tubiIniziali)`  
+    Crea una nuova cabina di equipaggio con tubi iniziali e un equipaggio vuoto.
+    - **Input:** `Map<Direzione, TipoTubo> tubiIniziali` – Mappa che associa le direzioni ai tipi di tubo.
+    - **Output:** Nessuno.
+  - `public CabinaDiEquipaggio(Map<Direzione, TipoTubo> tubiIniziali, List<TipoPedina> equipaggioIniziale)`  
+    Crea una nuova cabina di equipaggio e imposta un equipaggio iniziale.
+    - **Input:** `Map<Direzione, TipoTubo> tubiIniziali` – Mappa che associa le direzioni ai tipi di tubo.
+    - **Input:** `List<TipoPedina> equipaggioIniziale` – Lista di pedine (astronauti e alieni) da aggiungere inizialmente.
+    - **Output:** Nessuno.
+  - `public CabinaDiEquipaggio(CabinaDiEquipaggio altra)`  
+    Crea una copia della cabina di equipaggio esistente e decrementa il contatore delle istanze.
+    - **Input:** `CabinaDiEquipaggio altra` – La cabina da copiare.
+    - **Output:** Nessuno.
+  - `public boolean aggiungiEquipaggio(TipoPedina.Colore colore)`  
+    Aggiunge un membro dell’equipaggio (astronauta o alieno) alla cabina.
+    - **Input:** `TipoPedina.Colore colore` – Colore del membro da aggiungere (Astronauta, Alieno Viola, Alieno Marrone).
+    - **Output:** `boolean` – `true` se il membro è stato aggiunto correttamente, `false` altrimenti.
+  - `public boolean rimuoviEquipaggio(TipoPedina.Colore colore)`  
+    Rimuove un membro dell’equipaggio dalla cabina in base al colore.
+    - **Input:** `TipoPedina.Colore colore` – Colore del membro da rimuovere.
+    - **Output:** `boolean` – `true` se il membro è stato rimosso correttamente, `false` altrimenti.
+  - `public List<TipoPedina> getEquipaggio()`  
+    Restituisce una copia della lista dell'equipaggio della cabina.
     - **Input:** Nessuno.
-    - **Output:** `List<TipoPedina>` - Lista contenente i membri dell'equipaggio.
-  - `public int getIstanze()`: Restituisce il numero di istanze create della classe `CabinaDiEquipaggio`.
+    - **Output:** `List<TipoPedina>` – Lista con i membri dell'equipaggio.
+  - `public int getIstanze()`  
+    Restituisce il numero corrente di istanze della classe `CabinaDiEquipaggio`.
     - **Input:** Nessuno.
-    - **Output:** `int` - Il numero di istanze create.
-  - `public void resetIstanze()`: Resetta il contatore delle istanze create.
+    - **Output:** `int` – Numero di istanze della cabina.
+  - `public void incrementaIstanze()`  
+    Incrementa il contatore delle istanze.
     - **Input:** Nessuno.
     - **Output:** Nessuno.
-- **Metodi protetti:**
-  - `protected void incrementaIstanze()`: Incrementa il contatore delle istanze create.
+  - `public void decrementaIstanze()`  
+    Decrementa il contatore delle istanze.
     - **Input:** Nessuno.
     - **Output:** Nessuno.
-  - `protected void decrementaIstanze()`: Decrementa il contatore delle istanze create.
+  - `public void resetIstanze()`  
+    Resetta il contatore delle istanze a zero.
     - **Input:** Nessuno.
     - **Output:** Nessuno.
-- **Metodi privati:**
-  - `private boolean checkTubi(Map<Direzione, TipoTubo> tubiIniziali)`: Verifica se tutti i tubi iniziali sono del tipo `UNIVERSALE`.
-    - **Input:** `Map<Direzione, TipoTubo> tubiIniziali` - I tubi da verificare.
-    - **Output:** `boolean` - `true` se almeno un tubo non è `UNIVERSALE`, `false` altrimenti.
-- **Override di `toString()`:**
-  - `public String toString()`: Restituisce una rappresentazione testuale della cabina di equipaggio.
+  - `public CabinaDiEquipaggio clone()`  
+    Restituisce una copia della cabina di equipaggio corrente.
     - **Input:** Nessuno.
-    - **Output:** `String` - Stringa rappresentante la cabina e il suo equipaggio.
+    - **Output:** `CabinaDiEquipaggio` – Una nuova cabina clonata.
 
 
 
@@ -458,8 +468,6 @@
   - `private boolean checkTubi(Map<Direzione, TipoTubo> tubiIniziali)`: Controlla se tutti i tubi iniziali sono di tipo universale.
     - **Input:** `Map<Direzione, TipoTubo> tubiIniziali` - I tubi iniziali.
     - **Output:** `boolean` - `true` se almeno un tubo non è universale, `false` altrimenti.
-
-
 
 
 ### Classe: Motore
