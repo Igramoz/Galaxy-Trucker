@@ -98,7 +98,7 @@ public class CabinaDiEquipaggio extends Componente {
 
     @Override
     public Componente clone() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'clone'");
+        // TODO Implementabile il metodo 'clone'
+        throw new UnsupportedOperationException("");
     }
 }
