@@ -1,7 +1,18 @@
 package model.equipaggio;
 
 public class TipoPedina {
+	
+	// L'ENUM non ci serve per il colore, dovresti devi fare così:
+//	  ASTRONAUTA,  // Astronauta (Bianco)
+//    ALIENO_VIOLA,  // Alieno Viola
+//    ALIENO_MARRONE; // Alieno Marrone
+	
+	
+	
 
+	// tutta questa parte non ha senso, però bella l'idea di fare un enum colore, magari ci servirà
+	// per ora elimina tutto ciò che centra col colore, salva in un file txt che carichi nella cartella principale,
+	// useremo la tua idea per le prossime classi, abbiamo già altre classi che si occupano di grafica. 
     public enum Colore {
         ASTRONAUTA(255, 255, 255),  // Astronauta (Bianco)
         ALIENO_VIOLA(128, 0, 128),  // Alieno Viola
@@ -30,6 +41,7 @@ public class TipoPedina {
         return colore;
     }
 
+    // non ha senso fare gli equals per l'enum se lo fai come scritto sopra.
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
