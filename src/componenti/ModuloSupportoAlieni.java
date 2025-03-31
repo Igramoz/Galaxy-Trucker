@@ -17,23 +17,18 @@ public class ModuloSupportoAlieni {
     }
 
     public boolean aggiungiAlieno(TipoPedina alieno, int quantita) {
-        if ((supportaMarrone && alieno != TipoPedina.ALIENO_MARRONE) ||
-            (!supportaMarrone && alieno != TipoPedina.ALIENO_VIOLA)) {
+        if ((supportaMarrone && alieno.getColore() != TipoPedina.Colore.ALIENO_MARRONE) ||
+            (!supportaMarrone && alieno.getColore() != TipoPedina.Colore.ALIENO_VIOLA)) {
             return false;
         }
         for (int i = 0; i < quantita; i++) {
-            alieni.add(alieno);
+            alieni.add(new TipoPedina(alieno.getColore())); 
         }
         return true;
     }
 
     public List<TipoPedina> getAlieni() {
         return new ArrayList<>(alieni);
-    }
-
-    @Override
-    public int hashCode() {
-        return Boolean.hashCode(supportaMarrone) + alieni.hashCode();
     }
 
     @Override
