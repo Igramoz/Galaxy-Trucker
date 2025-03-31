@@ -14,8 +14,6 @@ public class StivaSpeciale extends Stiva {
 		if (scomparti < 1 || scomparti > 2) {
 			throw new IllegalArgumentException("Le stive speciali devono avere 1 o 2 scomparti.");
 		}
-		
-		incrementaIstanze();
 	}
 
 	// Costruttore di copia
