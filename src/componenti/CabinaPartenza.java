@@ -22,6 +22,7 @@ public class CabinaPartenza extends Componente{ // TODO: exteds CabinaDiEquipagg
 	}
 	
 	// TODO: questa funzione non va bene, devi sfruttare la funzione del padre che si occupa di asegnare i membri dell'equipaggio
+	// ma prima controlla che i membri dell'equipaggio siano tutti ASTRONAUTI
 	public CabinaPartenza(Map<Direzione, TipoTubo> tubiIniziali, int equipaggio) {
 		super(TipoComponente.CABINA_PARTENZA, tubiIniziali);
 		if(istanze >= TipoComponente.CABINA_PARTENZA.getMaxIstanze() || checkTubi(tubiIniziali)) {
