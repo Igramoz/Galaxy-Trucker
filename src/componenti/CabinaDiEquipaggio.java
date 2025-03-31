@@ -74,3 +74,4 @@ public class CabinaDiEquipaggio extends Componente {
         return new CabinaDiEquipaggio(this);
     }
 }
+
