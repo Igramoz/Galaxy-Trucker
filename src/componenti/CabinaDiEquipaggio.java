@@ -1,7 +1,7 @@
 package componenti;
 
 import model.equipaggio.TipoPedina;
-import model.equipaggio.TipoPedina.Colore;
+import model.equipaggio.TipoPedina.Tipo;
 import model.enums.Direzione;
 import model.enums.TipoTubo;
 
@@ -17,7 +17,7 @@ public class CabinaDiEquipaggio extends Componente {
     public CabinaDiEquipaggio(Map<Direzione, TipoTubo> tubiIniziali) {
         super(TipoComponente.CABINA_EQUIPAGGIO, tubiIniziali);
 
-        if (istanze >= TipoComponente.CABINA_EQUIPAGGIO.getMaxIstanze() || checkTubi(tubiIniziali)) {
+        if (istanze >= TipoComponente.CABINA_EQUIPAGGIO.getMaxIstanze()) {
             throw new IllegalStateException("Limite massimo di istanze raggiunto per CabinaDiEquipaggio");
         }
 
@@ -28,12 +28,8 @@ public class CabinaDiEquipaggio extends Componente {
     public CabinaDiEquipaggio(Map<Direzione, TipoTubo> tubiIniziali, List<TipoPedina> equipaggioIniziale) {
         this(tubiIniziali);
 
-        if (equipaggioIniziale.size() > TipoComponente.CABINA_EQUIPAGGIO.getMaxIstanze()) {
-            throw new IllegalArgumentException("Troppi membri dell'equipaggio in cabina");
-        }
-
         for (TipoPedina pedina : equipaggioIniziale) {
-            aggiungiEquipaggio(pedina.getColore());
+            aggiungiEquipaggio(pedina.getTipo());
         }
     }
 
@@ -43,22 +39,18 @@ public class CabinaDiEquipaggio extends Componente {
         decrementaIstanze();
     }
 
-    // Aggiunge una pedina all'equipaggio
-    public boolean aggiungiEquipaggio(Colore colore) {
-        if (equipaggio.size() >= TipoComponente.CABINA_EQUIPAGGIO.getMaxIstanze()) {
-            return false; // Cabina piena
-        }
-
-        equipaggio.add(new TipoPedina(colore));
+    // Aggiunge un membro dell'equipaggio
+    public boolean aggiungiEquipaggio(Tipo tipo) {
+        equipaggio.add(new TipoPedina(tipo));
         return true;
     }
 
-    // Rimuove una pedina dall'equipaggio
-    public boolean rimuoviEquipaggio(Colore colore) {
-        return equipaggio.removeIf(p -> p.getColore() == colore);
+    // Rimuove un membro dell'equipaggio
+    public boolean rimuoviEquipaggio(Tipo tipo) {
+        return equipaggio.removeIf(p -> p.getTipo() == tipo);
     }
 
-    // Restituisce l'elenco dell'equipaggio
+    // Restituisce la lista dell'equipaggio
     public List<TipoPedina> getEquipaggio() {
         return new ArrayList<>(equipaggio);
     }
@@ -83,22 +75,22 @@ public class CabinaDiEquipaggio extends Componente {
         istanze = 0;
     }
 
-    // Controlla se tutti i tubi sono universali
-    private boolean checkTubi(Map<Direzione, TipoTubo> tubiIniziali) {
-        return tubiIniziali.values().stream().anyMatch(tubo -> tubo != TipoTubo.UNIVERSALE);
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        CabinaDiEquipaggio that = (CabinaDiEquipaggio) obj;
+        return equipaggio.equals(that.equipaggio);
     }
 
     @Override
-    public String toString() {
-        return "CabinaDiEquipaggio{" +
-                "equipaggio=" + equipaggio +
-                ", istanze=" + istanze +
-                '}';
+    public int hashCode() {
+        return equipaggio.hashCode();
     }
 
     @Override
-    public Componente clone() {
-        // TODO Implementabile il metodo 'clone'
-        throw new UnsupportedOperationException("");
+    public CabinaDiEquipaggio clone() {
+        return new CabinaDiEquipaggio(this);
     }
 }
+
