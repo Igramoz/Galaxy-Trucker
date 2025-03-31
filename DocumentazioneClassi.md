@@ -620,7 +620,7 @@
 - `direzioneTubo()`
   - Metodo che gestisce le direzioni del tubo all'interno della nave.
  
---
+---
 
 ## Package: model.enums
 
@@ -636,6 +636,38 @@
   - `public int getValore()`: Restituisce il valore del tipo di merce.
     - **Input:** Nessuno.
     - **Output:** `int` - Il valore del tipo di merce.
+
+---
+
+## Package: model.equipaggio
+
+---
+
+### Classe: TipoPedina
+- **Attributi privati:**
+  - `private Colore colore`: Colore della pedina, che può essere bianco (astronauta), viola (alieno viola) o marrone (alieno marrone).
+  - `private static final int maxQuantita`: Limite massimo di pedine per ciascun tipo (astronauti, alieni viola, alieni marroni).
+- **Enumerazioni:**
+  - **Colore**:
+    - `BIANCO`: Rappresenta un astronauta.
+    - `VIOLA`: Rappresenta un alieno viola.
+    - `MARRONE`: Rappresenta un alieno marrone.
+- **Costruttori:**
+  - `public TipoPedina(Colore colore)`: Costruttore che crea una pedina con un colore specificato.
+    - **Input:** `Colore colore` - Il colore della pedina.
+    - **Output:** Nessuno. Viene inizializzato l'attributo `colore`.
+  - `public TipoPedina.TipoPedina()` (Non visibile, ma implicito nella classe): Quando viene usato il tipo `TipoPedina`, si fa riferimento a un'istanza di una pedina (astronauta o alieno), che può avere uno dei colori scelti.
+- **Metodi pubblici:**
+  - `public Colore getColore()`: Restituisce il colore della pedina.
+    - **Input:** Nessuno.
+    - **Output:** `Colore` - Il colore della pedina.
+  - `public static int getMaxQuantita()`: Restituisce il limite massimo di pedine per ciascun tipo (astronauti, alieni).
+    - **Input:** Nessuno.
+    - **Output:** `int` - Il limite massimo di pedine per tipo.
+- **Override dei metodi:**
+  - `@Override public String toString()`: Restituisce una rappresentazione testuale della pedina, indicando il suo colore.
+    - **Input:** Nessuno.
+    - **Output:** `String` - La rappresentazione testuale del tipo di pedina.
 
 ---
 
