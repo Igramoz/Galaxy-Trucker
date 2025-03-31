@@ -335,6 +335,58 @@
     - **Output:** Nessuno.
 
 
+
+### Classe: CabinaDiEquipaggio
+- **Attributi privati:**
+  - `private static int istanze`: Contatore delle istanze create di `CabinaDiEquipaggio`.
+  - `private final List<TipoPedina> equipaggio`: Lista che rappresenta l'equipaggio della cabina.
+- **Costruttori:**
+  - `public CabinaDiEquipaggio(Map<Direzione, TipoTubo> tubiIniziali)`: Costruttore che inizializza la cabina dell'equipaggio con i tubi iniziali.
+    - **Input:** `Map<Direzione, TipoTubo> tubiIniziali` - I tubi iniziali.
+    - **Output:** Nessuno.
+    - **Eccezioni:** `IllegalStateException` se il numero massimo di istanze è stato raggiunto o se i tubi iniziali non sono validi.
+  - `public CabinaDiEquipaggio(Map<Direzione, TipoTubo> tubiIniziali, List<TipoPedina> equipaggioIniziale)`: Costruttore che inizializza la cabina con tubi e membri dell'equipaggio iniziali.
+    - **Input:** `Map<Direzione, TipoTubo> tubiIniziali` - I tubi iniziali.
+    - **Input:** `List<TipoPedina> equipaggioIniziale` - Lista di membri dell'equipaggio iniziali.
+    - **Output:** Nessuno.
+    - **Eccezioni:** `IllegalArgumentException` se il numero di membri supera il massimo consentito.
+  - `public CabinaDiEquipaggio(CabinaDiEquipaggio altra)`: Costruttore di copia.
+    - **Input:** `CabinaDiEquipaggio altra` - La cabina da copiare.
+    - **Output:** Nessuno.
+- **Metodi pubblici:**
+  - `public boolean aggiungiEquipaggio(Colore colore)`: Aggiunge un membro dell'equipaggio alla cabina.
+    - **Input:** `Colore colore` - Il colore della pedina da aggiungere.
+    - **Output:** `boolean` - `true` se l'aggiunta è avvenuta con successo, `false` se la cabina è piena.
+  - `public boolean rimuoviEquipaggio(Colore colore)`: Rimuove un membro dell'equipaggio della cabina.
+    - **Input:** `Colore colore` - Il colore della pedina da rimuovere.
+    - **Output:** `boolean` - `true` se la rimozione è avvenuta con successo, `false` se la pedina non è presente.
+  - `public List<TipoPedina> getEquipaggio()`: Restituisce la lista dell'equipaggio.
+    - **Input:** Nessuno.
+    - **Output:** `List<TipoPedina>` - Lista contenente i membri dell'equipaggio.
+  - `public int getIstanze()`: Restituisce il numero di istanze create della classe `CabinaDiEquipaggio`.
+    - **Input:** Nessuno.
+    - **Output:** `int` - Il numero di istanze create.
+  - `public void resetIstanze()`: Resetta il contatore delle istanze create.
+    - **Input:** Nessuno.
+    - **Output:** Nessuno.
+- **Metodi protetti:**
+  - `protected void incrementaIstanze()`: Incrementa il contatore delle istanze create.
+    - **Input:** Nessuno.
+    - **Output:** Nessuno.
+  - `protected void decrementaIstanze()`: Decrementa il contatore delle istanze create.
+    - **Input:** Nessuno.
+    - **Output:** Nessuno.
+- **Metodi privati:**
+  - `private boolean checkTubi(Map<Direzione, TipoTubo> tubiIniziali)`: Verifica se tutti i tubi iniziali sono del tipo `UNIVERSALE`.
+    - **Input:** `Map<Direzione, TipoTubo> tubiIniziali` - I tubi da verificare.
+    - **Output:** `boolean` - `true` se almeno un tubo non è `UNIVERSALE`, `false` altrimenti.
+- **Override di `toString()`:**
+  - `public String toString()`: Restituisce una rappresentazione testuale della cabina di equipaggio.
+    - **Input:** Nessuno.
+    - **Output:** `String` - Stringa rappresentante la cabina e il suo equipaggio.
+
+
+
 ### Classe: CabinaPartenza
 - **Attributi privati:**
   - `private static int istanze`: Contatore delle istanze create di `CabinaPartenza`.
