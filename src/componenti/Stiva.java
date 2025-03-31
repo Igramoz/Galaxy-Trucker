@@ -18,7 +18,7 @@ public class Stiva extends Componente {
 		if (scomparti < 2 || scomparti > 3) {
 			throw new IllegalArgumentException("Le stive normali devono avere 2 o 3 scomparti.");
 		}
-		incrementaIstanze();
+		
 	}
 
 	// Costruttore senza controlli usato sia da Stiva che da StivaSpeciale
@@ -31,6 +31,7 @@ public class Stiva extends Componente {
 
 		this.scomparti = scomparti; // non posso metterlo in inizializzaStiva perché è final
 		this.merci = new TipoMerce[scomparti];
+		incrementaIstanze();
 	}
 
 	// Costruttore di copia
