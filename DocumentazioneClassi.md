@@ -335,6 +335,32 @@
     - **Output:** Nessuno.
 
 
+### Classe: ModuloSupportoAlieni
+- **Attributi privati:**
+  - `private final boolean alienoSupportato`: Indica il tipo di alieno supportato dal modulo.
+    - `true` → Supporta alieni marroni.
+    - `false` → Supporta alieni viola.
+  - `private final List<TipoPedina> alieni`: Lista contenente gli alieni presenti nel modulo.
+- **Costruttori:**
+  - `public ModuloSupportoAlieni(boolean alienoMarrone)`: Costruttore che inizializza il modulo specificando il tipo di alieno supportato.
+    - **Input:** `boolean alienoMarrone` - Se `true`, supporta alieni marroni; se `false`, supporta alieni viola.
+    - **Output:** Nessuno.
+- **Metodi pubblici:**
+  - `public boolean aggiungiAlieno(TipoPedina.Colore colore, int quantita)`: Aggiunge una quantità specificata di alieni nel modulo, se compatibili con il tipo supportato.
+    - **Input:**
+      - `TipoPedina.Colore colore` - Il colore dell'alieno da aggiungere.
+      - `int quantita` - Numero di alieni da aggiungere.
+    - **Output:** `boolean` - `true` se gli alieni sono stati aggiunti con successo, `false` se si supera il limite massimo consentito.
+    - **Eccezioni:**
+      - `IllegalArgumentException` se si cerca di aggiungere astronauti o un tipo di alieno non supportato.
+  - `public List<TipoPedina> getAlieni()`: Restituisce la lista degli alieni presenti nel modulo.
+    - **Input:** Nessuno.
+    - **Output:** `List<TipoPedina>` - Lista contenente gli alieni nel modulo.
+- **Metodi override:**
+  - `public String toString()`: Restituisce una rappresentazione testuale dell'oggetto.
+    - **Input:** Nessuno.
+    - **Output:** `String` - Rappresentazione dell'istanza, indicando il tipo di alieno supportato e la lista di alieni presenti.
+
 
 ### Classe: CabinaDiEquipaggio
 - **Attributi privati:**
