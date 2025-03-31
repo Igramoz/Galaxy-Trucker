@@ -66,11 +66,6 @@ public class CabinaDiEquipaggio extends Componente {
     }
 
     @Override
-    public void decrementaIstanze() {
-        istanze--;
-    }
-
-    @Override
     public void resetIstanze() {
         istanze = 0;
     }
