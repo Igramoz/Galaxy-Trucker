@@ -2,51 +2,50 @@ package componenti;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import model.equipaggio.TipoPedina;
-import model.equipaggio.TipoPedina.Colore;
 
-@SuppressWarnings("unused")
 public class ModuloSupportoAlieni {
 
-    private final boolean alienoSupportato;  // true = Marrone, false = Viola
+    private static int istanze = 0;
+    private final boolean supportaMarrone;
     private final List<TipoPedina> alieni;
 
-    public ModuloSupportoAlieni(boolean alienoMarrone) {
-        this.alienoSupportato = alienoMarrone;
+    public ModuloSupportoAlieni(boolean supportaMarrone) {
+        this.supportaMarrone = supportaMarrone;
         this.alieni = new ArrayList<>();
+        istanze++;
     }
 
-    public boolean aggiungiAlieno(TipoPedina.Colore colore, int quantita) {
-        if (colore == TipoPedina.Colore.BIANCO) {
-            throw new IllegalArgumentException("Errore: Non puoi aggiungere astronauti nel modulo alieno!");
+    public boolean aggiungiAlieno(TipoPedina alieno, int quantita) {
+        if ((supportaMarrone && alieno != TipoPedina.ALIENO_MARRONE) ||
+            (!supportaMarrone && alieno != TipoPedina.ALIENO_VIOLA)) {
+            return false;
         }
-
-        if ((alienoSupportato && colore != TipoPedina.Colore.MARRONE) ||
-            (!alienoSupportato && colore != TipoPedina.Colore.VIOLA)) {
-            throw new IllegalArgumentException("Errore: Tipo di alieno non supportato da questo modulo!");
-        }
-
-        TipoPedina alieno = new TipoPedina(colore);
-        if (alieni.size() + quantita > alieno.getMaxQuantita()) {
-            return false;  // Superato il limite massimo
-        }
-
         for (int i = 0; i < quantita; i++) {
-            alieni.add(new TipoPedina(colore));
+            alieni.add(alieno);
         }
         return true;
     }
 
     public List<TipoPedina> getAlieni() {
-        return alieni;
+        return new ArrayList<>(alieni);
     }
 
     @Override
-    public String toString() {
-        return "ModuloSupportoAlieni{" +
-                "alienoSupportato=" + (alienoSupportato ? "Marrone" : "Viola") +
-                ", alieni=" + alieni +
-                '}';
+    public int hashCode() {
+        return Boolean.hashCode(supportaMarrone) + alieni.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        ModuloSupportoAlieni that = (ModuloSupportoAlieni) obj;
+        return supportaMarrone == that.supportaMarrone && alieni.equals(that.alieni);
+    }
+
+    public static int getIstanze() {
+        return istanze;
     }
 }
+
