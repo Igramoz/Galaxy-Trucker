@@ -3,14 +3,24 @@ package model.equipaggio;
 public class TipoPedina {
 
     public enum Colore {
-        VIOLA,  // Alieno viola
-        MARRONE // Alieno marrone
+        ASTRONAUTA(255, 255, 255),  // Astronauta (Bianco)
+        ALIENO_VIOLA(128, 0, 128),  // Alieno Viola
+        ALIENO_MARRONE(139, 69, 19); // Alieno Marrone
+
+        private final int r, g, b;
+
+        Colore(int r, int g, int b) {
+            this.r = r;
+            this.g = g;
+            this.b = b;
+        }
+
+        public int getR() { return r; }
+        public int getG() { return g; }
+        public int getB() { return b; }
     }
 
-    public static final TipoPedina ALIENO_VIOLA = new TipoPedina(Colore.VIOLA);
-    public static final TipoPedina ALIENO_MARRONE = new TipoPedina(Colore.MARRONE);
-
-    public final Colore colore; 
+    private final Colore colore; 
 
     public TipoPedina(Colore colore) {
         this.colore = colore;
