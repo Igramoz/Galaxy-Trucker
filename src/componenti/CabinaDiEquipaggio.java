@@ -1,10 +1,8 @@
 package componenti;
 
 import model.equipaggio.TipoPedina;
-import model.equipaggio.TipoPedina.Tipo;
 import model.enums.Direzione;
 import model.enums.TipoTubo;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -29,28 +27,24 @@ public class CabinaDiEquipaggio extends Componente {
         this(tubiIniziali);
 
         for (TipoPedina pedina : equipaggioIniziale) {
-            aggiungiEquipaggio(pedina.getTipo());
+            aggiungiEquipaggio(pedina.getColore());
         }
     }
 
-    // Costruttore di copia
     public CabinaDiEquipaggio(CabinaDiEquipaggio altra) {
         this(altra.tubi, altra.equipaggio);
         decrementaIstanze();
     }
 
-    // Aggiunge un membro dell'equipaggio
-    public boolean aggiungiEquipaggio(Tipo tipo) {
-        equipaggio.add(new TipoPedina(tipo));
+    public boolean aggiungiEquipaggio(TipoPedina.Colore colore) {
+        equipaggio.add(new TipoPedina(colore));
         return true;
     }
 
-    // Rimuove un membro dell'equipaggio
-    public boolean rimuoviEquipaggio(Tipo tipo) {
-        return equipaggio.removeIf(p -> p.getTipo() == tipo);
+    public boolean rimuoviEquipaggio(TipoPedina.Colore colore) {
+        return equipaggio.removeIf(p -> p.getColore() == colore);
     }
 
-    // Restituisce la lista dell'equipaggio
     public List<TipoPedina> getEquipaggio() {
         return new ArrayList<>(equipaggio);
     }
@@ -66,21 +60,13 @@ public class CabinaDiEquipaggio extends Componente {
     }
 
     @Override
+    public void decrementaIstanze() {
+        istanze--;
+    }
+
+    @Override
     public void resetIstanze() {
         istanze = 0;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        CabinaDiEquipaggio that = (CabinaDiEquipaggio) obj;
-        return equipaggio.equals(that.equipaggio);
-    }
-
-    @Override
-    public int hashCode() {
-        return equipaggio.hashCode();
     }
 
     @Override
@@ -88,4 +74,3 @@ public class CabinaDiEquipaggio extends Componente {
         return new CabinaDiEquipaggio(this);
     }
 }
-
