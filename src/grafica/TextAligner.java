@@ -4,7 +4,7 @@ public class TextAligner {
 	
 	// TODO: valutare se rendere protected e statiche.
 	// Allineo il testo a sinistra e aggiunga a capo alla fine.
-	public static String alignLeft(String testo) {
+	public String alignLeft(String testo) {
 
 		validareLunghezzaTesto(testo);
 
@@ -13,7 +13,7 @@ public class TextAligner {
 	}
 
 	// Allineo il testo a destra e aggiunga a capo alla fine.
-	public static String alignRight(String testo) {
+	public String alignRight(String testo) {
 
 		validareLunghezzaTesto(testo);
 
@@ -29,7 +29,7 @@ public class TextAligner {
 		}
 	}
 	
-	public static String centraTestoInLarghezza(String testo, int larghezza) {
+	public String centraTestoInLarghezza(String testo, int larghezza) {
 		
 		validareLunghezzaTesto(testo, larghezza);
 		
@@ -38,7 +38,7 @@ public class TextAligner {
 		return " ".repeat(leftPadding) + testo + " ".repeat(rightPadding);		
 	}
 	
-	public static String alignCenter(String testo) { // Centra il testo nel prompt
+	public String alignCenter(String testo) { // Centra il testo nel prompt
 		return centraTestoInLarghezza(testo, FormatterGrafico.LARGHEZZA_SCHERMO)+ FormatterGrafico.A_CAPO;
 	}
 	
@@ -54,7 +54,7 @@ public class TextAligner {
 	}
 	
 	// valida la lunghezza per tutto lo schermo
-	private static void validareLunghezzaTesto(String testo) {
+	private void validareLunghezzaTesto(String testo) {
 		validareLunghezzaTesto(testo, FormatterGrafico.LARGHEZZA_SCHERMO);
 	}
 	

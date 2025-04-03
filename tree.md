@@ -15,7 +15,8 @@
         |    |   └── TipoPedina.java      // Enum: ASTRONAUTA, ALIENO_VIOLA, ALIENO_MARRONE (bonus)
         |    └── enums/
         |       ├── TipoMerce.java     // Enum per i colori della merce: ROSSA, GIALLA, VERDE, BLU
-        |       ├── Direzione.java       // Enum per la direzione: SOPRA, DESTRA, SOTTO, SINISTRA
+        |       ├── Direzione.java     // Enum per la direzione: SOPRA, DESTRA, SOTTO, SINISTRA
+        |       ├── tipoPlancia.java     // Enum tipoPlancia
         |       └── TipoTubo.java
         |
         ├── componenti/
