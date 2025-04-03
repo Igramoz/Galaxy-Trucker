@@ -73,32 +73,31 @@ public class ConvertitoreGrafica {
 	public String[] aggiungiCoordinateANave(String[] rappresentazioneNave) {
 		
 		int altezzaTotale = Util.SIZE * ALTEZZA_COMPONENTE + 2; // Aggiungo uno spazio e la riga delle coordinate
-		String stringTraNaveEOrdinate = " "; // Spazio da lasciare tra i componenti e le ordinate
+		int spazioOrdinate= 3; // Spazio da lasciare tra i componenti e le ordinate a sinistra
+		TextAligner textAligner = new TextAligner();
 		
 		// La riga è formata dalla nave, lo spazio tra la nave e le ordinate e le ordinate
-		int larghezzaTotale = Util.SIZE * LARGHEZZA_COMPONENTE + stringTraNaveEOrdinate.length() + 1; 		
+		int larghezzaTotale = Util.SIZE * LARGHEZZA_COMPONENTE + spazioOrdinate; 		
 
 		String[] naveConCoordinate = new String[altezzaTotale]; 
+		
 		
 		// Inizializzo le righe
 		for(int riga = 0; riga < altezzaTotale; riga++) {
 			naveConCoordinate[riga] = "";
 		}
 		
-		int ordinate = FormatterGrafico.OFFSET; 
+		Integer ordinate = FormatterGrafico.OFFSET; // Integer per usare toString al posto del cast
 		for(int riga = 0 ; riga < Util.SIZE * ALTEZZA_COMPONENTE ; riga++) {
 			
-			// Scrivo le coordinate a sinistra
+			// Scrivo le coordinate a sinistra, con lo spazio
 			if((riga-1)%ALTEZZA_COMPONENTE == 0) { // ogni ALTEZZA_COMPONENTE righe bisogna scrivere l'ordinata
-				naveConCoordinate[riga] += ordinate;
+				naveConCoordinate[riga] = textAligner.estendiStringa(ordinate.toString(), spazioOrdinate);
 				ordinate ++;
 			}else {
-				naveConCoordinate[riga] += " "; // Così le colonne della nave rimangono allineate				
-			}
-			
-			// Spazio tra ordinate e nave
-			naveConCoordinate[riga] += " ";
-			naveConCoordinate[riga] = rappresentazioneNave[riga];			
+				naveConCoordinate[riga] = textAligner.estendiStringa(naveConCoordinate[riga], spazioOrdinate);
+
+			}			
 		}
 
 		// Scrivo la penultima riga
@@ -107,19 +106,21 @@ public class ConvertitoreGrafica {
 		
 		// Scrivo l'ultima riga
 		// inizio a scrivere le ascisse da ascisse offsett, colonna delle ordinate (1) + spazio tra ascisse e nave + metà componente
-		int ascisseOffset =  1 + stringTraNaveEOrdinate.length() + (int) Math.ceil((double) LARGHEZZA_COMPONENTE / 2);
+		int ascisseOffset = spazioOrdinate + (int) Math.ceil((double) LARGHEZZA_COMPONENTE / 2);
 		
 		// riempio l'offsett di spazi
 		rappresentazioneNave[altezzaTotale - 1] += " ".repeat(ascisseOffset );
 		
+		Integer ascisse = FormatterGrafico.OFFSET; // Integer per non fare il cast, ma usare toString
+		
 		// Scrivo le ascisse sotto alla nave, partendo da ascisseOffset spazi
-		for(int col = 0, ascisse = FormatterGrafico.OFFSET; col < larghezzaTotale-ascisseOffset; col++) {
+		for(int col = 0; col < larghezzaTotale-ascisseOffset; col++) {
 			
 			if(col % LARGHEZZA_COMPONENTE == 0) {
-				rappresentazioneNave[altezzaTotale - 1]  += ascisse;
+				rappresentazioneNave[altezzaTotale - 1]  += textAligner.estendiStringa(ascisse.toString(), LARGHEZZA_COMPONENTE);
 				ascisse++;
 			}else {
-				rappresentazioneNave[altezzaTotale - 1] += " "; // Spazi tra un ascissa e l'altra
+				rappresentazioneNave[altezzaTotale - 1] += " ".repeat(LARGHEZZA_COMPONENTE); // Spazi tra un ascissa e l'altra
 			}
 		}
 

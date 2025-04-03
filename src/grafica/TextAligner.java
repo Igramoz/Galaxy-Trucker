@@ -2,14 +2,22 @@ package grafica;
 
 public class TextAligner {
 	
-	// TODO: valutare se rendere protected e statiche.
+	
+	
+	// TODO: valutare se rendere protected
+	
+	// Aggiunge spazi a sinistra per estendere la stinga
+	public String estendiStringa(String testo, int lunghezzaStringa) {
+		
+		validareLunghezzaTesto(testo, lunghezzaStringa);
+		
+		return testo + " ".repeat(lunghezzaStringa - testo.length());
+	}
+	
+	
 	// Allineo il testo a sinistra e aggiunga a capo alla fine.
 	public String alignLeft(String testo) {
-
-		validareLunghezzaTesto(testo);
-
-		int rightPadding = FormatterGrafico.LARGHEZZA_SCHERMO - testo.length();
-		return testo + " ".repeat(rightPadding) + FormatterGrafico.A_CAPO;
+		return estendiStringa(testo, FormatterGrafico.LARGHEZZA_SCHERMO );
 	}
 
 	// Allineo il testo a destra e aggiunga a capo alla fine.
@@ -30,12 +38,9 @@ public class TextAligner {
 	}
 	
 	public String centraTestoInLarghezza(String testo, int larghezza) {
-		
-		validareLunghezzaTesto(testo, larghezza);
-		
+				
 		int leftPadding = (larghezza - testo.length()) / 2;
-		int rightPadding = larghezza - testo.length() - leftPadding;
-		return " ".repeat(leftPadding) + testo + " ".repeat(rightPadding);		
+		return estendiStringa(" ".repeat(leftPadding) + testo, larghezza);		
 	}
 	
 	public String alignCenter(String testo) { // Centra il testo nel prompt
@@ -43,7 +48,7 @@ public class TextAligner {
 	}
 	
 	// valida lo schermo per una lunghezza definita
-	private static void validareLunghezzaTesto(String testo, int spaziDisponibili) {
+	private void validareLunghezzaTesto(String testo, int spaziDisponibili) {
 		if (testo == null) {
 			throw new IllegalArgumentException("Il testo non può essere null.");
 		}
