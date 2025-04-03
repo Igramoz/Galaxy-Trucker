@@ -7,7 +7,6 @@ import util.Util;
 
 public class Cannone extends Componente {
 
-	private static int istanze = 0;
 	protected float potenzaFuoco;
 	protected Direzione direzioneFuoco; // Direzione in cui il cannone spara
 
@@ -18,27 +17,20 @@ public class Cannone extends Componente {
 
 	protected Cannone(TipoComponente tipo, Map<Direzione, TipoTubo> tubiIniziali, Direzione direzioneFuoco) {
 		super(tipo, tubiIniziali);
-		
-		// devo usare il get perché così, a seconda dei casi accedo al n max di istanze del figlio o del padre
-		if (this.getIstanze() == tipo.getMaxIstanze()) {
-			throw new IllegalStateException("Limite massimo di istanze raggiunto per il tipo: " + tipo.name());
-		}
 		this.direzioneFuoco = direzioneFuoco;
 		this.aggiornaPotenzaFuoco();
-		this.incrementaIstanze();
 	}
 
 	public Cannone(Cannone can) {
 		this(can.tipo, can.tubi, can.direzioneFuoco);
-		this.decrementaIstanze();
 	}
-	
+
 	protected void aggiornaPotenzaFuoco() {
-		if(this.direzioneFuoco == Direzione.SOPRA) {
+		if (this.direzioneFuoco == Direzione.SOPRA) {
 			potenzaFuoco = 1.0f;
-		}else {
+		} else {
 			potenzaFuoco = 0.5f;
-		}		
+		}
 	}
 
 	@Override
@@ -46,7 +38,7 @@ public class Cannone extends Componente {
 		Direzione nuovaDirezione = Util.ruotaDirezione(direzioneFuoco);
 
 		super.ruota();
-		this.direzioneFuoco = nuovaDirezione;		
+		this.direzioneFuoco = nuovaDirezione;
 		this.aggiornaPotenzaFuoco();
 	}
 
@@ -61,25 +53,5 @@ public class Cannone extends Componente {
 	@Override
 	public Cannone clone() {
 		return new Cannone(this);
-	}
-
-	@Override
-	public int getIstanze() {
-		return istanze;
-	}
-
-	@Override
-	protected void incrementaIstanze() {
-		istanze++;
-	}
-
-	@Override
-	public void resetIstanze() {
-		istanze = 0;
-	}
-
-	@Override
-	protected void decrementaIstanze() {
-		istanze--;
 	}
 }
