@@ -245,12 +245,6 @@
   - `public int valoreMerci()`: Calcola il valore della merce trasportata nella stiva.
     - **Input:** Nessuno.
     - **Output:** `int` - Valore totale della merce trasportata.
-  - `public int getLimiteIstanziabili()`: Restituisce il limite massimo di istanze della stiva.
-    - **Input:** Nessuno.
-    - **Output:** `int`
-  - `public int getIstanze()`: Restituisce il numero corrente di istanze della stiva.
-    - **Input:** Nessuno.
-    - **Output:** `int`
   - `public int getScomparti()`: Restituisce il numero di scomparti della stiva.
     - **Input:** Nessuno.
     - **Output:** `int`
@@ -258,10 +252,7 @@
     - **Input:** Nessuno.
     - **Output:** `boolean`
 
-
 ### Classe: StivaSpeciale
-- **Attributi privati:**
-  - `private static int istanze`: Contatore delle istanze create di `StivaSpeciale`.
 - **Costruttori:**
   - `public StivaSpeciale(Map<Direzione, TipoTubo> tubiIniziali, int scomparti)`: Costruttore che inizializza la stiva speciale con i tubi iniziali e il numero di scomparti.
     - **Input:** `Map<Direzione, TipoTubo> tubiIniziali`, `int scomparti` - I tubi iniziali e il numero di scomparti.
@@ -276,18 +267,6 @@
   - `public boolean setMerci(TipoMerce merce)`: Imposta il tipo di merce nella stiva speciale.
     - **Input:** `TipoMerce merce` - Il tipo di merce da impostare.
     - **Output:** `boolean` - True se la merce è stata impostata con successo, altrimenti False.
-  - `public int getIstanze()`: Restituisce il numero di istanze create di `StivaSpeciale`.
-    - **Input:** Nessuno.
-    - **Output:** `int` - Il numero di istanze create.
-  - `public void incrementaIstanze()`: Incrementa il contatore delle istanze create di `StivaSpeciale`.
-    - **Input:** Nessuno.
-    - **Output:** Nessuno.
-  - `public void decrementaIstanze()`: Decrementa il contatore delle istanze create di `StivaSpeciale`.
-    - **Input:** Nessuno.
-    - **Output:** Nessuno.
-  - `public void resetIstanze()`: Resetta il contatore delle istanze create di `StivaSpeciale`.
-    - **Input:** Nessuno.
-    - **Output:** Nessuno.
 - **Metodi protetti:**
   - `protected boolean isMerceAggiungibile(TipoMerce merce)`: Controlla se il tipo di merce è aggiungibile nella stiva speciale.
     - **Input:** `TipoMerce merce` - Il tipo di merce da controllare.
@@ -297,7 +276,6 @@
 
 ### Classe: GeneratoreDiScudi
 - **Attributi privati:**
-  - `private static int istanze`: Contatore delle istanze create di `GeneratoreDiScudi`.
   - `private Direzione[] direzione = new Direzione[2]`: direzioni dello scudo.
 - **Costruttori:**
   - `public GeneratoreDiScudi(Map<Direzione, TipoTubo> tubiIniziali)`: Costruttore che inizializza il generatore di scudi con i tubi iniziali gli scudi sono settati di default in alto e a sinistra.
@@ -320,21 +298,6 @@
   - `public Componente clone()`: Clona il generatore di scudi.
     - **Input:** Nessuno.
     - **Output:** `Componente` - Il clone del generatore di scudi.
-  - `public int getIstanze()`: Restituisce il numero di istanze create di `GeneratoreDiScudi`.
-    - **Input:** Nessuno.
-    - **Output:** `int` - Il numero di istanze create.
-  - `public void resetIstanze()`: Resetta il contatore delle istanze create di `GeneratoreDiScudi`.
-    - **Input:** Nessuno.
-    - **Output:** Nessuno.
-- **Metodi protetti:**
-  - `protected void incrementaIstanze()`: Incrementa il contatore delle istanze create di `GeneratoreDiScudi`.
-    - **Input:** Nessuno.
-    - **Output:** Nessuno.
-  - `protected void decrementaIstanze()`: Decrementa il contatore delle istanze create di `GeneratoreDiScudi`.
-    - **Input:** Nessuno.
-    - **Output:** Nessuno.
-
-
 
 ### Classe: ModuloSupportoAlieni
 - **Attributi pubblici:**
@@ -372,7 +335,6 @@
 - **Attributi pubblici:**  
   - Nessuno.
 - **Attributi privati:**
-  - `private static int istanze` – Contatore delle istanze della classe `CabinaDiEquipaggio`.
   - `private final List<TipoPedina> equipaggio` – Lista che rappresenta l'equipaggio della cabina.
 - **Metodi pubblici:**
   - `public CabinaDiEquipaggio(Map<Direzione, TipoTubo> tubiIniziali)`  
@@ -400,22 +362,6 @@
     Restituisce una copia della lista dell'equipaggio della cabina.
     - **Input:** Nessuno.
     - **Output:** `List<TipoPedina>` – Lista con i membri dell'equipaggio.
-  - `public int getIstanze()`  
-    Restituisce il numero corrente di istanze della classe `CabinaDiEquipaggio`.
-    - **Input:** Nessuno.
-    - **Output:** `int` – Numero di istanze della cabina.
-  - `public void incrementaIstanze()`  
-    Incrementa il contatore delle istanze.
-    - **Input:** Nessuno.
-    - **Output:** Nessuno.
-  - `public void decrementaIstanze()`  
-    Decrementa il contatore delle istanze.
-    - **Input:** Nessuno.
-    - **Output:** Nessuno.
-  - `public void resetIstanze()`  
-    Resetta il contatore delle istanze a zero.
-    - **Input:** Nessuno.
-    - **Output:** Nessuno.
   - `public CabinaDiEquipaggio clone()`  
     Restituisce una copia della cabina di equipaggio corrente.
     - **Input:** Nessuno.
@@ -425,49 +371,22 @@
 
 ### Classe: CabinaPartenza
 - **Attributi privati:**
-  - `private static int istanze`: Contatore delle istanze create di `CabinaPartenza`.
   - `private int equipaggio`: Numero di membri dell'equipaggio.
 - **Costruttori:**
-  - `public CabinaPartenza(Map<Direzione, TipoTubo> tubiIniziali)`: Costruttore che inizializza la cabina di partenza con i tubi iniziali e un equipaggio di default pari a 2.
-    - **Input:** `Map<Direzione, TipoTubo> tubiIniziali` - I tubi iniziali.
+  - `public CabinaPartenza()`: Costruttore che inizializza la cabina di partenza con i tubi iniziali e un equipaggio di default pari a 2.
+    - **Input:** `` - I tubi iniziali.
     - **Output:** Nessuno.
-  - `public CabinaPartenza(Map<Direzione, TipoTubo> tubiIniziali, int equipaggio)`: Costruttore che inizializza la cabina di partenza con i tubi iniziali e un equipaggio specificato.
-    - **Input:** `Map<Direzione, TipoTubo> tubiIniziali` - I tubi iniziali.
+  - `public CabinaPartenza(int equipaggio)`: Costruttore che inizializza la cabina di partenza con i tubi iniziali e un equipaggio specificato.
     - **Input:** `int equipaggio` - Numero di membri dell'equipaggio.
     - **Output:** Nessuno.
   - `public CabinaPartenza(CabinaPartenza c)`: Costruttore di copia.
     - **Input:** `CabinaPartenza c` - La cabina di partenza da copiare.
     - **Output:** Nessuno.
 - **Metodi pubblici:**
-  - `public int getEquipaggio()`: Restituisce il numero di membri dell'equipaggio.
-    - **Input:** Nessuno.
-    - **Output:** `int` - Numero di membri dell'equipaggio.
-  - `public boolean decrementaEquipaggio()`: Riduce di 1 il numero di membri dell'equipaggio se possibile.
-    - **Input:** Nessuno.
-    - **Output:** `boolean` - `true` se l'operazione ha successo, `false` altrimenti.
-  - `public boolean incrementaEquipaggio()`: Aumenta di 1 il numero di membri dell'equipaggio se possibile.
-    - **Input:** Nessuno.
-    - **Output:** `boolean` - `true` se l'operazione ha successo, `false` altrimenti.
   - `public Componente clone()`: Clona la cabina di partenza.
     - **Input:** Nessuno.
     - **Output:** `Componente` - Il clone della cabina di partenza.
-  - `public int getIstanze()`: Restituisce il numero di istanze create di `CabinaPartenza`.
-    - **Input:** Nessuno.
-    - **Output:** `int` - Il numero di istanze create.
-  - `public void resetIstanze()`: Resetta il contatore delle istanze create di `CabinaPartenza`.
-    - **Input:** Nessuno.
-    - **Output:** Nessuno.
-- **Metodi protetti:**
-  - `protected void incrementaIstanze()`: Incrementa il contatore delle istanze create di `CabinaPartenza`.
-    - **Input:** Nessuno.
-    - **Output:** Nessuno.
-  - `protected void decrementaIstanze()`: Decrementa il contatore delle istanze create di `CabinaPartenza`.
-    - **Input:** Nessuno.
-    - **Output:** Nessuno.
-- **Metodi privati:**
-  - `private boolean checkTubi(Map<Direzione, TipoTubo> tubiIniziali)`: Controlla se tutti i tubi iniziali sono di tipo universale.
-    - **Input:** `Map<Direzione, TipoTubo> tubiIniziali` - I tubi iniziali.
-    - **Output:** `boolean` - `true` se almeno un tubo non è universale, `false` altrimenti.
+ 
 
 
 ### Classe: Motore

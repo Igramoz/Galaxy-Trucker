@@ -1,12 +1,9 @@
 package componenti;
 
 import java.util.Map;
-
 import model.enums.*;
 
 public class StivaSpeciale extends Stiva {
-
-	private static int istanze = 0;
 
 	public StivaSpeciale(Map<Direzione, TipoTubo> tubiIniziali, int scomparti) {
 		super(TipoComponente.STIVA_SPECIALE, tubiIniziali, scomparti); // Chiamo il costruttore restricted di Stiva
@@ -22,7 +19,7 @@ public class StivaSpeciale extends Stiva {
 		for (int i = 0; i < scomparti; i++) {
 			this.merci[i] = stiva.merci[i];
 		}
-		decrementaIstanze();
+		
 	}
 
 	@Override
@@ -40,23 +37,4 @@ public class StivaSpeciale extends Stiva {
 		return true;
 	}
 
-	@Override
-	public int getIstanze() {
-		return istanze;
-	}
-
-	@Override
-	public void incrementaIstanze() {
-		istanze++;
-	}
-
-	@Override
-	public void decrementaIstanze() {
-		istanze--;
-	}
-
-	@Override
-	public void resetIstanze() {
-		istanze = 0;
-	}
 }

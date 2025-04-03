@@ -6,8 +6,6 @@ import model.enums.*;
 
 public class Stiva extends Componente {
 
-	private static int istanze = 0;
-
 	protected final int scomparti; // numero di scomparti della stiva, devono essere ereditati
 	protected TipoMerce[] merci; // lista delle merci presenti nella stiva, devono essere ereditati
 
@@ -25,13 +23,9 @@ public class Stiva extends Componente {
 	protected Stiva(TipoComponente tipo, Map<Direzione, TipoTubo> tubiIniziali, int scomparti) {
 		super(tipo, tubiIniziali);
 
-		if (istanze >= tipo.getMaxIstanze()) {
-			throw new IllegalStateException("Limite massimo di istanze raggiunto per Stiva");
-		}
-
 		this.scomparti = scomparti; // non posso metterlo in inizializzaStiva perché è final
 		this.merci = new TipoMerce[scomparti];
-		incrementaIstanze();
+		
 	}
 
 	// Costruttore di copia
@@ -40,7 +34,6 @@ public class Stiva extends Componente {
 		for (int i = 0; i < scomparti; i++) {
 			this.merci[i] = stiva.merci[i];
 		}
-		decrementaIstanze();
 	}
 
 	@Override
@@ -138,23 +131,4 @@ public class Stiva extends Componente {
 		return true;
 	}
 
-	@Override
-	public int getIstanze() {
-		return istanze;
-	}
-
-	@Override
-	public void incrementaIstanze() {
-		istanze++;
-	}
-
-	@Override
-	public void decrementaIstanze() {
-		istanze--;
-	}
-
-	@Override
-	public void resetIstanze() {
-		istanze = 0;
-	}
 }

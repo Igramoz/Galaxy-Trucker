@@ -9,19 +9,17 @@ import java.util.Map;
 
 public class CabinaDiEquipaggio extends Componente {
 	
-    private static int istanze = 0;
+    
     private final List<TipoPedina> equipaggio;
 
     
     public CabinaDiEquipaggio(Map<Direzione, TipoTubo> tubiIniziali) {
         super(TipoComponente.CABINA_EQUIPAGGIO, tubiIniziali);
 
-        if (istanze >= TipoComponente.CABINA_EQUIPAGGIO.getMaxIstanze()) {
-            throw new IllegalStateException("Limite massimo di istanze raggiunto per CabinaDiEquipaggio");
-        }
+        
 
         this.equipaggio = new ArrayList<>();
-        incrementaIstanze();
+        
     }
 
     public CabinaDiEquipaggio(Map<Direzione, TipoTubo> tubiIniziali, List<TipoPedina> equipaggioIniziale) {
@@ -50,26 +48,6 @@ public class CabinaDiEquipaggio extends Componente {
 
     public List<TipoPedina> getEquipaggio() {
         return new ArrayList<>(equipaggio);
-    }
-
-    @Override
-    public int getIstanze() {
-        return istanze;
-    }
-
-    @Override
-    public void incrementaIstanze() {
-        istanze++;
-    }
-
-    @Override
-    public void decrementaIstanze() {
-        istanze--;
-    }
-
-    @Override
-    public void resetIstanze() {
-        istanze = 0;
     }
 
     @Override
