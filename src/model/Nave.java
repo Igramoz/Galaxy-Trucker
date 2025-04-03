@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Arrays;
-
 import componenti.Componente;
 import util.*;
 import services.EventService;
@@ -9,14 +7,29 @@ import services.EventService;
 public class Nave {
     
     private Componente[][] grigliaComponenti; 
-    private Componente[] componentiPrenotati;
-    private int pezziDistrutti; 
+
     
     // Costruttore
     public Nave() {
         grigliaComponenti = new Componente[Util.SIZE][Util.SIZE];
-        componentiPrenotati = new Componente[2];
-        pezziDistrutti = 0;
+    }
+    
+    // Costruttore di copia
+    public Nave(Nave naveOriginale) {
+    	this();
+    	for(int i = 0; i < Util.SIZE; i++)
+    		for(int j = 0; j < Util.SIZE; j++) {
+    			this.grigliaComponenti[i][j] = naveOriginale.grigliaComponenti[i][j].clone();
+    		}    	
+    }
+    
+    public Nave clone() {
+    	Nave clone = new Nave();
+    	for(int i = 0; i < Util.SIZE; i++)
+    		for(int j = 0; j < Util.SIZE; j++) {
+    			clone.grigliaComponenti[i][j] = this.grigliaComponenti[i][j].clone();
+    		} 
+    	return clone;
     }
     
     // Metodi griglia componenti
@@ -41,46 +54,16 @@ public class Nave {
         grigliaComponenti[coordinate.getX()][coordinate.getY()] = componente;
     }
     
-    // Metodi componenti prenotati
-    public boolean setComponentiPrenotati(Componente componente) {
-        for (int i = 0; i < componentiPrenotati.length; i++) {
-            if (componentiPrenotati[i] == null) {
-                componentiPrenotati[i] = componente;
-                return true;
-            }
-        }
-        return false;
-    }
     
-    public Componente[] getComponentiPrenotati() {
-        return Arrays.copyOf(componentiPrenotati, componentiPrenotati.length);
-    }
     
-    public boolean rimuoviComponentiPrenotati(Componente componente) {
-        for (int i = 0; i < componentiPrenotati.length; i++) {
-            if (componente.equals(componentiPrenotati[i])) {
-                componentiPrenotati[i] = null;
-                return true;
-            }
-        }
-        return false;
-    }
     
-    // Metodi pezzi distrutti
-    public int getPezziDistrutti() {
-    	return pezziDistrutti;
-    }
-    
-    public void incrementaPezziDistrutti() {
-        pezziDistrutti++;
-    }
     
     // Il metodo può essere chiamto solo dalla funzione distruggiComponenti della classe EventService
     public void distruggiSingoloComponente(Coordinate coordinate) {
     	 if (isCalledByEventService()) {
              if (grigliaComponenti[coordinate.getX()][coordinate.getY()] != null) {
                  grigliaComponenti[coordinate.getX()][coordinate.getY()] = null;
-                 incrementaPezziDistrutti();
+//                 incrementaPezziDistrutti(); //TODO aggiornare il numero di pezzi distrutti nel giocatore
              }
          } else {
              throw new SecurityException("Accesso non autorizzato al metodo distruggiSingoloComponente");

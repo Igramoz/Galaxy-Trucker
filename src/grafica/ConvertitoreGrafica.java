@@ -8,13 +8,13 @@ import model.Nave;
 
 
 public class ConvertitoreGrafica {
+	// Classe che si occupa di convertire i componenti di gioco in rappresentazioni grafiche testuali
+	
 	public final static int LARGHEZZA_COMPONENTE = 5; // Numero spazi per raprresentare un componente
 	public final static int ALTEZZA_COMPONENTE = 3; // Num righe per rappresentare ogni componente
 	
-	// Classe che si occupa di convertire i componenti di gioco in rappresentazioni grafiche testuali
 	
-	// TODO: valutare se c'è la possiblità di renderlo un toString nel componente
-	protected String[] rappresentaComponente(Componente componente) {
+	public String[] rappresentaComponente(Componente componente) {
 		
 		/*Esempio di output:
 		*
@@ -87,7 +87,7 @@ public class ConvertitoreGrafica {
 			naveConCoordinate[riga] = "";
 		}
 		
-		Integer ordinate = FormatterGrafico.OFFSET; // Integer per usare toString al posto del cast
+		Integer ordinate = GraficaConfig.OFFSET; // Integer per usare toString al posto del cast
 		for(int riga = 0 ; riga < Util.SIZE * ALTEZZA_COMPONENTE ; riga++) {
 			
 			// Scrivo le coordinate a sinistra, con lo spazio
@@ -111,7 +111,7 @@ public class ConvertitoreGrafica {
 		// riempio l'offsett di spazi
 		rappresentazioneNave[altezzaTotale - 1] += " ".repeat(ascisseOffset );
 		
-		Integer ascisse = FormatterGrafico.OFFSET; // Integer per non fare il cast, ma usare toString
+		Integer ascisse = GraficaConfig.OFFSET; // Integer per non fare il cast, ma usare toString
 		
 		// Scrivo le ascisse sotto alla nave, partendo da ascisseOffset spazi
 		for(int col = 0; col < larghezzaTotale-ascisseOffset; col++) {

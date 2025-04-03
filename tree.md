@@ -28,7 +28,7 @@
         |    ├── CabinaEquipaggio.java
         |    ├── CabinaPartenza.java
         |    ├── Stiva.java
- 	|    	    └── StivaSpeciale.java
+ 	|    |	    └── StivaSpeciale.java
         |    ├── VanoBatteria.java
         |    ├── ModuloSupportoAlieni.java
         |    └── Motore.java
@@ -64,7 +64,9 @@
         |
         ├── grafica/                     // Gestione della grafica del gioco
         |   ├── ConvertitoreGrafico.java  // Associa i simboli grafici ai componenti
-	|   ├── FormatterGrafico.java 	  // Si occupa del formato della stampa come l'allineamento delle stringhe.
+	|   ├── FormatterGrafico.java 	  // Si occupa del formato della stampa.
+	|   ├── TextAligner.java 	  // Si occupa dell'allineamento delle stringhe.
+	|   ├── GraficaConfig.java 	  // Configurazione delle costanti grafiche
         |   └── GestoreGrafica.java      // Gestisce la stampa a video dei componenti e dell'interfaccia grafica
         |
         └── util/                        // Funzioni generiche di supporto

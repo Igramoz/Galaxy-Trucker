@@ -13,7 +13,7 @@ public class Motore extends Componente{
 		this(TipoComponente.MOTORE_SINGOLO, tubiIniziali);		
 	}
 	
-	// Scrivere quà le modifiche ad entrambi.
+	// Scrivere quà le modifiche riguardanti l'istanza sia di motore che di motore doppio.
 	protected Motore(TipoComponente tipo, Map<Direzione, TipoTubo> tubiIniziali) {
 		super(tipo, tubiIniziali);
 	}

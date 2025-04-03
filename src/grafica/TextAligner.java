@@ -17,7 +17,7 @@ public class TextAligner {
 	
 	// Allineo il testo a sinistra e aggiunga a capo alla fine.
 	public String alignLeft(String testo) {
-		return estendiStringa(testo, FormatterGrafico.LARGHEZZA_SCHERMO );
+		return estendiStringa(testo, GraficaConfig.LARGHEZZA_SCHERMO );
 	}
 
 	// Allineo il testo a destra e aggiunga a capo alla fine.
@@ -25,15 +25,15 @@ public class TextAligner {
 
 		validareLunghezzaTesto(testo);
 
-		int leftPadding = FormatterGrafico.LARGHEZZA_SCHERMO - testo.length();
+		int leftPadding = GraficaConfig.LARGHEZZA_SCHERMO - testo.length();
 
 		// leftPadding è >= 0 perché, altrimenti, verificaLunghezzaTesto avrebbe
 		// lanciato un eccezione.
 		// Se c'è la possibilità, lascio spazi tra A_CAPO e il testo
 		if (leftPadding > 2) {
-			return " ".repeat(leftPadding - 2) + testo + "  " + FormatterGrafico.A_CAPO;
+			return " ".repeat(leftPadding - 2) + testo + "  ";
 		} else {
-			return " ".repeat(leftPadding) + testo + FormatterGrafico.A_CAPO;
+			return " ".repeat(leftPadding) + testo;
 		}
 	}
 	
@@ -44,7 +44,7 @@ public class TextAligner {
 	}
 	
 	public String alignCenter(String testo) { // Centra il testo nel prompt
-		return centraTestoInLarghezza(testo, FormatterGrafico.LARGHEZZA_SCHERMO)+ FormatterGrafico.A_CAPO;
+		return centraTestoInLarghezza(testo, GraficaConfig.LARGHEZZA_SCHERMO);
 	}
 	
 	// valida lo schermo per una lunghezza definita
@@ -60,7 +60,7 @@ public class TextAligner {
 	
 	// valida la lunghezza per tutto lo schermo
 	private void validareLunghezzaTesto(String testo) {
-		validareLunghezzaTesto(testo, FormatterGrafico.LARGHEZZA_SCHERMO);
+		validareLunghezzaTesto(testo, GraficaConfig.LARGHEZZA_SCHERMO);
 	}
 	
 }

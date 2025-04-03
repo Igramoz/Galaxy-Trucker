@@ -36,6 +36,17 @@ public class CabinaPartenza extends CabinaDiEquipaggio{
 		this(cabinaPartenza.getEquipaggio());
 	}
 	
+	@Override
+    public boolean aggiungiEquipaggio(TipoPedina pedina) {
+    	
+		// La cabina di partenza ospita solo astronauti
+    	if(pedina != TipoPedina.ASTRONAUTA) {
+    		return false;
+    	}
+    		super.aggiungiEquipaggio(pedina);
+        return true;
+    }
+	
 
 	@Override
     public CabinaPartenza clone() {    	
