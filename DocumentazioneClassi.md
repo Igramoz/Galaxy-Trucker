@@ -319,10 +319,8 @@
     - **Output:** `int` – Numero di istanze della classe.
 
 
-
 ### Classe: CabinaDiEquipaggio
-- **Attributi pubblici:**  
-  - Nessuno.
+- **Attributi pubblici:** Nessuno
 - **Attributi privati:**
   - `private final List<TipoPedina> equipaggio` – Lista che rappresenta l'equipaggio della cabina.
 - **Metodi pubblici:**
@@ -336,17 +334,13 @@
     - **Input:** `List<TipoPedina> equipaggioIniziale` – Lista di pedine (astronauti e alieni) da aggiungere inizialmente.
     - **Output:** Nessuno.
   - `public CabinaDiEquipaggio(CabinaDiEquipaggio altra)`  
-    Crea una copia della cabina di equipaggio esistente e decrementa il contatore delle istanze.
+    Crea una copia della cabina di equipaggio esistente.
     - **Input:** `CabinaDiEquipaggio altra` – La cabina da copiare.
     - **Output:** Nessuno.
-  - `public boolean aggiungiEquipaggio(TipoPedina.Colore colore)`  
-    Aggiunge un membro dell’equipaggio (astronauta o alieno) alla cabina.
-    - **Input:** `TipoPedina.Colore colore` – Colore del membro da aggiungere (Astronauta, Alieno Viola, Alieno Marrone).
+  - `public boolean aggiungiEquipaggio(TipoPedina pedina)`  
+    Aggiunge un membro dell'equipaggio (astronauta o alieno) alla cabina.
+    - **Input:** `TipoPedina pedina` – Il tipo di pedina da aggiungere.
     - **Output:** `boolean` – `true` se il membro è stato aggiunto correttamente, `false` altrimenti.
-  - `public boolean rimuoviEquipaggio(TipoPedina.Colore colore)`  
-    Rimuove un membro dell’equipaggio dalla cabina in base al colore.
-    - **Input:** `TipoPedina.Colore colore` – Colore del membro da rimuovere.
-    - **Output:** `boolean` – `true` se il membro è stato rimosso correttamente, `false` altrimenti.
   - `public List<TipoPedina> getEquipaggio()`  
     Restituisce una copia della lista dell'equipaggio della cabina.
     - **Input:** Nessuno.
@@ -357,25 +351,22 @@
     - **Output:** `CabinaDiEquipaggio` – Una nuova cabina clonata.
 
 
-
 ### Classe: CabinaPartenza
-- **Attributi privati:**
-  - `private int equipaggio`: Numero di membri dell'equipaggio.
-- **Costruttori:**
-  - `public CabinaPartenza()`: Costruttore che inizializza la cabina di partenza con i tubi iniziali e un equipaggio di default pari a 2.
-    - **Input:** `` - I tubi iniziali.
-    - **Output:** Nessuno.
-  - `public CabinaPartenza(int equipaggio)`: Costruttore che inizializza la cabina di partenza con i tubi iniziali e un equipaggio specificato.
-    - **Input:** `int equipaggio` - Numero di membri dell'equipaggio.
-    - **Output:** Nessuno.
-  - `public CabinaPartenza(CabinaPartenza c)`: Costruttore di copia.
-    - **Input:** `CabinaPartenza c` - La cabina di partenza da copiare.
-    - **Output:** Nessuno.
+- **Attributi pubblici:** Nessuno
 - **Metodi pubblici:**
-  - `public Componente clone()`: Clona la cabina di partenza.
+  - `public CabinaPartenza(CabinaPartenza cabinaPartenza)`  
+    Costruttore di copia che crea una nuova cabina di partenza copiando un'altra cabina di partenza.
+    - **Input:** `CabinaPartenza cabinaPartenza` – La cabina di partenza da copiare.
+    - **Output:** Nessuno.
+  - `public boolean aggiungiEquipaggio(TipoPedina pedina)`  
+    Aggiunge un membro dell'equipaggio alla cabina di partenza. La cabina di partenza ospita solo astronauti.
+    - **Input:** `TipoPedina pedina` – Il tipo di pedina da aggiungere (deve essere un astronauta).
+    - **Output:** `boolean` – `true` se il membro è stato aggiunto correttamente, `false` altrimenti.
+  - `public CabinaPartenza clone()`  
+    Restituisce una copia della cabina di partenza corrente.
     - **Input:** Nessuno.
-    - **Output:** `Componente` - Il clone della cabina di partenza.
- 
+    - **Output:** `CabinaPartenza` – Una nuova cabina di partenza clonata.
+
 
 
 ### Classe: Motore
@@ -596,12 +587,6 @@
 
 ---
 
-### Classe: FormatterGrafico
-- **Attributi pubblici:**
-  - `public static final int LARGHEZZA_SCHERMO = 50`: Numero di caratteri per ciascuna riga senza considerare il simbolo `A_CAPO`.
-  - `public static final String A_CAPO = "|"`: Simbolo stampato a destra dello schermo per indicare di essere andati a capo, di tipo `String` per concatenarla facilmente.
-- **Metodi pubblici:** Nessuno
-
 
 ### Classe: TextAligner
 - **Attributi pubblici:** Nessuno
@@ -619,17 +604,52 @@
     - **Input:** `String testo` - Il testo da centrare.
     - **Output:** `String` - Il testo centrato con padding e a capo.
 
+### Classe: GraficaConfig
+- **Attributi pubblici:**
+  - `public static final int LARGHEZZA_SCHERMO = 55` – Numero di caratteri per ciascuna riga senza considerare il simbolo A_CAPO.
+  - `public final static int OFFSET = 2` – Differenza tra numeri visti dall'utente e utilizzati dal computer.
+  - `public static final String A_CAPO = "|"` – Simbolo stampato a destra dello schermo per indicare di essere andati a capo.
+- **Metodi pubblici:** Nessuno
+
+
+### Classe: GestoreGrafica
+- **Attributi pubblici:** Nessuno
+- **Attributi privati:**
+  - `private static GestoreGrafica instanza` – Unica istanza della classe.
+  - `private List<String> schermataPrecedente` – Lista delle righe della schermata precedente.
+  - `private List<String> schermataAttuale` – Lista delle righe della schermata attuale.
+- **Metodi pubblici:**
+  - `private GestoreGrafica()`  
+    Costruttore privato per impedire istanze multiple.
+    - **Input:** Nessuno.
+    - **Output:** Nessuno.
+  - `public static GestoreGrafica getInstance()`  
+    Restituisce l'unica istanza della classe.
+    - **Input:** Nessuno.
+    - **Output:** `GestoreGrafica` – L'istanza della classe.
+  - `public void stampa(String riga)`  
+    Stampa una singola riga allineata a sinistra e aggiunge a capo.
+    - **Input:** `String riga` – La riga da stampare.
+    - **Output:** Nessuno.
+  - `public void stampa(String[] righeDaStampare)`  
+    Stampa un array di righe, ciascuna allineata a sinistra e con a capo.
+    - **Input:** `String[] righeDaStampare` – Le righe da stampare.
+    - **Output:** Nessuno.
+
+
 ### Classe: ConvertitoreGrafica
 - **Attributi pubblici:**
-  - `public final int LARGHEZZA_COMPONENTE = 5`: Numero di spazi per rappresentare un componente.
-    - **Input:** Nessuno.
-    - **Output:** `int` - La larghezza del componente, impostata a 5.
+  - `public final static int LARGHEZZA_COMPONENTE = 5` – Numero di spazi per rappresentare un componente.
+  - `public final static int ALTEZZA_COMPONENTE = 3` – Numero di righe per rappresentare ogni componente.
 - **Metodi pubblici:**
-  - Nessuno
-
+  - Nessuno.
 - **Metodi protetti:**
-  - `protected String[] rappresentaComponente(Componente componente)`: Converte un componente di gioco in una rappresentazione grafica testuale.
-    - **Input:** `Componente componente` - Il componente di gioco da rappresentare graficamente.
-    - **Output:** `String[]` - Un array di stringhe che rappresenta graficamente il componente.
-
+  - `protected String[] rappresentaComponente(Componente componente)`  
+    Converte un componente di gioco in una rappresentazione grafica testuale.
+    - **Input:** `Componente componente` – Il componente di gioco da rappresentare graficamente.
+    - **Output:** `String[]` – Un array di stringhe che rappresenta graficamente il componente.
+  - `public String[] aggiungiCoordinateANave(String[] rappresentazioneNave)`  
+    Aggiunge le coordinate alla rappresentazione grafica della nave.
+    - **Input:** `String[] rappresentazioneNave` – La rappresentazione grafica della nave.
+    - **Output:** `String[]` – La rappresentazione grafica della nave con le coordinate aggiunte.
 ---
