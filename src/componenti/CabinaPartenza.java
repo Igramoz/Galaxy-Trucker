@@ -26,7 +26,7 @@ public class CabinaPartenza extends CabinaDiEquipaggio{
 		super(tubiIniziali, equipaggioIniziale);
 		
 		for (TipoPedina pedina : equipaggioIniziale) {
-			if(pedina.getColore() != TipoPedina.ASTRONAUTA) {
+			if(pedina != TipoPedina.ASTRONAUTA) {
 				throw new IllegalStateException("Nella cabina di partenza possono esserci solo astronauti");
 			}
 		}

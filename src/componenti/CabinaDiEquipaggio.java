@@ -26,7 +26,7 @@ public class CabinaDiEquipaggio extends Componente {
         this(tubiIniziali);
 
         for (TipoPedina pedina : equipaggioIniziale) {
-            aggiungiEquipaggio(pedina.getColore());
+            aggiungiEquipaggio(pedina);
         }
     }
 
@@ -36,14 +36,16 @@ public class CabinaDiEquipaggio extends Componente {
 
     // TODO: controlla che sia possibile aggiungere o meno la pedina (possono esserci al massimo un alieno o 2 ASTRONAUTI
     // dopo aver sistemato l'enum ti basterà fare: equipaggio.add(pedina)
-    public boolean aggiungiEquipaggio(TipoPedina.Colore colore) {
-        equipaggio.add(new TipoPedina(colore));
+    public boolean aggiungiEquipaggio(TipoPedina pedina) {
+    	
+    	
+        equipaggio.add(pedina);
         return true;
     }
 
     
-    public boolean rimuoviEquipaggio(TipoPedina.Colore colore) {
-        return equipaggio.removeIf(p -> p.getColore() == colore);
+    public boolean rimuoviEquipaggio(TipoPedina pedina) {
+        return equipaggio.removeIf(p -> p == pedina);
     }
 
     public List<TipoPedina> getEquipaggio() {

@@ -92,9 +92,11 @@ public abstract class Componente {
 	
 	// TODO : cancella classi astratte inutilizzate
 	// Metodi astratti per controllare il numero di istanze delle sottoclassi
-//	public abstract int getIstanze();
 	public abstract Componente clone();	
-	public abstract void resetIstanze();
+
+	
+//	public abstract int getIstanze();
+//	public abstract void resetIstanze();
 
 //	protected abstract void incrementaIstanze();
 //	protected abstract void decrementaIstanze();
