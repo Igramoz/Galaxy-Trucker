@@ -142,9 +142,6 @@
 ---
 
 ### Classe: Cannone
-- **Attributi pubblici:**
-  - `public static final int limiteIstanziabili`: Limite massimo di istanze di `Cannone` che possono essere create.
-  - `public static int istanze`: Contatore delle istanze create di `Cannone`.
 - **Attributi privati:**
   - `private float potenzaFuoco`: La potenza di fuoco del cannone.
   - `private Direzione direzione`: La direzione in cui il cannone spara.
@@ -166,18 +163,10 @@
   - `public float getPotenzaFuoco()`: Restituisce la potenza di fuoco del cannone.
     - **Input:** Nessuno.
     - **Output:** `float` - La potenza di fuoco del cannone.
-  - `public int getIstanze()`: Restituisce il numero di istanze create di `Cannone`.
-    - **Input:** Nessuno.
-    - **Output:** `int` - Il numero di istanze create.
-  - `protected void incrementaIstanze()`: Incrementa il contatore delle istanze create di `Cannone`.
-    - **Input:** Nessuno.
-    - **Output:** Nessuno.
-  - `public void resetIstanze()`: Resetta il contatore delle istanze create di `Cannone`.
-    - **Input:** Nessuno.
-    - **Output:** Nessuno.
-  - `protected void decrementaIstanze()`: Decrementa il contatore delle istanze create di `Cannone`.
-    - **Input:** Nessuno.
-    - **Output:** Nessuno.
+   
+
+### Classe: CannoneDoppio
+- **Costruttori:**
 
 
 ### Classe: Componente
