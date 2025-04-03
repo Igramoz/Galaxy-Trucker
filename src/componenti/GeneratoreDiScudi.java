@@ -1,7 +1,6 @@
 package componenti;
 
 import java.util.Map;
-
 import model.enums.*;
 import util.Util;
 
@@ -13,6 +12,7 @@ public class GeneratoreDiScudi extends Componente {
     
     public GeneratoreDiScudi(Map<Direzione, TipoTubo> tubiIniziali) {
 
+        
         
     	super(TipoComponente.SCUDO, tubiIniziali);
     	if(istanze >= TipoComponente.SCUDO.getMaxIstanze()) {
