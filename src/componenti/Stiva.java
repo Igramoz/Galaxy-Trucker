@@ -69,7 +69,8 @@ public class Stiva extends Componente {
 	    if (obj == null || getClass() != obj.getClass()) return false;
 	    
 	    Stiva stiva = (Stiva) obj;
-	    super.equals(stiva); 
+	    if(!super.equals(stiva)) return false;
+	    
 	    if(this.scomparti == stiva.scomparti) {
 	    	return true; // Se hanno la stessa capacità massima e stessi tubi
 	    }

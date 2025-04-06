@@ -10,7 +10,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		System.out.println("Ciao Mondo!!");
-		
+		int d = 2;
 		ConvertitoreGrafica grafica = new ConvertitoreGrafica();
 		ServizioAssemblaggio servizio = new ServizioAssemblaggio();
 		GestoreGrafica gestoreGrafica = new GestoreGrafica();
@@ -27,7 +27,7 @@ public class Main {
 		}while(c != null);
 		
 		
-		
+		System.out.println("Fine!!");
 	}
 
 }

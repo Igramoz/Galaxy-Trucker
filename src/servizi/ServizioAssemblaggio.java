@@ -40,10 +40,12 @@ public class ServizioAssemblaggio {
 			// Genero i componenti per ciascun tipo
 			for (int nOggettiPerTipo = 0; nOggettiPerTipo < tipo.getMaxIstanze(); nOggettiPerTipo++) {
 				Componente componente = null;
+				
+				// Rigenero il compoennte fin quando è diverso da quelli precedenti
 				do {
 					componente = generaComponente(tipo);
 
-				} while (!componentiGenerati.contains(componente));
+				} while (componentiGenerati.contains(componente));
 
 				componentiGenerati.add(componente);
 			}

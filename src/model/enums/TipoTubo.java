@@ -1,26 +1,25 @@
 package model.enums;
 
 public enum TipoTubo {
-	NESSUNO ("", ""),
+	NESSUNO (" ", " "),
 	SINGOLO ("|", "-"),
 	DOPPIO ("||","="),
 	UNIVERSALE ("#", "#");
 	
-	private final String siglaOrizzontale; // Sigla da usare quando il tubo è orizzontale
 	private final String siglaVerticale; // Sigla da usare quando il tubo è verticale
+	private final String siglaOrizzontale; // Sigla da usare quando il tubo è orizzontale
 	
 	private TipoTubo() {
-		siglaOrizzontale = "";
 		siglaVerticale = "";
+		siglaOrizzontale= "";
 	}
 	
-	private TipoTubo(String siglaOrizzontale, String siglaVerticale) {
-		this.siglaOrizzontale = siglaOrizzontale;
+	private TipoTubo(String siglaVerticale, String siglaOrizzontale) {
 		this.siglaVerticale = siglaVerticale;
+		this.siglaOrizzontale = siglaOrizzontale;
 	}
 	
-	// TODO: Va bene chiamarlo toString così? Anche se non è override?
-	public String toString(Direzione direzione) {
+	public String rappresentazione(Direzione direzione) {
 		if(direzione == Direzione.SINISTRA || direzione == Direzione.DESTRA) {
 			return siglaOrizzontale;
 		} else {

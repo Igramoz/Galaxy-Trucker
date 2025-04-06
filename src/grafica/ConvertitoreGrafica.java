@@ -28,19 +28,19 @@ public class ConvertitoreGrafica {
         String[] rappresentazioneComponente = new String[ALTEZZA_COMPONENTE];
 
 		// Rappresento il tubo sopra "  ||  "
-        String tuboSopra = componente.getTubo(Direzione.SOPRA).toString();
+        String tuboSopra = componente.getTubo(Direzione.SOPRA).rappresentazione(Direzione.SOPRA);
         rappresentazioneComponente[0] = textAligner.centraTestoInLarghezza(tuboSopra, LARGHEZZA_COMPONENTE);
         
         // Rappresento il corpo del componente con i tubi a sinistra e destra "#MD ="
-        String tuboSinistra = componente.getTubo(Direzione.SINISTRA).toString();
+        String tuboSinistra = componente.getTubo(Direzione.SINISTRA).rappresentazione(Direzione.SINISTRA);
         String tipoComponente = componente.getTipo().toString();
-        String tuboDestra = componente.getTubo(Direzione.DESTRA).toString();
+        String tuboDestra = componente.getTubo(Direzione.DESTRA).rappresentazione(Direzione.DESTRA);
         rappresentazioneComponente[1] = tuboSinistra + 
         								textAligner.centraTestoInLarghezza(tipoComponente, LARGHEZZA_COMPONENTE - tuboSinistra.length() - tuboDestra.length()) +
         								tuboDestra;
         
         // Rappresento il tubo sotto "  |  "
-        String tuboSotto = componente.getTubo(Direzione.SOTTO).toString();
+        String tuboSotto = componente.getTubo(Direzione.SOTTO).rappresentazione(Direzione.SOTTO);
         rappresentazioneComponente[2] = textAligner.centraTestoInLarghezza(tuboSotto, LARGHEZZA_COMPONENTE);
         
         return rappresentazioneComponente;		
