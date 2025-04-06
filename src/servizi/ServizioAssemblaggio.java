@@ -93,7 +93,7 @@ public class ServizioAssemblaggio {
 	private TipoTubo generaTubo() {
 		// Genera un tubo randomicamente
 		int randomNum = random.randomInt(TipoTubo.values().length);
-		return TipoTubo.values()[randomNum];
+		return TipoTubo.values()[randomNum]; //gli errori si riconducono a questa riga
 	}
 
 	private Map<Direzione, TipoTubo> tubiCasuali() {
