@@ -47,7 +47,7 @@ public class ConvertitoreGrafica {
 	}	
 	
 	// Restituisce la rappresentazione della nave.
-	public String[] raprresentaNave(Nave nave) {
+	public String[] rappresentaNave(Nave nave) {
 		
 		String[] rappresentazioneNave = new String[Util.SIZE * ALTEZZA_COMPONENTE];
 		Componente[][] grigliaComponenti = nave.getGrigliaComponenti();

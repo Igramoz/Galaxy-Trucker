@@ -51,7 +51,7 @@
         |
         ├── controllers/                 // Gestione del flusso di gioco e interazione utente
         |   ├── ControllorePartita.java      // Coordina l’avvio ed evoluzione della partita
-        |   ├── ControlloreCostruzione.java     // Gestisce la costruzione/configurazione della nave
+        |   ├── ControlloreAssemblaggio.java     // Gestisce la costruzione/configurazione della nave
         |   ├── ControlloreCarte.java     // Gestisce la distribuzione e l’applicazione delle carte
         |   └── ControlloreUI.java        // Gestisce l’interfaccia testuale (prompt)
         |
@@ -64,7 +64,7 @@
         |
         ├── grafica/                     // Gestione della grafica del gioco
         |   ├── ConvertitoreGrafico.java  // Associa i simboli grafici ai componenti
-	|   ├── FormatterGrafico.java 	  // Si occupa del formato della stampa.
+	|   ├── FormattatoreGrafico.java 	  // Si occupa del formato della stampa.
 	|   ├── TextAligner.java 	  // Si occupa dell'allineamento delle stringhe.
 	|   ├── GraficaConfig.java 	  // Configurazione delle costanti grafiche
         |   └── GestoreGrafica.java      // Gestisce la stampa a video dei componenti e dell'interfaccia grafica
