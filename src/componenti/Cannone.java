@@ -18,6 +18,7 @@ public class Cannone extends Componente {
 	protected Cannone(TipoComponente tipo, Map<Direzione, TipoTubo> tubiIniziali, Direzione direzioneFuoco) {
 		super(tipo, tubiIniziali);
 		this.direzioneFuoco = direzioneFuoco;
+		this.tubi.put(direzioneFuoco, TipoTubo.NESSUNO); // Non può avere tubi in direzione di fuoco
 		this.aggiornaPotenzaFuoco();
 	}
 

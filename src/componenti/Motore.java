@@ -16,6 +16,7 @@ public class Motore extends Componente{
 	// Scrivere quà le modifiche riguardanti l'istanza sia di motore che di motore doppio.
 	protected Motore(TipoComponente tipo, Map<Direzione, TipoTubo> tubiIniziali) {
 		super(tipo, tubiIniziali);
+		this.tubi.put(Direzione.SOTTO, TipoTubo.NESSUNO); // Non può avere tubi sotto
 	}
 	
 	public Motore(Motore m) {		
@@ -29,7 +30,5 @@ public class Motore extends Componente{
 	@Override
 	public Motore clone() {
 		return new Motore(this);
-	}
-
-	
+	}	
 }

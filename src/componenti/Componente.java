@@ -37,8 +37,8 @@ public abstract class Componente {
 
 		Componente altroComponente = (Componente) obj; // cast dell'oggetto
 		
-		if (this.tipo != altroComponente.tipo)
-            return false;
+//		if (this.tipo != altroComponente.tipo) // TODO getClass controlla già che siano della stessa classe
+//            return false;
 		
 		Direzione[] direzione = Direzione.values();
 
