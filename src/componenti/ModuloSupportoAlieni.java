@@ -12,7 +12,7 @@ public class ModuloSupportoAlieni extends Componente {
 
 	// TODO: vedere se lasciare il tipocomponente tra i parametri, in caso
 	// aggiungiuamo il colore più avanti
-	public ModuloSupportoAlieni(TipoComponente tipoSovrastruttura, Map<Direzione, TipoTubo> tubiIniziali) {
+	public ModuloSupportoAlieni(Map<Direzione, TipoTubo> tubiIniziali, TipoComponente tipoSovrastruttura) {
 		super(tipoSovrastruttura, tubiIniziali);
 		alienoSupportato = gestisciAlieno(tipoSovrastruttura);
 	}
@@ -30,7 +30,7 @@ public class ModuloSupportoAlieni extends Componente {
 
 	// costruttore di copia
 	public ModuloSupportoAlieni(ModuloSupportoAlieni msa) {
-		this(msa.tipo, msa.tubi);
+		this(msa.tubi, msa.tipo);
 	}
 
 	public TipoPedina getAlienoSupportato() {

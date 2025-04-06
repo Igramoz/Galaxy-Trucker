@@ -6,6 +6,9 @@ import model.enums.*;
 
 public class Stiva extends Componente {
 
+	public static final int MAX_SCOMPARTI = 3; // numero massimo di scomparti della stiva
+	public static final int MIN_SCOMPARTI = 2; // numero minimo di scomparti della stiva
+
 	protected final int scomparti; // numero di scomparti della stiva, devono essere ereditati
 	protected TipoMerce[] merci; // lista delle merci presenti nella stiva, devono essere ereditati
 
@@ -16,7 +19,7 @@ public class Stiva extends Componente {
 		if (scomparti < 2 || scomparti > 3) {
 			throw new IllegalArgumentException("Le stive normali devono avere 2 o 3 scomparti.");
 		}
-		
+
 	}
 
 	// Costruttore senza controlli usato sia da Stiva che da StivaSpeciale
@@ -25,7 +28,7 @@ public class Stiva extends Componente {
 
 		this.scomparti = scomparti; // non posso metterlo in inizializzaStiva perché è final
 		this.merci = new TipoMerce[scomparti];
-		
+
 	}
 
 	// Costruttore di copia
@@ -45,9 +48,9 @@ public class Stiva extends Componente {
 	public boolean setMerci(TipoMerce merce) {
 
 		// Controllo se la merce può essere immagazzinata in stiva
-		 if (!isMerceAggiungibile(merce)) {
-		        return false;
-		 }
+		if (!isMerceAggiungibile(merce)) {
+			return false;
+		}
 
 		// Carico la merce
 		for (int i = 0; i < scomparti; i++) {
@@ -58,7 +61,21 @@ public class Stiva extends Componente {
 		}
 		return false; // la stiva è piena
 	}
-	
+
+	@Override
+	public boolean equals(Object obj) {
+	    
+	    // TODO valutare se usare istanceof
+	    if (obj == null || getClass() != obj.getClass()) return false;
+	    
+	    Stiva stiva = (Stiva) obj;
+	    super.equals(stiva); 
+	    if(this.scomparti == stiva.scomparti) {
+	    	return true; // Se hanno la stessa capacità massima e stessi tubi
+	    }
+	    return false;	
+	}
+
 	// Funzione override perché nel figlio le condizioni cambiano
 	protected boolean isMerceAggiungibile(TipoMerce merce) {
 		if (merce == TipoMerce.ROSSO) {

@@ -2,7 +2,7 @@ package model;
 
 import componenti.Componente;
 import util.*;
-import services.EventService;
+import servizi.ServizioDistruzioneComponenti;
 
 public class Nave {
     
@@ -73,7 +73,7 @@ public class Nave {
     private boolean isCalledByEventService() {
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
         for (StackTraceElement element : stackTrace) {
-            if (element.getClassName().equals(EventService.class.getName())) {
+            if (element.getClassName().equals(ServizioDistruzioneComponenti.class.getName())) {
                 return true;
             }
         }

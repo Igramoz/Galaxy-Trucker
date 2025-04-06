@@ -1,4 +1,4 @@
-package services;
+package servizi;
 
 import model.*;
 import model.enums.*;
@@ -10,9 +10,7 @@ import java.util.Set;
 import java.util.List;
 import java.util.ArrayList;
 
-public class EventService {
-	
-	
+public class ServizioDistruzioneComponenti {
 	/**Distruggo un componente della nave e verifica i tronconi che si formano.
      * Permette al giocatore di scegliere quale troncone tenere e distrugge gli altri. */         
     public void distruggiComponenti(Nave nave, Coordinate coordinate) {
@@ -118,4 +116,5 @@ public class EventService {
             nave.distruggiSingoloComponente(coord);
         }
     }
+
 }

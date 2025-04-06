@@ -4,7 +4,7 @@
         |   └── Main.java                // Avvia il gioco e gestisce l’interfaccia a prompt
         |
         ├── model/                       // Rappresenta il dominio del gioco e gli oggetti di stato
-        |    ├── Game.java               // Stato complessivo della partita e gestione dei turni
+        |    ├── Partita.java               // Stato complessivo della partita e gestione dei turni
         |    ├── Nave.java               // Rappresenta il giocatore (nave, risorse, punteggio)
         |    ├── Giocatore.java          // Rappresenta il giocatore (nave, risorse, punteggio)
         |    ├── Coordinate.java         // Gestisce le posizioni nella griglia della nave
@@ -50,17 +50,17 @@
         |   └── SabotaggioCarta.java
         |
         ├── controllers/                 // Gestione del flusso di gioco e interazione utente
-        |   ├── GameController.java      // Coordina l’avvio ed evoluzione della partita
-        |   ├── BuildController.java     // Gestisce la costruzione/configurazione della nave
-        |   ├── CartaController.java     // Gestisce la distribuzione e l’applicazione delle carte
-        |   └── UIController.java        // Gestisce l’interfaccia testuale (prompt)
+        |   ├── ControllorePartita.java      // Coordina l’avvio ed evoluzione della partita
+        |   ├── ControlloreCostruzione.java     // Gestisce la costruzione/configurazione della nave
+        |   ├── ControlloreCarte.java     // Gestisce la distribuzione e l’applicazione delle carte
+        |   └── ControlloreUI.java        // Gestisce l’interfaccia testuale (prompt)
         |
         ├── services/                    // Logica di business e operazioni complesse
-        |   ├── ScoreService.java        // Calcola punteggi e gestisce penalità
-        |   ├── EventService.java        // Gestisce eventi casuali e programmati (es. volo)
-        |   ├── BuildService.java        // Genera ed estrae randomicamente i componenti della nave; gestisce componenti prenotati e scartati
-        |   ├── CartaService.java        // Genera ed estrae randomicamente le carte avventura
-        |   └── DistruzioneComponentiService.java  // Funzione complessa per distruggere i componenti della nave (accesso agli attributi della nave)
+        |   ├── ServizioPunteggio.java        // Calcola punteggi e gestisce penalità
+        |   ├── ServizioEventi.java        // Gestisce eventi casuali e programmati (es. volo)
+        |   ├── ServizioAssemblaggio.java        // Genera ed estrae randomicamente i componenti della nave; gestisce componenti prenotati e scartati
+        |   ├── ServizioCarte.java        // Genera ed estrae randomicamente le carte avventura
+        |   └── ServizioDistruzioneComponenti.java  // Funzione complessa per distruggere i componenti della nave (accesso agli attributi della nave)
         |
         ├── grafica/                     // Gestione della grafica del gioco
         |   ├── ConvertitoreGrafico.java  // Associa i simboli grafici ai componenti

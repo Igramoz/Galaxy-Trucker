@@ -28,12 +28,18 @@ public abstract class Componente {
 		this(componente.tipo, componente.tubi); // chiama l'altro costruttore
 	}
 	
-	public boolean equals(Componente altroComponente) {
-		if (this == altroComponente)
+	@Override // Devo fare override affinché l'hashcode funzioni
+	public boolean equals(Object obj) {
+		if (this == obj)
 			return true; // confronto i riferimenti
-		if (altroComponente == null || this.tipo != altroComponente.getTipo())
+		if (obj == null || getClass() != obj.getClass())
 			return false; // se l'altro oggetto è null o se sono di tipi diversi
 
+		Componente altroComponente = (Componente) obj; // cast dell'oggetto
+		
+		if (this.tipo != altroComponente.tipo)
+            return false;
+		
 		Direzione[] direzione = Direzione.values();
 
 		int offset = -1; // I tubi sono uguali anche se ruotati di offset volte
@@ -43,7 +49,6 @@ public abstract class Componente {
 			if (this.getTubo(direzione[0]) == altroComponente.getTubo(direzione[i])) {
 				offset = i;
 				break;
-
 			}
 		}
 		if (offset == -1)
@@ -57,6 +62,8 @@ public abstract class Componente {
 				return false; // Se dopo l'offset hanno un tubo diverso i 2 componenti non sono uguali
 		return true;
 	}
+	
+	
 
 	public void ruota() {
 		// Ruota i tubi in senso antiorario

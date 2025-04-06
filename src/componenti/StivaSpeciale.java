@@ -4,11 +4,14 @@ import java.util.Map;
 import model.enums.*;
 
 public class StivaSpeciale extends Stiva {
+	
+	public static final int MAX_SCOMPARTI = 2; // numero massimo di scomparti della stiva speciale
+	public static final int MIN_SCOMPARTI = 1; // numero minimo di scomparti della stiva speciale
 
 	public StivaSpeciale(Map<Direzione, TipoTubo> tubiIniziali, int scomparti) {
 		super(TipoComponente.STIVA_SPECIALE, tubiIniziali, scomparti); // Chiamo il costruttore restricted di Stiva
 
-		if (scomparti < 1 || scomparti > 2) {
+		if (scomparti < MIN_SCOMPARTI || scomparti > MAX_SCOMPARTI) {
 			throw new IllegalArgumentException("Le stive speciali devono avere 1 o 2 scomparti.");
 		}
 	}
