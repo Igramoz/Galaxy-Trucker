@@ -1,27 +1,27 @@
 package componenti;
 
-public enum TipoComponente {
-	CABINA_EQUIPAGGIO("CE", 17, "\u001B[38;5;15m"), // Bianco
-	CABINA_PARTENZA("CP", 4, "\u001B[38;5;226m"), // Giallo
-	CANNONE_SINGOLO("CS", 25, "\u001B[38;5;183m"), // Viola
-	CANNONE_DOPPIO("CD", 11, "\u001B[38;5;183m"),
-	MOTORE_SINGOLO("MS", 21, "\u001B[38;5;180m"), // Marrone
-	MOTORE_DOPPIO("MD", 9, "\u001B[38;5;180m"),
-	SCUDO("SC", 8, "\u001B[38;5;34m"), // Verde
-	STIVA("S", 25, "\u001B[38;5;51m"), // Azzurro
-	STIVA_SPECIALE("SS", 9, "\u001B[38;5;203m"), // Rosso
-	VANO_BATTERIA("B", 17, "\u001B[38;5;120m"), // Verde
-	SOVRASTRUTTURA_ALIENA_VIOLA("SAV", 6, "\u001B[38;5;129m"), // Viola scuro
-	SOVRASTRUTTURA_ALIENA_MARRONE("SAM", 6, "\u001B[38;5;137m"), // Marrone scuro
-	TUBO("T", 8, "\u001B[37m"); // Grigio
+import grafica.Colore;
 
-	private static final String RESET = "\u001B[0m"; // reimposta il colore default di stampa
+public enum TipoComponente {
+	CABINA_EQUIPAGGIO("CE", 17, Colore.BIANCO), 
+	CABINA_PARTENZA("CP", 4, Colore.GIALLO),
+	CANNONE_SINGOLO("CS", 25, Colore.VIOLA_LILLA), 
+	CANNONE_DOPPIO("CD", 11, Colore.VIOLA_LILLA),
+	MOTORE_SINGOLO("MS", 21, Colore.MARRONE_BEIGE), 
+	MOTORE_DOPPIO("MD", 9, Colore.MARRONE_BEIGE),
+	SCUDO("SC", 8, Colore.VERDE), 
+	STIVA("S", 25, Colore.AZZURRO), 
+	STIVA_SPECIALE("SS", 9, Colore.ROSSO),
+	VANO_BATTERIA("B", 17, Colore.VERDE_LIME), 
+	SOVRASTRUTTURA_ALIENA_VIOLA("SAV", 6, Colore.VIOLA),
+	SOVRASTRUTTURA_ALIENA_MARRONE("SAM", 6, Colore.MARRONE), 
+	TUBO("T", 8, Colore.GRIGIO);
 
 	private final String sigla;
 	private final int maxIstanze;
-	private final String colore; // è un codice ANSI
+	private final Colore colore; // è un codice ANSI
 
-	private TipoComponente(String s, int maxIstanze, String colore) {
+	private TipoComponente(String s, int maxIstanze, Colore colore) {
 		sigla = s;
 		this.maxIstanze = maxIstanze;
 		this.colore = colore;
@@ -29,14 +29,14 @@ public enum TipoComponente {
 
 	@Override
 	public String toString() {
-		return colore + sigla + RESET;
+		return colore.getCodice() + sigla + Colore.DEFAULT.getCodice();
 	}
 
 	public int getMaxIstanze() {
 		return maxIstanze;
 	}
 
-	public String getColore() {
+	public Colore getColore() {
 		return colore;
 	}
 
