@@ -13,6 +13,13 @@ public class ConvertitoreGrafica {
 	public final static int LARGHEZZA_COMPONENTE = 5; // Numero spazi per raprresentare un componente
 	public final static int ALTEZZA_COMPONENTE = 3; // Num righe per rappresentare ogni componente
 	
+	private TextAligner textAligner;
+	private FormattatoreGrafico formattatoreGrafico;
+	
+	public ConvertitoreGrafica() {
+		textAligner = new TextAligner();
+		formattatoreGrafico = new FormattatoreGrafico();
+	}
 	
 	public String[] rappresentaComponente(Componente componente) {
 		
@@ -23,7 +30,6 @@ public class ConvertitoreGrafica {
         *  |   		
 		*/
 		
-		TextAligner textAligner = new TextAligner();
 		
         String[] rappresentazioneComponente = new String[ALTEZZA_COMPONENTE];
 
@@ -33,7 +39,7 @@ public class ConvertitoreGrafica {
         
         // Rappresento il corpo del componente con i tubi a sinistra e destra "#MD ="
         String tuboSinistra = componente.getTubo(Direzione.SINISTRA).rappresentazione(Direzione.SINISTRA);
-        String tipoComponente = componente.getTipo().toString();
+        String tipoComponente = formattatoreGrafico.stampaComponente(componente);
         String tuboDestra = componente.getTubo(Direzione.DESTRA).rappresentazione(Direzione.DESTRA);
         rappresentazioneComponente[1] = tuboSinistra + 
         								textAligner.centraTestoInLarghezza(tipoComponente, LARGHEZZA_COMPONENTE - tuboSinistra.length() - tuboDestra.length()) +
@@ -45,6 +51,8 @@ public class ConvertitoreGrafica {
         
         return rappresentazioneComponente;		
 	}	
+	
+	
 	
 	// Restituisce la rappresentazione della nave.
 	public String[] rappresentaNave(Nave nave) {
@@ -74,7 +82,6 @@ public class ConvertitoreGrafica {
 		
 		int altezzaTotale = Util.SIZE * ALTEZZA_COMPONENTE + 2; // Aggiungo uno spazio e la riga delle coordinate
 		int spazioOrdinate= 3; // Spazio da lasciare tra i componenti e le ordinate a sinistra
-		TextAligner textAligner = new TextAligner();
 		
 		// La riga è formata dalla nave, lo spazio tra la nave e le ordinate e le ordinate
 		int larghezzaTotale = Util.SIZE * LARGHEZZA_COMPONENTE + spazioOrdinate; 		

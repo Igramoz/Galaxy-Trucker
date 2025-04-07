@@ -47,7 +47,6 @@ public class VanoBatteria extends Componente {
 	@Override
 	public boolean equals(Object obj) {
 	    
-	    // TODO valutare se usare istanceof
 	    if (obj == null || getClass() != obj.getClass()) return false;
 	    
 	    VanoBatteria altraBatteria = (VanoBatteria) obj;

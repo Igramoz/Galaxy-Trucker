@@ -65,7 +65,6 @@ public class Stiva extends Componente {
 	@Override
 	public boolean equals(Object obj) {
 	    
-	    // TODO valutare se usare istanceof
 	    if (obj == null || getClass() != obj.getClass()) return false;
 	    
 	    Stiva stiva = (Stiva) obj;

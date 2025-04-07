@@ -6,7 +6,7 @@ public class TextAligner {
 	public String rimuoviAnsi(String input) {
 		if (input == null)
 			return null;
-		return input.replaceAll("\\u001B\\[[;\\d]*m", "");
+	    return input.replaceAll("(?:(?:\\\\u001B)|(?:\\u001B))\\[[0-9;]*m", "");
 	}
 	
 	// TODO: valutare se rendere protected
@@ -41,14 +41,18 @@ public class TextAligner {
 		}
 	}
 
+	
+	
 	public String centraTestoInLarghezza(String testo, int larghezza) {
 
-		int lunghezzaVisiva = lunghezzaVisivaTestoCheck(testo);
+		int lunghezzaVisiva = lunghezzaVisivaTestoCheck(testo, larghezza);
         
 		int leftPadding = (larghezza - lunghezzaVisiva) / 2;
 		return estendiStringa(" ".repeat(leftPadding) + testo, larghezza);
 	}
 
+	
+	
 	public String alignCenter(String testo) { // Centra il testo nel prompt
 		return centraTestoInLarghezza(testo, GraficaConfig.LARGHEZZA_SCHERMO);
 	}

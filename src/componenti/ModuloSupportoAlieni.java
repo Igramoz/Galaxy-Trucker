@@ -2,19 +2,23 @@ package componenti;
 
 import java.util.Map;
 
+
 import model.enums.Direzione;
 import model.enums.TipoTubo;
 import model.equipaggio.TipoPedina;
+import grafica.Colore;
 
 public class ModuloSupportoAlieni extends Componente {
 
 	private final TipoPedina alienoSupportato;
+	private final Colore colore; 
 
 	// TODO: vedere se lasciare il tipocomponente tra i parametri, in caso
 	// aggiungiuamo il colore più avanti
 	public ModuloSupportoAlieni(Map<Direzione, TipoTubo> tubiIniziali, TipoComponente tipoSovrastruttura) {
 		super(tipoSovrastruttura, tubiIniziali);
 		alienoSupportato = gestisciAlieno(tipoSovrastruttura);
+		colore = gestisciColore(tipoSovrastruttura);
 	}
 
 	private TipoPedina gestisciAlieno(TipoComponente tipoSovrastruttura) {
@@ -27,6 +31,17 @@ public class ModuloSupportoAlieni extends Componente {
 			throw new IllegalArgumentException("Tipo di componente non permesso");
 		}
 	}
+	
+	private Colore gestisciColore(TipoComponente tipoSovrastruttura) {
+		switch (tipoSovrastruttura) {
+		case SOVRASTRUTTURA_ALIENA_MARRONE:
+			return Colore.MARRONE;
+		case SOVRASTRUTTURA_ALIENA_VIOLA:
+			return Colore.VIOLA;
+		default:
+			throw new IllegalArgumentException("Tipo di componente non permesso");
+		}
+	}
 
 	// costruttore di copia
 	public ModuloSupportoAlieni(ModuloSupportoAlieni msa) {
@@ -35,6 +50,10 @@ public class ModuloSupportoAlieni extends Componente {
 
 	public TipoPedina getAlienoSupportato() {
 		return alienoSupportato;
+	}
+	
+	public Colore getColore() {
+		return this.colore;
 	}
 
 	@Override
