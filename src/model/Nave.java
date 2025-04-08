@@ -1,35 +1,43 @@
 package model;
 
 import componenti.Componente;
+import componenti.CabinaPartenza;
 import util.*;
 import servizi.ServizioDistruzioneComponenti;
+import grafica.Colore;
+import model.enums.TipoNave;
 
 public class Nave {
-    
+	
     private Componente[][] grigliaComponenti; 
-
+    private final TipoNave livelloNave;
     
     // Costruttore
-    public Nave() {
+    public Nave(TipoNave livelloNave) {
         grigliaComponenti = new Componente[Util.SIZE][Util.SIZE];
+        this.livelloNave = livelloNave;
+    }
+    
+    
+    // Costruttore
+    public Nave(TipoNave livelloNave, Colore colore) {
+    	this(livelloNave);
+    	grigliaComponenti[Util.SIZE/2][Util.SIZE/2] = new CabinaPartenza(colore);
+        
     }
     
     // Costruttore di copia
     public Nave(Nave naveOriginale) {
-    	this();
+    	this(  naveOriginale.livelloNave, ((CabinaPartenza) naveOriginale.grigliaComponenti[Util.SIZE/2][Util.SIZE/2]).getColore());
     	for(int i = 0; i < Util.SIZE; i++)
     		for(int j = 0; j < Util.SIZE; j++) {
     			this.grigliaComponenti[i][j] = naveOriginale.grigliaComponenti[i][j].clone();
     		}    	
     }
     
+    @Override
     public Nave clone() {
-    	Nave clone = new Nave();
-    	for(int i = 0; i < Util.SIZE; i++)
-    		for(int j = 0; j < Util.SIZE; j++) {
-    			clone.grigliaComponenti[i][j] = this.grigliaComponenti[i][j].clone();
-    		} 
-    	return clone;
+    	return new Nave(this);
     }
     
     // Metodi griglia componenti
@@ -54,8 +62,9 @@ public class Nave {
         grigliaComponenti[coordinate.getX()][coordinate.getY()] = componente;
     }
     
-    
-    
+    public TipoNave getLivelloNave() {
+		return livelloNave;
+	}   
     
     
     // Il metodo può essere chiamto solo dalla funzione distruggiComponenti della classe EventService
@@ -63,7 +72,7 @@ public class Nave {
     	 if (isCalledByEventService()) {
              if (grigliaComponenti[coordinate.getX()][coordinate.getY()] != null) {
                  grigliaComponenti[coordinate.getX()][coordinate.getY()] = null;
-//                 incrementaPezziDistrutti(); //TODO aggiornare il numero di pezzi distrutti nel giocatore
+                 //TODO aggiornare il numero di pezzi distrutti nel giocatore
              }
          } else {
              throw new SecurityException("Accesso non autorizzato al metodo distruggiSingoloComponente");

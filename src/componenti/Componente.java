@@ -96,16 +96,5 @@ public abstract class Componente {
 	public int getMaxIstanze() {
 		return tipo.getMaxIstanze();
 	}
-	
-	// TODO : cancella classi astratte inutilizzate
-	// Metodi astratti per controllare il numero di istanze delle sottoclassi
-	public abstract Componente clone();	
-
-	
-//	public abstract int getIstanze();
-//	public abstract void resetIstanze();
-
-//	protected abstract void incrementaIstanze();
-//	protected abstract void decrementaIstanze();
-	
+	public abstract Componente clone();		
 }

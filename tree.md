@@ -16,7 +16,7 @@
         |    └── enums/
         |       ├── TipoMerce.java     // Enum per i colori della merce: ROSSA, GIALLA, VERDE, BLU
         |       ├── Direzione.java     // Enum per la direzione: SOPRA, DESTRA, SOTTO, SINISTRA
-        |       ├── tipoPlancia.java     // Enum tipoPlancia
+        |       ├── tipoNave.java     // Enum tipoPlancia
         |       └── TipoTubo.java
         |
         ├── componenti/

@@ -39,7 +39,7 @@ public class ConvertitoreGrafica {
         
         // Rappresento il corpo del componente con i tubi a sinistra e destra "#MD ="
         String tuboSinistra = componente.getTubo(Direzione.SINISTRA).rappresentazione(Direzione.SINISTRA);
-        String tipoComponente = formattatoreGrafico.stampaComponente(componente);
+        String tipoComponente = formattatoreGrafico.formattaComponente(componente);
         String tuboDestra = componente.getTubo(Direzione.DESTRA).rappresentazione(Direzione.DESTRA);
         rappresentazioneComponente[1] = tuboSinistra + 
         								textAligner.centraTestoInLarghezza(tipoComponente, LARGHEZZA_COMPONENTE - tuboSinistra.length() - tuboDestra.length()) +

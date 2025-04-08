@@ -2,6 +2,7 @@ package grafica;
 
 import componenti.*;
 import model.enums.Direzione;
+import model.Giocatore;
 
 public class FormattatoreGrafico {
 	// Classe per formattare i componenti grafici
@@ -12,7 +13,7 @@ public class FormattatoreGrafico {
 	public static final String FRECCIA_DESTRA = ">";
 	
 	// funzione che aggiunge < ^ > v se necessario
-	public String stampaComponente(Componente componente) {
+	public String formattaComponente(Componente componente) {
 		
 		String output = componente.getTipo().toString();
 		
@@ -53,6 +54,8 @@ public class FormattatoreGrafico {
 		return siglaComponente + capacita.toString();
 	}
 	
-	
+	public String formattaGiocatore(Giocatore giocatore) {
+		return giocatore.getColore().toString()+ giocatore.getNome() + Colore.DEFAULT.toString();
+	}
 	
 }

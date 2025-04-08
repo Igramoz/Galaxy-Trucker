@@ -99,7 +99,7 @@ public class ServizioDistruzioneComponenti {
     	// Creo ogni troncone
     	for(int indiceTroncone = 0; indiceTroncone < numTronconi; indiceTroncone++) {
     		
-    		tronconi[indiceTroncone] = new Nave();    		
+    		tronconi[indiceTroncone] = new Nave(naveOriginale.getLivelloNave());    		
     		
             // Copio i componenti nel nuovo troncone
     		for (Coordinate coord : listaCoordinateControllate.get(indiceTroncone)) {

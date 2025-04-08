@@ -3,15 +3,17 @@ package model;
 import java.util.Arrays;
 
 import componenti.Componente;
+import grafica.Colore;
+import model.enums.TipoNave;
 
 public class Giocatore {
 	private static int giocatoriMax = 4; // Numero massimo di giocatori
 	public static int numeroGiocatori = 0;
 	
-	// TODO assegnare colore
-	// TODO assegnare titolo
 	private final String nome;
+	private final Colore colore;
 	
+	// TODO assegnare titolo
 	private Nave nave;
     private Componente[] componentiPrenotati = new Componente[2]; // TODO ha senso questo quà
     private int pezziDistrutti = 0; 
@@ -20,18 +22,29 @@ public class Giocatore {
 	
 	
 	
-	public Giocatore(String nome) {
+	public Giocatore(String nome, Colore colore) {
 		if(numeroGiocatori >= giocatoriMax) {
 			throw new IllegalStateException("Si può giocare massimo in 4");
 		}
 		this.nome = nome;
-		this.nave = new Nave();
+		this.colore = colore;
 		
 		numeroGiocatori++;
 	}
 	
 	public String getNome() {
 		return nome;
+	}
+	
+	public Colore getColore() {
+		return colore;
+	}
+	
+	public void setNave(TipoNave tipoNave) {
+		if(this.nave != null) {
+			throw new IllegalStateException("La nave è già stata assegnata");
+		}
+		this.nave = new Nave(tipoNave, colore);
 	}
 	
 	public Nave getNave() {
