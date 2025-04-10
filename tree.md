@@ -14,8 +14,8 @@
         |    |   ├── Pedina.java
         |    |   └── TipoPedina.java      // Enum: ASTRONAUTA, ALIENO_VIOLA, ALIENO_MARRONE (bonus)
         |    └── enums/
-        |       ├── TipoMerce.java     // Enum per i colori della merce: ROSSA, GIALLA, VERDE, BLU
-        |       ├── Direzione.java     // Enum per la direzione: SOPRA, DESTRA, SOTTO, SINISTRA
+        |       ├── TipoMerce.java    // Enum per i colori della merce: ROSSA, GIALLA, VERDE, BLU
+        |       ├── Direzione.java    // Enum per la direzione: SOPRA, DESTRA, SOTTO, SINISTRA
         |       ├── tipoNave.java     // Enum tipoPlancia
         |       └── TipoTubo.java
         |
@@ -34,10 +34,12 @@
         |    └── Motore.java
         |    	    └── MotoreDoppio.java
 	|
+	├── fasidigioco/
+        |   ├── Inizializzazione.java		// Prima fase di gioco
 	|
 	├── nave/
-        |   ├── Nave.java
-        |   └── Distruttore.java
+        |   ├── Nave.java	
+        |   └── Distruttore.java 	// Interfaccia per gestire la distruzione della nave
         |
         ├── cartaAvventura/
         |   ├── Carta.java

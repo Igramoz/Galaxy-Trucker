@@ -40,6 +40,15 @@ public class TextAligner {
 			return " ".repeat(leftPadding) + testo;
 		}
 	}
+	
+	public String[] estendiStringhe(String[] testo, int lunghezzaStringa) {
+		String[] testoEsteso = new String[testo.length];
+		for(int i = 0; i < testo.length; i++) {
+			testo[i] = estendiStringa(testo[i], lunghezzaStringa);
+		}
+		return testoEsteso;
+	}
+
 
 	
 	
