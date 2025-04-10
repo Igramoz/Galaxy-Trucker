@@ -16,6 +16,7 @@ public class ServizioAssemblaggio {
 	// Di default ha già la lista di compoenenti generata, bisogna solo estrarli
 	public ServizioAssemblaggio() {
 		generaComponenti();
+        Collections.shuffle(componentiGenerati);
 	}
 
 	public Componente estraiComponente() {
@@ -24,9 +25,7 @@ public class ServizioAssemblaggio {
 		if (componentiGenerati.isEmpty()) {
 			return null; // Se non ci sono più componenti, restituisco null
 		}
-
-		int randomNum = random.randomInt(componentiGenerati.size());
-		return componentiGenerati.remove(randomNum); // Rimuovo il componente dalla lista
+		return componentiGenerati.remove(0); // Rimuovo il componente dalla lista
 	}
 
 	private void generaComponenti() {

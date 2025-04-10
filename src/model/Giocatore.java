@@ -15,8 +15,6 @@ public class Giocatore {
 	
 	// TODO assegnare titolo
 	private Nave nave;
-    private Componente[] componentiPrenotati = new Componente[2]; // TODO ha senso questo quà
-    private int pezziDistrutti = 0; 
 	
 	private int crediti = 0;
 	
@@ -53,40 +51,40 @@ public class Giocatore {
 		return nave;		
 	}
 		
-	// Metodi componenti prenotati
-    public boolean setComponentiPrenotati(Componente componente) {
-        for (int i = 0; i < componentiPrenotati.length; i++) {
-            if (componentiPrenotati[i] == null) {
-                componentiPrenotati[i] = componente;
-                return true;
-            }
-        }
-        return false;
-    }
-	
-    public Componente[] getComponentiPrenotati() {
-        return Arrays.copyOf(componentiPrenotati, componentiPrenotati.length);
-    }
-    
-    public boolean rimuoviComponentiPrenotati(Componente componente) {
-        for (int i = 0; i < componentiPrenotati.length; i++) {
-            if (componente.equals(componentiPrenotati[i])) {
-                componentiPrenotati[i] = null;
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    // Metodi pezzi distrutti
-    public int getPezziDistrutti() {
-    	return pezziDistrutti;
-    }
-    
-    public void incrementaPezziDistrutti() {
-        pezziDistrutti++;
-    }
-    
+	// Metodi componenti prenotati TODO 
+//    public boolean setComponentiPrenotati(Componente componente) {
+//        for (int i = 0; i < componentiPrenotati.length; i++) {
+//            if (componentiPrenotati[i] == null) {
+//                componentiPrenotati[i] = componente;
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+//	
+//    public Componente[] getComponentiPrenotati() {
+//        return Arrays.copyOf(componentiPrenotati, componentiPrenotati.length);
+//    }
+//    
+//    public boolean rimuoviComponentiPrenotati(Componente componente) {
+//        for (int i = 0; i < componentiPrenotati.length; i++) {
+//            if (componente.equals(componentiPrenotati[i])) {
+//                componentiPrenotati[i] = null;
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+//    
+//    // Metodi pezzi distrutti
+//    public int getPezziDistrutti() {
+//    	return pezziDistrutti;
+//    }
+//    
+//    public void incrementaPezziDistrutti() {
+//        pezziDistrutti++;
+//    }
+//    
     // Metodi crediti
     public void aggiungiCrediti(int crediti) {
     	this.crediti += crediti;
