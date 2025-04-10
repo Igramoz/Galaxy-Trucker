@@ -6,7 +6,7 @@ import java.util.EnumMap;
 import model.enums.*;
 import util.Util;
 
-public abstract class Componente{
+public abstract class Componente implements Cloneable {
 
 	protected final TipoComponente tipo;
 	protected Map<Direzione, TipoTubo> tubi;

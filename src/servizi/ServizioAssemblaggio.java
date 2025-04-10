@@ -22,6 +22,7 @@ public class ServizioAssemblaggio {
 	public Componente estraiComponente() {
 
 		// Estrae un componente randomicamente
+		// LANCIA IndexOutOfBoundsException SE LA LISTA è VUOTA
 		if (componentiGenerati.isEmpty()) {
 			return null; // Se non ci sono più componenti, restituisco null
 		}
