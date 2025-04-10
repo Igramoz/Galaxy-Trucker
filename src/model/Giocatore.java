@@ -1,8 +1,6 @@
 package model;
 
-import java.util.Arrays;
 
-import componenti.Componente;
 import grafica.Colore;
 import model.enums.TipoNave;
 

@@ -59,7 +59,10 @@ public class Nave {
     }
     
     public void setComponente(Componente componente, Coordinate coordinate) {
-        grigliaComponenti[coordinate.getX()][coordinate.getY()] = componente;
+        if(!livelloNave.isPosizionabile(coordinate)) {
+            throw new IllegalArgumentException("La posizione " + coordinate + " non è posizionabile nella nave.");
+        }
+    	grigliaComponenti[coordinate.getX()][coordinate.getY()] = componente;
     }
     
     public TipoNave getLivelloNave() {

@@ -1,5 +1,7 @@
 package model.enums;
 
+import model.Coordinate;
+
 public enum TipoNave {
 	LIVELLO_1(new boolean[][] {
 		{false, false, false, false, false, false, false, false, false, false, false, false},
@@ -50,4 +52,8 @@ public enum TipoNave {
 	public boolean[][] getschemaNave() {
 		return this.schemaNave;
 	}	
+	
+	public boolean isPosizionabile(Coordinate c) {				
+		return schemaNave[c.getX()][c.getY()];
+	}
 }
