@@ -1,11 +1,9 @@
 package componenti;
-
 import java.util.Map;
-
 import model.enums.Direzione;
 import model.enums.TipoTubo;
 
-public class VanoBatteria extends Componente {
+public class VanoBatteria extends Componente{
 
 	public static final int MAX_BATTERIE = 3; // numero massimo di batterie
 	public static final int MIN_BATTERIE = 2; // numero minimo di batterie

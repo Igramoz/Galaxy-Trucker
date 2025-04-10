@@ -1,10 +1,11 @@
 package componenti;
 
-import java.util.Map;
 
+
+import java.util.Map;
 import model.enums.*;
 
-public class Stiva extends Componente {
+public class Stiva extends Componente{
 
 	public static final int MAX_SCOMPARTI = 3; // numero massimo di scomparti della stiva
 	public static final int MIN_SCOMPARTI = 2; // numero minimo di scomparti della stiva
