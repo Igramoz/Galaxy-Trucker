@@ -30,7 +30,7 @@ public abstract class Componente{
 	
 	@Override // Devo fare override affinché l'hashcode funzioni
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (super.equals(obj))
 			return true; // confronto i riferimenti
 		if (obj == null || getClass() != obj.getClass())
 			return false; // se l'altro oggetto è null o se sono di tipi diversi
