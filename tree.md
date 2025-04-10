@@ -33,6 +33,11 @@
         |    ├── ModuloSupportoAlieni.java
         |    └── Motore.java
         |    	    └── MotoreDoppio.java
+	|
+	|
+	├── nave/
+        |   ├── Nave.java
+        |   └── Distruttore.java
         |
         ├── cartaAvventura/
         |   ├── Carta.java

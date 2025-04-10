@@ -1,13 +1,13 @@
-package model;
+package nave;
 
 import componenti.Componente;
 import componenti.CabinaPartenza;
 import util.*;
-import servizi.ServizioDistruzioneComponenti;
 import grafica.Colore;
+import model.Coordinate;
 import model.enums.TipoNave;
 
-public class Nave {
+public class Nave implements Distruttore {
 	
     private Componente[][] grigliaComponenti; 
     private final TipoNave livelloNave;
@@ -69,26 +69,16 @@ public class Nave {
 		return livelloNave;
 	}   
     
+    public void distruggiComponente(Coordinate coordinate) {
+    	Distruttore distruzioneComponenti = new Distruttore() {};
+        distruzioneComponenti.distruggiComponenti(this, coordinate);
+    }
     
     // Il metodo può essere chiamto solo dalla funzione distruggiComponenti della classe EventService
-    public void distruggiSingoloComponente(Coordinate coordinate) {
-    	 if (isCalledByEventService()) {
+    protected void distruggiSingoloComponente(Coordinate coordinate) {
              if (grigliaComponenti[coordinate.getX()][coordinate.getY()] != null) {
                  grigliaComponenti[coordinate.getX()][coordinate.getY()] = null;
                  //TODO aggiornare il numero di pezzi distrutti nel giocatore
              }
-         } else {
-             throw new SecurityException("Accesso non autorizzato al metodo distruggiSingoloComponente");
-         }
-    }
-    
-    private boolean isCalledByEventService() {
-        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-        for (StackTraceElement element : stackTrace) {
-            if (element.getClassName().equals(ServizioDistruzioneComponenti.class.getName())) {
-                return true;
-            }
-        }
-        return false;
     }
 }

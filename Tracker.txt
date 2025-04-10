@@ -1,6 +1,6 @@
 package componenti;
 
-import model.Nave;
+import nave.Nave;
 import model.Coordinate;
 import java.util.HashSet;
 import java.util.Set;

@@ -3,8 +3,8 @@ package grafica;
 
 import componenti.Componente;
 import model.enums.Direzione;
+import nave.Nave;
 import util.Util;
-import model.Nave;
 
 
 public class ConvertitoreGrafica {
