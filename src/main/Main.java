@@ -14,16 +14,11 @@ public class Main {
 		ServizioAssemblaggio servizio = new ServizioAssemblaggio();
 		GestoreGrafica gestoreGrafica = new GestoreGrafica();
 
-		Componente c = null;
+		gestoreGrafica.stampa( grafica.legendaComponenti() );
 
-		do {
-			c = servizio.estraiComponente();
-			if (c != null) {
-
-				gestoreGrafica.stampa(grafica.rappresentaComponente(c));
-			}
-		} while (c != null);
-
+		
+		
+		
 		Inizializzazione ini = new Inizializzazione();
 		// ini.start();
 	}

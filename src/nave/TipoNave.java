@@ -1,9 +1,9 @@
-package model.enums;
+package nave;
 
 import model.Coordinate;
 
 public enum TipoNave {
-	LIVELLO_1(new boolean[][] {
+	NAVE_1(new boolean[][] {
 		{false, false, false, false, false, false, false, false, false, false, false, false},
 		{false, false, false, false, false, false, false, false, false, false, false, false},
 		{false, false, false, false, false, false, false, false, false, false, false, false},
@@ -16,7 +16,7 @@ public enum TipoNave {
 		{false, false, false, false, false, false, false, false, false, false, false, false},
 		{false, false, false, false, false, false, false, false, false, false, false, false},
 	}),
-	LIVELLO_2(new boolean[][]{
+	NAVE_2(new boolean[][]{
 		{false, false, false, false, false, false, false, false, false, false, false, false},
 		{false, false, false, false, false, false, false, false, false, false, false, false},
 		{false, false, false, false, false, false, false, false, false, false, false, false},
@@ -29,7 +29,7 @@ public enum TipoNave {
 		{false, false, false, false, false, false, false, false, false, false, false, false},
 		{false, false, false, false, false, false, false, false, false, false, false, false},
 	}),
-	LIVELLO_3(new boolean[][] {
+	NAVE_3(new boolean[][] {
 	    {false, false, false, false, false, false, false, false, false, false, false, false},
 	    {false, false, false, false, false, false, false, false, false, false, false, false},
 	    {false, false, false, false, false, false, false, false, false, false, false, false},

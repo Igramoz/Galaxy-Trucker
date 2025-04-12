@@ -2,8 +2,8 @@ package model;
 
 
 import grafica.Colore;
-import model.enums.TipoNave;
 import nave.Nave;
+import nave.TipoNave;
 
 public class Giocatore {
 	private static int giocatoriMax = 4; // Numero massimo di giocatori

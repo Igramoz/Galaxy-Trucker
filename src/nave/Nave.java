@@ -5,7 +5,6 @@ import componenti.CabinaPartenza;
 import util.*;
 import grafica.Colore;
 import model.Coordinate;
-import model.enums.TipoNave;
 
 public class Nave implements Distruttore {
 	

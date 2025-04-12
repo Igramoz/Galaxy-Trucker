@@ -34,8 +34,13 @@
         |    └── Motore.java
         |    	    └── MotoreDoppio.java
 	|
-	├── fasidigioco/
-        |   ├── Inizializzazione.java		// Prima fase di gioco
+	├──  fasidigioco/
+        |    ├── Inizializzazione.java		// Prima fase di gioco
+        |    ├── FineVolo.java	 // vengono assegnati i crediti
+        |    ├── Volo.java // si annunciano i vincitori, si chiede se si vuole rigiocare
+	|    └── composizione/
+        |         ├── ComposizioneNave.java
+        |         └── GestoreComposizioneNave.java
 	|
 	├── nave/
         |   ├── Nave.java	

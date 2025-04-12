@@ -13,7 +13,7 @@ public class FormattatoreGrafico {
 	public static final String FRECCIA_DESTRA = ">";
 	
 	// funzione che aggiunge < ^ > v se necessario
-	public String formattaComponente(Componente componente) {
+	protected String formattaComponente(Componente componente) {
 		
 		String output = componente.getTipo().toString();
 		

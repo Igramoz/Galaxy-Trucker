@@ -9,19 +9,3 @@ Ipotiziamo che scelgano la trasvolata intergalattica,
 Fase 3.2: AssegnazioneTitoli //  dopo che vengono assegnati i crediti, ricorda che i crediti vencono assegnati pe la nave più bella in seguito ai titoli, si assegnano i titoli,
 
 poi si esegue la modalità 2, 3 in loop.
-
-
-Nave 1: 
-boolean[][] LIVELLO_1 = {
-    {false, false, false, false, false, false, false, false, false, false, false, false},
-    {false, false, false, false, false, false, false, false, false, false, false, false},
-    {false, false, false, false, false, false, false, false, false, false, false, false},
-    {false, false, false, false, false, false, false, false, false, false, false, false},
-    {false, false, false, false, false, true , false, false, false, false, false, false},
-    {false, false, false, false, true , true , true , false, false, false, false, false},
-    {false, false, false, true , true , true , true , true , false, false, false, false},
-    {false, false, false, true , true , true , true , true , false, false, false, false},
-    {false, false, false, true , true , false, true , true , false, false, false, false},
-    {false, false, false, false, false, false, false, false, false, false, false, false},
-
-};
