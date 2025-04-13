@@ -5,6 +5,7 @@ import componenti.*;
 import fasidigioco.Inizializzazione;
 import grafica.ConvertitoreGrafica;
 import grafica.GestoreGrafica;
+import nave.*;
 
 public class Main {
 
@@ -14,10 +15,11 @@ public class Main {
 		ServizioAssemblaggio servizio = new ServizioAssemblaggio();
 		GestoreGrafica gestoreGrafica = new GestoreGrafica();
 
-		gestoreGrafica.stampa( grafica.legendaComponenti() );
+		Nave n = new Nave(TipoNave.NAVE_1);
+		gestoreGrafica.stampa( grafica.rappresentazioneNave(n) );
 
 		
-		
+		 
 		
 		Inizializzazione ini = new Inizializzazione();
 		// ini.start();

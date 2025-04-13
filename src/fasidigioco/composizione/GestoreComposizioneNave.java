@@ -16,9 +16,11 @@ import java.util.Scanner;
 public class GestoreComposizioneNave {
 
 	private final Giocatore giocatore;
-	private List<Componente> pezziPrenotati;
+	private List<Componente> componentiPrenotati;
 	private final ServizioAssemblaggio servizioAssemblaggio;
 	private final GestoreGrafica gestoreGrafica;
+	private final FormattatoreGrafico formattatore;
+	private boolean turnoTerminato;
 	
 	public GestoreComposizioneNave(Giocatore giocatore, LivelloPartita livello, ServizioAssemblaggio servizioAssemblaggio) {
 		this.giocatore = giocatore;
@@ -26,16 +28,50 @@ public class GestoreComposizioneNave {
 		
 		giocatore.setNave(livello.getTipoNave());
 		gestoreGrafica = new GestoreGrafica();
+		formattatore = new FormattatoreGrafico();
+		turnoTerminato = false;
 		
 	}
 	
+	// Restituisce vero se il goicatore ha finito la nave
 	public boolean gestisciTurno(List<Componente> componentiScartati) {
 		
 		TextAligner txtAligner = new TextAligner();
 		ConvertitoreGrafica convertitore = new ConvertitoreGrafica(); 
-		gestoreGrafica.stampa(convertitore.rappresentazioneNave(giocatore.getNave()));
 		
-		return true;		
+		// stampo:
+		gestoreGrafica.stampa(txtAligner.alignCenter("Turno di: " + formattatore.formattaGiocatore(giocatore)));
+		gestoreGrafica.stampa(convertitore.rappresentazioneNave(giocatore.getNave()));
+		gestoreGrafica.stampa("Componenti prenotati:");
+		gestoreGrafica.stampa(convertitore.rappresentaComponenti(componentiPrenotati));
+		gestoreGrafica.stampa("Componenti scartati:");
+		gestoreGrafica.stampa(convertitore.rappresentaComponenti(componentiScartati));
+		
+		boolean sceltaValida;
+		do {
+			sceltaValida = true;
+			
+			switch (mostraMenu()) {
+            case 1 -> guardaCarte();
+            case 2 -> estraiNuovoComponente();
+            case 3 -> usaComponenteEstratto();
+            case 4 -> usaComponentePrenotato();
+            case 5 -> rimuoviComponente();
+            case 0 -> { turnoTerminato = true; return true; }
+            default -> {gestoreGrafica.stampa("Scelta non valida, scegliere nuovamente:"); sceltaValida = false;}
+			}		
+		}while(!sceltaValida);
+		
+		
+		return false;		
+	}
+	
+	public boolean getTurnoTerminato() {
+		return turnoTerminato;
+	}
+	
+	public Giocatore getGiocatore() {
+		return giocatore;
 	}
 	
 	private int mostraMenu() {
@@ -46,7 +82,7 @@ public class GestoreComposizioneNave {
 		            "3 - Usa un componente già estratto",
 		            "4 - Usa un componente prenotato",
 		            "5 - Rimuovi un componente dalla nave",
-		            "0 - Passa"
+		            "0 - Nave completata"
 		        };
 		gestoreGrafica.stampa(azioniDisponibili);
 		
@@ -67,7 +103,7 @@ public class GestoreComposizioneNave {
         Componente estratto = servizioAssemblaggio.estraiComponente();
         System.out.println("Hai estratto: " + estratto);
         // rotazione, posizionamento, conferma
-        pezziPrenotati.add(estratto); // in attesa di posizionamento
+        componentiPrenotati.add(estratto); // in attesa di posizionamento
     }
 
     private void usaComponenteEstratto() {
@@ -76,20 +112,20 @@ public class GestoreComposizioneNave {
     }
 
     private void usaComponentePrenotato() {
-        if (pezziPrenotati.isEmpty()) {
+        if (componentiPrenotati.isEmpty()) {
             System.out.println("Nessun componente prenotato.");
             return;
         }
 
         System.out.println("Componenti prenotati disponibili:");
-        for (int i = 0; i < pezziPrenotati.size(); i++) {
-            System.out.println((i + 1) + ": " + pezziPrenotati.get(i));
+        for (int i = 0; i < componentiPrenotati.size(); i++) {
+            System.out.println((i + 1) + ": " + componentiPrenotati.get(i));
         }
 
         int scelta = 0;// InputUtil.leggiInt("Scegli il componente da usare: ") - 1;
 
-        if (scelta >= 0 && scelta < pezziPrenotati.size()) {
-            Componente scelto = pezziPrenotati.remove(scelta);
+        if (scelta >= 0 && scelta < componentiPrenotati.size()) {
+            Componente scelto = componentiPrenotati.remove(scelta);
             // TODO: ruotare, posizionare, validare
             System.out.println("Hai selezionato: " + scelto);
         } else {

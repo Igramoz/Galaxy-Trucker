@@ -2,19 +2,24 @@ package grafica;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
 
 import componenti.Componente;
 import componenti.TipoComponente;
 import model.enums.*;
+import model.Coordinate;
 import nave.Nave;
+import nave.TipoNave;
 import util.Util;
 
 public class ConvertitoreGrafica {
 	// Classe che si occupa di convertire i componenti di gioco in rappresentazioni
 	// grafiche testuali
 
+	// TODO controllare che la posizione sia accettabile.
 	public final static int LARGHEZZA_COMPONENTE = 5; // Numero spazi per rappresentare un componente
 	public final static int ALTEZZA_COMPONENTE = 3; // Num righe per rappresentare ogni componente
+	private final String ComponenteNull = "O";
 
 	private TextAligner textAligner;
 	private FormattatoreGrafico formattatoreGrafico;
@@ -24,15 +29,20 @@ public class ConvertitoreGrafica {
 		formattatoreGrafico = new FormattatoreGrafico();
 	}
 
-	protected String[] rappresentaComponente(Componente componente) {
+	public String[] rappresentaComponente(Componente componente) {
 
 		/*
-		 * Esempio di output:
-		 *
-		 * || #MD = |
+		 * Esempio di output: || #MD = |
 		 */
-
 		String[] rappresentazioneComponente = new String[ALTEZZA_COMPONENTE];
+
+		// se il componente è null rappresento O
+		if (componente == null) {
+			rappresentazioneComponente[0] = textAligner.centraTestoInLarghezza("", LARGHEZZA_COMPONENTE);
+			rappresentazioneComponente[1] = textAligner.centraTestoInLarghezza(ComponenteNull, LARGHEZZA_COMPONENTE);
+			rappresentazioneComponente[2] = textAligner.centraTestoInLarghezza("", LARGHEZZA_COMPONENTE);
+			return rappresentazioneComponente;
+		}
 
 		// Rappresento il tubo sopra " || "
 		String tuboSopra = componente.getTubo(Direzione.SOPRA).rappresentazione(Direzione.SOPRA);
@@ -55,13 +65,14 @@ public class ConvertitoreGrafica {
 	// Restituisce la rappresentazione della nave.
 	public String[] rappresentazioneNave(Nave nave) {
 
-		String[] rappresentazioneNave = new String[Util.SIZE * ALTEZZA_COMPONENTE];
+		String[] rappresentazioneNave = new String[	ALTEZZA_COMPONENTE * Util.SIZE];
 		Componente[][] grigliaComponenti = nave.getGrigliaComponenti();
 
 		// rappresento l'intera nave riga per riga
 		for (int rigaGriglia = 0; rigaGriglia < Util.SIZE; rigaGriglia++) {
 
-			String[] rappresentazioneRiga = rappresentaRigaNave(grigliaComponenti[rigaGriglia]);
+			String[] rappresentazioneRiga = rappresentaRigaNave(grigliaComponenti[rigaGriglia], rigaGriglia,
+					nave.getLivelloNave());
 
 			// rappresento la singola riga
 			for (int rigaComponente = 0; rigaComponente < ALTEZZA_COMPONENTE; rigaComponente++) {
@@ -72,15 +83,16 @@ public class ConvertitoreGrafica {
 		}
 
 		rappresentazioneNave = aggiungiCoordinateANave(rappresentazioneNave);
-		
+
 		rappresentazioneNave = textAligner.affiancaStringhe(legendaComponenti(), rappresentazioneNave);
-		
+
 		return rappresentazioneNave;
 	}
 
+	// Scrive le coordinate a sinistra e sotto alla nave
 	private String[] aggiungiCoordinateANave(String[] rappresentazioneNave) {
 
-		int altezzaTotale = Util.SIZE * ALTEZZA_COMPONENTE + 2; // Aggiungo uno spazio e la riga delle coordinate
+		int altezzaTotale = Util.SIZE * ALTEZZA_COMPONENTE +2; // Aggiungo uno spazio e la riga delle coordinate
 		int spazioOrdinate = 3; // Spazio da lasciare tra i componenti e le ordinate a sinistra
 
 		// La riga è formata dalla nave, lo spazio tra la nave e le ordinate e le
@@ -94,7 +106,7 @@ public class ConvertitoreGrafica {
 			naveConCoordinate[riga] = "";
 		}
 
-		Integer ordinate = GraficaConfig.OFFSET; // Integer per usare toString al posto del cast
+		Integer ordinate = GraficaConfig.OFFSET;
 		for (int riga = 0; riga < Util.SIZE * ALTEZZA_COMPONENTE; riga++) {
 
 			// Scrivo le coordinate a sinistra, con lo spazio
@@ -106,9 +118,13 @@ public class ConvertitoreGrafica {
 
 			}
 		}
+		
+		for (int i = 0; i < rappresentazioneNave.length; i++) {
+			naveConCoordinate[i] += rappresentazioneNave[i];
+		}
 
 		// Scrivo la penultima riga
-		naveConCoordinate[ALTEZZA_COMPONENTE] = " ".repeat(larghezzaTotale);
+		naveConCoordinate[altezzaTotale- 2] = " ".repeat(larghezzaTotale);
 
 		// Scrivo l'ultima riga
 		// inizio a scrivere le ascisse da ascisse offsett, colonna delle ordinate (1) +
@@ -116,28 +132,21 @@ public class ConvertitoreGrafica {
 		int ascisseOffset = spazioOrdinate + (int) Math.ceil((double) LARGHEZZA_COMPONENTE / 2);
 
 		// riempio l'offsett di spazi
-		rappresentazioneNave[altezzaTotale - 1] += " ".repeat(ascisseOffset);
+		naveConCoordinate[altezzaTotale - 1] += " ".repeat(ascisseOffset);
 
 		Integer ascisse = GraficaConfig.OFFSET; // Integer per non fare il cast, ma usare toString
 
 		// Scrivo le ascisse sotto alla nave, partendo da ascisseOffset spazi
-		for (int col = 0; col < larghezzaTotale - ascisseOffset; col++) {
-
-			if (col % LARGHEZZA_COMPONENTE == 0) {
-				rappresentazioneNave[altezzaTotale - 1] += textAligner.estendiStringa(ascisse.toString(),
-						LARGHEZZA_COMPONENTE);
-				ascisse++;
-			} else {
-				rappresentazioneNave[altezzaTotale - 1] += " ".repeat(LARGHEZZA_COMPONENTE); // Spazi tra un ascissa e
-																								// l'altra
-			}
+		for(int i= 0 ; i < Util.SIZE; i++) {
+			naveConCoordinate[altezzaTotale - 1] += textAligner.estendiStringa(ascisse.toString(), LARGHEZZA_COMPONENTE);
+			ascisse ++;
 		}
 
 		return naveConCoordinate;
 	}
 
 	// Rende la riga di comopnenti nelle tre righe che rappresentano i componenti
-	private String[] rappresentaRigaNave(Componente[] componente) {
+	private String[] rappresentaRigaNave(Componente[] componente, int rigaNave, TipoNave livelloNave) {
 
 		String[] rappresentazioneRiga = new String[ALTEZZA_COMPONENTE];
 
@@ -148,51 +157,89 @@ public class ConvertitoreGrafica {
 
 		// Itera su ogni componente della riga
 		for (int colonna = 0; colonna < Util.SIZE; colonna++) {
-			String[] rappresentazioneComponente = rappresentaComponente(componente[colonna]);
-
+			
+			String[] rappresentazioneComponente;
+			
+			Coordinate c = new Coordinate(rigaNave, colonna);
+			if(livelloNave.isPosizionabile(c)) {
+				rappresentazioneComponente= rappresentaComponente(componente[colonna]);				
+			}
+			else {
+				rappresentazioneComponente = new String[ALTEZZA_COMPONENTE];
+				
+				// Se il pezzo non è posizionabile lasico vuoto
+				for(int i = 0 ; i < ALTEZZA_COMPONENTE; i++) {
+					rappresentazioneComponente[i] = textAligner.estendiStringa("", LARGHEZZA_COMPONENTE);
+				}
+				
+			}		
 			// riga tiene conto della riga alla quale stiamo concatenando il componente
 			for (int riga = 0; riga < ALTEZZA_COMPONENTE; riga++) {
 				rappresentazioneRiga[riga] += rappresentazioneComponente[riga];
 			}
 		}
-
 		return rappresentazioneRiga;
 	}
 
 	// restituisce la legenda dei componenti
 	public String[] legendaComponenti() {
-		
+
 		List<String> legenda = new ArrayList<>();
 
 		// legenda dei componenti
 		legenda.add("Legenda dei componenti: ");
-		
-        for (TipoComponente componente : TipoComponente.values()) {
-            String voceLegenda = componente.name() + ": " + componente.toString();
-            legenda.add(voceLegenda);
-        }
-        
-        // legenda dei tubi
-        legenda.add("");
-        legenda.add("Legenda dei tubi: ");
-        
-        for (TipoTubo tubo : TipoTubo.values()) {
-            String legendaTubo = "Tubo " + tubo.name() + " in verticale: " + tubo.rappresentazione(Direzione.SOPRA) + 
-                                 "  orizzontale: " + tubo.rappresentazione(Direzione.SINISTRA);
-            legenda.add(legendaTubo);
-        }
-        
-        // legenda delle direzioni
-        legenda.add("");
-        legenda.add("Legenda delle direzioni: ");
-        
-        legenda.add("Direzioni: " + Direzione.SOPRA.name() + " " + FormattatoreGrafico.FRECCIA_SOPRA);
-        legenda.add( Direzione.SINISTRA.name() + " " + FormattatoreGrafico.FRECCIA_SINISTRA);
-        legenda.add(Direzione.SOTTO.name() + " " + FormattatoreGrafico.FRECCIA_SOTTO);
-        legenda.add(Direzione.DESTRA.name() + " " + FormattatoreGrafico.FRECCIA_DESTRA);
 
-		return  legenda.toArray(new String[0]);
+		for (TipoComponente componente : TipoComponente.values()) {
+			String voceLegenda = componente.name() + ": " + componente.toString();
+			legenda.add(voceLegenda);
+		}
+
+		// legenda dei tubi
+		legenda.add("");
+		legenda.add("Legenda dei tubi: ");
+
+		for (TipoTubo tubo : TipoTubo.values()) {
+			String legendaTubo = "Tubo " + tubo.name() + " in verticale: " + tubo.rappresentazione(Direzione.SOPRA)
+					+ "  orizzontale: " + tubo.rappresentazione(Direzione.SINISTRA);
+			legenda.add(legendaTubo);
+		}
+
+		// legenda delle direzioni
+		legenda.add("");
+		legenda.add("Legenda delle direzioni: ");
+
+		legenda.add("Direzioni: " + Direzione.SOPRA.name() + " " + FormattatoreGrafico.FRECCIA_SOPRA);
+		legenda.add(Direzione.SINISTRA.name() + " " + FormattatoreGrafico.FRECCIA_SINISTRA);
+		legenda.add(Direzione.SOTTO.name() + " " + FormattatoreGrafico.FRECCIA_SOTTO);
+		legenda.add(Direzione.DESTRA.name() + " " + FormattatoreGrafico.FRECCIA_DESTRA);
+
+		return legenda.toArray(new String[0]);
 
 	}
+	
+	public String[] rappresentaComponenti(List<Componente> lista) {
+		int SPAZIO_TRA_COMPONENTI = 2;
+		
+		// Calcolo se i pezzi occupano piui di una riga	
+		int larghezzaTotaleComponenti = lista.size() * (LARGHEZZA_COMPONENTE + SPAZIO_TRA_COMPONENTI);		
+		
+		if(larghezzaTotaleComponenti > GraficaConfig.LARGHEZZA_SCHERMO) {
+			
+		    List<Componente> primaMeta = lista.subList(0, lista.size()/2);
+		    List<Componente> secondaMeta = lista.subList(lista.size()/2, lista.size());
+		    
+	        String[] riga1 = rappresentaComponenti(primaMeta);
+	        String[] riga2 = rappresentaComponenti(secondaMeta);
+
+	        List<String> result = new ArrayList<>();
+	        Collections.addAll(result, riga1);
+	        Collections.addAll(result, riga2);
+
+	        return result.toArray(new String[0]);
+	    }else {
+	    	return lista.toArray(new String[0]);
+	    }	
+	}
+	
 
 }

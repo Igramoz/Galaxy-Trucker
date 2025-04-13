@@ -15,23 +15,25 @@ public class ComposizioneNave {
 
 
 	private final ServizioAssemblaggio servizioAssemblaggio; // Servizio di assemblaggio delle navi
-    private final GestoreComposizioneNave[] gestori;    
+    private final GestoreComposizioneNave[] gestori; 
+    private List<Giocatore> ordineFine;
     private final LivelloPartita livello;
 	private List<Componente> componentiScartati = new ArrayList<>();
-
-    
+	
+   
 	public ComposizioneNave(Giocatore[] giocatori, LivelloPartita livello) {
 
 		this.gestori = new GestoreComposizioneNave[giocatori.length];
 		this.livello = livello;
 		this.servizioAssemblaggio = new ServizioAssemblaggio(); // Inizializza il servizio di assemblaggio
-
+		this.ordineFine = new ArrayList<>();
+		
 	        for (int i = 0; i < giocatori.length; i++) {
 	            gestori[i] = new GestoreComposizioneNave(giocatori[i], livello, servizioAssemblaggio);
 	        }
 	}
 	
-	public void start() {
+	public List<Giocatore> start() {
 		// Ogni giocatore compone la propria nave
 		
 		GestoreGrafica gestoreGrafica = new GestoreGrafica();
@@ -39,16 +41,22 @@ public class ComposizioneNave {
 		
 		boolean faseTerminata = false;
 
-        while (!faseTerminata) {
-            faseTerminata = true; // si presume terminata, a meno che un giocatore non compia un'azione
+        while (!faseTerminata) {        	
+        	
             for (int i = 0; i < gestori.length; i++) {
-                boolean haAgito = gestori[i].gestisciTurno(componentiScartati);
-                if (haAgito) {
-                    faseTerminata = false; // almeno un giocatore ha compiuto un'azione
-                }
+            	if(gestori[i].getTurnoTerminato()) {
+            		continue;
+            	}
+            	
+            	if(gestori[i].gestisciTurno(componentiScartati)) {
+            		ordineFine.add(gestori[i].getGiocatore());
+            	}
+            	
+            	if(ordineFine.size() == gestori.length) {
+            		faseTerminata = true;
+            	}            	
             }
         }
-
-        System.out.println("Fase di composizione nave completata.");
+    	return ordineFine;
     }
 }

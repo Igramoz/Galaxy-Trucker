@@ -18,7 +18,7 @@ public class Giocatore {
 	private int crediti = 0;
 	
 	
-	
+
 	public Giocatore(String nome, Colore colore) {
 		if(numeroGiocatori >= giocatoriMax) {
 			throw new IllegalStateException("Si può giocare massimo in 4");

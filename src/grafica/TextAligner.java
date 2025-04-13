@@ -36,11 +36,10 @@ public class TextAligner {
 	public String[] estendiStringhe(String[] testo, int lunghezzaStringa) {
 		String[] testoEsteso = new String[testo.length];
 		for(int i = 0; i < testo.length; i++) {
-			testo[i] = estendiStringa(testo[i], lunghezzaStringa);
+			testoEsteso[i] = estendiStringa(testo[i], lunghezzaStringa);
 		}
 		return testoEsteso;
 	}
-
 
 	
 	
@@ -81,19 +80,20 @@ public class TextAligner {
     	
     	// Aggiungo righe sopra e sotto al testo con meno righe
     	if(righeSinistra > righeDestra) {
-            aggiungiRighe(testoDestra, righeSinistra);
+    		testoDestra = aggiungiRighe(testoDestra, righeSinistra);
     	}else if(righeDestra > righeSinistra) {
-			aggiungiRighe(testoSinistra, righeDestra);
+    		testoSinistra= aggiungiRighe(testoSinistra, righeDestra);
 		}    	
     	
     	// Calcolo lo spazio disponibile per il testo a sinistra e a destra
-    	int spaziDisponibiliSinistra = (GraficaConfig.LARGHEZZA_SCHERMO - maxLunghezzaSinistra - maxLunghezzaDestra)/2;
+    	int spazioDisponibile = (GraficaConfig.LARGHEZZA_SCHERMO - maxLunghezzaDestra- maxLunghezzaSinistra - margineSinistra - GraficaConfig.A_CAPO.length())/2;
     	
+    	int spaziDisponibiliSinistra = spazioDisponibile + maxLunghezzaSinistra;
     	// Rendo tutte le stringhe della stessa lunghezza a sinistra
     	testoSinistra = txtAligner.estendiStringhe(testoSinistra, spaziDisponibiliSinistra);
     	
     	// Se c'è la possibilià di lasciare spazi tra il testo e il centro
-    	if(GraficaConfig.LARGHEZZA_SCHERMO- spaziDisponibiliSinistra - maxLunghezzaDestra <= 2) {
+    	if(GraficaConfig.LARGHEZZA_SCHERMO- spazioDisponibile - maxLunghezzaDestra <= 2) {
     		margineSinistra = 0;
     	}
     	
@@ -144,8 +144,8 @@ public class TextAligner {
 			output[i] = "";
 		}
 		
-		for(int i = righeDaAggiungerePrima; i < righe.length; i++) {
-			output[i] = " ";
+		for(int i = 0; i < righe.length; i++) {
+			output[i + righeDaAggiungerePrima] = righe[i];
 		}
 		
 		for(int i = righeDaAggiungerePrima + righe.length; i < righeDaRaggiungere; i++) {
@@ -160,7 +160,7 @@ public class TextAligner {
 	// valida lo schermo per una lunghezza definita
 	public int lunghezzaVisivaTestoCheck(String testo, int spaziDisponibili) {
 		if (testo == null) {
-			throw new IllegalArgumentException("Il testo non può essere null.");
+			return 0;
 		}
 		int lunghezzaVisiva = rimuoviAnsi(testo).length();
 		
