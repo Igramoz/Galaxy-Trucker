@@ -2,7 +2,6 @@ package grafica;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Collections;
 
 import componenti.Componente;
 import componenti.TipoComponente;
@@ -16,7 +15,6 @@ public class ConvertitoreGrafica {
 	// Classe che si occupa di convertire i componenti di gioco in rappresentazioni
 	// grafiche testuali
 
-	// TODO controllare che la posizione sia accettabile.
 	public final static int LARGHEZZA_COMPONENTE = 5; // Numero spazi per rappresentare un componente
 	public final static int ALTEZZA_COMPONENTE = 3; // Num righe per rappresentare ogni componente
 	private final String ComponenteNull = "O";
@@ -218,27 +216,50 @@ public class ConvertitoreGrafica {
 	}
 	
 	public String[] rappresentaComponenti(List<Componente> lista) {
-		int SPAZIO_TRA_COMPONENTI = 2;
+		final int SPAZIO_TRA_COMPONENTI = 4;
 		
 		// Calcolo se i pezzi occupano piui di una riga	
 		int larghezzaTotaleComponenti = lista.size() * (LARGHEZZA_COMPONENTE + SPAZIO_TRA_COMPONENTI);		
-		
-		if(larghezzaTotaleComponenti > GraficaConfig.LARGHEZZA_SCHERMO) {
+        int righeTotali = 1; // Di default considero che 1 riga sia sufficiente per rappresentare tutti i componenti        
+        int numComponentiPerRiga; // Numero di componenti presente su ogni ria
+        
+        righeTotali =  (int) Math.ceil((double) larghezzaTotaleComponenti / GraficaConfig.LARGHEZZA_SCHERMO) ;
+		        
+        // Calcolo quanti componenti verranno stampati per riga
+        numComponentiPerRiga = (int) Math.ceil((double) lista.size() / righeTotali);
+        
+    	String[] singoloComponente = new String[ALTEZZA_COMPONENTE];
+        String[] righeComponenti = new String[ALTEZZA_COMPONENTE* righeTotali];
+    	// Inizializzo righeComponenti
+    	for(int i = 0; i < righeComponenti.length; i++) {
+    		righeComponenti[i] = "";
+    	}
+    	
+        int riga = -1; // Tiene conto del numero di righe stampate
+        for(Integer n = 0; n < lista.size(); n ++) {
 			
-		    List<Componente> primaMeta = lista.subList(0, lista.size()/2);
-		    List<Componente> secondaMeta = lista.subList(lista.size()/2, lista.size());
-		    
-	        String[] riga1 = rappresentaComponenti(primaMeta);
-	        String[] riga2 = rappresentaComponenti(secondaMeta);
+        	// Vado a capo se ho stampato tutti i componenti della riga
+        	if(n % numComponentiPerRiga == 0) {
+        		riga++;
+        	}
+        			
+    		// scrivo il numero che corrisponde al componente
+    		righeComponenti[0 + riga*ALTEZZA_COMPONENTE] += textAligner.estendiStringa(" "+(n+1) , SPAZIO_TRA_COMPONENTI); 
+    		for(int j = 1; j < ALTEZZA_COMPONENTE; j++) {
+    			righeComponenti[j + riga*ALTEZZA_COMPONENTE] += textAligner.estendiStringa("" , SPAZIO_TRA_COMPONENTI); 
+	    		
+    		}
+    		
+        	singoloComponente = rappresentaComponente(lista.get(n));
 
-	        List<String> result = new ArrayList<>();
-	        Collections.addAll(result, riga1);
-	        Collections.addAll(result, riga2);
-
-	        return result.toArray(new String[0]);
-	    }else {
-	    	return lista.toArray(new String[0]);
-	    }	
+        	// concateno il componente alla riga
+        	for(int i = 0; i < ALTEZZA_COMPONENTE; i++) {
+        		righeComponenti[i + riga*ALTEZZA_COMPONENTE] += singoloComponente[i];
+        	}
+			
+		}	
+		return righeComponenti;
+		
 	}
 	
 

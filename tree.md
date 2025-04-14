@@ -70,16 +70,20 @@
         ├── services/                    // Logica di business e operazioni complesse
         |   ├── ServizioPunteggio.java        // Calcola punteggi e gestisce penalità
         |   ├── ServizioEventi.java        // Gestisce eventi casuali e programmati (es. volo)
-        |   ├── ServizioAssemblaggio.java        // Genera ed estrae randomicamente i componenti della nave; gestisce componenti prenotati e scartati
+        |   ├── ServizioAssemblaggio.java        // Genera ed estrae randomicamente i componenti della nave
         |   ├── ServizioCarte.java        // Genera ed estrae randomicamente le carte avventura
-        |   └── ServizioDistruzioneComponenti.java  // Funzione complessa per distruggere i componenti della nave (accesso agli attributi della nave)
+        |   └── ServizioDistruzioneComponenti.java  // Funzione complessa per distruggere i componenti della nave
         |
+	├── io/
+	|    ├── GestoreOutput.java // Funzioni per stampare 
+	|    └── GestoreInput.java  // Funzioni per gli input
+	|
+	|
         ├── grafica/                     // Gestione della grafica del gioco
         |   ├── ConvertitoreGrafico.java  // Associa i simboli grafici ai componenti
 	|   ├── FormattatoreGrafico.java 	  // Si occupa del formato della stampa.
 	|   ├── TextAligner.java 	  // Si occupa dell'allineamento delle stringhe.
-	|   ├── GraficaConfig.java 	  // Configurazione delle costanti grafiche
-        |   └── GestoreGrafica.java      // Gestisce la stampa a video dei componenti e dell'interfaccia grafica
+	|   └── GraficaConfig.java 	  // Configurazione delle costanti grafiche
         |
         └── util/                        // Funzioni generiche di supporto
             ├── Util.java                // Funzioni generiche di supporto

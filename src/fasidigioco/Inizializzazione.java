@@ -2,26 +2,26 @@ package fasidigioco;
 
 import java.util.Scanner;
 
+import io.GestoreOutput;
 import model.Giocatore;
-import grafica.GestoreGrafica;
 
 public class Inizializzazione {
 
 	private Giocatore[] giocatori;
 	private int numGiocatori;
-	private GestoreGrafica gestoreGrafica;
+	private GestoreOutput gestoreOutput;
 
 	public Inizializzazione() {
-		this.gestoreGrafica = new GestoreGrafica();
+		this.gestoreOutput = new GestoreOutput();
 	}
 	
 	public void start() {
-		gestoreGrafica.stampa("Inserisci il numero dei giocatori (minimo due, massimo quattro)");
+		gestoreOutput.stampa("Inserisci il numero dei giocatori (minimo due, massimo quattro)");
 		do {
 			Scanner sc = new Scanner(System.in);
 			numGiocatori = sc.nextInt();
 			if (numGiocatori < 2 || numGiocatori > 4)
-				gestoreGrafica.stampa("Inserisci il numero dei giocatori (minimo due, massimo quattro)");
+				gestoreOutput.stampa("Inserisci il numero dei giocatori (minimo due, massimo quattro)");
 		} while (numGiocatori < 2 || numGiocatori > 4);
 
 		giocatori = new Giocatore[numGiocatori];

@@ -1,10 +1,12 @@
 package main;
 
+import java.util.*;
+
 import servizi.ServizioAssemblaggio;
 import componenti.*;
 import fasidigioco.Inizializzazione;
 import grafica.ConvertitoreGrafica;
-import grafica.GestoreGrafica;
+import io.GestoreOutput;
 import nave.*;
 
 public class Main {
@@ -13,15 +15,23 @@ public class Main {
 
 		ConvertitoreGrafica grafica = new ConvertitoreGrafica();
 		ServizioAssemblaggio servizio = new ServizioAssemblaggio();
-		GestoreGrafica gestoreGrafica = new GestoreGrafica();
+		GestoreOutput gestoreOutput = new GestoreOutput();
 
+		List<Componente> lista = new ArrayList<>();
+		
 		Nave n = new Nave(TipoNave.NAVE_1);
-		gestoreGrafica.stampa( grafica.rappresentazioneNave(n) );
+		gestoreOutput.stampa(grafica.rappresentazioneNave(n));
+		gestoreOutput.aCapo();
+		// Estrarre e rappresentare tutti i componenti
+		
+		for(int i = 0; i < 35; i++) {
+			lista.add( servizio.estraiComponente());
+
+		}
+		gestoreOutput.stampa(grafica.rappresentaComponenti(lista));
 
 		
-		 
 		
-		Inizializzazione ini = new Inizializzazione();
-		// ini.start();
+		
 	}
 }

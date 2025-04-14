@@ -1,7 +1,9 @@
-package grafica;
+package io;
 
+import grafica.GraficaConfig;
+import grafica.TextAligner;
 
-public class GestoreGrafica {
+public class GestoreOutput {
 	// Classe che gestisce la stampa	
     
     // Metodo da usare per stampare 
@@ -16,6 +18,10 @@ public class GestoreGrafica {
     	for(String riga : righeDaStampare) {
     		stampa(riga);
     	}    	
+    }
+    
+    public void aCapo() {
+        stampa("");
     }
    
     

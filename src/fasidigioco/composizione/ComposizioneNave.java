@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import componenti.Componente;
+import io.GestoreOutput;
 import model.Giocatore;
 import model.enums.LivelloPartita;
 import servizi.ServizioAssemblaggio;
-import grafica.GestoreGrafica;
 
 // Fase del gioco in cui si compongno le navi
 public class ComposizioneNave {
@@ -36,18 +36,21 @@ public class ComposizioneNave {
 	public List<Giocatore> start() {
 		// Ogni giocatore compone la propria nave
 		
-		GestoreGrafica gestoreGrafica = new GestoreGrafica();
-		gestoreGrafica.stampa("E' ora di comporre le navi");
+		GestoreOutput gestoreOutput = new GestoreOutput();
+		gestoreOutput.stampa("E' ora di comporre le navi");
 		
 		boolean faseTerminata = false;
 
         while (!faseTerminata) {        	
         	
             for (int i = 0; i < gestori.length; i++) {
+            	
+            	// Non eseguo il codice nel caso i giocatori abbiano terminato la composizione
             	if(gestori[i].getTurnoTerminato()) {
             		continue;
             	}
             	
+            	// Gestisco il turno, se hanno concluso la costruzione aggiungo il giocatore alla lista dei giocatori che hanno finito
             	if(gestori[i].gestisciTurno(componentiScartati)) {
             		ordineFine.add(gestori[i].getGiocatore());
             	}
