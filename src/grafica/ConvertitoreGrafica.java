@@ -186,7 +186,8 @@ public class ConvertitoreGrafica {
 
 		// legenda dei componenti
 		legenda.add("Legenda dei componenti: ");
-
+		legenda.add("Spazio vuoto: " + ComponenteNull);
+		
 		for (TipoComponente componente : TipoComponente.values()) {
 			String voceLegenda = componente.name() + ": " + componente.toString();
 			legenda.add(voceLegenda);
@@ -216,6 +217,9 @@ public class ConvertitoreGrafica {
 	}
 	
 	public String[] rappresentaComponenti(List<Componente> lista) {
+		
+		if(lista == null) { return null;}
+		
 		final int SPAZIO_TRA_COMPONENTI = 4;
 		
 		// Calcolo se i pezzi occupano piui di una riga	

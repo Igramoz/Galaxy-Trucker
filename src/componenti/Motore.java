@@ -31,4 +31,9 @@ public class Motore extends Componente{
 	public Motore clone() {
 		return new Motore(this);
 	}	
+	
+	@Override
+	public void ruota() {
+		// Il motore non può ruotare, quindi non va eseguito nulla
+	}
 }

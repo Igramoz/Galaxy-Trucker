@@ -1,8 +1,10 @@
 package componenti;
 
 import java.util.Map;
-import model.enums.*;
-import util.Util;
+
+import model.enums.Direzione;
+import model.enums.TipoTubo;
+
 
 public class GeneratoreDiScudi extends Componente {
 
@@ -47,8 +49,8 @@ public class GeneratoreDiScudi extends Componente {
 
 		super.ruota();
 
-		this.direzione[0] = Util.ruotaDirezione(direzione[0]);
-		this.direzione[1] = Util.ruotaDirezione(direzione[1]);
+		this.direzione[0] = direzione[0].ruota();
+		this.direzione[1] = direzione[1].ruota();
 	}
 
 	@Override

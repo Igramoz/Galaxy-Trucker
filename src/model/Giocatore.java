@@ -6,8 +6,14 @@ import nave.Nave;
 import nave.TipoNave;
 
 public class Giocatore {
-	private static int giocatoriMax = 4; // Numero massimo di giocatori
+	private final static int giocatoriMax = 4; // Numero massimo di giocatori
 	public static int numeroGiocatori = 0;
+	public final static Colore[] coloriDisponibiliGiocatori = {
+		    Colore.ROSSO,
+		    Colore.BLU,
+		    Colore.VERDE,
+		    Colore.GIALLO
+		};	
 	
 	private final String nome;
 	private final Colore colore;

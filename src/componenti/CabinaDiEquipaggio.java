@@ -12,17 +12,15 @@ public class CabinaDiEquipaggio extends Componente {
 
     
     public CabinaDiEquipaggio(Map<Direzione, TipoTubo> tubiIniziali) {
-        super(TipoComponente.CABINA_EQUIPAGGIO, tubiIniziali);
-
-        
-
-        this.equipaggio = new ArrayList<>();
-        
+        this(TipoComponente.CABINA_EQUIPAGGIO, tubiIniziali, null);       
     }
 
-    public CabinaDiEquipaggio(Map<Direzione, TipoTubo> tubiIniziali, List<TipoPedina> equipaggioIniziale) {
-        this(tubiIniziali);
+    protected CabinaDiEquipaggio(TipoComponente tipoComponente, Map<Direzione, TipoTubo> tubiIniziali, List<TipoPedina> equipaggioIniziale) {
+        super(tipoComponente, tubiIniziali);
 
+        this.equipaggio = new ArrayList<>();
+        if(equipaggioIniziale == null) { return; }
+        
         for (TipoPedina pedina : equipaggioIniziale) {
             
         	if(!aggiungiEquipaggio(pedina)) {
@@ -32,7 +30,7 @@ public class CabinaDiEquipaggio extends Componente {
     }
 
     public CabinaDiEquipaggio(CabinaDiEquipaggio altra) {
-        this(altra.tubi, altra.equipaggio);
+        this(altra.tipo, altra.tubi, altra.equipaggio);
     }
 
     // TODO: controlla che sia possibile aggiungere o meno la pedina (possono esserci al massimo un alieno o 2 ASTRONAUTI
@@ -45,8 +43,10 @@ public class CabinaDiEquipaggio extends Componente {
 		// Se ci sono 2 astronauti non si può inserire altro
     	}else if( Collections.frequency(equipaggio, TipoPedina.ASTRONAUTA) > 1) {
     		return false;
-    	}
-    	
+    	// Se c'è un astronauta non si può aggiungere un alieno
+    	}else if(equipaggio.size() >= 1 && (pedina == TipoPedina.ALIENO_MARRONE || pedina == TipoPedina.ALIENO_VIOLA))
+    		return false;
+    		
         equipaggio.add(pedina);
         return true;
     }

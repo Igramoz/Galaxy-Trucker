@@ -12,7 +12,7 @@ public class FormattatoreGrafico {
 	public static final String FRECCIA_SINISTRA = "<";
 	public static final String FRECCIA_DESTRA = ">";
 	
-	// funzione che aggiunge < ^ > v se necessario
+	// Gestisce la grafica di componenti particolari
 	protected String formattaComponente(Componente componente) {
 		
 		String output = componente.getTipo().toString();
@@ -36,6 +36,10 @@ public class FormattatoreGrafico {
 			output = aggiungiCapacita(output, ((VanoBatteria) componente).getCapacitaMassima());
 		}
 		
+		else if(componente.getTipo() == TipoComponente.CABINA_PARTENZA) {
+			output = ((CabinaPartenza) componente).getColore().getCodice() + output;
+		}
+		
 		return output;
 	}
 	
@@ -55,7 +59,7 @@ public class FormattatoreGrafico {
 	}
 	
 	public String formattaGiocatore(Giocatore giocatore) {
-		return giocatore.getColore().toString()+ giocatore.getNome() + Colore.DEFAULT.toString();
+		return giocatore.getColore().getCodice()+ giocatore.getNome() + Colore.DEFAULT.getCodice();
 	}
 	
 }

@@ -16,7 +16,6 @@
         |    └── enums/
         |       ├── TipoMerce.java    // Enum per i colori della merce: ROSSA, GIALLA, VERDE, BLU
         |       ├── Direzione.java    // Enum per la direzione: SOPRA, DESTRA, SOTTO, SINISTRA
-        |       ├── tipoNave.java     // Enum tipoPlancia
         |       └── TipoTubo.java
         |
         ├── componenti/
@@ -44,6 +43,7 @@
 	|
 	├── nave/
         |   ├── Nave.java	
+        |   ├── tipoNave.java     // Enum tipoPlancia
         |   └── Distruttore.java 	// Interfaccia per gestire la distruzione della nave
         |
         ├── cartaAvventura/

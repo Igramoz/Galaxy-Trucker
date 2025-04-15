@@ -3,7 +3,6 @@ package componenti;
 import java.util.Map;
 import model.enums.Direzione;
 import model.enums.TipoTubo;
-import util.Util;
 
 public class Cannone extends Componente {
 
@@ -36,7 +35,7 @@ public class Cannone extends Componente {
 
 	@Override
 	public void ruota() {
-		Direzione nuovaDirezione = Util.ruotaDirezione(direzioneFuoco);
+		Direzione nuovaDirezione = direzioneFuoco.ruota();
 
 		super.ruota();
 		this.direzioneFuoco = nuovaDirezione;

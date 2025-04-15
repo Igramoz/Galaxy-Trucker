@@ -15,7 +15,7 @@ public class ComposizioneNave {
 
 
 	private final ServizioAssemblaggio servizioAssemblaggio; // Servizio di assemblaggio delle navi
-    private final GestoreComposizioneNave[] gestori; 
+    private final ManagerTurnoComposizione[] manager; 
     private List<Giocatore> ordineFine;
     private final LivelloPartita livello;
 	private List<Componente> componentiScartati = new ArrayList<>();
@@ -23,13 +23,13 @@ public class ComposizioneNave {
    
 	public ComposizioneNave(Giocatore[] giocatori, LivelloPartita livello) {
 
-		this.gestori = new GestoreComposizioneNave[giocatori.length];
+		this.manager = new ManagerTurnoComposizione[giocatori.length];
 		this.livello = livello;
 		this.servizioAssemblaggio = new ServizioAssemblaggio(); // Inizializza il servizio di assemblaggio
 		this.ordineFine = new ArrayList<>();
 		
 	        for (int i = 0; i < giocatori.length; i++) {
-	            gestori[i] = new GestoreComposizioneNave(giocatori[i], livello, servizioAssemblaggio);
+	            manager[i] = new ManagerTurnoComposizione(componentiScartati, giocatori[i], livello, servizioAssemblaggio);
 	        }
 	}
 	
@@ -43,19 +43,19 @@ public class ComposizioneNave {
 
         while (!faseTerminata) {        	
         	
-            for (int i = 0; i < gestori.length; i++) {
+            for (int i = 0; i < manager.length; i++) {
             	
             	// Non eseguo il codice nel caso i giocatori abbiano terminato la composizione
-            	if(gestori[i].getTurnoTerminato()) {
+            	if(manager[i].getTurnoTerminato()) {
             		continue;
             	}
             	
             	// Gestisco il turno, se hanno concluso la costruzione aggiungo il giocatore alla lista dei giocatori che hanno finito
-            	if(gestori[i].gestisciTurno(componentiScartati)) {
-            		ordineFine.add(gestori[i].getGiocatore());
+            	if(manager[i].gestisciTurno()) {
+            		ordineFine.add(manager[i].getGiocatore());
             	}
             	
-            	if(ordineFine.size() == gestori.length) {
+            	if(ordineFine.size() == manager.length) {
             		faseTerminata = true;
             	}            	
             }

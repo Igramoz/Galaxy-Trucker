@@ -4,7 +4,6 @@ import java.util.Map; // Libreria standard di java
 import java.util.EnumMap;
 
 import model.enums.*;
-import util.Util;
 
 public abstract class Componente implements Cloneable {
 
@@ -67,12 +66,13 @@ public abstract class Componente implements Cloneable {
 
 	public void ruota() {
 		// Ruota i tubi in senso antiorario
-		
-		TipoTubo tempTubo = tubi.get(Direzione.SOPRA);
-		tubi.put(Util.ruotaDirezione(Direzione.DESTRA), tubi.get(Direzione.DESTRA));
-		tubi.put(Util.ruotaDirezione(Direzione.SOTTO), tubi.get(Direzione.SOTTO));
-		tubi.put(Util.ruotaDirezione(Direzione.SINISTRA), tubi.get(Direzione.SINISTRA));
-		tubi.put(Util.ruotaDirezione(Direzione.DESTRA), tempTubo);
+		Map<Direzione, TipoTubo> tubiRuotati = new EnumMap<>(Direzione.class);
+
+		for (Direzione direzione : Direzione.values()) {
+		    Direzione nuovaDirezione = direzione.ruota();
+		    tubiRuotati.put(nuovaDirezione, tubi.get(direzione));
+		}
+		tubi.putAll(tubiRuotati);
 	}
 
 	public TipoComponente getTipo() {

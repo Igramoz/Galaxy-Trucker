@@ -22,14 +22,9 @@ public class CabinaPartenza extends CabinaDiEquipaggio{
 	}
 	
 	public CabinaPartenza(List<TipoPedina> equipaggioIniziale, Colore colore) {
-		super(tubiIniziali, equipaggioIniziale);
+		super(TipoComponente.CABINA_PARTENZA, tubiIniziali, equipaggioIniziale);
 		
 		this.colore = colore;
-		for (TipoPedina pedina : equipaggioIniziale) {
-			if(pedina != TipoPedina.ASTRONAUTA) {
-				throw new IllegalStateException("Nella cabina di partenza possono esserci solo astronauti");
-			}
-		}
 	}
 	
 	public CabinaPartenza(CabinaPartenza cabinaPartenza) { // costruttore di copia
@@ -43,8 +38,7 @@ public class CabinaPartenza extends CabinaDiEquipaggio{
     	if(pedina != TipoPedina.ASTRONAUTA) {
     		return false;
     	}
-    		super.aggiungiEquipaggio(pedina);
-        return true;
+    	return super.aggiungiEquipaggio(pedina);
     }
 	
 

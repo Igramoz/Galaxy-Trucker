@@ -12,6 +12,7 @@ public enum Colore {
 	VERDE("\u001B[38;5;34m"),
 	VERDE_LIME("\u001B[38;5;120m"), 
 	AZZURRO("\u001B[38;5;51m"),
+	BLU(""), // TODO scrivere ansi
 	ROSSO("\u001B[38;5;203m"),
 	GRIGIO("\u001B[37m");
 

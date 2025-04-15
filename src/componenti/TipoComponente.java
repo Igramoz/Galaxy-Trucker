@@ -4,7 +4,7 @@ import grafica.Colore;
 
 public enum TipoComponente {
 	CABINA_EQUIPAGGIO("CE", 17, Colore.BIANCO), 
-	CABINA_PARTENZA("CP", 4, Colore.GIALLO),
+	CABINA_PARTENZA("CP", 4, null),
 	CANNONE_SINGOLO("CS", 25, Colore.VIOLA_LILLA), 
 	CANNONE_DOPPIO("CD", 11, Colore.VIOLA_LILLA),
 	MOTORE_SINGOLO("MS", 21, Colore.MARRONE_BEIGE), 
@@ -29,7 +29,11 @@ public enum TipoComponente {
 
 	@Override
 	public String toString() {
-		return colore.getCodice() + sigla + Colore.DEFAULT.getCodice();
+		if(colore == null)
+			return sigla + Colore.DEFAULT.getCodice();
+		else
+			return colore.getCodice() + sigla + Colore.DEFAULT.getCodice();
+
 	}
 
 	public int getMaxIstanze() {

@@ -1,7 +1,6 @@
 package util;
 
 import model.*;
-import model.enums.Direzione;
 
 import java.util.Set;
 import java.util.List;
@@ -26,24 +25,4 @@ public class Util {
 		}
 		return false;
 	}
-
-	// Ruota la direzione in senso antiorario
-	public static Direzione ruotaDirezione(Direzione direzione) {
-
-		switch (direzione) {
-		case SOPRA:
-			return Direzione.SINISTRA;
-		case SINISTRA:
-			return Direzione.SOTTO;
-		case SOTTO:
-			return Direzione.DESTRA;
-		case DESTRA:
-			return Direzione.SOPRA;
-		default:
-			return null;
-		}
-	}
-	
-	
-	
 }

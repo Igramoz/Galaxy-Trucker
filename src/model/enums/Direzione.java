@@ -2,7 +2,25 @@ package model.enums;
 
 public enum Direzione {
     SOPRA,
-    DESTRA,
     SINISTRA,
-    SOTTO;
+    SOTTO,
+    DESTRA;
+	
+
+    public Direzione opposta() {
+        return switch (this) {
+            case SOPRA -> SOTTO;
+            case SOTTO -> SOPRA;
+            case DESTRA -> SINISTRA;
+            case SINISTRA -> DESTRA;
+        };
+    }
+	
+    // Ruota in senso antiorario
+    public Direzione ruota() {
+    	Direzione[] valori = Direzione.values();
+    	int nuovaDirezione = (this.ordinal() +1 ) % valori.length;
+    	return valori[nuovaDirezione];
+    }
+    
 }

@@ -27,4 +27,11 @@ public enum TipoTubo {
 		}
 	}
 	
+	public boolean isCompatibileCon(TipoTubo altro) {
+		if ((this == NESSUNO && altro != NESSUNO) || (altro == NESSUNO && this != NESSUNO)) {
+			return false;
+		}
+
+		return this == UNIVERSALE || altro == UNIVERSALE || this == altro;
+	}
 }

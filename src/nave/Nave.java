@@ -56,14 +56,7 @@ public class Nave implements Distruttore {
     	Componente copiaComponente = grigliaComponenti[coordinate.getX()][coordinate.getY()].clone();
         return copiaComponente;
     }
-    
-    public void setComponente(Componente componente, Coordinate coordinate) {
-        if(!livelloNave.isPosizionabile(coordinate)) {
-            throw new IllegalArgumentException("La posizione " + coordinate + " non è posizionabile nella nave.");
-        }
-    	grigliaComponenti[coordinate.getX()][coordinate.getY()] = componente;
-    }
-    
+        
     public TipoNave getLivelloNave() {
 		return livelloNave;
 	}   
@@ -80,4 +73,21 @@ public class Nave implements Distruttore {
                  //TODO aggiornare il numero di pezzi distrutti nel giocatore
              }
     }
+    
+    public boolean setComponente(Componente componente, Coordinate coordinate) {
+    	
+    	// Controllo se il tipo di nave ammette componenti in quella posizione
+    	if(!livelloNave.isPosizionabile(coordinate)) {
+            return false;
+        }
+    	
+    	// Controllo se il pezzo si collega agli altri
+    	ValidatorePosizione validatore = new ValidatorePosizione() {};
+    	if (validatore.valida(grigliaComponenti, componente, coordinate)) {
+            grigliaComponenti[coordinate.getX()][coordinate.getY()] = componente;
+            return true;
+        }
+        return false;
+    }
+    
 }
