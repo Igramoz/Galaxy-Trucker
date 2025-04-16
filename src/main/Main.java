@@ -4,10 +4,9 @@ import java.util.*;
 
 import servizi.ServizioAssemblaggio;
 import componenti.*;
-import fasidigioco.composizione.*;
+import fasidigioco.composizione.ComposizioneNave;
 import grafica.*;
 import io.GestoreOutput;
-import nave.*;
 import model.Giocatore;
 import model.enums.LivelloPartita;
 
