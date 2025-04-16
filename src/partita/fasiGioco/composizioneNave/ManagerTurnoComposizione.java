@@ -4,9 +4,10 @@ import componenti.Componente;
 import model.Giocatore;
 import servizi.ServizioAssemblaggio;
 import grafica.*;
-import io.*;
+import io.GestoreIO;
 import nave.Nave;
 import partita.LivelloPartita;
+import model.Coordinate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +16,7 @@ public class ManagerTurnoComposizione {
 
 	private final Giocatore giocatore;
 	private final ServizioAssemblaggio servizioAssemblaggio;
-	private final GestoreOutput output = new GestoreOutput();
-	private final GestoreInput input = new GestoreInput();
+	private final GestoreIO io= new GestoreIO();
 	private final FormattatoreGrafico formattatore = new FormattatoreGrafico();
 	private final NaveRenderer naveRenderer = new NaveRenderer();
 	private final ComponenteRenderer componenteRenderer = new ComponenteRenderer();
@@ -67,7 +67,7 @@ public class ManagerTurnoComposizione {
 				return true;
 			}
 			default -> {
-				output.stampa("Scelta non valida, scegliere nuovamente:");
+				io.stampa("Scelta non valida, scegliere nuovamente:");
 				sceltaValida = false;
 			}
 			}
@@ -77,17 +77,17 @@ public class ManagerTurnoComposizione {
 	}
 
 	private void mostraStato() {
-		output.aCapo();
-		output.stampa(txtAligner.alignCenter("Turno di: " + formattatore.formattaGiocatore(giocatore)));
-		output.aCapo();
-		output.stampa(naveRenderer.rappresentazioneNave(giocatore.getNave()));
-		output.aCapo();
-		output.stampa("Componenti prenotati:");
-		output.stampa(componenteRenderer.rappresentaComponenti(componentiPrenotati));
-		output.aCapo();
-		output.stampa("Componenti scartati:");
-		output.stampa(componenteRenderer.rappresentaComponenti(componentiScartati));
-		output.aCapo();
+		io.aCapo();
+		io.stampa(txtAligner.alignCenter("Turno di: " + formattatore.formattaGiocatore(giocatore)));
+		io.aCapo();
+		io.stampa(naveRenderer.rappresentazioneNave(giocatore.getNave()));
+		io.aCapo();
+		io.stampa("Componenti prenotati:");
+		io.stampa(componenteRenderer.rappresentaComponenti(componentiPrenotati));
+		io.aCapo();
+		io.stampa("Componenti scartati:");
+		io.stampa(componenteRenderer.rappresentaComponenti(componentiScartati));
+		io.aCapo();
 	}
 
 	private int mostraMenu() {
@@ -95,7 +95,7 @@ public class ManagerTurnoComposizione {
 				"3 - Usa un componente gia estratto", "4 - Usa un componente prenotato",
 				"5 - Rimuovi un componente dalla nave", "0 - Nave completata" };
 
-		return output.stampaMenu(azioni);
+		return io.stampaMenu(azioni);
 	}
 
 	// Azioni corrispondenti alle scelte del menu
@@ -108,7 +108,7 @@ public class ManagerTurnoComposizione {
 	private void estraiNuovoComponente() {
 		Componente estratto = servizioAssemblaggio.estraiComponente();
 
-		output.stampa("Hai estratto questo componente");
+		io.stampa("Hai estratto questo componente");
 		eseguiAzioneSuComponente(estratto);
 	}
 
@@ -120,9 +120,9 @@ public class ManagerTurnoComposizione {
 		do {
 			sceltaValida = true;
 
-			output.stampa(componenteRenderer.rappresentaComponente(estratto));
-			output.aCapo();
-			scelta = output.stampaMenu(azioniDisponibili);
+			io.stampa(componenteRenderer.rappresentaComponente(estratto));
+			io.aCapo();
+			scelta = io.stampaMenu(azioniDisponibili);
 
 			switch (scelta) {
 			case 0 -> {
@@ -133,7 +133,7 @@ public class ManagerTurnoComposizione {
 			case 2 -> sceltaValida = prenotaComponente(estratto);
 			case 3 -> componentiScartati.add(estratto);
 			default -> {
-				output.stampa("Scelta non valida, scegliere nuovamente:");
+				io.stampa("Scelta non valida, scegliere nuovamente:");
 				sceltaValida = false;
 			}
 			}
@@ -142,14 +142,20 @@ public class ManagerTurnoComposizione {
 
 	private boolean posizionaComponente(Componente c) {
 
-		// TODO: da implementare
+		io.stampa("Scrivere le coordinate in cui posizionare il componente");
+		Coordinate coord = io.leggiCoordinate();
+		
+		if(!giocatore.getNave().setComponente(c, coord)) {			
+			io.stampa("Non è possibile inserire il componente in questa posizione");
+			return false;
+		}
 
 		return true;
 	}
 
 	private boolean prenotaComponente(Componente c) {
 		if (componentiPrenotati.size() >= 2) {
-			output.stampa("Non si possono prenotare più di 2 componenti");
+			io.stampa("Non si possono prenotare più di 2 componenti");
 			return false;
 		}
 
@@ -164,18 +170,18 @@ public class ManagerTurnoComposizione {
 
 	private void usaComponentePrenotato() {
 		if (componentiPrenotati.isEmpty()) {
-			output.stampa("Nessun componente prenotato");
+			io.stampa("Nessun componente prenotato");
 			return;
 		}
-		output.stampa("Scrivere il numero corrispondente al componente:");
+		io.stampa("Scrivere il numero corrispondente al componente:");
 
 		int scelta;
 		boolean sceltaValida;
 		do {
 			sceltaValida = true;
-			scelta = input.leggiIntero();
+			scelta = io.leggiIntero();
 			if (scelta < 1 || scelta > componentiPrenotati.size()) {
-				output.stampa("Scrivere un numero compreso tra 1 e " + componentiPrenotati.size());
+				io.stampa("Scrivere un numero compreso tra 1 e " + componentiPrenotati.size());
 				sceltaValida = false;
 			}
 

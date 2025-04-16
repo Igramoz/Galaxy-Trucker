@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import componenti.Componente;
-import io.GestoreOutput;
+import io.GestoreIO;
 import model.Giocatore;
 import partita.LivelloPartita;
 import servizi.ServizioAssemblaggio;
@@ -36,7 +36,7 @@ public class ComposizioneNave {
 	public List<Giocatore> start() {
 		// Ogni giocatore compone la propria nave
 		
-		GestoreOutput gestoreOutput = new GestoreOutput();
+		GestoreIO gestoreOutput = new GestoreIO();
 		gestoreOutput.stampa("E' ora di comporre le navi");
 		
 		boolean faseTerminata = false;

@@ -26,15 +26,15 @@ public class NaveRenderer {
 			Componente[][] grigliaComponenti = nave.getGrigliaComponenti();
 
 			// rappresento l'intera nave riga per riga
-			for (int rigaGriglia = 0; rigaGriglia < Util.SIZE; rigaGriglia++) {
+			for (int y = 0; y < Util.SIZE; y++) {
 
-				String[] rappresentazioneRiga = rappresentaRigaNave(grigliaComponenti[rigaGriglia], rigaGriglia,
+				String[] rappresentazioneRiga = rappresentaRigaNave(grigliaComponenti, y,
 						nave.getLivelloNave());
 
 				// rappresento la singola riga
 				for (int rigaComponente = 0; rigaComponente < ComponenteRenderer.ALTEZZA_COMPONENTE; rigaComponente++) {
 
-					rappresentazioneNave[rigaGriglia * ComponenteRenderer.ALTEZZA_COMPONENTE
+					rappresentazioneNave[y * ComponenteRenderer.ALTEZZA_COMPONENTE
 							+ rigaComponente] = rappresentazioneRiga[rigaComponente];
 				}
 			}
@@ -101,7 +101,7 @@ public class NaveRenderer {
 		}
 		
 		// Rende la riga di comopnenti nelle tre righe che rappresentano i componenti
-		private String[] rappresentaRigaNave(Componente[] componente, int rigaNave, TipoNave livelloNave) {
+		private String[] rappresentaRigaNave(Componente[][]grigliaComponenti, int y, TipoNave livelloNave) {
 
 			String[] rappresentazioneRiga = new String[ComponenteRenderer.ALTEZZA_COMPONENTE];
 
@@ -109,13 +109,13 @@ public class NaveRenderer {
 			Arrays.fill(rappresentazioneRiga, "");
 
 			// Itera su ogni componente della riga
-			for (int colonna = 0; colonna < Util.SIZE; colonna++) {
+			for (int x = 0; x < Util.SIZE; x++) {
 				
 				String[] rappresentazioneComponente;
 				
-				Coordinate c = new Coordinate(rigaNave, colonna);
+				Coordinate c = new Coordinate(x, y);
 				if(livelloNave.isPosizionabile(c)) {
-					rappresentazioneComponente= componenteRenderer.rappresentaComponente(componente[colonna]);				
+					rappresentazioneComponente= componenteRenderer.rappresentaComponente(grigliaComponenti[x][y]);				
 				}
 				else {
 					rappresentazioneComponente = new String[ComponenteRenderer.ALTEZZA_COMPONENTE];

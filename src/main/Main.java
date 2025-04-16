@@ -5,7 +5,7 @@ import java.util.*;
 import servizi.ServizioAssemblaggio;
 import componenti.*;
 import grafica.*;
-import io.GestoreOutput;
+import io.GestoreIO;
 import model.Giocatore;
 import partita.LivelloPartita;
 import partita.fasiGioco.composizioneNave.ComposizioneNave;
@@ -17,7 +17,7 @@ public class Main {
 		NaveRenderer naveRenderer = new NaveRenderer();
 		ComponenteRenderer componenteRenderer = new ComponenteRenderer();
 		ServizioAssemblaggio servizio = new ServizioAssemblaggio();
-		GestoreOutput gestoreOutput = new GestoreOutput();
+		GestoreIO gestoreOutput = new GestoreIO();
 
 		// esempio di alcuni elemnti generati a caso
 //		List<Componente> lista = new ArrayList<>();
