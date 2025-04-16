@@ -12,5 +12,5 @@ public class GraficaConfig {
 	
 	// Simbolo stampato a dx dello schermo per indicare di essere andati a capo, di tipo string per concatenarla facilmente
 	public static final String A_CAPO = "|"; 
-
+	
 }

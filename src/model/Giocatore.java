@@ -1,5 +1,8 @@
 package model;
 
+import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.Set;
 
 import grafica.Colore;
 import nave.Nave;
@@ -8,13 +11,13 @@ import nave.TipoNave;
 public class Giocatore {
 	private final static int giocatoriMax = 4; // Numero massimo di giocatori
 	public static int numeroGiocatori = 0;
-	public final static Colore[] coloriDisponibiliGiocatori = {
-		    Colore.ROSSO,
-		    Colore.BLU,
-		    Colore.VERDE,
-		    Colore.GIALLO
-		};	
-	
+    public final static EnumSet<Colore> coloriDisponibiliGiocatori = EnumSet.of(
+            Colore.ROSSO,
+            Colore.BLU,
+            Colore.VERDE,
+            Colore.GIALLO
+        );
+
 	private final String nome;
 	private final Colore colore;
 	
@@ -22,13 +25,15 @@ public class Giocatore {
 	private Nave nave;
 	
 	private int crediti = 0;
-	
-	
 
 	public Giocatore(String nome, Colore colore) {
 		if(numeroGiocatori >= giocatoriMax) {
 			throw new IllegalStateException("Si può giocare massimo in 4");
 		}
+		if(!coloriDisponibiliGiocatori.contains(colore)) {
+            throw new IllegalArgumentException("Colore non valido. Deve essere uno tra: " + coloriDisponibiliGiocatori);
+		}
+		
 		this.nome = nome;
 		this.colore = colore;
 		

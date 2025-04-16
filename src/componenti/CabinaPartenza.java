@@ -2,6 +2,8 @@ package componenti;
 
 import java.util.List;
 import java.util.Map;
+
+import model.Giocatore;
 import model.enums.*;
 import model.equipaggio.TipoPedina;
 import grafica.Colore;
@@ -18,17 +20,21 @@ public class CabinaPartenza extends CabinaDiEquipaggio{
 	);
 	
 	public CabinaPartenza(Colore colore) {
-		this(null, colore);				
+		this(colore, null);				
 	}
 	
-	public CabinaPartenza(List<TipoPedina> equipaggioIniziale, Colore colore) {
+	public CabinaPartenza(Colore colore, List<TipoPedina> equipaggioIniziale) {
 		super(TipoComponente.CABINA_PARTENZA, tubiIniziali, equipaggioIniziale);
+		
+		if(!Giocatore.coloriDisponibiliGiocatori.contains(colore)) {
+            throw new IllegalArgumentException("Colore non valido. Deve essere uno tra: " + Giocatore.coloriDisponibiliGiocatori);
+		}
 		
 		this.colore = colore;
 	}
 	
 	public CabinaPartenza(CabinaPartenza cabinaPartenza) { // costruttore di copia
-		this(cabinaPartenza.getEquipaggio(), cabinaPartenza.colore);
+		this( cabinaPartenza.colore, cabinaPartenza.getEquipaggio());
 	}
 	
 	@Override

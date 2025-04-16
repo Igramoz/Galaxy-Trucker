@@ -15,7 +15,8 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		ConvertitoreGrafica grafica = new ConvertitoreGrafica();
+		NaveRenderer naveRenderer = new NaveRenderer();
+		ComponenteRenderer componenteRenderer = new ComponenteRenderer();
 		ServizioAssemblaggio servizio = new ServizioAssemblaggio();
 		GestoreOutput gestoreOutput = new GestoreOutput();
 

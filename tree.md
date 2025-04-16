@@ -80,7 +80,8 @@
 	|
 	|
         ├── grafica/                     // Gestione della grafica del gioco
-        |   ├── ConvertitoreGrafico.java  // Associa i simboli grafici ai componenti
+        |   ├── NaveRenderer.java  // Disegna la nave con la legenda
+        |   ├── ComponentiRenderer.java  // I componenti
 	|   ├── FormattatoreGrafico.java 	  // Si occupa del formato della stampa.
 	|   ├── TextAligner.java 	  // Si occupa dell'allineamento delle stringhe.
 	|   └── GraficaConfig.java 	  // Configurazione delle costanti grafiche

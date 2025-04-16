@@ -18,7 +18,8 @@ public class ManagerTurnoComposizione {
 	private final GestoreOutput output = new GestoreOutput();
 	private final GestoreInput input = new GestoreInput();
 	private final FormattatoreGrafico formattatore = new FormattatoreGrafico();
-	private final ConvertitoreGrafica convertitore = new ConvertitoreGrafica();
+	private final NaveRenderer naveRenderer = new NaveRenderer();
+	private final ComponenteRenderer componenteRenderer = new ComponenteRenderer();
 	private final TextAligner txtAligner = new TextAligner();
 
 	private List<Componente> componentiPrenotati = new ArrayList<>();
@@ -79,13 +80,13 @@ public class ManagerTurnoComposizione {
 		output.aCapo();
 		output.stampa(txtAligner.alignCenter("Turno di: " + formattatore.formattaGiocatore(giocatore)));
 		output.aCapo();
-		output.stampa(convertitore.rappresentazioneNave(giocatore.getNave()));
+		output.stampa(naveRenderer.rappresentazioneNave(giocatore.getNave()));
 		output.aCapo();
 		output.stampa("Componenti prenotati:");
-		output.stampa(convertitore.rappresentaComponenti(componentiPrenotati));
+		output.stampa(componenteRenderer.rappresentaComponenti(componentiPrenotati));
 		output.aCapo();
 		output.stampa("Componenti scartati:");
-		output.stampa(convertitore.rappresentaComponenti(componentiScartati));
+		output.stampa(componenteRenderer.rappresentaComponenti(componentiScartati));
 		output.aCapo();
 	}
 
@@ -119,7 +120,7 @@ public class ManagerTurnoComposizione {
 		do {
 			sceltaValida = true;
 
-			output.stampa(convertitore.rappresentaComponente(estratto));
+			output.stampa(componenteRenderer.rappresentaComponente(estratto));
 			output.aCapo();
 			scelta = output.stampaMenu(azioniDisponibili);
 

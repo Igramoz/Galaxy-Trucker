@@ -19,7 +19,7 @@ public enum TipoTubo {
 		this.siglaOrizzontale = siglaOrizzontale;
 	}
 	
-	public String rappresentazione(Direzione direzione) {
+	public String getSimbolo(Direzione direzione) {
 		if(direzione == Direzione.SINISTRA || direzione == Direzione.DESTRA) {
 			return siglaOrizzontale;
 		} else {
