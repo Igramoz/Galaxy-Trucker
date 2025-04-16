@@ -1,14 +1,11 @@
 package partita.fasiGioco;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.EnumSet;
 import java.util.Scanner;
 
 import grafica.Colore;
-import io.*;
+import io.GestoreIO;
 import model.Giocatore;
-import nave.TipoNave;
 import partita.LivelloPartita;
 import partita.ModalitaGioco;
 
@@ -16,54 +13,45 @@ public class Inizializzazione {
 
 	private Giocatore[] giocatori;
 	private int numGiocatori;
-	private GestoreOutput gestoreOutput;
-	private GestoreInput gestoreInput;
+	private GestoreIO gestoreIO;
 	private Scanner sc;
 
-	private static List<Colore> COLORI_UTILIZZATI;
+	private static EnumSet<Colore> COLORI_RIMASTI;
 
 	public Inizializzazione() {
-		gestoreOutput = new GestoreOutput();
-		gestoreInput = new GestoreInput();
+		gestoreIO = new GestoreIO();
 		sc = new Scanner(System.in);
-		COLORI_UTILIZZATI = new ArrayList<>();
+		COLORI_RIMASTI = Giocatore.coloriDisponibiliGiocatori;
 	}
 
 	public Giocatore[] start() {
 		// gestione numero dei giocatori
-		gestoreOutput.stampa("Inserisci il numero dei giocatori (minimo due, massimo quattro)");
+		gestoreIO.stampa("Inserisci il numero dei giocatori (minimo due, massimo quattro)");
 		do {
-			numGiocatori = gestoreInput.leggiIntero();
+			numGiocatori = gestoreIO.leggiIntero();
 			if (numGiocatori < 2 || numGiocatori > 4)
-				gestoreOutput.stampa("Inserisci il numero dei giocatori (minimo due, massimo quattro).");
+				gestoreIO.stampa("Inserisci il numero dei giocatori (minimo due, massimo quattro).");
 		} while (numGiocatori < 2 || numGiocatori > 4);
 		giocatori = new Giocatore[numGiocatori];
 
 		// gestione nome e colore dei giocatori
 		for (int i = 0; i < numGiocatori; i++) {
-			gestoreOutput.stampa("Scrivi il nome del giocatore " + (i + 1));
+			gestoreIO.stampa("Scrivi il nome del giocatore " + (i + 1));
 			String nome = sc.nextLine();
 
-			Colore colore = null;
-			do {
-				gestoreOutput.stampa("Colori disponibili: " + Giocatore.coloriDisponibiliGiocatori);
-				gestoreOutput.stampa("Scegli il colore del giocatore " + (i + 1));
-				String col = sc.nextLine().toUpperCase();
+			String[] menuColori = new String[COLORI_RIMASTI.size()];
+			int index = 0;
+			for (Colore c : COLORI_RIMASTI) {
+				menuColori[index++] = c.toString();
+			}
 
-				try {
-					colore = Colore.valueOf(col);
-					if (COLORI_UTILIZZATI.contains(colore)) {
-						gestoreOutput.stampa("Colore già scelto.");
+			// ottengo la scelta del colore
+			gestoreIO.stampa("Scegli il colore del giocatore " + (i + 1));
+			int sceltaColore = gestoreIO.stampaMenu(menuColori);
 
-					}
-				} catch (IllegalArgumentException e) {
-					gestoreOutput.stampa("Colore non valido. Riprova.");
-				} finally {
-					colore = null;
-				}
-			} while (colore == null);
-			COLORI_UTILIZZATI.add(colore);
-
+			// rimuovo il colore dalla lista
+			Colore colore = Colore.valueOf(menuColori[sceltaColore]);
+			COLORI_RIMASTI.remove(colore);
 			giocatori[i] = new Giocatore(nome, colore);
 		}
 
@@ -72,47 +60,42 @@ public class Inizializzazione {
 	}
 
 	public ModalitaGioco getModalita() {
-		String scelta = "";
+		// preparo il menu per scegliere la modalità
+		String[] menuModalita = { "Volo Singolo", "Trasvolata Intergalattica" };
+		gestoreIO.stampa("Scegli la modalità di gioco:");
+		int sceltaModalita = gestoreIO.stampaMenu(menuModalita);
+
 		ModalitaGioco modalita = null;
-		gestoreOutput.stampa("Vuoi giocare a \"Volo Singolo\" o a \"Trasvolata Intergalattica\"?");
-		gestoreOutput.stampa("Scrivi semplicemente \"volo\" oppure \"trasvolata\".");
-		do {
-			scelta = sc.nextLine().toLowerCase();
-			switch (scelta) {
-			case "volo":
-				modalita = ModalitaGioco.VOLO_SINGOLO;
-				break;
-			case "trasvolata":
-				modalita = ModalitaGioco.TRASVOLATA_INTERGALATTICA;
-				break;
-			default:
-				gestoreOutput.stampa("Opzione non valida.");
-			}
-		} while (scelta == "");
+		switch (sceltaModalita) {
+		case 0:
+			modalita = ModalitaGioco.VOLO_SINGOLO;
+			break;
+		case 1:
+			modalita = ModalitaGioco.TRASVOLATA_INTERGALATTICA;
+			break;
+		}
 
+		// se si gioca a "Volo Singolo", chiedo anche il livello
 		if (modalita == ModalitaGioco.VOLO_SINGOLO) {
-			int livello = 0;
-			gestoreOutput.stampa("Scegli il livello del gioco, da 1 a 3.");
-			do {
-				livello = gestoreInput.leggiIntero();
-				switch (livello) {
-				case 1:
-					modalita.setlivelloPartita(LivelloPartita.LIVELLO_1);
-					break;
-				case 2:
-					modalita.setlivelloPartita(LivelloPartita.LIVELLO_2);
-					break;
-				case 3:
-					modalita.setlivelloPartita(LivelloPartita.LIVELLO_3);
-					break;
-				default:
-					gestoreOutput.stampa("Opzione non valida.");
-				}
+			String[] menuLivelli = { "Livello 1", "Livello 2", "Livello 3" };
+			gestoreIO.stampa("Scegli il livello del gioco:");
+			int sceltaLivello = gestoreIO.stampaMenu(menuLivelli);
 
-			} while (livello == 0);
+			switch (sceltaLivello) {
+			case 0:
+				modalita.setlivelloPartita(LivelloPartita.LIVELLO_1);
+				break;
+			case 1:
+				modalita.setlivelloPartita(LivelloPartita.LIVELLO_2);
+				break;
+			case 2:
+				modalita.setlivelloPartita(LivelloPartita.LIVELLO_3);
+				break;
+			}
 		} else
 			modalita.setlivelloPartita(LivelloPartita.LIVELLO_1);
 
 		return modalita;
 	}
+
 }
