@@ -158,7 +158,7 @@ public class TextAligner {
 
     
 	// valida lo schermo per una lunghezza definita
-	public int lunghezzaVisivaTestoCheck(String testo, int spaziDisponibili) {
+	private int lunghezzaVisivaTestoCheck(String testo, int spaziDisponibili) {
 		if (testo == null) {
 			return 0;
 		}
@@ -172,7 +172,7 @@ public class TextAligner {
 	}
 
 	// valida la lunghezza per tutto lo schermo
-	public int lunghezzaVisivaTestoCheck(String testo) {
+	private int lunghezzaVisivaTestoCheck(String testo) {
 		return lunghezzaVisivaTestoCheck(testo, GraficaConfig.LARGHEZZA_SCHERMO);
 	}
 

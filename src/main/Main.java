@@ -4,11 +4,11 @@ import java.util.*;
 
 import servizi.ServizioAssemblaggio;
 import componenti.*;
-import fasidigioco.composizione.ComposizioneNave;
 import grafica.*;
 import io.GestoreOutput;
 import model.Giocatore;
-import model.enums.LivelloPartita;
+import partita.LivelloPartita;
+import partita.fasiGioco.composizioneNave.ComposizioneNave;
 
 public class Main {
 

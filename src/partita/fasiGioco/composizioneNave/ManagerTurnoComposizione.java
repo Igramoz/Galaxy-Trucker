@@ -1,12 +1,12 @@
-package fasidigioco.composizione;
+package partita.fasiGioco.composizioneNave;
 
 import componenti.Componente;
 import model.Giocatore;
-import model.enums.LivelloPartita;
 import servizi.ServizioAssemblaggio;
 import grafica.*;
 import io.*;
 import nave.Nave;
+import partita.LivelloPartita;
 
 import java.util.ArrayList;
 import java.util.List;

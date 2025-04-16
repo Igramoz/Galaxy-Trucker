@@ -1,4 +1,4 @@
-package fasidigioco;
+package partita.fasiGioco;
 
 import java.util.Arrays;
 import java.util.List;

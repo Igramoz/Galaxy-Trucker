@@ -1,4 +1,4 @@
-package fasidigioco.composizione;
+package partita.fasiGioco.composizioneNave;
 
 
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ import java.util.List;
 import componenti.Componente;
 import io.GestoreOutput;
 import model.Giocatore;
-import model.enums.LivelloPartita;
+import partita.LivelloPartita;
 import servizi.ServizioAssemblaggio;
 
 // Fase del gioco in cui si compongno le navi

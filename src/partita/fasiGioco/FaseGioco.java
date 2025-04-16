@@ -1,5 +1,6 @@
-package model.enums;
+package partita.fasiGioco;
 
+// TODO valutare se rimuovere
 public enum FaseGioco {
 	INIZIALIZZAZIONE, // quanti giocatori? Nomi? Colori? modalità di gioco?
 	COMPOSIZIONE_NAVE, // I giocatori compongono la nave
@@ -9,5 +10,5 @@ public enum FaseGioco {
 							// bella)
 	ASSEGNAZIONE_TITOLI, // dopo che vengono assegnati i crediti, ricorda che i crediti vencono assegnati
 							// per la nave più bella in seguito ai titoli, si assegnano i titoli,
-	FINE // si annunciano i vincitori, si chiede se si vuole rigiocare
+	FINE; // si annunciano i vincitori, si chiede se si vuole rigiocare
 }

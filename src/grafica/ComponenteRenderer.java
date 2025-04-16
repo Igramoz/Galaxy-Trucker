@@ -54,7 +54,7 @@ public class ComponenteRenderer {
 	}
 	
 	// Gestisce la grafica di componenti particolari
-		protected String formattaComponente(Componente componente) {
+		private String formattaComponente(Componente componente) {
 			
 			String output = componente.getTipo().toString();
 			
@@ -106,7 +106,7 @@ public class ComponenteRenderer {
 		
 		final int SPAZIO_TRA_COMPONENTI = 4;
 		
-		// Calcolo se i pezzi occupano piui di una riga	
+		// Calcolo se i pezzi occupano piu di una riga	
 		int larghezzaTotaleComponenti = lista.size() * (LARGHEZZA_COMPONENTE + SPAZIO_TRA_COMPONENTI);		
         int righeTotali = 1; // Di default considero che 1 riga sia sufficiente per rappresentare tutti i componenti        
         int numComponentiPerRiga; // Numero di componenti presente su ogni ria

@@ -45,7 +45,7 @@ public class Nave implements Distruttore {
         for (int x = 0; x < Util.SIZE; x++) {
             for (int y = 0; y < Util.SIZE; y++) {
                 if (grigliaComponenti[x][y] != null) {
-                    copiaGrigliaComponenti[x][y] = grigliaComponenti[x][y].clone();
+                    copiaGrigliaComponenti[x][y] = grigliaComponenti[x][y];
                 }
             }
         }       

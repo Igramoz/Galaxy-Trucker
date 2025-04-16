@@ -6,7 +6,6 @@ import grafica.TextAligner;
 
 public class GestoreOutput {
 
-
 	// Classe che gestisce la stampa
 
 	public void aCapo() {

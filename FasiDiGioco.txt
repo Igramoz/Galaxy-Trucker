@@ -2,7 +2,7 @@ Fase 0:InizzializzazioneGioco // quanti giocatori? Nomi? Colori? modalità di gi
 Ipotiziamo che scelgano la modalità 1
 Fase 1: ComposizioneNave // I giocatori compongono la nave
 Fase 2: Volo // gioco effettivo
-Fase 3: AssegnazioneCrediti // vengono assegnati i crediti (bisogna fare in modo che se non si è in trasvolata intergalattica i crediti vengano assegnati anche per la nave più bella)
+Fase 3: FineVolo // vengono assegnati i crediti (bisogna fare in modo che se non si è in trasvolata intergalattica i crediti vengano assegnati anche per la nave più bella)
 Fase 4: FineGioco // si annunciano i vincitori, si chiede se si vuole rigiocare
 
 Ipotiziamo che scelgano la trasvolata intergalattica,

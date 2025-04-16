@@ -1,4 +1,4 @@
-package model.enums;
+package partita;
 
 
 import nave.TipoNave;
