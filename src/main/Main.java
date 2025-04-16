@@ -49,7 +49,7 @@ public class Main {
 		g[2] = new Giocatore("Matteo", Colore.VERDE);
 		
 		
-		ComposizioneNave composizione = new ComposizioneNave(g, LivelloPartita.LIVELLO_1);
+		ComposizioneNave composizione = new ComposizioneNave(g, LivelloPartita.LIVELLO_3);
 		
 		composizione.start();
 		

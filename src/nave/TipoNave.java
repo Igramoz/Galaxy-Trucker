@@ -3,59 +3,55 @@ package nave;
 import model.Coordinate;
 
 public enum TipoNave {
-	NAVE_1(new boolean[][] {
-	    {false, false, false, false, false, false, false, false, false, false, false},
-	    {false, false, false, false, false, false, false, false, false, false, false},
-	    {false, false, false, false, false, false, false, false, false, false, false},
-	    {false, false, false, false, false, true , true , true , false, false, false},
-	    {false, false, false, false, true , true , true , true , false, false, false},
-	    {false, false, false, true , true , true , true , false, false, false, false},
-	    {false, false, false, false, true , true , true , true , false, false, false},
-	    {false, false, false, false, false, true , true , true , false, false, false},
-	    {false, false, false, false, false, false, false, false, false, false, false},
-	    {false, false, false, false, false, false, false, false, false, false, false},
-	    {false, false, false, false, false, false, false, false, false, false, false},
-	    {false, false, false, false, false, false, false, false, false, false, false}
-	}),
-	NAVE_2(new boolean[][]{
- 	   {false, false, false, false, false, false, false, false, false, false, false},
- 	   {false, false, false, false, false, false, false, false, false, false, false},
-  	  {false, false, false, false, false, true , true , true , false, false, false},
-  	  {false, false, false, false, true , true , true , true , false, false, false},
-  	  {false, false, false, true , true , true , true , true , false, false, false},
-    {false, false, false, false, true , true , true , false, false, false, false},
-    {false, false, false, true , true , true , true , true , false, false, false},
-    {false, false, false, false, true , true , true , true , false, false, false},
-    {false, false, false, false, false, true , true , true , false, false, false},
-    {false, false, false, false, false, false, false, false, false, false, false},
-    {false, false, false, false, false, false, false, false, false, false, false},
-    {false, false, false, false, false, false, false, false, false, false, false}
-}),
-	NAVE_3(new boolean[][] {
-    {false, false, false, false, false, false, false, false, false, false, false, false},
-    {false, false, false, false, true , true , true , true , false, false, false, false},
-    {false, false, false, false, false, true , true , true , false, false, false, false},
-    {false, false, false, false, true , true , true , false, false, false, false, false},
-    {false, false, false, true , true , true , true , true , false, false, false, false},
-    {false, false, true , true , true , true , true , true , false, false, false, false},
-    {false, false, false, true , true , true , true , true , false, false, false, false},
-    {false, false, false, false, true , true , true , false, false, false, false, false},
-    {false, false, false, false, false, true , true , true , false, false, false, false},
-    {false, false, false, false, true , true , true , true , false, false, false, false},
-    {false, false, false, false, false, false, false, false, false, false, false, false},
-    {false, false, false, false, false, false, false, false, false, false, false, false}
-});
+	NAVE_1(new boolean[][] { 
+			{ false, false, false, false, false, false, false, false, false, false, false },
+			{ false, false, false, false, false, false, false, false, false, false, false },
+			{ false, false, false, false, false, false, false, false, false, false, false },
+			{ false, false, false, false, false, true, true, true, false, false, false },
+			{ false, false, false, false, true, true, true, true, false, false, false },
+			{ false, false, false, true, true, true, true, false, false, false, false },
+			{ false, false, false, false, true, true, true, true, false, false, false },
+			{ false, false, false, false, false, true, true, true, false, false, false },
+			{ false, false, false, false, false, false, false, false, false, false, false },
+			{ false, false, false, false, false, false, false, false, false, false, false },
+			{ false, false, false, false, false, false, false, false, false, false, false },
+			{ false, false, false, false, false, false, false, false, false, false, false } }),
+	NAVE_2(new boolean[][] { { false, false, false, false, false, false, false, false, false, false, false },
+			{ false, false, false, false, false, false, false, false, false, false, false },
+			{ false, false, false, false, false, true, true, true, false, false, false },
+			{ false, false, false, false, true, true, true, true, false, false, false },
+			{ false, false, false, true, true, true, true, true, false, false, false },
+			{ false, false, false, false, true, true, true, false, false, false, false },
+			{ false, false, false, true, true, true, true, true, false, false, false },
+			{ false, false, false, false, true, true, true, true, false, false, false },
+			{ false, false, false, false, false, true, true, true, false, false, false },
+			{ false, false, false, false, false, false, false, false, false, false, false },
+			{ false, false, false, false, false, false, false, false, false, false, false },
+			{ false, false, false, false, false, false, false, false, false, false, false } }),
+	NAVE_3(new boolean[][] { { false, false, false, false, false, false, false, false, false, false, false, false },
+			{ false, false, false, false, true, true, true, true, false, false, false, false },
+			{ false, false, false, false, false, true, true, true, false, false, false, false },
+			{ false, false, false, false, true, true, true, false, false, false, false, false },
+			{ false, false, false, true, true, true, true, true, false, false, false, false },
+			{ false, false, true, true, true, true, true, true, false, false, false, false },
+			{ false, false, false, true, true, true, true, true, false, false, false, false },
+			{ false, false, false, false, true, true, true, false, false, false, false, false },
+			{ false, false, false, false, false, true, true, true, false, false, false, false },
+			{ false, false, false, false, true, true, true, true, false, false, false, false },
+			{ false, false, false, false, false, false, false, false, false, false, false, false },
+			{ false, false, false, false, false, false, false, false, false, false, false, false } });
+
 	private final boolean[][] schemaNave;
-	
+
 	TipoNave(boolean[][] schemaNave) {
-			this.schemaNave = schemaNave;
+		this.schemaNave = schemaNave;
 	}
-	
+
 	public boolean[][] getschemaNave() {
 		return this.schemaNave;
-	}	
-	
-	public boolean isPosizionabile(Coordinate c) {				
+	}
+
+	public boolean isPosizionabile(Coordinate c) {
 		return schemaNave[c.getX()][c.getY()];
 	}
 }
