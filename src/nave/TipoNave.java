@@ -18,32 +18,33 @@ public enum TipoNave {
 	    {false, false, false, false, false, false, false, false, false, false, false}
 	}),
 	NAVE_2(new boolean[][]{
-		{false, false, false, false, false, false, false, false, false, false, false, false},
-		{false, false, false, false, false, false, false, false, false, false, false, false},
-		{false, false, false, false, false, false, false, false, false, false, false, false},
-		{false, false, false, false, true , false, true , false, false, false, false, false},
-		{false, false, false, true , true , true , true , true , false, false, false, false},
-		{false, false, true , true , true , true , true , true , true , false, false, false},
-		{false, false, true , true , true , true , true , true , true , false, false, false},
-		{false, false, true , true , true , false, true , true , true , false, false, false},
-		{false, false, false, false, false, false, false, false, false, false, false, false},
-		{false, false, false, false, false, false, false, false, false, false, false, false},
-		{false, false, false, false, false, false, false, false, false, false, false, false},
-	}),
+ 	   {false, false, false, false, false, false, false, false, false, false, false},
+ 	   {false, false, false, false, false, false, false, false, false, false, false},
+  	  {false, false, false, false, false, true , true , true , false, false, false},
+  	  {false, false, false, false, true , true , true , true , false, false, false},
+  	  {false, false, false, true , true , true , true , true , false, false, false},
+    {false, false, false, false, true , true , true , false, false, false, false},
+    {false, false, false, true , true , true , true , true , false, false, false},
+    {false, false, false, false, true , true , true , true , false, false, false},
+    {false, false, false, false, false, true , true , true , false, false, false},
+    {false, false, false, false, false, false, false, false, false, false, false},
+    {false, false, false, false, false, false, false, false, false, false, false},
+    {false, false, false, false, false, false, false, false, false, false, false}
+}),
 	NAVE_3(new boolean[][] {
-	    {false,  false, false, false, false, false, false, false, false, false, false, false},
-	    {false,  false, false, false, false, false, false, false, false, false, false, false},
-	    {false,  false, false, false, false, true,  false, false, false, false, false, false},
-	    {false,  false, false, false, true,  true,  true,  false, false, false, false, false},
-	    {false,  true,  false, true,  true,  true,  true,  true,  false, true,  false, false},
-	    {false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  false, false},
-	    {false,  true,  true,  true,  true,  true,  true,  true,  true,  true,  false, false},
-	    {false,  true,  true,  false, true,  true,  true,  false, true,  true,  false, false},
-	    {false,  false, false, false, false, false, false, false, false, false, false, false},
-	    {false,  false, false, false, false, false, false, false, false, false, false, false},
-	    {false,  false, false, false, false, false, false, false, false, false, false, false},
-	    {false,  false, false, false, false, false, false, false, false, false, false, false}
-	});
+    {false, false, false, false, false, false, false, false, false, false, false, false},
+    {false, false, false, false, true , true , true , true , false, false, false, false},
+    {false, false, false, false, false, true , true , true , false, false, false, false},
+    {false, false, false, false, true , true , true , false, false, false, false, false},
+    {false, false, false, true , true , true , true , true , false, false, false, false},
+    {false, false, true , true , true , true , true , true , false, false, false, false},
+    {false, false, false, true , true , true , true , true , false, false, false, false},
+    {false, false, false, false, true , true , true , false, false, false, false, false},
+    {false, false, false, false, false, true , true , true , false, false, false, false},
+    {false, false, false, false, true , true , true , true , false, false, false, false},
+    {false, false, false, false, false, false, false, false, false, false, false, false},
+    {false, false, false, false, false, false, false, false, false, false, false, false}
+});
 	private final boolean[][] schemaNave;
 	
 	TipoNave(boolean[][] schemaNave) {
