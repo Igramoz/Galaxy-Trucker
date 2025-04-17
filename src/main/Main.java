@@ -58,7 +58,5 @@ public class Main {
 		
 		Partita p = new Partita();
 		p.gioca();
-		
-		
 	}
 }
