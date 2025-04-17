@@ -18,15 +18,15 @@ public class Dado {
 		if (count < 2) {
 			istanze[count] = new Dado();
 			count++;
-		} else {
-			return istanze[count % 2];
-
 		}
+		return istanze[count % 2];
+
 	}
 
 	// Metodo per simulare il lancio del dado
 	public int lancia() {
-		valore = RandomUtil.randomInt(1, 7); // Restituisce un numero casuale tra 1 e 6
+		RandomUtil random = new RandomUtil();
+		valore = random.randomInt(1, 7); // Restituisce un numero casuale tra 1 e 6
 		return valore;
 	}
 

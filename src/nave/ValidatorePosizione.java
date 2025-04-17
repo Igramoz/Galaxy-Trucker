@@ -47,9 +47,9 @@ public interface ValidatorePosizione {
 		int x = coord.getX();
 		int y = coord.getY();
 
-		adiacenti.put(Direzione.SOPRA, griglia[x][y + 1]);
+		adiacenti.put(Direzione.SOPRA, griglia[x][y - 1]);
 		adiacenti.put(Direzione.SINISTRA, griglia[x - 1][y]);
-		adiacenti.put(Direzione.SOTTO, griglia[x][y - 1]);
+		adiacenti.put(Direzione.SOTTO, griglia[x][y + 1]);
 		adiacenti.put(Direzione.DESTRA, griglia[x + 1][y]);
 
 		return adiacenti;

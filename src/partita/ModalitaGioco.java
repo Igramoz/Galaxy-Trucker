@@ -4,13 +4,13 @@ public enum ModalitaGioco {
 	VOLO_SINGOLO,
 	TRASVOLATA_INTERGALATTICA;
 	
-	LivelloPartita livelloPartita;
+	LivelliPartita livelliPartita;
 	
-	public LivelloPartita getlivelloPartita() {
-		return livelloPartita;
+	public LivelliPartita getlivelloPartita() {
+		return livelliPartita;
 	}
 	
-	public void setlivelloPartita(LivelloPartita livelloPartita) {
-		this.livelloPartita = livelloPartita;
+	public void setlivelloPartita(LivelliPartita livelliPartita) {
+		this.livelliPartita = livelliPartita;
 	}
 }

@@ -7,8 +7,11 @@ import componenti.*;
 import grafica.*;
 import io.GestoreIO;
 import model.Giocatore;
-import partita.LivelloPartita;
+import partita.LivelliPartita;
 import partita.fasiGioco.composizioneNave.ComposizioneNave;
+
+
+import partita.Partita;
 
 public class Main {
 
@@ -49,9 +52,12 @@ public class Main {
 		g[2] = new Giocatore("Matteo", Colore.VERDE);
 		
 		
-		ComposizioneNave composizione = new ComposizioneNave(g, LivelloPartita.LIVELLO_3);
+		ComposizioneNave composizione = new ComposizioneNave(g, LivelliPartita.LIVELLO_3);
 		
 		composizione.start();
+		
+		Partita p = new Partita();
+		p.gioca();
 		
 		
 	}

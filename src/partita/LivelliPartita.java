@@ -2,7 +2,7 @@ package partita;
 
 
 import nave.TipoNave;
-public enum LivelloPartita {
+public enum LivelliPartita {
     LIVELLO_1( 1, TipoNave.NAVE_1), 
     LIVELLO_2( 2, TipoNave.NAVE_2), 
     LIVELLO_3( 3, TipoNave.NAVE_3);
@@ -11,7 +11,7 @@ public enum LivelloPartita {
 	private final TipoNave tipoNave;
 	
 	
-	LivelloPartita(int numeroLivello, TipoNave tipoNave) {
+	LivelliPartita(int numeroLivello, TipoNave tipoNave) {
 		this.numeroLivello = numeroLivello;
 		this.tipoNave = tipoNave;
 	}

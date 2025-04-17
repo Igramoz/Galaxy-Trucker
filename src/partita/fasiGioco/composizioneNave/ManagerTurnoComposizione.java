@@ -6,10 +6,11 @@ import servizi.ServizioAssemblaggio;
 import grafica.*;
 import io.GestoreIO;
 import nave.Nave;
-import partita.LivelloPartita;
+import partita.LivelliPartita;
 import model.Coordinate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ManagerTurnoComposizione {
@@ -21,12 +22,14 @@ public class ManagerTurnoComposizione {
 	private final NaveRenderer naveRenderer = new NaveRenderer();
 	private final ComponenteRenderer componenteRenderer = new ComponenteRenderer();
 	private final TextAligner txtAligner = new TextAligner();
+	private final String[] azioniDisponibiliSuComponente = { "0 - Ruota", "1 - Posiziona", "2 - Prenota"};
+
 
 	private List<Componente> componentiPrenotati = new ArrayList<>();
 	private List<Componente> componentiScartati;
 	private boolean turnoTerminato;
 
-	public ManagerTurnoComposizione(List<Componente> componentiScartati, Giocatore giocatore, LivelloPartita livello,
+	public ManagerTurnoComposizione(List<Componente> componentiScartati, Giocatore giocatore, LivelliPartita livello,
 			ServizioAssemblaggio servizio) {
 		this.componentiScartati = componentiScartati;
 		this.giocatore = giocatore;
@@ -59,9 +62,8 @@ public class ManagerTurnoComposizione {
 			switch (mostraMenu()) {
 			case 1 -> guardaCarte();
 			case 2 -> estraiNuovoComponente();
-			case 3 -> usaComponenteEstratto();
+			case 3 -> usaComponenteScartato();
 			case 4 -> usaComponentePrenotato();
-			case 5 -> rimuoviComponente();
 			case 0 -> {
 				turnoTerminato = true;
 				return true;
@@ -92,8 +94,7 @@ public class ManagerTurnoComposizione {
 
 	private int mostraMenu() {
 		final String[] azioni = { "1 - Guarda carte", "2 - Estrai componente nuovo",
-				"3 - Usa un componente gia estratto", "4 - Usa un componente prenotato",
-				"5 - Rimuovi un componente dalla nave", "0 - Nave completata" };
+				"3 - Usa un componente scartato", "4 - Usa un componente prenotato", "0 - Nave completata" };
 
 		return io.stampaMenu(azioni);
 	}
@@ -101,19 +102,21 @@ public class ManagerTurnoComposizione {
 	// Azioni corrispondenti alle scelte del menu
 
 	private void guardaCarte() {
+		// TODO
 		// da implementare: interazione con servizio carte e selezione mazzetti
 		System.out.println("Mostro le carte disponibili...");
 	}
 
 	private void estraiNuovoComponente() {
+		String[] azioniDisponibili = Arrays.copyOf(azioniDisponibiliSuComponente, azioniDisponibiliSuComponente.length + 1);
+		azioniDisponibili[azioniDisponibili.length - 1] = "3 - Scarta";
 		Componente estratto = servizioAssemblaggio.estraiComponente();
 
 		io.stampa("Hai estratto questo componente");
-		eseguiAzioneSuComponente(estratto);
+		eseguiAzioneSuComponente(estratto, azioniDisponibili);
 	}
 
-	private void eseguiAzioneSuComponente(Componente estratto) {
-		final String[] azioniDisponibili = { "0 - Ruota", "1 - Posiziona", "2 - Prenota", "3 - Scarta" };
+	private void eseguiAzioneSuComponente(Componente estratto, String[] azioniDisponibili) {
 
 		boolean sceltaValida;
 		int scelta;
@@ -163,38 +166,40 @@ public class ManagerTurnoComposizione {
 		return true;
 	}
 
-	private void usaComponenteEstratto() {
-		// da implementare: mostrare pool di componenti già estratti dai mazzetti
-		System.out.println("Scegli un componente estratto da usare...");
+	private void usaComponenteScartato() {
+		String[] azioniDisponibili = Arrays.copyOf(azioniDisponibiliSuComponente, azioniDisponibiliSuComponente.length + 1);
+		azioniDisponibili[azioniDisponibili.length - 1] = "3 - Scarta";
+		scegliComponenteDaLista(componentiScartati, azioniDisponibili);
 	}
 
 	private void usaComponentePrenotato() {
-		if (componentiPrenotati.isEmpty()) {
-			io.stampa("Nessun componente prenotato");
+		scegliComponenteDaLista(componentiPrenotati, azioniDisponibiliSuComponente);
+	}
+	
+	private void scegliComponenteDaLista(List<Componente> lista, String[] azioniDisponibili) {
+		if (lista.isEmpty()) {
+			io.stampa("La lista è vuota");
 			return;
 		}
 		io.stampa("Scrivere il numero corrispondente al componente:");
 
+		// Sceglie il componente prenotato
 		int scelta;
 		boolean sceltaValida;
 		do {
 			sceltaValida = true;
 			scelta = io.leggiIntero();
-			if (scelta < 1 || scelta > componentiPrenotati.size()) {
-				io.stampa("Scrivere un numero compreso tra 1 e " + componentiPrenotati.size());
+			if (scelta < 1 || scelta > lista.size()) {
+				io.stampa("Scrivere un numero compreso tra 1 e " + lista.size());
 				sceltaValida = false;
 			}
 
 		} while (!sceltaValida);
 
 		scelta--; // scelta deve essere 0 based
-		Componente scelto = componentiPrenotati.remove(scelta);
-		eseguiAzioneSuComponente(scelto);
-
+		Componente scelto = lista.remove(scelta);
+		eseguiAzioneSuComponente(scelto, azioniDisponibili);
+		
 	}
-
-	private void rimuoviComponente() {
-		// da implementare: scelta coordinate e rimozione da nave
-		System.out.println("Seleziona componente da rimuovere...");
-	}
+	
 }

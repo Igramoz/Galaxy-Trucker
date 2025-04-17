@@ -7,7 +7,7 @@ import java.util.List;
 import componenti.Componente;
 import io.GestoreIO;
 import model.Giocatore;
-import partita.LivelloPartita;
+import partita.LivelliPartita;
 import servizi.ServizioAssemblaggio;
 
 // Fase del gioco in cui si compongno le navi
@@ -17,11 +17,11 @@ public class ComposizioneNave {
 	private final ServizioAssemblaggio servizioAssemblaggio; // Servizio di assemblaggio delle navi
     private final ManagerTurnoComposizione[] manager; 
     private List<Giocatore> ordineFine;
-    private final LivelloPartita livello;
+    private final LivelliPartita livello;
 	private List<Componente> componentiScartati = new ArrayList<>();
 	
    
-	public ComposizioneNave(Giocatore[] giocatori, LivelloPartita livello) {
+	public ComposizioneNave(Giocatore[] giocatori, LivelliPartita livello) {
 
 		this.manager = new ManagerTurnoComposizione[giocatori.length];
 		this.livello = livello;

@@ -6,7 +6,7 @@ import java.util.Scanner;
 import grafica.Colore;
 import io.GestoreIO;
 import model.Giocatore;
-import partita.LivelloPartita;
+import partita.LivelliPartita;
 import partita.ModalitaGioco;
 
 public class Inizializzazione {
@@ -83,17 +83,17 @@ public class Inizializzazione {
 
 			switch (sceltaLivello) {
 			case 0:
-				modalita.setlivelloPartita(LivelloPartita.LIVELLO_1);
+				modalita.setlivelloPartita(LivelliPartita.LIVELLO_1);
 				break;
 			case 1:
-				modalita.setlivelloPartita(LivelloPartita.LIVELLO_2);
+				modalita.setlivelloPartita(LivelliPartita.LIVELLO_2);
 				break;
 			case 2:
-				modalita.setlivelloPartita(LivelloPartita.LIVELLO_3);
+				modalita.setlivelloPartita(LivelliPartita.LIVELLO_3);
 				break;
 			}
 		} else
-			modalita.setlivelloPartita(LivelloPartita.LIVELLO_1);
+			modalita.setlivelloPartita(LivelliPartita.LIVELLO_1);
 
 		return modalita;
 	}

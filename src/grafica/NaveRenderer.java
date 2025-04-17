@@ -84,10 +84,10 @@ public class NaveRenderer {
 			// Scrivo l'ultima riga
 			// inizio a scrivere le ascisse da ascisse offsett, colonna delle ordinate (1) +
 			// spazio tra ascisse e nave + metà componente
-			int ascisseOffset = spazioOrdinate + (int) Math.ceil((double) ComponenteRenderer.LARGHEZZA_COMPONENTE / 2);
+			int ascisseOffset = spazioOrdinate + (int) Math.floor((double) ComponenteRenderer.LARGHEZZA_COMPONENTE / 2);
 
 			// riempio l'offsett di spazi
-			naveConCoordinate[altezzaTotale - 1] += " ".repeat(ascisseOffset);
+			naveConCoordinate[altezzaTotale - 1] = " ".repeat(ascisseOffset);
 
 			Integer ascisse = GraficaConfig.OFFSET; // Integer per non fare il cast, ma usare toString
 
