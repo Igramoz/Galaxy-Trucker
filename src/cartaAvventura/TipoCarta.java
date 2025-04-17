@@ -7,18 +7,18 @@ import partita.LivelliPartita;
 
 
 public enum TipoCarta {
-    PIANETI,
-    STAZIONE_ABBANDONATA,
-    NAVE_ABBANDONATA,
-    CONTRABBANDIERI,
+    PIANETI(4, 4, 4),
+    STAZIONE_ABBANDONATA(2, 2, 2),
+    NAVE_ABBANDONATA(2, 2, 2),
+    CONTRABBANDIERI(1, 1, 1),
     SPAZIO_APERTO(4, 3, 3),
-    PIOGGIA_DI_METEORITI,
-    ZONA_DI_GUERRA,
-    POLVERE_STELLARE,
-    PIRATI,
-    SCHIAVISTI,
-    EPIDEMIA,
-    SABOTAGGIO;
+    PIOGGIA_DI_METEORITI(3, 3, 3),
+    ZONA_DI_GUERRA(1, 1, 1),
+    POLVERE_STELLARE(2, 1, 0),
+    PIRATI(1, 1, 1),
+    SCHIAVISTI(1, 1, 1),
+    EPIDEMIA(0, 1, 1),
+    SABOTAGGIO(0, 0, 1);
 	
     private final Map<LivelliPartita, Integer> numeroCartePerLivello;
     private final int numeroTotaleCarte;
