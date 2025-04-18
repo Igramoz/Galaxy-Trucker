@@ -82,18 +82,6 @@ Definisce il dominio del gioco.
 - **TipoTubo.java:**  
   - Specifica eventuali tipologie di tubo.
 
-## componenti
-Gestisce i componenti della nave.
-- **AbstractComponent.java:**  
-  - Classe base per tutti i componenti.
-- **TubiFognari.java**
-- **TrivellaAlPlasma.java**
-- **Scaldabagni.java**
-- **UnitaAbitative.java**
-- **UnitaAbitativeCentrale.java**
-- **ScompartoDiStoccaggio.java**
-- **SovrastrutturaAliena.java**
-- **GeneratoreDiScudi.java**
 
 ## cartaAvventura
 Gestisce le carte avventura che influenzano il gioco.

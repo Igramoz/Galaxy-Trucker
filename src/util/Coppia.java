@@ -30,4 +30,6 @@ public class Coppia <T1, T2> {
         return elemento1.equals(coppia.elemento1) && elemento2.equals(coppia.elemento2);
     }
     
+    
+    
 }

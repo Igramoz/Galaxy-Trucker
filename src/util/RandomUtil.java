@@ -1,5 +1,7 @@
 package util;
 
+import model.enums.Direzione;
+
 public class RandomUtil {
 
 	// TODO: escludere max
@@ -13,4 +15,17 @@ public class RandomUtil {
 		return randomInt(0, max);
 	}
 	
+	// Genera una direzione randomicamente
+	public Direzione randomDirezione() {
+        Direzione[] valori = Direzione.values();
+        return valori[randomInt(valori.length)];
+	}
+	
+	
+	// Genera randomicamente un enum tra 2 opzioni
+    public <E extends Enum<E>> E randomEnum(int soglia, int totale, E primo, E secondo) {
+    	
+        int numeroCasuale = randomInt(totale); // Genera un numero tra 0 e totale        
+        return numeroCasuale < soglia ? primo : secondo; // se num < soglia allora genera il primo
+    }	
 }

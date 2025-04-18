@@ -32,13 +32,13 @@ public class CarteRenderer {
 
 		// Aggiunge meteoriti che provengono dall'alto e dal basso
 		String[] meteoritiSopra = rappresentaMeteoritiVerticali(
-				pioggiaDiMeteoriti.getMeteoritiByDirezione(Direzione.SOPRA), padding, Direzione.SOTTO);
+				pioggiaDiMeteoriti.getMeteoritiByDirezione(Direzione.SOPRA), padding, colonne, Direzione.SOTTO);
 		out[0] = meteoritiSopra[0];
 		out[1] = meteoritiSopra[1];
 		out[2] = meteoritiSopra[2];
 
 		String[] meteoritiSotto = rappresentaMeteoritiVerticali(
-				pioggiaDiMeteoriti.getMeteoritiByDirezione(Direzione.SOTTO), padding, Direzione.SOPRA);
+				pioggiaDiMeteoriti.getMeteoritiByDirezione(Direzione.SOTTO), padding, colonne, Direzione.SOPRA);
 		out[out.length - 3] = meteoritiSotto[0];
 		out[out.length - 2] = meteoritiSotto[1];
 		out[out.length - 1] = meteoritiSotto[2];
@@ -59,60 +59,55 @@ public class CarteRenderer {
 		return out;
 	}
 
-	//  Calcola il numero massimo di righe e colonne necessarie per rappresentare i meteoriti (senza padding)
+	// Calcola il numero massimo di righe e colonne necessarie per rappresentare i
+	// meteoriti (senza padding)
 	private int[] calcolaMaxMeteoriti(PioggiaDiMeteoriti pioggia) {
-	    int meteoritiDestra = pioggia.getMeteoritiByDirezione(Direzione.DESTRA).size();
-	    int meteoritiSinistra = pioggia.getMeteoritiByDirezione(Direzione.SINISTRA).size();
-	    int meteoritiSotto = pioggia.getMeteoritiByDirezione(Direzione.SOTTO).size();
-	    int meteoritiSopra = pioggia.getMeteoritiByDirezione(Direzione.SOPRA).size();
+		int meteoritiDestra = pioggia.getMeteoritiByDirezione(Direzione.DESTRA).size();
+		int meteoritiSinistra = pioggia.getMeteoritiByDirezione(Direzione.SINISTRA).size();
+		int meteoritiSotto = pioggia.getMeteoritiByDirezione(Direzione.SOTTO).size();
+		int meteoritiSopra = pioggia.getMeteoritiByDirezione(Direzione.SOPRA).size();
 
-	    int colonne = Math.max(meteoritiSopra, meteoritiSotto);
-	    int righe = Math.max(meteoritiSinistra, meteoritiDestra);
+		int colonne = Math.max(meteoritiSopra, meteoritiSotto);
+		int righe = Math.max(meteoritiSinistra, meteoritiDestra);
 
-	    return new int[] { righe, colonne };
+		return new int[] { righe, colonne };
 	}
 
 	// TODO riscrivere usando i generici.
 	// Rappresenta i meteoriti che si muovono verticalmente (sopra o sotto).
-	private String[] rappresentaMeteoritiVerticali(List<TipiMeteorite> meteoriti, int padding, Direzione dir) {
+	private String[] rappresentaMeteoritiVerticali(List<TipiMeteorite> meteoriti, int padding, int colonne,
+			Direzione dir) {
 		String[] out = new String[padding];
+		Arrays.fill(out, " ".repeat(padding));
 
-		for (int i = 0; i < padding; i++) {
-			out[i] = " ".repeat(padding);
-		}
+		for (TipiMeteorite meteorite : meteoriti) {
 
-		String rappresentazioneMeteorite;
-		for (TipiMeteorite meteoriteCorrente : meteoriti) {
-
-			out[0] += convertiMeteorite(meteoriteCorrente);
-			out[1] += "|";
-
-			switch (dir) {
-			case Direzione.SOTTO:
-				rappresentazioneMeteorite = CostantiGrafica.FRECCIA_SOTTO;
-				break;
-			case Direzione.SOPRA:
-				rappresentazioneMeteorite = CostantiGrafica.FRECCIA_SOPRA;
-				break;
-			default:
-				rappresentazioneMeteorite = " ";
+			if (dir == Direzione.SOTTO) {
+				out[0] += convertiMeteorite(meteorite);
+				out[1] += "|";
+				out[2] += CostantiGrafica.FRECCIA_SOTTO;
+			} else {
+				out[0] += CostantiGrafica.FRECCIA_SOPRA;
+				out[1] += "|";
+				out[2] += convertiMeteorite(meteorite);
 			}
-
-			out[2] += rappresentazioneMeteorite;
-
 		}
-		return out;
+		
+		for (int i = 0; i < padding; i++) {
+			out[i] = textAligner.estendiStringa(out[i], colonne + 2 * padding);
+		}
+	return out;
 	}
 
 	// TODO riscrivere usando i generici.
 
 	// rappresenta O > oppure < o (DIREZIONE da cui proviene il meteorite)
 	private String rappresentaMeteoriteOrizzontale(TipiMeteorite meteorite, Direzione direzioneEntrata) {
-	    return switch (direzioneEntrata) {
-        case DESTRA -> convertiMeteorite(meteorite) + "-" + CostantiGrafica.FRECCIA_SINISTRA;
-        case SINISTRA -> CostantiGrafica.FRECCIA_DESTRA + "-" + convertiMeteorite(meteorite);
-        default -> " ";
-    };
+		return switch (direzioneEntrata) {
+		case DESTRA -> CostantiGrafica.FRECCIA_SINISTRA + "-" + convertiMeteorite(meteorite) ;
+		case SINISTRA -> convertiMeteorite(meteorite) + "-" + CostantiGrafica.FRECCIA_DESTRA;
+		default -> " ";
+		};
 	}
 
 	// TODO fare overload.
@@ -120,10 +115,10 @@ public class CarteRenderer {
 	// Restituisce il simbolo che corrisponde al meteorite
 	private String convertiMeteorite(TipiMeteorite meteorite) {
 		return switch (meteorite) {
-        case GROSSO -> CostantiGrafica.METEORITE_GROSSO;
-        case PICCOLO -> CostantiGrafica.METEORITE_PICCOLO;
-        default -> " ";
-    };
+		case GROSSO -> CostantiGrafica.METEORITE_GROSSO;
+		case PICCOLO -> CostantiGrafica.METEORITE_PICCOLO;
+		default -> " ";
+		};
 	}
 
 }
