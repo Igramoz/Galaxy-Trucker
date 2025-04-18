@@ -1,3 +1,6 @@
+# Ignora il file Main.java nella directory src/main/
+src/main/Main.java
+
 # Compiled class file
 *.class
 
