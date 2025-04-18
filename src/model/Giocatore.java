@@ -1,8 +1,6 @@
 package model;
 
 import java.util.EnumSet;
-import java.util.HashSet;
-import java.util.Set;
 
 import grafica.Colore;
 import nave.Nave;

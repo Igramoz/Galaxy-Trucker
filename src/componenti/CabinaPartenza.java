@@ -5,7 +5,6 @@ import java.util.Map;
 
 import model.Giocatore;
 import model.enums.*;
-import model.equipaggio.TipoPedina;
 import grafica.Colore;
 
 public class CabinaPartenza extends CabinaDiEquipaggio{

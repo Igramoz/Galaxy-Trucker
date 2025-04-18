@@ -15,14 +15,7 @@ import model.enums.Direzione;
 
 public class ComponenteRenderer {
 	
-	public final static int LARGHEZZA_COMPONENTE = 5; // Numero spazi per rappresentare un componente
-	public final static int ALTEZZA_COMPONENTE = 3; // Num righe per rappresentare ogni componente
-	public final static String COMPONENTE_NULL  = "O";
-	
-	public static final String FRECCIA_SOPRA = "^";
-	public static final String FRECCIA_SOTTO = "v";
-	public static final String FRECCIA_SINISTRA = "<";
-	public static final String FRECCIA_DESTRA = ">";
+
 	
 	private final TextAligner textAligner = new TextAligner();
 	
@@ -34,13 +27,13 @@ public class ComponenteRenderer {
 		 *  #MD = 
 		 *   | 
 		 */
-		String[] rappresentazioneComponente = new String[ALTEZZA_COMPONENTE];
+		String[] rappresentazioneComponente = new String[CostantiGrafica.ALTEZZA_COMPONENTE];
 
 		// se il componente è null rappresento O
 		if (componente == null) {
-			rappresentazioneComponente[0] = textAligner.centraTestoInLarghezza("", LARGHEZZA_COMPONENTE);
-			rappresentazioneComponente[1] = textAligner.centraTestoInLarghezza(COMPONENTE_NULL , LARGHEZZA_COMPONENTE);
-			rappresentazioneComponente[2] = textAligner.centraTestoInLarghezza("", LARGHEZZA_COMPONENTE);
+			rappresentazioneComponente[0] = textAligner.centraTestoInLarghezza("", CostantiGrafica.LARGHEZZA_COMPONENTE);
+			rappresentazioneComponente[1] = textAligner.centraTestoInLarghezza(CostantiGrafica.COMPONENTE_NULL , CostantiGrafica.LARGHEZZA_COMPONENTE);
+			rappresentazioneComponente[2] = textAligner.centraTestoInLarghezza("", CostantiGrafica.LARGHEZZA_COMPONENTE);
 			return rappresentazioneComponente;
 		}
 
@@ -50,9 +43,9 @@ public class ComponenteRenderer {
         String destra = componente.getTubo(Direzione.DESTRA).getSimbolo(Direzione.DESTRA); // tubo a dx
         String sotto = componente.getTubo(Direzione.SOTTO).getSimbolo(Direzione.SOTTO); // tubo sotto
 
-        rappresentazioneComponente[0] = textAligner.centraTestoInLarghezza(sopra, LARGHEZZA_COMPONENTE);
-        rappresentazioneComponente[1] = sinistra + textAligner.centraTestoInLarghezza(tipo, LARGHEZZA_COMPONENTE - sinistra.length() - destra.length()) + destra;
-        rappresentazioneComponente[2] = textAligner.centraTestoInLarghezza(sotto, LARGHEZZA_COMPONENTE);
+        rappresentazioneComponente[0] = textAligner.centraTestoInLarghezza(sopra, CostantiGrafica.LARGHEZZA_COMPONENTE);
+        rappresentazioneComponente[1] = sinistra + textAligner.centraTestoInLarghezza(tipo, CostantiGrafica.LARGHEZZA_COMPONENTE - sinistra.length() - destra.length()) + destra;
+        rappresentazioneComponente[2] = textAligner.centraTestoInLarghezza(sotto, CostantiGrafica.LARGHEZZA_COMPONENTE);
 		return rappresentazioneComponente;
 	}
 	
@@ -91,10 +84,10 @@ public class ComponenteRenderer {
 		private String aggiungiFrecciaDirezione(String siglaComponente, Direzione direzione) {
 			
 			return switch (direzione) {
-				case SOPRA -> siglaComponente + FRECCIA_SOPRA;
-				case SOTTO -> siglaComponente + FRECCIA_SOTTO;
-				case SINISTRA -> FRECCIA_SINISTRA + siglaComponente;
-				case DESTRA -> siglaComponente + FRECCIA_DESTRA;
+				case SOPRA -> siglaComponente + CostantiGrafica.FRECCIA_SOPRA;
+				case SOTTO -> siglaComponente + CostantiGrafica.FRECCIA_SOTTO;
+				case SINISTRA -> CostantiGrafica.FRECCIA_SINISTRA + siglaComponente;
+				case DESTRA -> siglaComponente + CostantiGrafica.FRECCIA_DESTRA;
 			};	
 		}	
 		
@@ -110,7 +103,7 @@ public class ComponenteRenderer {
 		final int SPAZIO_TRA_COMPONENTI = 4;
 		
 		// Calcolo se i pezzi occupano piu di una riga	
-		int larghezzaTotaleComponenti = lista.size() * (LARGHEZZA_COMPONENTE + SPAZIO_TRA_COMPONENTI);		
+		int larghezzaTotaleComponenti = lista.size() * (CostantiGrafica.LARGHEZZA_COMPONENTE + SPAZIO_TRA_COMPONENTI);		
         int righeTotali = 1; // Di default considero che 1 riga sia sufficiente per rappresentare tutti i componenti        
         int numComponentiPerRiga; // Numero di componenti presente su ogni ria
         
@@ -119,8 +112,8 @@ public class ComponenteRenderer {
         // Calcolo quanti componenti verranno stampati per riga
         numComponentiPerRiga = (int) Math.ceil((double) lista.size() / righeTotali);
         
-    	String[] singoloComponente = new String[ALTEZZA_COMPONENTE];
-        String[] righeComponenti = new String[ALTEZZA_COMPONENTE* righeTotali];
+    	String[] singoloComponente = new String[CostantiGrafica.ALTEZZA_COMPONENTE];
+        String[] righeComponenti = new String[CostantiGrafica.ALTEZZA_COMPONENTE* righeTotali];
         
     	// Inizializzo righeComponenti
         Arrays.fill(righeComponenti, "");
@@ -134,17 +127,17 @@ public class ComponenteRenderer {
         	}
         			
     		// scrivo il numero che corrisponde al componente
-    		righeComponenti[0 + riga*ALTEZZA_COMPONENTE] += textAligner.estendiStringa(" "+(n+1) , SPAZIO_TRA_COMPONENTI); 
-    		for(int j = 1; j < ALTEZZA_COMPONENTE; j++) {
-    			righeComponenti[j + riga*ALTEZZA_COMPONENTE] += textAligner.estendiStringa("" , SPAZIO_TRA_COMPONENTI); 
+    		righeComponenti[0 + riga*CostantiGrafica.ALTEZZA_COMPONENTE] += textAligner.estendiStringa(" "+(n+1) , SPAZIO_TRA_COMPONENTI); 
+    		for(int j = 1; j < CostantiGrafica.ALTEZZA_COMPONENTE; j++) {
+    			righeComponenti[j + riga*CostantiGrafica.ALTEZZA_COMPONENTE] += textAligner.estendiStringa("" , SPAZIO_TRA_COMPONENTI); 
 	    		
     		}
     		
         	singoloComponente = rappresentaComponente(lista.get(n));
 
         	// concateno il componente alla riga
-        	for(int i = 0; i < ALTEZZA_COMPONENTE; i++) {
-        		righeComponenti[i + riga*ALTEZZA_COMPONENTE] += singoloComponente[i];
+        	for(int i = 0; i < CostantiGrafica.ALTEZZA_COMPONENTE; i++) {
+        		righeComponenti[i + riga*CostantiGrafica.ALTEZZA_COMPONENTE] += singoloComponente[i];
         	}
 			
 		}	

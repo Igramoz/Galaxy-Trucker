@@ -37,6 +37,7 @@ public enum TipoCarta {
         mapTemporaneo.put(LivelliPartita.LIVELLO_2, livello2);
         mapTemporaneo.put(LivelliPartita.LIVELLO_3, livello3);
         this.numeroCartePerLivello = mapTemporaneo;
+        this.numeroTotaleCarte = calcolaTotaleCarte(numeroCartePerLivello);
     }
     
     public int getNumeroCarte(LivelliPartita livello) {
@@ -53,5 +54,9 @@ public enum TipoCarta {
     		counter += numCarte;
     	}    	
         return counter;
-    }    
+    }   
+    
+    public int getNumeroTotaleCarte() {
+    	return numeroTotaleCarte;
+    }
 }

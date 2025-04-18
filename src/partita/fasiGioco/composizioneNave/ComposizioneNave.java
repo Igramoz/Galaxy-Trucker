@@ -13,20 +13,19 @@ import servizi.ServizioAssemblaggio;
 // Fase del gioco in cui si compongno le navi
 public class ComposizioneNave {
 
-
 	private final ServizioAssemblaggio servizioAssemblaggio; // Servizio di assemblaggio delle navi
     private final ManagerTurnoComposizione[] manager; 
     private List<Giocatore> ordineFine;
-    private final LivelliPartita livello;
 	private List<Componente> componentiScartati = new ArrayList<>();
+	private final LivelliPartita livello;
 	
    
 	public ComposizioneNave(Giocatore[] giocatori, LivelliPartita livello) {
 
 		this.manager = new ManagerTurnoComposizione[giocatori.length];
-		this.livello = livello;
 		this.servizioAssemblaggio = new ServizioAssemblaggio(); // Inizializza il servizio di assemblaggio
 		this.ordineFine = new ArrayList<>();
+		this.livello = livello;
 		
 	        for (int i = 0; i < giocatori.length; i++) {
 	            manager[i] = new ManagerTurnoComposizione(componentiScartati, giocatori[i], livello, servizioAssemblaggio);
@@ -36,12 +35,13 @@ public class ComposizioneNave {
 	public List<Giocatore> start() {
 		// Ogni giocatore compone la propria nave
 		
-		GestoreIO gestoreOutput = new GestoreIO();
-		gestoreOutput.stampa("E' ora di comporre le navi");
+		GestoreIO io = new GestoreIO();
+		io.stampa("E' ora di comporre le navi");
 		
-		boolean faseTerminata = false;
-
-        while (!faseTerminata) {        	
+		final int turniTotali = livello.getTipoNave().getCapacitaComponenti();
+		
+        for(int turno = 0; turno < turniTotali; turno++) {        	
+        	io.stampa("Turno numero: " + turno + " di " + turniTotali);
         	
             for (int i = 0; i < manager.length; i++) {
             	
@@ -56,7 +56,7 @@ public class ComposizioneNave {
             	}
             	
             	if(ordineFine.size() == manager.length) {
-            		faseTerminata = true;
+            		break;
             	}            	
             }
         }

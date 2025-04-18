@@ -20,4 +20,14 @@ public class Coppia <T1, T2> {
         return elemento2;
     }
 	
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        
+        // Cast di obj in un oggette Coppia ( ? perché non conosciamo T1 e T2)
+        Coppia<?, ?> coppia = (Coppia<?, ?>) obj;
+        return elemento1.equals(coppia.elemento1) && elemento2.equals(coppia.elemento2);
+    }
+    
 }

@@ -4,8 +4,8 @@ import java.util.Map;
 
 
 import model.enums.Direzione;
+import model.enums.TipoPedina;
 import model.enums.TipoTubo;
-import model.equipaggio.TipoPedina;
 import grafica.Colore;
 
 public class ModuloSupportoAlieni extends Componente {

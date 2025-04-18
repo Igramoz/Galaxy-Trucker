@@ -5,7 +5,6 @@ import model.Giocatore;
 import servizi.ServizioAssemblaggio;
 import grafica.*;
 import io.GestoreIO;
-import nave.Nave;
 import partita.LivelliPartita;
 import model.Coordinate;
 
