@@ -1,7 +1,7 @@
 package partita.fasiGioco;
 
-import java.util.EnumSet;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 import grafica.Colore;
 import io.GestoreIO;
@@ -14,17 +14,15 @@ public class Inizializzazione {
 	private Giocatore[] giocatori;
 	private int numGiocatori;
 	private GestoreIO gestoreIO;
-	private Scanner sc;
 
-	private static EnumSet<Colore> COLORI_RIMASTI;
+	private static List<Colore> COLORI_RIMASTI;
 
 	public Inizializzazione() {
 		gestoreIO = new GestoreIO();
-		COLORI_RIMASTI = Giocatore.coloriDisponibiliGiocatori;
+		COLORI_RIMASTI = new ArrayList<>(Giocatore.coloriDisponibiliGiocatori);
 	}
 
 	public Giocatore[] getGiocatori() {
-		sc = new Scanner(System.in);
 		// gestione numero dei giocatori
 		gestoreIO.stampa("Inserisci il numero dei giocatori (minimo due, massimo quattro)");
 		do {
@@ -37,18 +35,12 @@ public class Inizializzazione {
 		// gestione nome e colore dei giocatori
 		for (int i = 0; i < numGiocatori; i++) {
 			gestoreIO.stampa("Scrivi il nome del giocatore " + (i + 1));
-			String nome = sc.nextLine();
+			String nome = gestoreIO.leggiTesto();
 
-			Colore[] coloriDisponibili = new Colore[COLORI_RIMASTI.size()];
-			int index = 0;
-			for (Colore c : COLORI_RIMASTI) {
-				coloriDisponibili[index++] = c;
-			}
-
-			int lunghezza = coloriDisponibili.length;
+			int lunghezza = COLORI_RIMASTI.size();
 			String[] menuColori = new String[lunghezza];
 			for (int j = 0; j < lunghezza; j++) {
-				menuColori[j] = j + " - " + coloriDisponibili[j].toString();
+				menuColori[j] = COLORI_RIMASTI.get(j).toString();
 			}
 
 			// ottengo la scelta del colore
@@ -56,18 +48,16 @@ public class Inizializzazione {
 			int sceltaColore = gestoreIO.stampaMenu(menuColori);
 
 			// rimuovo il colore dalla lista
-			Colore colore = coloriDisponibili[sceltaColore];
-			COLORI_RIMASTI.remove(colore);
+			Colore colore = COLORI_RIMASTI.get(sceltaColore);
+			COLORI_RIMASTI.remove(sceltaColore);
 			giocatori[i] = new Giocatore(nome, colore);
 		}
-
-		sc.close();
 		return giocatori;
 	}
 
 	public ModalitaGioco getModalita() {
 		// preparo il menu per scegliere la modalità
-		String[] menuModalita = { "0 - Volo Singolo", "1 - Trasvolata Intergalattica" };
+		String[] menuModalita = { "Volo Singolo", "Trasvolata Intergalattica" };
 		gestoreIO.stampa("Scegli la modalità di gioco:");
 		int sceltaModalita = gestoreIO.stampaMenu(menuModalita);
 
@@ -83,7 +73,7 @@ public class Inizializzazione {
 
 		// se si gioca a "Volo Singolo", chiedo anche il livello
 		if (modalita == ModalitaGioco.VOLO_SINGOLO) {
-			String[] menuLivelli = { "0 - Livello 1", "1 - Livello 2", "2 - Livello 3" };
+			String[] menuLivelli = { "Livello 1", "Livello 2", "Livello 3" };
 			gestoreIO.stampa("Scegli il livello del gioco:");
 			int sceltaLivello = gestoreIO.stampaMenu(menuLivelli);
 
