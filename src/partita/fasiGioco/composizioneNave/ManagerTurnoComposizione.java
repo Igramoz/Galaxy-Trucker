@@ -93,8 +93,8 @@ public class ManagerTurnoComposizione {
 	}
 
 	private int mostraMenu() {
-		final String[] azioni = { "1 - Guarda carte", "2 - Estrai componente nuovo",
-				"3 - Usa un componente scartato", "4 - Usa un componente prenotato", "0 - Nave completata" };
+		final String[] azioni = { "Nave completata", "Guarda carte", "Estrai componente nuovo",
+				"Usa un componente scartato", "Usa un componente prenotato" };
 
 		return io.stampaMenu(azioni);
 	}
