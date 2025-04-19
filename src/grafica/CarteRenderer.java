@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import io.GestoreIO;
+import model.colpi.TipiMeteorite;
 import model.enums.Direzione;
-import model.enums.TipiMeteorite;
 import cartaAvventura.PioggiaDiMeteoriti;
 
 public class CarteRenderer {
@@ -17,7 +17,8 @@ public class CarteRenderer {
 	public String[] rappresentaMeteoriti(PioggiaDiMeteoriti pioggiaDiMeteoriti) {
 
 		// Calcolo padding per l’allineamento orizzontale
-		final int padding = CostantiGrafica.METEORITE_GROSSO.length() + CostantiGrafica.FRECCIA_DESTRA.length() + 1;
+		final int padding = textAligner.lunghezzaVisivaTestoCheck(CostantiGrafica.METEORITE_GROSSO)
+				+ CostantiGrafica.FRECCIA_DESTRA.length() + 1;
 
 		io.stampa(textAligner.alignCenter("Pioggia di meteoriti"));
 		io.aCapo();
@@ -44,18 +45,30 @@ public class CarteRenderer {
 		out[out.length - 1] = meteoritiSotto[2];
 
 		// Aggiunge meteoriti orizzontali da destra verso sinistra
-		List<TipiMeteorite> daDestra = pioggiaDiMeteoriti.getMeteoritiByDirezione(Direzione.DESTRA);
+		List<TipiMeteorite> daSinistra = pioggiaDiMeteoriti.getMeteoritiByDirezione(Direzione.SINISTRA);
 		for (int i = padding; i < out.length - padding; i++) {
-			out[i] += rappresentaMeteoriteOrizzontale(daDestra.remove(0), Direzione.SINISTRA);
+			if (!daSinistra.isEmpty())
+				out[i] += rappresentaMeteoriteOrizzontale(daSinistra.remove(0), Direzione.SINISTRA);
 			out[i] = textAligner.estendiStringa(out[i], colonne + padding);
 		}
 
+//		List<TipiMeteorite> daDestra = pioggiaDiMeteoriti.getMeteoritiByDirezione(Direzione.DESTRA);
+//		for (int i = padding; i < out.length - padding; i++) {
+//			if (!daDestra.isEmpty())
+//				out[i] += rappresentaMeteoriteOrizzontale(daDestra.remove(0), Direzione.SINISTRA);
+//			out[i] = textAligner.estendiStringa(out[i], colonne + padding);
+//		}
+		
 		// Aggiunge meteoriti orizzontali da sinistra verso destra
-		List<TipiMeteorite> daSinistra = pioggiaDiMeteoriti.getMeteoritiByDirezione(Direzione.SINISTRA);
+		List<TipiMeteorite> daDestra = pioggiaDiMeteoriti.getMeteoritiByDirezione(Direzione.DESTRA);
 		for (int i = padding; i < out.length - padding; i++) {
-			out[i] += rappresentaMeteoriteOrizzontale(daSinistra.remove(0), Direzione.DESTRA);
+			if (daDestra.isEmpty())
+				out[i] += " ".repeat(padding);
+			else
+				out[i] += rappresentaMeteoriteOrizzontale(daDestra.remove(0), Direzione.DESTRA);
 		}
-
+		
+		out = textAligner.alignCenter(out);
 		return out;
 	}
 
@@ -92,11 +105,11 @@ public class CarteRenderer {
 				out[2] += convertiMeteorite(meteorite);
 			}
 		}
-		
+
 		for (int i = 0; i < padding; i++) {
 			out[i] = textAligner.estendiStringa(out[i], colonne + 2 * padding);
 		}
-	return out;
+		return out;
 	}
 
 	// TODO riscrivere usando i generici.
@@ -104,7 +117,7 @@ public class CarteRenderer {
 	// rappresenta O > oppure < o (DIREZIONE da cui proviene il meteorite)
 	private String rappresentaMeteoriteOrizzontale(TipiMeteorite meteorite, Direzione direzioneEntrata) {
 		return switch (direzioneEntrata) {
-		case DESTRA -> CostantiGrafica.FRECCIA_SINISTRA + "-" + convertiMeteorite(meteorite) ;
+		case DESTRA -> CostantiGrafica.FRECCIA_SINISTRA + "-" + convertiMeteorite(meteorite);
 		case SINISTRA -> convertiMeteorite(meteorite) + "-" + CostantiGrafica.FRECCIA_DESTRA;
 		default -> " ";
 		};

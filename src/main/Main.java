@@ -2,7 +2,8 @@ package main;
 
 import java.util.*;
 
-import servizi.ServizioAssemblaggio;
+import cartaAvventura.PioggiaDiMeteoriti;
+import servizi.*;
 import componenti.*;
 import grafica.*;
 import io.GestoreIO;
@@ -17,13 +18,10 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		
-
-
-
 		NaveRenderer naveRenderer = new NaveRenderer();
 		ComponenteRenderer componenteRenderer = new ComponenteRenderer();
-		ServizioAssemblaggio servizio = new ServizioAssemblaggio();
+		ServizioCarte servizio = new ServizioCarte();
+		
 		GestoreIO gestoreOutput = new GestoreIO();
 
 		// esempio di alcuni elemnti generati a caso
@@ -46,14 +44,19 @@ public class Main {
 //			c.ruota();
 //			gestoreOutput.stampa(grafica.rappresentaComponente(c));
 //		}
-		
-
 		// esempio di com'è la parte di composizione  Nave
-		Giocatore[] g = new Giocatore[3];
+				Giocatore[] g = new Giocatore[3];
+				
+				g[0] = new Giocatore("Giovanni", Colore.ROSSO );
+				g[1] = new Giocatore("Francesco", Colore.GIALLO);
+				g[2] = new Giocatore("Matteo", Colore.VERDE);
+				
+
+		List<PioggiaDiMeteoriti> l = servizio.generaMeteoriti(LivelliPartita.LIVELLO_3);
+		PioggiaDiMeteoriti p = l.remove(0);
 		
-		g[0] = new Giocatore("Giovanni", Colore.ROSSO );
-		g[1] = new Giocatore("Francesco", Colore.GIALLO);
-		g[2] = new Giocatore("Matteo", Colore.VERDE);
+		p.eseguiEvento(g);
+		
 		
 		
 		ComposizioneNave composizione = new ComposizioneNave(g, LivelliPartita.LIVELLO_3);

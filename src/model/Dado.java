@@ -17,10 +17,10 @@ public class Dado {
 	public static Dado getIstanza() {
 		if (count < 2) {
 			istanze[count] = new Dado();
-			count++;
 		}
-		return istanze[count % 2];
-
+		Dado dado = istanze[count % 2];
+		count++;
+		return dado;
 	}
 
 	// Metodo per simulare il lancio del dado

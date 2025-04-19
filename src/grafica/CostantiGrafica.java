@@ -1,5 +1,6 @@
 package grafica;
 
+
 public class CostantiGrafica {
 	public final static int LARGHEZZA_COMPONENTE = 5; // Numero spazi per rappresentare un componente
 	public final static int ALTEZZA_COMPONENTE = 3; // Num righe per rappresentare ogni componente
@@ -10,7 +11,7 @@ public class CostantiGrafica {
 	public static final String FRECCIA_SINISTRA = "<";
 	public static final String FRECCIA_DESTRA = ">";
 	
-    public static final String METEORITE_PICCOLO = "o";
-    public static final String METEORITE_GROSSO = "O";    
+    public static final String METEORITE_PICCOLO = Colore.GIALLO.getCodice() + "o" + Colore.DEFAULT.getCodice();
+    public static final String METEORITE_GROSSO = Colore.ROSSO.getCodice() + "O" + Colore.DEFAULT.getCodice();   
     
 }

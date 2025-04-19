@@ -16,4 +16,8 @@ public enum TipoMerce {
 	public int getValore() {
 		return valore;
 	}
+	
+	public Colore getColore() {
+		return colore;
+	}
 }

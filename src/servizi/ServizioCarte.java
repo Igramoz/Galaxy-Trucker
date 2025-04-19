@@ -6,8 +6,8 @@ import java.util.List;
 
 import util.*;
 import cartaAvventura.*;
+import model.colpi.TipiMeteorite;
 import model.enums.Direzione;
-import model.enums.TipiMeteorite;
 import partita.LivelliPartita;
 
 public class ServizioCarte {
@@ -25,6 +25,7 @@ public class ServizioCarte {
 
 	}
 
+	// TODO mettere privato
 	public List<PioggiaDiMeteoriti> generaMeteoriti(LivelliPartita lvl) {
 		
 		/*livello Nasteroidi rapporto Grandi su totali
@@ -41,7 +42,7 @@ public class ServizioCarte {
 		int asteroidiTotali = asteroidiTotaliLivelloBase + nAsteroidiGrandi;
 		
 	    // Numero di asteroidi da generare in base al livello
-		int asteroidiDaGenerare = random.randomInt(nAsteoridi, nAsteoridi + 1);
+		int asteroidiDaGenerare = random.randomInt(nAsteoridi, nAsteoridi + 2);
 		List<PioggiaDiMeteoriti> out = new ArrayList<>();
 		
 		for(int nCarta = 0; nCarta < TipoCarta.PIOGGIA_DI_METEORITI.getNumeroCarte(lvl); nCarta ++) {
