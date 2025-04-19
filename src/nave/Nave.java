@@ -79,16 +79,17 @@ public class Nave implements Distruttore, GestoreImpatti {
         }
     }
 
-    public boolean setComponente(Componente componente) {
+    public boolean setComponente(Componente componente, Coordinate coordinate) {
         // Controllo se il tipo di nave ammette componenti in quella posizione
-        if (!livelloNave.isPosizionabile(componente.getPosizione())) {
+        if (!livelloNave.isPosizionabile(coordinate)) {
             return false;
         }
 
         // Controllo se il pezzo si collega agli altri
         ValidatorePosizione validatore = new ValidatorePosizione() {};
-        if (validatore.valida(grigliaComponenti, componente, componente.getPosizione())) {
-            grigliaComponenti[componente.getPosizione().getX()][componente.getPosizione().getY()] = componente;
+        if (validatore.valida(grigliaComponenti, componente, coordinate)) {
+            grigliaComponenti[coordinate.getX()][coordinate.getY()] = componente;
+            componente.setPosizione(coordinate);
             return true;
         }
         return false;
