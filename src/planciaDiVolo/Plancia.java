@@ -4,88 +4,29 @@ import model.Giocatore;
 import partita.ModalitaGioco;
 
 
+
 public class Plancia {
 	
-	private Giocatore[] giocatori;
-	private Giocatore[] plancia; // lista dei giocatori in gioco che si aggiorna in base alla modalita di gioco
-	private int lunghezza; // lunghezza della plancia in base alla modalita di gioco 
-	//posizioni iniziali dei giocatori nella plancia // massimo 4 giocatori
-
-
+	private Giocatore[] giocatori; // lista dei giocatori in gioco
+	private final Giocatore[] plancia;// lista dei giocatori in gioco che si aggiorna in base alla modalita di gioco
+	private final TipoPlancia tipoPlancia; // tipo di plancia in base alla modalita di gioco
 	
 	// TODO implementare gli attributi per le carte
 	
 	
-	public Plancia(Giocatore[] giocatori, ModalitaGioco modalitaGioco) {
+	public Plancia(Giocatore[] giocatori, ModalitaGioco modalitaGioco, TipoPlancia tipoPlancia) {
 		
 		this.giocatori = giocatori;
-		// in base alla modalita di gioco, creo la plancia
-		int[] posizioniLivello1 = {4, 2, 1, 0}; // Posizioni per LIVELLO_1
-		int[] posizioniLivello2 = {6, 3, 1, 0}; // Posizioni per LIVELLO_2
-		int[] posizioniLivello3 = {9, 5, 2, 0}; // Posizioni per LIVELLO_3
+		this.tipoPlancia = tipoPlancia;
 
-    	int[] posizioni;
+		this.plancia = new Giocatore[tipoPlancia.getLunghezza()]; // inizializza la plancia in base alla lunghezza della plancia
+		
+		// metto i giocatori nella plancia in base alla modalita di gioco
 
-		switch (modalitaGioco.getlivelloPartita()) {
-			case LIVELLO_1 -> {
-				/*
-				 * Creo la plancia per il livello 1
-				 * 18 spazi
-				 *
-				 * 4 3 2 _ 1 _ _ _
-				 * _             _
-				 * _ _ _ _ _ _ _ _
-				 *
-				 */
-				lunghezza = 18;
-				plancia = new Giocatore[lunghezza];
-				posizioni = posizioniLivello1;
-				//devo mettere il giocatore 0 in posizione 4, giocatore 1 in posizione 2, 
-				//giocatore 2 in posizione 1 e giocatore 3 in posizione 0
+		for(int i =0; i<tipoPlancia.getPosizioni().length && i<tipoPlancia.getLunghezza(); i++) {
 
-
-			}
-			case LIVELLO_2 -> {
-				/*
-				 * Creo la plancia per il livello 2
-				 * 24 spazi
-				 *
-				 * 4 3 _ 2 _ _ 1 _ _ _
-				 * _                 _
-				 * _                 _
-				 * _ _ _ _ _ _ _ _ _ _
-				 *
-				 */
-				lunghezza = 24;
-				plancia = new Giocatore[lunghezza];
-				posizioni = posizioniLivello2;
-				//devo mettere il giocatore 0 in posizione 6, giocatore 1 in posizione 3,
-				//giocatore 2 in posizione 1 e giocatore 3 in posizione 0
-			}
-			case LIVELLO_3 -> {
-				/*
-				 * Creo la plancia per il livello 3
-				 * 34 spazi
-				 *
-				 * 4 _ 3 _ _ 2 _ _ _ 1 _ _ _ _
-				 * _                         _
-				 * _                         _
-				 * _                         _
-				 * _ _ _ _ _ _ _ _ _ _ _ _ _ _
-				 *
-				 */
-				lunghezza = 34;
-				plancia = new Giocatore[lunghezza];
-				posizioni = posizioniLivello3;
-				//devo mettere il giocatore 0 in posizione 9, giocatore 1 in posizione 5,
-				//giocatore 2 in posizione 2 e giocatore 3 in posizione 0
-			}	
-			default -> throw new IllegalArgumentException("Modalità di gioco non valida: " + modalitaGioco.getlivelloPartita());
-		}
-
-		// Posiziona i giocatori
-		for (int i = 0; i < giocatori.length && i < posizioni.length; i++) {
-			plancia[posizioni[i]] = giocatori[i];
+			plancia[tipoPlancia.getPosizioni()[i]] = giocatori[i]; // metto i giocatori nella plancia in base alla modalita di gioco
+			
 		}
 		
 	}
@@ -93,43 +34,81 @@ public class Plancia {
 
 	//sposta un giocatore per n giorni di volo
 	public void spostaGiocatore(int giorniVolo, Giocatore giocatore) {
+
+		// Controlla se il numero di giorni di volo è positivo
+
+		if(giorniVolo < 0) {
+			// Se i giorni di volo sono negativi, sposta indietro
+			for (int i = 0; i < Math.abs(giorniVolo); i++) {
+				spostaIndietro(giocatore);
+			}
+		} else if(giorniVolo > 0) {
+			// Se i giorni di volo sono positivi, sposta avanti
+			for (int i = 0; i < giorniVolo; i++) {
+				spostaAvanti(giocatore);
+			}
+		}
 		
-		int pos = -1; // posizione del giocatore nella plancia
+	}
 
-		//trova la posizione del giocatore nella plancia
-
-		for (int i = 0; i < lunghezza; i++) {
-			if(plancia[i] == giocatore) {
+	//sposta un giocatore indietro di un giorno di volo
+	private void spostaIndietro(Giocatore giocatore) {
+		int pos = -1; // Posizione attuale del giocatore nella plancia
+	
+		// Trova la posizione del giocatore nella plancia
+		for (int i = 0; i < tipoPlancia.getLunghezza(); i++) {
+			if (plancia[i] == giocatore) {
 				pos = i;
 				break;
 			}
 		}
-
-		// sposta il giocatore di giorni di volo
-		int nuovaPos = pos + giorniVolo;
-
-		if(nuovaPos >= lunghezza) {
-			nuovaPos = (pos + giorniVolo) % lunghezza; // se supera la lunghezza della plancia devo cercare di nuovo 
+	
+		// Calcola la nuova posizione in modo circolare
+		int nuovaPos = (pos - 1 + tipoPlancia.getLunghezza()) % tipoPlancia.getLunghezza();
+	
+		// Continua a cercare una posizione libera andando indietro
+		while (plancia[nuovaPos] != null) {
+			nuovaPos = (nuovaPos - 1 + tipoPlancia.getLunghezza()) % tipoPlancia.getLunghezza(); // Sposta indietro in modo circolare
 		}
-		//verifica se la nuova posizione è occupata da un altro giocatore
-		if(plancia[nuovaPos] != null) {
-			// TODO gestire il caso in cui la nuova posizione è occupata da un altro giocatore
-			//se la nuova posizione è occupata da un altro giocatore, devo spostare il giocatore in pos+1
-			// finchè non trovo una posizione libera
-			while(plancia[nuovaPos] != null) {
-				nuovaPos++;
-				if(nuovaPos >= lunghezza) {
-					nuovaPos = 0; // se supera la lunghezza della plancia devo cercare di nuovo 
-				}
+		
+		// Sposta il giocatore nella nuova posizione
+		plancia[nuovaPos] = giocatore;
+		plancia[pos] = null; // Libera la posizione precedente
+	}
+
+
+	//sposta un giocatore avanti di un giorno di volo
+	private void spostaAvanti(Giocatore giocatore) {
+		int pos = -1; // Posizione attuale del giocatore nella plancia
+	
+		// Trova la posizione del giocatore nella plancia
+		for (int i = 0; i < tipoPlancia.getLunghezza(); i++) {
+			if (plancia[i] == giocatore) {
+				pos = i;
+				break;
 			}
 		}
-
-		//sposta il giocatore nella nuova posizione
-		plancia[nuovaPos] = giocatore; // metto il giocatore nella nuova posizione
-		plancia[pos] = null; // libero la posizione precedente del giocatore
+	
+		// Se il giocatore non è stato trovato, lancia un'eccezione
+		if (pos == -1) {
+			throw new IllegalArgumentException("Il giocatore non è presente sulla plancia.");
+		}
+	
+		// Calcola la nuova posizione in modo circolare
+		int nuovaPos = (pos + 1) % tipoPlancia.getLunghezza();
+	
+		// Continua a cercare una posizione libera andando avanti
+		while (plancia[nuovaPos] != null) {
+			nuovaPos = (nuovaPos + 1) % tipoPlancia.getLunghezza(); // Sposta avanti in modo circolare
+		}
+	
+		// Sposta il giocatore nella nuova posizione
+		plancia[nuovaPos] = giocatore;
+		plancia[pos] = null; // Libera la posizione precedente
 	}
 
 	//TODO implementare i metodi per le carte
 	
+
 
 }

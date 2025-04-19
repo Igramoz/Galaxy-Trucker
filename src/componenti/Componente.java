@@ -1,14 +1,15 @@
 package componenti;
 
-import java.util.Map; // Libreria standard di java
-import java.util.EnumMap;
-
+import java.util.EnumMap; // Libreria standard di java
+import java.util.Map;
+import model.Coordinate;
 import model.enums.*;
 
 public abstract class Componente implements Cloneable {
 
 	protected final TipoComponente tipo;
 	protected Map<Direzione, TipoTubo> tubi;
+	protected Coordinate posizione;
 
 	public Componente(TipoComponente tipo, Map<Direzione, TipoTubo> tubiIniziali) {
 		this.tipo = tipo;
@@ -96,5 +97,14 @@ public abstract class Componente implements Cloneable {
 	public int getMaxIstanze() {
 		return tipo.getMaxIstanze();
 	}
+
+	public Coordinate getPosizione() {
+		return posizione;
+	}
+
+	public void setPosizione(Coordinate posizione) {
+		this.posizione = posizione;
+	}
+	
 	public abstract Componente clone();		
 }
