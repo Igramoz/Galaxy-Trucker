@@ -34,9 +34,11 @@ public interface ValidatorePosizione {
 				}
 			}
 		}
+		
+		if(!controllaCannoniOMotoriAttorno(adiacenti)) return false;
 
 		// Controllo i casi particolari
-		return checkComponentiParticolari(adiacenti, nuovoComponente);
+		return isPosizionamentoValidoPerCannoniEMotori(adiacenti, nuovoComponente);
 	}
 
 	private Map<Direzione, Componente> getComponentiAdiacenti(Componente[][] griglia, Coordinate coord) {
@@ -66,8 +68,8 @@ public interface ValidatorePosizione {
 		return true;
 	}
 
-	// Controlla le condizioni che riguardano i componenti particolari
-	private boolean checkComponentiParticolari(Map<Direzione, Componente> adiacenti, Componente nuovoComponente) {
+	// Nel caso in cui viene posizionato un cannone o un motore controlla i pezzi adiacenti
+	private boolean isPosizionamentoValidoPerCannoniEMotori(Map<Direzione, Componente> adiacenti, Componente nuovoComponente) {
 
 		if (nuovoComponente.getTipo() == TipoComponente.CANNONE_SINGOLO
 				|| nuovoComponente.getTipo() == TipoComponente.CANNONE_DOPPIO) {
@@ -87,5 +89,33 @@ public interface ValidatorePosizione {
 
 		return true;
 	}
+	
+	// restituisce vero se è posizionabile
+	private boolean controllaCannoniOMotoriAttorno(Map<Direzione, Componente> adiacenti) {
+	    // Controllo specifico per i motori sopra
+	    Componente sopra = adiacenti.get(Direzione.SOPRA);
+	    if (sopra != null && 
+	        (sopra.getTipo() == TipoComponente.MOTORE_SINGOLO || sopra.getTipo() == TipoComponente.MOTORE_DOPPIO)) {
+	        return false; // se sopra ha un motore non è posizionabile
+	    }
 
+	    // Controllo i cannoni
+	    for (Map.Entry<Direzione, Componente> entry : adiacenti.entrySet()) {
+	        Componente comp = entry.getValue();
+
+	        if (comp != null && 
+	            (comp.getTipo() == TipoComponente.CANNONE_SINGOLO || comp.getTipo() == TipoComponente.CANNONE_DOPPIO)) {
+	            Direzione direzioneFuoco = ((Cannone) comp).getDirezioneFuoco();
+
+	            // Se il cannone punta verso il pezzo non è posizionabile
+	            if (direzioneFuoco.opposta() == entry.getKey()) {
+	                return false;
+	            }
+	        }
+	    }
+	    return true;
+	}
+
+	
+	
 }

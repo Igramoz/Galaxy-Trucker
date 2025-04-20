@@ -43,7 +43,7 @@ public class PioggiaDiMeteoriti extends Carta implements Colpo {
 					io.stampa(super.formattatoreGrafico.formattaGiocatore(giocatore) + " non è stato colpito");
 				}else {
 					// nave colpita
-					int pezziDistrutti = 0;// TODO chiamare funzione per colpire la nave
+					int pezziDistrutti = giocatore.getNave().subisciImpatto(meteorite, coordColpite);
 					// se la nave è cambiata stampare:
 					if(pezziDistrutti != 0) {
 						io.stampa(textAligner.alignCenter("Nave di " + super.formattatoreGrafico.formattaGiocatore(giocatore) + " dopo essere stato colpito"));

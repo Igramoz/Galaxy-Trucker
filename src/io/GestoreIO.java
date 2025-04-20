@@ -96,14 +96,15 @@ public class GestoreIO {
 		// menu.length - 1
 		int scelta;
 		boolean sceltaValida;
+		String[] menuStampare = new String[menu.length];
 		// in modo automatico stampa il numerp abbinato all'azione corrispondente
 		for (int i = 0; i < menu.length; i++) {
-			menu[i] = i + " - " + menu[i];
+			menuStampare[i] = i + " - " + menu[i];
 		}
 
 		do {
 			sceltaValida = true;
-			stampa(menu);
+			stampa(menuStampare);
 			stampa("Inserire il numero corrispondente all'azione:");
 
 			scelta = leggiIntero();

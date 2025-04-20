@@ -21,8 +21,7 @@ public class ManagerTurnoComposizione {
 	private final NaveRenderer naveRenderer = new NaveRenderer();
 	private final ComponenteRenderer componenteRenderer = new ComponenteRenderer();
 	private final TextAligner txtAligner = new TextAligner();
-	private final String[] azioniDisponibiliSuComponente = { "0 - Ruota", "1 - Posiziona", "2 - Prenota"};
-
+	private final String[] azioniDisponibiliSuComponente = { "Ruota", "Posiziona", "Prenota"};
 
 	private List<Componente> componentiPrenotati = new ArrayList<>();
 	private List<Componente> componentiScartati;
@@ -108,7 +107,7 @@ public class ManagerTurnoComposizione {
 
 	private void estraiNuovoComponente() {
 		String[] azioniDisponibili = Arrays.copyOf(azioniDisponibiliSuComponente, azioniDisponibiliSuComponente.length + 1);
-		azioniDisponibili[azioniDisponibili.length - 1] = "3 - Scarta";
+		azioniDisponibili[azioniDisponibili.length - 1] = "Scarta";
 		Componente estratto = servizioAssemblaggio.estraiComponente();
 
 		io.stampa("Hai estratto questo componente");
@@ -167,7 +166,7 @@ public class ManagerTurnoComposizione {
 
 	private void usaComponenteScartato() {
 		String[] azioniDisponibili = Arrays.copyOf(azioniDisponibiliSuComponente, azioniDisponibiliSuComponente.length + 1);
-		azioniDisponibili[azioniDisponibili.length - 1] = "3 - Scarta";
+		azioniDisponibili[azioniDisponibili.length - 1] = "Scarta";
 		scegliComponenteDaLista(componentiScartati, azioniDisponibili);
 	}
 

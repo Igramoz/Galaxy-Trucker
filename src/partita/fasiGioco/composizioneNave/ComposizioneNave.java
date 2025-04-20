@@ -41,7 +41,7 @@ public class ComposizioneNave {
 		final int turniTotali = livello.getTipoNave().getCapacitaComponenti();
 		
         for(int turno = 0; turno < turniTotali; turno++) {        	
-        	io.stampa("Turno numero: " + (turno+1) + " di " + turniTotali);
+        	io.stampa("Turno numero: " + (turno + 1) + " di " + turniTotali);
         	
             for (int i = 0; i < manager.length; i++) {
             	
@@ -56,7 +56,7 @@ public class ComposizioneNave {
             	}
             	
             	if(ordineFine.size() == manager.length) {
-            		break;
+                	return ordineFine;
             	}            	
             }
         }

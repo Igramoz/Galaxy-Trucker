@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Util {
 
-	public final static int SIZE = 10; // Le coordinate vanno da 0 a 10, i dadi vanno da 2 a 12.
+	public final static int SIZE = 11; // Le coordinate vanno da 0 a 10, i dadi vanno da 2 a 12.
 
 	// Controlla se nel set di coordinate è presente una coordinata. True se è
 	// presente
