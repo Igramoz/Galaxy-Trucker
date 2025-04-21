@@ -52,10 +52,7 @@ public class Main {
 				g[2] = new Giocatore("Matteo", Colore.VERDE);
 				
 
-		List<PioggiaDiMeteoriti> l = servizio.generaMeteoriti(LivelliPartita.LIVELLO_3);
-		PioggiaDiMeteoriti p = l.remove(0);
 		
-		p.eseguiEvento(g);
 		
 		
 		
@@ -63,7 +60,10 @@ public class Main {
 		
 		composizione.start();
 
+		List<PioggiaDiMeteoriti> l = servizio.generaMeteoriti(LivelliPartita.LIVELLO_3);
+		PioggiaDiMeteoriti p = l.remove(0);
 		
+		p.eseguiEvento(g);
 //		Partita p = new Partita();
 //		p.gioca();
 	}
