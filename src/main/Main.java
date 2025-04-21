@@ -67,16 +67,6 @@ public class Main {
 		 * composizione.start();
 		 */
 
-		/*Giocatore[] giocatori = new Giocatore[3];
-		giocatori[0] = new Giocatore("Matteo", Colore.ROSSO);
-		giocatori[1] = new Giocatore("Henry", Colore.BLU);
-		giocatori[2] = new Giocatore("Michele", Colore.VERDE);
-		giocatori[0].aggiungiCrediti(2);
-		giocatori[1].aggiungiCrediti(4);
-		giocatori[2].aggiungiCrediti(6);
-		FineGioco fine = new FineGioco(giocatori);
-		fine.start();*/
-
 		Partita p = new Partita();
 		p.gioca();
 	}

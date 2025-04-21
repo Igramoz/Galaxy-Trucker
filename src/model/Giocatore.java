@@ -100,4 +100,7 @@ public class Giocatore {
 		return crediti;
 	}
 
+	public static void resetNumeroGiocatori() {
+		numeroGiocatori = 0;
+	}
 }

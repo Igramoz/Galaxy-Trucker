@@ -23,6 +23,7 @@ public class Inizializzazione {
 	}
 
 	public Giocatore[] getGiocatori() {
+		Giocatore.resetNumeroGiocatori();
 		// gestione numero dei giocatori
 		gestoreIO.stampa("Inserisci il numero dei giocatori (minimo due, massimo quattro)");
 		do {
