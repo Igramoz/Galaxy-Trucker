@@ -11,6 +11,7 @@ public class Partita {
 
 	private Inizializzazione inizializzazione = new Inizializzazione();
 	private ComposizioneNave composizione;
+	private FineGioco fine;
 
 	public Partita() {
 		giocatori = inizializzazione.getGiocatori();
@@ -23,6 +24,9 @@ public class Partita {
 		// fase composizione nave
 		composizione = new ComposizioneNave(giocatori, modalita.getlivelloPartita());
 		composizione.start();
+
+		fine = new FineGioco(giocatori);
+		fine.start();
 	}
 
 }
