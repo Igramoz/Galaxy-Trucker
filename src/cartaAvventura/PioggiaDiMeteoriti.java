@@ -28,27 +28,28 @@ public class PioggiaDiMeteoriti extends Carta implements Colpo {
 		int indice = 0;
 		for (Coppia<TipiMeteorite, Direzione> meteorite : meteoriti) {
 			indice++;
+			io.aCapo();
 			io.stampa("Meteorite numero " + (indice) + ": " + meteorite.getElemento1().name() + " da "
 					+ meteorite.getElemento2().name());
 			
 			int posizioneColpo = super.lancia2Dadi(giocatori[0]);
 			
-			io.stampa("I giocatori in volo verranno colpiti alla coordinata " + posizioneColpo);
+			io.stampa("I giocatori in volo verranno colpiti alla coordinata " + (posizioneColpo + 2));
 
 			Coordinate coordColpite;
 			for(Giocatore giocatore : giocatori) {
 				coordColpite = calcolaCoordinateColpite(giocatore.getNave(), meteorite.getElemento2(), posizioneColpo);
 				if(coordColpite == null) {
 					// il colpo ha mancato la nave
-					io.stampa(super.formattatoreGrafico.formattaGiocatore(giocatore) + " non è stato colpito");
+					io.stampa("Nave di " + super.formattatoreGrafico.formattaGiocatore(giocatore) + " non è stata colpita");
 				}else {
 					// nave colpita
 					int pezziDistrutti = giocatore.getNave().subisciImpatto(meteorite, coordColpite);
 					// se la nave è cambiata stampare:
 					if(pezziDistrutti != 0) {
-						io.stampa(textAligner.alignCenter("Nave di " + super.formattatoreGrafico.formattaGiocatore(giocatore) + " dopo essere stato colpito"));
-						io.stampa(super.naveRenderer.rappresentazioneNave(giocatore.getNave()));
 						// TODO aggiornare i pezzi distrutti
+					}else {
+						io.stampa("Nave di " + super.formattatoreGrafico.formattaGiocatore(giocatore) + " si è salvata");
 					}
 					
 				}

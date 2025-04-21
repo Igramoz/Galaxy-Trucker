@@ -39,7 +39,7 @@ public abstract class Carta {
     	
     	io.stampa("Sono usciti i numeri: " + num1 + " e " + num2);
     	
-    	return num1 + num2;    	
+    	return num1 + num2 - 2;  // i dadi partono da 1  	
     }
     
 }

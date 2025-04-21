@@ -5,7 +5,7 @@ import java.util.Map;
 import model.Coordinate;
 import model.enums.*;
 
-public abstract class Componente implements Cloneable {
+public abstract class Componente {
 
 	protected final TipoComponente tipo;
 	protected Map<Direzione, TipoTubo> tubi;

@@ -1,9 +1,7 @@
 package nave;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import componenti.Componente;
 import grafica.NaveRenderer;
@@ -20,24 +18,35 @@ public interface Distruttore {
 		int pezziDistrutti = 1;
 		nave.distruggiSingoloComponente(coordinate);
 
-		List<Set<Coordinate>> tronconiNave = new ArrayList<>();
+		List<List<Coordinate>> tronconiNave = new ArrayList<>();
 
-		for (int x = 0; x < Util.SIZE; x++) {
-			for (int y = 0; y < Util.SIZE; y++) {
-				Coordinate coord = new Coordinate(x, y);
-				if (Util.contieneCoordinata(tronconiNave, coord))
-					continue;
+		// controllo dalle 4 posizioni che circondano il componente distrutto
 
-				Set<Coordinate> nuovoSet = new HashSet<>();
-				controllaConnessioneComponente(nave, coord, nuovoSet);
+		Coordinate[] coordinateControllo = { new Coordinate(coordinate.getX(), coordinate.getY() - 1),
+				new Coordinate(coordinate.getX(), coordinate.getY() + 1),
+				new Coordinate(coordinate.getX() - 1, coordinate.getY()),
+				new Coordinate(coordinate.getX() + 1, coordinate.getY()) };
 
-				if (!nuovoSet.isEmpty())
-					tronconiNave.add(nuovoSet);
-			}
+		for (Coordinate coord : coordinateControllo) {
+			// controllo che la coordinata non sia già stata salvata
+			if (Util.contieneCoordinata(tronconiNave, coord))
+				continue;
+			
+			// scansiono il troncone
+			List<Coordinate> nuovaLista = new ArrayList<>();
+			controllaConnessioneComponente(nave, coord, nuovaLista);
+
+			if (!nuovaLista.isEmpty())
+				tronconiNave.add(nuovaLista);
 		}
-
+		
 		Nave[] tronconi = generaTronconi(nave, tronconiNave);
 
+		// Se si crea un solo troncone non c'è bisogno di scegliere quale salvare
+		if(tronconi.length <= 1) {
+			return pezziDistrutti;
+		}
+		
 		int tronconeDaTenere = scegliTroncone(tronconi);
 
 		for (int i = 0; i < tronconi.length; i++) {
@@ -48,7 +57,7 @@ public interface Distruttore {
 		return pezziDistrutti;
 	}
 
-	private void controllaConnessioneComponente(Nave nave, Coordinate coordinate, Set<Coordinate> visitati) {
+	private void controllaConnessioneComponente(Nave nave, Coordinate coordinate, List<Coordinate> visitati) {
 		Componente[][] griglia = nave.getGrigliaComponenti();
 		Componente c = griglia[coordinate.getX()][coordinate.getY()];
 
@@ -63,7 +72,7 @@ public interface Distruttore {
 	}
 
 	private void controllaConnessioneInDirezione(Nave nave, Componente c, Coordinate coord, Direzione dir,
-			Set<Coordinate> visitati) {
+			List<Coordinate> visitati) {
 		if (c.getTubo(dir) == TipoTubo.NESSUNO)
 			return;
 
@@ -79,26 +88,24 @@ public interface Distruttore {
 		controllaConnessioneComponente(nave, next, visitati);
 	}
 
-	private Nave[] generaTronconi(Nave nave, List<Set<Coordinate>> coordinateTronconi) {
+	private Nave[] generaTronconi(Nave nave, List<List<Coordinate>> coordinateTronconi) {
 		Nave[] tronconi = new Nave[coordinateTronconi.size()];
 		for (int i = 0; i < coordinateTronconi.size(); i++) {
 			tronconi[i] = new Nave(nave.getLivelloNave());
 			for (Coordinate coord : coordinateTronconi.get(i)) {
 				Componente comp = nave.getComponente(coord);
-				tronconi[i].setComponente(comp, coord);
+				tronconi[i].forzaComponente(comp, coord); // Posiziono il componente senza controlli
 			}
 		}
 		return tronconi;
 	}
 
 	// conta quanti elementi distrugge
-	private int distruggiTroncone(Nave nave, Set<Coordinate> daDistruggere) {
-		int counter = 0;
+	private int distruggiTroncone(Nave nave, List<Coordinate> daDistruggere) {
 		for (Coordinate coord : daDistruggere) {
 			nave.distruggiSingoloComponente(coord);
-			counter++;
 		}
-		return counter;
+		return daDistruggere.size();
 	}
 
 	private int scegliTroncone(Nave[] tronconi) {
@@ -108,7 +115,7 @@ public interface Distruttore {
 		io.stampa("La nave si distruggerà nei seguenti tronconi: ");
 
 		for (int i = 0; i < tronconi.length; i++) {
-			io.stampa("TRONCONE NUMERO: " + 1);
+			io.stampa("TRONCONE NUMERO: " + i);
 			io.stampa(renderer.rappresentazioneNave(tronconi[i]));
 		}
 

@@ -47,6 +47,7 @@
 │   ├── Nave.java
 │   ├── tipoNave.java             // Enum tipoPlancia
 │   ├── ValidatorePosizione.java	// controlla se si può inserire il pezzo
+│   ├── VerificatoreImpatti.java	// controlla se l'oggetto impatta o meno
 │   └── Distruttore.java          // Gestisce la distruzione della nave
 │
 ├── cartaAvventura/

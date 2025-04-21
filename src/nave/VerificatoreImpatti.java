@@ -11,11 +11,11 @@ import model.enums.TipoTubo;
 import model.enums.Direzione;
 import util.Coppia;
 
-public interface GestoreImpatti {
+public interface VerificatoreImpatti {
 	// l'interfaccia controlla se il colpo distrugge o meno la nave
 
 	// restituisce false se il componente non è da distruggere
-	default boolean subisciImpatto(Nave nave, Coppia<TipiMeteorite, Direzione> meteorite, Coordinate coordinate) {
+	default boolean verificaImpatto(Nave nave, Coppia<TipiMeteorite, Direzione> meteorite, Coordinate coordinate) {
 
 		// Controllo che tipo di meteorite è
 		if (meteorite.getElemento1() == TipiMeteorite.PICCOLO) {
@@ -27,14 +27,14 @@ public interface GestoreImpatti {
 
 	// TODO cannonata
 	// default int subisciImpatto(Nave nave, Coppia<TipiMeteorite, Direzione>
-	// meteorite, Coordinate coordinate) {ù
+	// meteorite, Coordinate coordinate) 
 
 	private boolean gestisciMeteoritePiccolo(Nave nave, Direzione direzione, Coordinate coordinate) {
 		if (nave.getComponente(coordinate).getTubo(direzione) == TipoTubo.NESSUNO)
 			return false;
 
 		// Controllo che ci siano degli scudi
-		return nave.attivaScudo(direzione);
+		return !nave.attivaScudo(direzione);
 	}
 
 	private boolean gestisciMeteoriteGrosso(Nave nave, Direzione direzione, Coordinate coordinate) {
@@ -53,25 +53,25 @@ public interface GestoreImpatti {
 			switch (direzione) {
 			case SOPRA:
 				if (cannone.getPosizione().getX() == coordinate.getX()) {
-					return nave.spara((Cannone) cannone);
+					return !nave.spara((Cannone) cannone); // se la nave spara, il meteorite non ha colpito
 				}
 				break;
 
 			case SOTTO:
 				if (stessaOAdiacente(cannone.getPosizione().getX(), coordinate.getX())) {
-					return nave.spara((Cannone) cannone);
+					return !nave.spara((Cannone) cannone);
 				}
 				break;
 
 			case SINISTRA:
 			case DESTRA:
 				if (stessaOAdiacente(cannone.getPosizione().getY(), coordinate.getY())) {
-					return nave.spara((Cannone) cannone);
+					return !nave.spara((Cannone) cannone);
 				}
 				break;
 			}
 		}
-		return false; // non ci sono cannoni adatti
+		return true; // non ci sono cannoni adatti, il meteorite impatta
 	}
 
 	private boolean stessaOAdiacente(int a, int b) {

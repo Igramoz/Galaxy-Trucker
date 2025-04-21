@@ -12,7 +12,7 @@ import model.colpi.TipiMeteorite;
 import model.enums.*;
 import util.*;
 
-public class Nave implements Distruttore, GestoreImpatti, ValidatorePosizione {
+public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizione{
 
 	private GestoreIO io = new GestoreIO();
 	
@@ -87,18 +87,21 @@ public class Nave implements Distruttore, GestoreImpatti, ValidatorePosizione {
 
 		// Controllo se il pezzo si collega agli altri
 		if (valida(grigliaComponenti, componente, coordinate)) {
-			grigliaComponenti[coordinate.getX()][coordinate.getY()] = componente;
-			componente.setPosizione(coordinate);
+			forzaComponente(componente, coordinate);
 			return true;
 		}
 		return false;
 	}
 
+	// setto il componente senza controlli, usato dalle classi/interfacce di supporto della nave
+	protected void forzaComponente(Componente componente, Coordinate coordinate) {
+		grigliaComponenti[coordinate.getX()][coordinate.getY()] = componente;
+		componente.setPosizione(coordinate);
+	}
+	
 	public int subisciImpatto(Coppia<TipiMeteorite, Direzione> meteorite, Coordinate coordinate) {
-		if (this.getComponente(coordinate) == null) {
-			return 0;
-		}
-		if (subisciImpatto(this, meteorite, coordinate)) {
+		
+		if (verificaImpatto(this, meteorite, coordinate)) {
 			return distruggiComponenti(this, coordinate);
 		}
 		return 0;
@@ -167,6 +170,8 @@ public class Nave implements Distruttore, GestoreImpatti, ValidatorePosizione {
 	
 	// indicare la direzione verso cui si vuole attivare lo scudo
 	protected boolean attivaScudo(Direzione dir) {
+		if(getEnergia() <= 0) return false;
+		
 	    List<Componente> scudi = this.getComponenti(TipoComponente.SCUDO);
 	    
 	    for (Componente scudo : scudi) {
@@ -180,13 +185,15 @@ public class Nave implements Distruttore, GestoreImpatti, ValidatorePosizione {
 	        	return false; // scudo non attivato per scelta dell'utente
 	        }
 	    }
-	    io.stampa("Non ci sono scudi che difendono " + dir.name());
+	    // non sono presenti scudi
 	    return false;
 	}
 	
 	// spara e restituisce false se non spara
 	protected boolean spara(Cannone cannone) {
 		if(cannone.getTipo() == TipoComponente.CANNONE_DOPPIO) {
+			if(getEnergia() <= 0) return false;
+			
 			io.stampa("scrivere 1 se si vuole sparare con il " + cannone.getTipo().name());
         	if(io.leggiIntero() == 1) {
 	        	return usaEnergia(); // sparo se l'utente è d'accordo

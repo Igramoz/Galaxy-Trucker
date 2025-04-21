@@ -3,7 +3,6 @@ package util;
 import model.*;
 import model.enums.Direzione;
 
-import java.util.Set;
 import java.util.List;
 
 public class Util {
@@ -12,15 +11,15 @@ public class Util {
 
 	// Controlla se nel set di coordinate è presente una coordinata. True se è
 	// presente
-	public static boolean contieneCoordinata(List<Set<Coordinate>> listaCoordinateComponentiControllati,
+	public static boolean contieneCoordinata(List<List<Coordinate>> listaCoordinateComponentiControllati,
 			Coordinate coordinate) {
 
-		Set<Coordinate> set;
-		// Controllo un set della lista alla volta
+		List<Coordinate> listaIesima;
+		// Controllo una lista della lista alla volta
 		for (int i = 0; i < listaCoordinateComponentiControllati.size(); i++) {
 
-			set = listaCoordinateComponentiControllati.get(i);
-			if (set.contains(coordinate)) {
+			listaIesima = listaCoordinateComponentiControllati.get(i);
+			if (listaIesima.contains(coordinate)) {
 				return true;
 			}
 		}

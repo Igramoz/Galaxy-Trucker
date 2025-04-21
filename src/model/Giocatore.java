@@ -7,7 +7,7 @@ import grafica.Colore;
 import nave.Nave;
 import nave.TipoNave;
 
-public class Giocatore {
+public class Giocatore  {
 	private final static int giocatoriMax = 4; // Numero massimo di giocatori
 	public static int numeroGiocatori = 0;
 	public static final List<Colore> coloriDisponibiliGiocatori = Arrays.asList(Colore.ROSSO, Colore.BLU, Colore.VERDE,
