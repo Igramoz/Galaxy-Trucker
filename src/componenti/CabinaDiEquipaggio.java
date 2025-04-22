@@ -33,8 +33,6 @@ public class CabinaDiEquipaggio extends Componente {
         this(altra.tipo, altra.tubi, altra.equipaggio);
     }
 
-    // TODO: controlla che sia possibile aggiungere o meno la pedina (possono esserci al massimo un alieno o 2 ASTRONAUTI
-    // dopo aver sistemato l'enum ti basterà fare: equipaggio.add(pedina)
     public boolean aggiungiEquipaggio(TipoPedina pedina) {
     	
     	// Se c'è un alieno non si può inserire altro
