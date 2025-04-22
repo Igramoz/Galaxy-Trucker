@@ -3,10 +3,12 @@ package partita.fasiGioco.composizioneNave;
 import componenti.Componente;
 import model.Giocatore;
 import servizi.ServizioAssemblaggio;
+import util.Coordinate;
 import grafica.*;
+import grafica.renderer.ComponenteRenderer;
+import grafica.renderer.NaveRenderer;
 import io.GestoreIO;
 import partita.LivelliPartita;
-import model.Coordinate;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,6 +46,9 @@ public class ManagerTurnoComposizione {
 		return giocatore;
 	}
 
+	public int getPezziPrenotatiSize() {
+		return componentiPrenotati.size();
+	}
 	// Restituisce vero se il goicatore ha finito la nave
 	public boolean gestisciTurno() {
 

@@ -60,6 +60,12 @@ public class ComposizioneNave {
             	}            	
             }
         }
+        
+        // I pezzi prenotati e non usati sono considerati pezzi distrutti
+        for(ManagerTurnoComposizione m : manager) {
+        	m.getGiocatore().incrementaPezziDistrutti(m.getPezziPrenotatiSize());
+        }
+        
     	return ordineFine;
     }
 }

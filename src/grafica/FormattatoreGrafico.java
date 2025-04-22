@@ -1,7 +1,7 @@
 package grafica;
 
-import model.Coordinate;
 import model.Giocatore;
+import util.Coordinate;
 
 public class FormattatoreGrafico {
 	
@@ -9,8 +9,8 @@ public class FormattatoreGrafico {
 		return giocatore.getColore().getCodice()+ giocatore.getNome() + Colore.DEFAULT.getCodice();
 	}
 	
+	// ( x , y )
 	public String formattaCoordinate(Coordinate coord) {
 		return "( " + coord.getX() + " , " + coord.getY() + " )";
 	}
-	
 }

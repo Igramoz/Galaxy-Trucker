@@ -7,8 +7,7 @@ import java.util.List;
 import componenti.*;
 import grafica.Colore;
 import io.GestoreIO;
-import model.Coordinate;
-import model.colpi.TipiMeteorite;
+import model.colpi.Meteorite;
 import model.enums.*;
 import util.*;
 
@@ -75,7 +74,6 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 	protected void distruggiSingoloComponente(Coordinate coordinate) {
 		if (grigliaComponenti[coordinate.getX()][coordinate.getY()] != null) {
 			grigliaComponenti[coordinate.getX()][coordinate.getY()] = null;
-			// TODO aggiornare il numero di pezzi distrutti nel giocatore
 		}
 	}
 
@@ -99,9 +97,10 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 		componente.setPosizione(coordinate);
 	}
 	
-	public int subisciImpatto(Coppia<TipiMeteorite, Direzione> meteorite, Coordinate coordinate) {
+	public int subisciImpatto(Meteorite meteorite, int coordinata) {
+		Coordinate coordinate = verificaImpatto(this, meteorite, coordinata);
 		
-		if (verificaImpatto(this, meteorite, coordinate)) {
+		if (coordinate != null) {
 			return distruggiComponenti(this, coordinate);
 		}
 		return 0;

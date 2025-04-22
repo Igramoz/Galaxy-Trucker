@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import componenti.Componente;
-import grafica.NaveRenderer;
+import grafica.renderer.NaveRenderer;
 import io.GestoreIO;
-import model.Coordinate;
 import model.enums.Direzione;
 import model.enums.TipoTubo;
+import util.Coordinate;
 import util.Util;
 
 public interface Distruttore {

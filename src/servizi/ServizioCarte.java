@@ -6,8 +6,7 @@ import java.util.List;
 
 import util.*;
 import cartaAvventura.*;
-import model.colpi.TipiMeteorite;
-import model.enums.Direzione;
+import model.colpi.Meteorite;
 import partita.LivelliPartita;
 
 public class ServizioCarte {
@@ -47,18 +46,17 @@ public class ServizioCarte {
 		
 		for(int nCarta = 0; nCarta < TipoCarta.PIOGGIA_DI_METEORITI.getNumeroCarte(lvl); nCarta ++) {
 			
-			List<Coppia<TipiMeteorite, Direzione>> listaAsteroidi = new ArrayList<>();
+			List<Meteorite> listaAsteroidi = new ArrayList<>();
 			for(int nAsteroide = 0; nAsteroide < asteroidiDaGenerare; nAsteroide++) {
 				
 	            // Sceglie casualmente un meteorite grosso o piccolo
-				TipiMeteorite temp = random.randomEnum(nAsteroidiGrandi, asteroidiTotali, TipiMeteorite.GROSSO, TipiMeteorite.PICCOLO);
-				
-	            // Aggiungi un meteorite alla lista
-				listaAsteroidi.add( new Coppia<TipiMeteorite, Direzione>(temp, random.randomDirezione()));
+				Meteorite temp = random.randomEnum(nAsteroidiGrandi, asteroidiTotali, Meteorite.GROSSO, Meteorite.PICCOLO);
+				temp.setDirezione(random.randomDirezione()); // Aggiungi un meteorite alla lista
+				listaAsteroidi.add( temp );
 				
 			}
-			
-			Util.ordinaPerDirezione(listaAsteroidi);
+
+			listaAsteroidi = Meteorite.ordinaPerDirezione(listaAsteroidi);
 			out.add( new PioggiaDiMeteoriti(listaAsteroidi));
 		}
 		

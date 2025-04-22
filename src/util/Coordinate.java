@@ -1,8 +1,4 @@
-package model;
-
-//import della costante size
-
-import util.Util;
+package util;
 
 public class Coordinate {
 	public static final int MIN_COORDINATA = 0;

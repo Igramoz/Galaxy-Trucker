@@ -1,9 +1,9 @@
 package cartaAvventura;
 
-import grafica.CarteRenderer;
 import grafica.FormattatoreGrafico;
-import grafica.NaveRenderer;
 import grafica.TextAligner;
+import grafica.renderer.CarteRenderer;
+import grafica.renderer.NaveRenderer;
 import io.GestoreIO;
 import model.Giocatore;
 import model.Dado;
@@ -36,10 +36,11 @@ public abstract class Carta {
     	
     	int num1 = dado1.lancia();
     	int num2 = dado2.lancia();
-    	
+    	int somma = num1 + num2;
     	io.stampa("Sono usciti i numeri: " + num1 + " e " + num2);
+    	io.stampa("La somma dei dadi risulta: " + somma);
     	
-    	return num1 + num2 - 2;  // i dadi partono da 1  	
+    	return somma - 2;  // i dadi partono da 1  	
     }
     
 }

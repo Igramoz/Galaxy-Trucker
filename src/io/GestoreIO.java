@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import grafica.GraficaConfig;
 import grafica.TextAligner;
-import model.Coordinate;
+import util.Coordinate;
 
 public class GestoreIO {
 

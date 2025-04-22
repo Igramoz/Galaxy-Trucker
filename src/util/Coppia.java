@@ -29,7 +29,4 @@ public class Coppia <T1, T2> {
         Coppia<?, ?> coppia = (Coppia<?, ?>) obj;
         return elemento1.equals(coppia.elemento1) && elemento2.equals(coppia.elemento2);
     }
-    
-    
-    
 }

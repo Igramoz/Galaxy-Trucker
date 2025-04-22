@@ -4,9 +4,9 @@ import java.util.Map;
 import java.util.EnumMap;
 
 import componenti.*;
-import model.Coordinate;
 import model.enums.Direzione;
 import model.enums.TipoTubo;
+import util.Coordinate;
 
 public interface ValidatorePosizione {
 	// Si occupa di controllare se una è possibile insrire un oggetto in una

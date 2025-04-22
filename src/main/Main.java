@@ -11,6 +11,8 @@ import cartaAvventura.PioggiaDiMeteoriti;
 import servizi.*;
 import componenti.*;
 import grafica.*;
+import grafica.renderer.ComponenteRenderer;
+import grafica.renderer.NaveRenderer;
 import io.GestoreIO;
 import model.Giocatore;
 import partita.LivelliPartita;

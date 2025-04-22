@@ -1,4 +1,4 @@
-package grafica;
+package grafica.renderer;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,6 +11,9 @@ import componenti.Motore;
 import componenti.Stiva;
 import componenti.TipoComponente;
 import componenti.VanoBatteria;
+import grafica.CostantiGrafica;
+import grafica.GraficaConfig;
+import grafica.TextAligner;
 import model.enums.Direzione;
 
 public class ComponenteRenderer {

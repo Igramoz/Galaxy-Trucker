@@ -15,6 +15,7 @@ public class Giocatore  {
 
 	private final String nome;
 	private final Colore colore;
+	private int pezziDistrutti = 0;
 
 	// TODO assegnare titolo
 	private Nave nave;
@@ -57,43 +58,22 @@ public class Giocatore  {
 		return nave;
 	}
 
-	// Metodi componenti prenotati TODO
-//    public boolean setComponentiPrenotati(Componente componente) {
-//        for (int i = 0; i < componentiPrenotati.length; i++) {
-//            if (componentiPrenotati[i] == null) {
-//                componentiPrenotati[i] = componente;
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-//	
-//    public Componente[] getComponentiPrenotati() {
-//        return Arrays.copyOf(componentiPrenotati, componentiPrenotati.length);
-//    }
-//    
-//    public boolean rimuoviComponentiPrenotati(Componente componente) {
-//        for (int i = 0; i < componentiPrenotati.length; i++) {
-//            if (componente.equals(componentiPrenotati[i])) {
-//                componentiPrenotati[i] = null;
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-//    
-//    // Metodi pezzi distrutti
-//    public int getPezziDistrutti() {
-//    	return pezziDistrutti;
-//    }
-//    
-//    public void incrementaPezziDistrutti() {
-//        pezziDistrutti++;
-//    }
-//    
+    // Metodi pezzi distrutti
+    public int getPezziDistrutti() {
+    	return this.pezziDistrutti;
+    }
+    
+    public void incrementaPezziDistrutti(int numPezziDistrutti) {
+        this.pezziDistrutti += numPezziDistrutti;
+    }
+    
 	// Metodi crediti
 	public void aggiungiCrediti(int crediti) {
 		this.crediti += crediti;
+	}
+	
+	public void azzeraPezziDistrutti() {
+		this.pezziDistrutti = 0;
 	}
 
 	public int getCrediti() {

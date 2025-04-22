@@ -2,8 +2,9 @@ package componenti;
 
 import java.util.EnumMap; // Libreria standard di java
 import java.util.Map;
-import model.Coordinate;
+
 import model.enums.*;
+import util.Coordinate;
 
 public abstract class Componente {
 

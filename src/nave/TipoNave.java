@@ -1,6 +1,6 @@
 package nave;
 
-import model.Coordinate;
+import util.Coordinate;
 
 public enum TipoNave {
 	NAVE_1(new boolean[][] {

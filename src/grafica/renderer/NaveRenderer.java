@@ -1,4 +1,4 @@
-package grafica;
+package grafica.renderer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,11 +6,14 @@ import java.util.List;
 
 import componenti.Componente;
 import componenti.TipoComponente;
-import model.Coordinate;
+import grafica.CostantiGrafica;
+import grafica.GraficaConfig;
+import grafica.TextAligner;
 import model.enums.Direzione;
 import model.enums.TipoTubo;
 import nave.Nave;
 import nave.TipoNave;
+import util.Coordinate;
 import util.Util;
 
 public class NaveRenderer {
@@ -18,7 +21,6 @@ public class NaveRenderer {
 	private TextAligner textAligner = new TextAligner();
 	private ComponenteRenderer componenteRenderer = new ComponenteRenderer();
 
-	
 	// Restituisce la rappresentazione della nave.
 		public String[] rappresentazioneNave(Nave nave) {
 
