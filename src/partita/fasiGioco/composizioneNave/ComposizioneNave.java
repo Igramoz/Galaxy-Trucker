@@ -4,9 +4,9 @@ package partita.fasiGioco.composizioneNave;
 import java.util.ArrayList;
 import java.util.List;
 
-import componenti.Componente;
 import io.GestoreIO;
 import model.Giocatore;
+import model.componenti.Componente;
 import partita.LivelliPartita;
 import servizi.ServizioAssemblaggio;
 

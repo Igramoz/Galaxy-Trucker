@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import componenti.*;
+import model.componenti.*;
 import grafica.Colore;
 import grafica.FormattatoreGrafico;
 import io.GestoreIO;

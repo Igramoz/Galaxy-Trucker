@@ -1,10 +1,11 @@
-package cartaAvventura;
+package model.carte;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import model.Giocatore;
 import model.enums.Direzione;
+import model.enums.TipoCarta;
 import model.colpi.Meteorite;
 
 public class PioggiaDiMeteoriti extends Carta {

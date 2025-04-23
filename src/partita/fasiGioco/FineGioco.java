@@ -23,11 +23,9 @@ public class FineGioco {
 	public void start() {
 		List<Giocatore> vincitori = new ArrayList<>();
 		Giocatore maggiorVincitore = giocatori[0];
-		int contatore = 0;
 		for (int i = 0; i < giocatori.length; i++) {
 			if (giocatori[i].getCrediti() >= 1) {
 				vincitori.add(giocatori[i]);
-				contatore++;
 				if (giocatori[i].getCrediti() > maggiorVincitore.getCrediti()) {
 					maggiorVincitore = giocatori[i];
 				}

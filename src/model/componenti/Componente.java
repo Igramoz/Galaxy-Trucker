@@ -1,4 +1,4 @@
-package componenti;
+package model.componenti;
 
 import java.util.EnumMap; // Libreria standard di java
 import java.util.Map;

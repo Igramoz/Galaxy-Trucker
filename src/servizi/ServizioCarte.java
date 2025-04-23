@@ -5,8 +5,9 @@ import java.util.Collections;
 import java.util.List;
 
 import util.*;
-import cartaAvventura.*;
+import model.carte.*;
 import model.colpi.Meteorite;
+import model.enums.TipoCarta;
 import partita.LivelliPartita;
 
 public class ServizioCarte {

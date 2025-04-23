@@ -1,7 +1,7 @@
 package partita.fasiGioco.composizioneNave;
 
-import componenti.Componente;
 import model.Giocatore;
+import model.componenti.Componente;
 import servizi.ServizioAssemblaggio;
 import util.Coordinate;
 import grafica.*;

@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import componenti.Componente;
-import componenti.TipoComponente;
 import grafica.CostantiGrafica;
 import grafica.GraficaConfig;
 import grafica.TextAligner;
+import model.componenti.Componente;
 import model.enums.Direzione;
+import model.enums.TipoComponente;
 import model.enums.TipoTubo;
 import nave.Nave;
 import nave.TipoNave;

@@ -1,6 +1,7 @@
-package componenti;
+package model.componenti;
 
 import java.util.Map;
+
 import model.enums.*;
 
 public class StivaSpeciale extends Stiva {

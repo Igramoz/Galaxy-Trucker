@@ -3,18 +3,18 @@ package grafica.renderer;
 import java.util.Arrays;
 import java.util.List;
 
-import componenti.CabinaPartenza;
-import componenti.Cannone;
-import componenti.Componente;
-import componenti.GeneratoreDiScudi;
-import componenti.Motore;
-import componenti.Stiva;
-import componenti.TipoComponente;
-import componenti.VanoBatteria;
 import grafica.CostantiGrafica;
 import grafica.GraficaConfig;
 import grafica.TextAligner;
+import model.componenti.CabinaPartenza;
+import model.componenti.Cannone;
+import model.componenti.Componente;
+import model.componenti.GeneratoreDiScudi;
+import model.componenti.Motore;
+import model.componenti.Stiva;
+import model.componenti.VanoBatteria;
 import model.enums.Direzione;
+import model.enums.TipoComponente;
 
 public class ComponenteRenderer {
 	

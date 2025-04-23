@@ -1,4 +1,4 @@
-package cartaAvventura;
+package model.carte;
 
 import grafica.FormattatoreGrafico;
 import grafica.TextAligner;
@@ -6,6 +6,7 @@ import grafica.renderer.CarteRenderer;
 import grafica.renderer.NaveRenderer;
 import io.GestoreIO;
 import model.Giocatore;
+import model.enums.TipoCarta;
 import model.Dado;
 
 public abstract class Carta {

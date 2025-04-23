@@ -1,6 +1,7 @@
-package componenti;
+package model.componenti;
 
 import model.enums.Direzione;
+import model.enums.TipoComponente;
 import model.enums.TipoPedina;
 import model.enums.TipoTubo;
 import java.util.*;

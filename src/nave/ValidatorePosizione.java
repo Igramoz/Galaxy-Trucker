@@ -3,8 +3,9 @@ package nave;
 import java.util.Map;
 import java.util.EnumMap;
 
-import componenti.*;
+import model.componenti.*;
 import model.enums.Direzione;
+import model.enums.TipoComponente;
 import model.enums.TipoTubo;
 import util.Coordinate;
 
@@ -116,6 +117,4 @@ public interface ValidatorePosizione {
 	    return true;
 	}
 
-	
-	
 }

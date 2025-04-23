@@ -4,9 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import io.GestoreIO;
+import model.carte.PioggiaDiMeteoriti;
 import model.colpi.Meteorite;
 import model.enums.Direzione;
-import cartaAvventura.PioggiaDiMeteoriti;
 import grafica.CostantiGrafica;
 import grafica.TextAligner;
 

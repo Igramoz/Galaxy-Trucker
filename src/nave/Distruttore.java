@@ -3,9 +3,9 @@ package nave;
 import java.util.ArrayList;
 import java.util.List;
 
-import componenti.Componente;
 import grafica.renderer.NaveRenderer;
 import io.GestoreIO;
+import model.componenti.Componente;
 import model.enums.Direzione;
 import model.enums.TipoTubo;
 import util.Coordinate;

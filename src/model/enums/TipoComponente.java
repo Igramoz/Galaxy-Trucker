@@ -1,4 +1,4 @@
-package componenti;
+package model.enums;
 
 import grafica.Colore;
 

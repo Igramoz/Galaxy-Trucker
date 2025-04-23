@@ -2,12 +2,12 @@ package nave;
 
 import java.util.List;
 
-import componenti.Cannone;
-import componenti.Componente;
-import componenti.TipoComponente;
 import model.colpi.Meteorite;
+import model.componenti.Cannone;
+import model.componenti.Componente;
 import model.enums.TipoTubo;
 import model.enums.Direzione;
+import model.enums.TipoComponente;
 import util.Coordinate;
 import util.Util;
 

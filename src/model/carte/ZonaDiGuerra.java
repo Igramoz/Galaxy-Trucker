@@ -1,10 +1,11 @@
-package cartaAvventura;
+package model.carte;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import model.Giocatore;
 import model.colpi.Cannonata;
+import model.enums.TipoCarta;
 import util.Coppia;
 
 public class ZonaDiGuerra extends Carta {
