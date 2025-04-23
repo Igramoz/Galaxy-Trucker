@@ -1,4 +1,4 @@
-package nave;
+package model.nave;
 
 import util.Coordinate;
 

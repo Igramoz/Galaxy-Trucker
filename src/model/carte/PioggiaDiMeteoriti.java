@@ -6,14 +6,15 @@ import java.util.List;
 import model.Giocatore;
 import model.enums.Direzione;
 import model.enums.TipoCarta;
-import model.colpi.Meteorite;
+import model.Colpo;
+import model.Dado;
 
 public class PioggiaDiMeteoriti extends Carta {
 
 	// Lista che contiene i meteoriti associati alla direzione da cui arrivano
-	private final List<Meteorite> meteoriti;
+	private final List<Colpo> meteoriti;
 
-	public PioggiaDiMeteoriti(List<Meteorite> meteoriti) {
+	public PioggiaDiMeteoriti(List<Colpo> meteoriti) {
 		super(TipoCarta.PIOGGIA_DI_METEORITI);
 		this.meteoriti = meteoriti;
 	}
@@ -24,19 +25,19 @@ public class PioggiaDiMeteoriti extends Carta {
 		super.io.stampa(super.carteRenderer.rappresentaMeteoriti(this));
 
 		int indice = 0;
-		for (Meteorite meteorite : meteoriti) {
+		for (Colpo colpo : meteoriti) {
 			indice++;
 			io.aCapo();
-			io.stampa("Meteorite numero " + (indice) + ": " + meteorite.name() + " da "	+ meteorite.getDirezione().name());
+			io.stampa("colpo numero " + (indice) + ": " + colpo.getTipoColpo().name() + " da "	+ colpo.getDirezione().name());
 			
-			int posizioneColpo = super.lancia2Dadi(giocatori[0]);
+			int posizioneColpo = Dado.lancia2Dadi(giocatori[0]);
 			
 			io.stampa("I giocatori in volo verranno colpiti alla coordinata " + (posizioneColpo + 2));
 
 			for(Giocatore giocatore : giocatori) {
 				
 				// nave colpita
-				int pezziDistrutti = giocatore.getNave().subisciImpatto(meteorite, posizioneColpo);
+				int pezziDistrutti = giocatore.getNave().subisciImpatto(colpo, posizioneColpo);
 				// se la nave è cambiata stampare:
 				if(pezziDistrutti != 0) {
 					io.stampa("Nave di " + super.formattatoreGrafico.formattaGiocatore(giocatore) + " dopo essere stata colpita");
@@ -47,24 +48,24 @@ public class PioggiaDiMeteoriti extends Carta {
 				}
 			}	
 		}
+		io.aCapo();
 		io.stampa("Fine della pioggia di meteoriti");
 		io.aCapo();
 	}
 
-	public List<Meteorite> getMeteoriti() {
+	public List<Colpo> getMeteoriti() {
 		return new ArrayList<>(meteoriti);
 	}
 
 	// Restituisce tutti i meteoriti che arrivano da una direzione
-	public List<Meteorite> getMeteoritiByDirezione(Direzione direzione) {
+	public List<Colpo> getMeteoritiByDirezione(Direzione direzione) {
 
-		List<Meteorite> out = new ArrayList<>();
+		List<Colpo> out = new ArrayList<>();
 
-		for (Meteorite elemento : meteoriti) {
+		for (Colpo elemento : meteoriti) {
 			if (elemento.getDirezione() == direzione)
 				out.add(elemento);
 		}
-
 		return out;
 	}
 }

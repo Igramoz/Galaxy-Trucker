@@ -1,4 +1,4 @@
-package nave;
+package model.nave;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,7 +8,7 @@ import model.componenti.*;
 import grafica.Colore;
 import grafica.FormattatoreGrafico;
 import io.GestoreIO;
-import model.colpi.Meteorite;
+import model.Colpo;
 import model.enums.*;
 import util.*;
 
@@ -103,19 +103,14 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 		componente.setPosizione(coordinate);
 	}
 
-	public int subisciImpatto(Meteorite meteorite, int coordinata) {
-		Coordinate coordinate = verificaImpatto(this, meteorite, coordinata);
+	public int subisciImpatto(Colpo colpo, int coordinata) {
+		Coordinate coordinate = verificaImpatto(this, colpo, coordinata);
 
 		if (coordinate != null) {
 			return distruggiComponenti(this, coordinate);
 		}
 		return 0;
 	}
-
-	// public int subisciImpatto(Coppia<TipiCannonate, Direzione>, Coordinate
-	// coordinate) {
-	// return 0;
-	// }
 
 	public List<Componente> getComponenti(TipoComponente componente) {
 

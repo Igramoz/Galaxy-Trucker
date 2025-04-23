@@ -1,7 +1,7 @@
 package partita;
 
 
-import nave.TipoNave;
+import model.nave.TipoNave;
 public enum LivelliPartita {
     LIVELLO_1( 1, TipoNave.NAVE_1), 
     LIVELLO_2( 2, TipoNave.NAVE_2), 

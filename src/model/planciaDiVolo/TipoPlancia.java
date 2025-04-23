@@ -1,4 +1,4 @@
-package planciaDiVolo;
+package model.planciaDiVolo;
 
 public enum TipoPlancia {
 

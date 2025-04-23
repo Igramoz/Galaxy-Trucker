@@ -1,8 +1,10 @@
-package nave;
+package model.nave;
 
 import java.util.List;
 
-import model.colpi.Meteorite;
+import model.Colpo;
+import model.Colpo.DimensioniColpo;
+import model.Colpo.TipoColpo;
 import model.componenti.Cannone;
 import model.componenti.Componente;
 import model.enums.TipoTubo;
@@ -14,29 +16,42 @@ import util.Util;
 public interface VerificatoreImpatti {
 	// l'interfaccia controlla se il colpo distrugge o meno la nave
 
-	// restituisce calcola le coordinate del componente da distruggere ( coordinata è la x o y lungo la quale si muove il colpo)
-	default Coordinate verificaImpatto(Nave nave, Meteorite meteorite, int coordinata) {
+	// VERIFICATORE IMPATTI PER METEORITI
 
-		Coordinate coordinateColpite = calcolaCoordinateColpite( nave, meteorite.getDirezione(), coordinata);
-		
+	// restituisce calcola le coordinate del componente da distruggere ( coordinata
+	// è la x o y lungo la quale si muove il colpo)
+	default Coordinate verificaImpatto(Nave nave, Colpo colpo, int coordinata) {
+
+		Coordinate coordinateColpite = calcolaCoordinateColpite(nave, colpo.getDirezione(), coordinata);
+
 		if (coordinateColpite == null) {
 			return null; // nessun componente lungo quella direzione
 		}
-		
-		// Controllo che tipo di meteorite è
-		if (meteorite == Meteorite.PICCOLO) {
-			if( meteoritePiccoloColpisce(nave, meteorite.getDirezione(), coordinateColpite) ) {
-				return coordinateColpite; 
+
+		if (colpo.getTipoColpo() == TipoColpo.METEORITE) {
+			// Controllo che tipo di meteorite è
+			if (colpo.getDimensioniColpo() == DimensioniColpo.PICCOLO) {
+				if (meteoritePiccoloColpisce(nave, colpo.getDirezione(), coordinateColpite)) {
+					return coordinateColpite;
+				}
+			} else {
+				if (meteoriteGrossoColpisce(nave, colpo.getDirezione(), coordinateColpite)) {
+					return coordinateColpite;
+				}
 			}
-		} else {
-			if( meteoriteGrossoColpisce(nave, meteorite.getDirezione(), coordinateColpite) ) {
-				return coordinateColpite; 
+		}else {
+			// lo scudo difende dalle cannonate piccole
+			if (colpo.getDimensioniColpo() == DimensioniColpo.PICCOLO && nave.attivaScudo(colpo.getDirezione())) {
+				return null;
 			}
+			// la cannonata grossa colpisce oggi
+			return coordinateColpite;
 		}
 		return null;
 	}
 
-	// Restituisce null se la nave non viene colpita ( coordinata è la x o y lungo la quale si muove il colpo)
+	// Restituisce null se la nave non viene colpita ( coordinata è la x o y lungo
+	// la quale si muove il colpo)
 	private Coordinate calcolaCoordinateColpite(Nave nave, Direzione direzione, int coordinata) {
 
 		Componente[][] griglia = nave.getGrigliaComponenti();
@@ -73,10 +88,6 @@ public interface VerificatoreImpatti {
 		}
 		return null; // nessun componente lungo quella direzione
 	}
-
-	// TODO cannonata
-	// default int subisciImpatto(Nave nave, Coppia<TipiMeteorite, Direzione>
-	// meteorite, Coordinate coordinate)
 
 	private boolean meteoritePiccoloColpisce(Nave nave, Direzione direzione, Coordinate coordinate) {
 		if (nave.getComponente(coordinate).getTubo(direzione) == TipoTubo.NESSUNO)
@@ -126,5 +137,4 @@ public interface VerificatoreImpatti {
 	private boolean stessaOAdiacente(int a, int b) {
 		return a == b || a == b - 1 || a == b + 1;
 	}
-
 }

@@ -40,12 +40,4 @@ public class RandomUtil {
 		}
 		throw new IllegalStateException("Si è verificato un errore imprevisto.");
 	}
-
-//	// Genera randomicamente un enum tra 2 opzioni
-//    public <E extends Enum<E>> E randomEnum(int soglia1, int soglia2, int soglia3, int totale, E primo, E secondo, E terzo, E quarto) {
-//    	
-//        int numeroCasuale = randomInt(totale); // Genera un numero tra 0 e totale        
-//        return numeroCasuale < soglia ? primo : secondo; // se num < soglia allora genera il primo
-//    }
-
 }

@@ -1,4 +1,4 @@
-package planciaDiVolo;
+package model.planciaDiVolo;
 
 import model.Giocatore;
 

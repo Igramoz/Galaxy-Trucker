@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import io.GestoreIO;
+import model.Colpo;
 import model.carte.PioggiaDiMeteoriti;
-import model.colpi.Meteorite;
 import model.enums.Direzione;
 import grafica.CostantiGrafica;
 import grafica.TextAligner;
@@ -47,7 +47,7 @@ public class CarteRenderer {
 		out[out.length - 1] = meteoritiSotto[2];
 
 		// Aggiunge meteoriti orizzontali da destra verso sinistra
-		List<Meteorite> daSinistra = pioggiaDiMeteoriti.getMeteoritiByDirezione(Direzione.SINISTRA);
+		List<Colpo> daSinistra = pioggiaDiMeteoriti.getMeteoritiByDirezione(Direzione.SINISTRA);
 		for (int i = padding; i < out.length - padding; i++) {
 			if (!daSinistra.isEmpty())
 				out[i] += rappresentaMeteoriteOrizzontale(daSinistra.remove(0), Direzione.SINISTRA);
@@ -62,7 +62,7 @@ public class CarteRenderer {
 //		}
 		
 		// Aggiunge meteoriti orizzontali da sinistra verso destra
-		List<Meteorite> daDestra = pioggiaDiMeteoriti.getMeteoritiByDirezione(Direzione.DESTRA);
+		List<Colpo> daDestra = pioggiaDiMeteoriti.getMeteoritiByDirezione(Direzione.DESTRA);
 		for (int i = padding; i < out.length - padding; i++) {
 			if (daDestra.isEmpty())
 				out[i] += " ".repeat(padding);
@@ -88,14 +88,13 @@ public class CarteRenderer {
 		return new int[] { righe, colonne };
 	}
 
-	// TODO riscrivere usando i generici.
 	// Rappresenta i meteoriti che si muovono verticalmente (sopra o sotto).
-	private String[] rappresentaMeteoritiVerticali(List<Meteorite> meteoriti, int padding, int colonne,
+	private String[] rappresentaMeteoritiVerticali(List<Colpo> meteoriti, int padding, int colonne,
 			Direzione dir) {
 		String[] out = new String[padding];
 		Arrays.fill(out, " ".repeat(padding));
 
-		for (Meteorite meteorite : meteoriti) {
+		for (Colpo meteorite : meteoriti) {
 
 			if (dir == Direzione.SOTTO) {
 				out[0] += convertiMeteorite(meteorite);
@@ -117,7 +116,7 @@ public class CarteRenderer {
 	// TODO riscrivere usando i generici.
 
 	// rappresenta O > oppure < o (DIREZIONE da cui proviene il meteorite)
-	private String rappresentaMeteoriteOrizzontale(Meteorite meteorite, Direzione direzioneEntrata) {
+	private String rappresentaMeteoriteOrizzontale(Colpo meteorite, Direzione direzioneEntrata) {
 		return switch (direzioneEntrata) {
 		case DESTRA -> CostantiGrafica.FRECCIA_SINISTRA + "-" + convertiMeteorite(meteorite);
 		case SINISTRA -> convertiMeteorite(meteorite) + "-" + CostantiGrafica.FRECCIA_DESTRA;
@@ -128,8 +127,8 @@ public class CarteRenderer {
 	// TODO fare overload.
 
 	// Restituisce il simbolo che corrisponde al meteorite
-	private String convertiMeteorite(Meteorite meteorite) {
-		return switch (meteorite) {
+	private String convertiMeteorite(Colpo meteorite) {
+		return switch (meteorite.getDimensioniColpo()) {
 		case GROSSO -> CostantiGrafica.METEORITE_GROSSO;
 		case PICCOLO -> CostantiGrafica.METEORITE_PICCOLO;
 		default -> " ";

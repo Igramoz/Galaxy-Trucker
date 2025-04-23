@@ -1,8 +1,5 @@
 package util;
 
-import model.*;
-import model.enums.Direzione;
-
 import java.util.List;
 
 public class Util {

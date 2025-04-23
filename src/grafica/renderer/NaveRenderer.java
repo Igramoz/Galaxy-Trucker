@@ -11,8 +11,8 @@ import model.componenti.Componente;
 import model.enums.Direzione;
 import model.enums.TipoComponente;
 import model.enums.TipoTubo;
-import nave.Nave;
-import nave.TipoNave;
+import model.nave.Nave;
+import model.nave.TipoNave;
 import util.Coordinate;
 import util.Util;
 

@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import grafica.Colore;
-import nave.Nave;
-import nave.TipoNave;
+import model.nave.Nave;
+import model.nave.TipoNave;
 
 public class Giocatore  {
 	private final static int giocatoriMax = 4; // Numero massimo di giocatori

@@ -1,7 +1,7 @@
 package grafica.renderer;
 
 import model.Giocatore;
-import planciaDiVolo.Plancia;
+import model.planciaDiVolo.Plancia;
 import grafica.TextAligner;	
 import grafica.FormattatoreGrafico;	
 import grafica.Colore;

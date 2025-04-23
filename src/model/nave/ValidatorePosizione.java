@@ -1,4 +1,4 @@
-package nave;
+package model.nave;
 
 import java.util.Map;
 import java.util.EnumMap;
