@@ -3,6 +3,7 @@ package servizi;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import util.*;
 import model.carte.*;
@@ -50,8 +51,12 @@ public class ServizioCarte {
 			List<Meteorite> listaAsteroidi = new ArrayList<>();
 			for(int nAsteroide = 0; nAsteroide < asteroidiDaGenerare; nAsteroide++) {
 				
+				Map<Meteorite, Integer> collezione = Map.of(
+						Meteorite.GROSSO, nAsteroidiGrandi,
+						Meteorite.PICCOLO, asteroidiTotali - nAsteroidiGrandi);
+				
 	            // Sceglie casualmente un meteorite grosso o piccolo
-				Meteorite temp = random.randomEnum(nAsteroidiGrandi, asteroidiTotali, Meteorite.GROSSO, Meteorite.PICCOLO);
+				Meteorite temp = random.getEnumValueByProbability(collezione);
 				temp.setDirezione(random.randomDirezione()); // Aggiungi un meteorite alla lista
 				listaAsteroidi.add( temp );
 				
@@ -63,6 +68,4 @@ public class ServizioCarte {
 		
 		return out;
 	}
-	
-
 }

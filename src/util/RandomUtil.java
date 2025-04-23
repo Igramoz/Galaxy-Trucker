@@ -1,5 +1,7 @@
 package util;
 
+import java.util.Map;
+
 import model.enums.Direzione;
 
 public class RandomUtil {
@@ -22,10 +24,21 @@ public class RandomUtil {
 	}
 
 	// Genera randomicamente un enum tra 2 opzioni
-	public <E extends Enum<E>> E randomEnum(Class<E> enumerato) {
-		E[] valori = enumerato.getEnumConstants();
-		int indice = randomInt(valori.length);
-		return valori[indice];
+	public <E extends Enum<E>> E getEnumValueByProbability(Map<E, Integer> collezione) {
+		int somma = 0;
+		for (int num : collezione.values()) {
+			somma += num;
+		}
+		int random = randomInt(somma);
+
+		int totale = 0;
+		for (Map.Entry<E, Integer> entry : collezione.entrySet()) {
+			totale += entry.getValue();
+			if (random < totale) {
+				return entry.getKey();
+			}
+		}
+		throw new IllegalStateException("Si è verificato un errore imprevisto.");
 	}
 
 //	// Genera randomicamente un enum tra 2 opzioni
