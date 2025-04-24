@@ -2,36 +2,29 @@ package model.carte.pianeti;
 
 import java.util.List;
 
+import grafica.Colore;
 import model.enums.TipoMerce;
 import model.Giocatore;
 
 public class Pianeta {
 
-	private final int giorniDiVolo; // giorni di volo persi
 	private final List<TipoMerce> merciDisponibili;
 	private Giocatore player; // solo uno può atterrare
+	private final Colore colore;
 
-	public Pianeta(int giorni, List<TipoMerce> merci) {
-		giorniDiVolo = giorni;
+	public Pianeta(List<TipoMerce> merci, Colore col) {
 		merciDisponibili = merci;
+		colore = col;
 		player = null;
 	}
 
-	public boolean puoAtterrare(Giocatore g) {
-		return player == null;
-	}
-
 	public boolean atterra(Giocatore g) {
-		if (puoAtterrare(g)) {
+		if (!isOccupato()) {
 			player = g;
 			// perdo giorni di volo, e devo caricare le merci
 			return true;
 		}
 		return false;
-	}
-
-	public int getGiorniDiVolo() {
-		return giorniDiVolo;
 	}
 
 	public List<TipoMerce> getMerciDisponibili() {
@@ -44,5 +37,9 @@ public class Pianeta {
 
 	public Giocatore getOccupante() {
 		return player;
+	}
+
+	public Colore getColore() {
+		return colore;
 	}
 }

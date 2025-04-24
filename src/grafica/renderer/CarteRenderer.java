@@ -6,6 +6,7 @@ import java.util.List;
 import io.GestoreIO;
 import model.Colpo;
 import model.carte.PioggiaDiMeteoriti;
+import model.carte.pianeti.*;
 import model.enums.Direzione;
 import grafica.CostantiGrafica;
 import grafica.TextAligner;
@@ -60,7 +61,7 @@ public class CarteRenderer {
 //				out[i] += rappresentaMeteoriteOrizzontale(daDestra.remove(0), Direzione.SINISTRA);
 //			out[i] = textAligner.estendiStringa(out[i], colonne + padding);
 //		}
-		
+
 		// Aggiunge meteoriti orizzontali da sinistra verso destra
 		List<Colpo> daDestra = pioggiaDiMeteoriti.getMeteoritiByDirezione(Direzione.DESTRA);
 		for (int i = padding; i < out.length - padding; i++) {
@@ -69,7 +70,7 @@ public class CarteRenderer {
 			else
 				out[i] += rappresentaMeteoriteOrizzontale(daDestra.remove(0), Direzione.DESTRA);
 		}
-		
+
 		out = textAligner.alignCenter(out);
 		return out;
 	}
@@ -89,8 +90,7 @@ public class CarteRenderer {
 	}
 
 	// Rappresenta i meteoriti che si muovono verticalmente (sopra o sotto).
-	private String[] rappresentaMeteoritiVerticali(List<Colpo> meteoriti, int padding, int colonne,
-			Direzione dir) {
+	private String[] rappresentaMeteoritiVerticali(List<Colpo> meteoriti, int padding, int colonne, Direzione dir) {
 		String[] out = new String[padding];
 		Arrays.fill(out, " ".repeat(padding));
 
@@ -135,4 +135,18 @@ public class CarteRenderer {
 		};
 	}
 
+	public void stampaPianeti(CartaPianeti carta) {
+		List<Pianeta> pianeti = carta.getPianeti();
+		int giorniVolo = carta.getGiorniVoloPersi();
+
+		io.stampa("Pianeti non occupati:");
+		for (int i = 0; i < pianeti.size(); i++) {
+			Pianeta p = pianeti.get(i);
+			if (!p.isOccupato()) {
+				//TODO: Stampare il colore?
+				io.stampa("Pianeta " + (i + 1) + ": richiesti " + giorniVolo + " giorni di volo, merci disponibili: "
+						+ p.getMerciDisponibili());
+			}
+		}
+	}
 }
