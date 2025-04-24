@@ -4,7 +4,7 @@ import java.util.List;
 
 import model.Giocatore;
 import model.carte.Carta;
-import model.enums.TipoCarta;
+import model.carte.TipoCarta;
 
 public class CartaPianeti extends Carta {
 

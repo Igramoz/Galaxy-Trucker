@@ -6,7 +6,7 @@ import java.util.List;
 import model.Colpo;
 import model.Giocatore;
 import model.carte.Carta;
-import model.enums.TipoCarta;
+import model.carte.TipoCarta;
 
 public class ZonaDiGuerra extends Carta {
 

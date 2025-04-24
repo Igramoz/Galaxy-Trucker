@@ -15,7 +15,6 @@ import model.carte.*;
 import model.carte.pianeti.*;
 import model.carte.zonaDiGuerra.*;
 import model.enums.Direzione;
-import model.enums.TipoCarta;
 import model.enums.TipoMerce;
 import partita.LivelliPartita;
 

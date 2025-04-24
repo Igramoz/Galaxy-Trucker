@@ -5,7 +5,6 @@ import java.util.List;
 
 import model.Giocatore;
 import model.enums.Direzione;
-import model.enums.TipoCarta;
 import model.Colpo;
 import model.Dado;
 

@@ -6,7 +6,6 @@ import grafica.renderer.CarteRenderer;
 import grafica.renderer.NaveRenderer;
 import io.GestoreIO;
 import model.Giocatore;
-import model.enums.TipoCarta;
 
 public abstract class Carta {
     private final TipoCarta tipoCarta;

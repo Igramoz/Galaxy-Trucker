@@ -1,4 +1,4 @@
-package model.enums;
+package model.carte;
 
 import java.util.EnumMap;
 import java.util.Map;

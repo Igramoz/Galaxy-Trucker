@@ -44,14 +44,18 @@ src/
 │   │   ├── TipoCarta.java
 │   │   ├── TipoComponente.java
 │   │   └── TipoPedina.java
-|
-├── nave/
-│   ├── Nave.java
-│   ├── TipoNave.java
-│   ├── ValidatorePosizione.java
-│   ├── VerificatoreImpatti.java
-│   └── Distruttore.java
-│
+|   |
+|    ├── nave/
+│   |		├── Nave.java
+│   |		├── TipoNave.java
+│   |		├── ValidatorePosizione.java
+│   |		├── VerificatoreImpatti.java
+│   |		└── Distruttore.java
+│	 |
+|     |── planciaDiVolo/
+│   		├── Plancia.java
+│   		└── TipoPlancia.java
+
 ├── partita/
 │   ├── LivelliPartita.java
 │   ├── Partita.java
@@ -79,9 +83,6 @@ src/
 ├── io/
 │   └── GestoreIO.java
 │
-├── planciaDiVolo/
-│   ├── Plancia.java
-│   └── TipoPlancia.java
 │
 ├── servizi/
 │   ├── ServizioPunteggio.java

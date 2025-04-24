@@ -256,6 +256,20 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 		return true;
 	}
 
+	public boolean setMerci(List<TipoMerce> merci) {
+		
+		if(merci == null ) return false;
+		
+		// TODO da implementare
+		return true;
+	}
+	protected boolean forzaMerce(TipoMerce merce, Coordinate coordinate) {
+		if(this.getComponente(coordinate).getTipo() == TipoComponente.STIVA_SPECIALE) {
+			return ((StivaSpeciale) grigliaComponenti[coordinate.getX()][coordinate.getY()]).setMerci(merce);
+		}			
+		return ((Stiva) grigliaComponenti[coordinate.getX()][coordinate.getY()]).setMerci(merce);
+	}
+	
 	// indicare la direzione verso cui si vuole attivare lo scudo
 	protected boolean attivaScudo(Direzione dir) {
 		if (getEnergia() <= 0)
