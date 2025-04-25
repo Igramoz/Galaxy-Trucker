@@ -1,9 +1,11 @@
 package servizi;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import grafica.Colore;
 import util.*;
@@ -139,28 +141,34 @@ public class ServizioCarte {
 			break;
 		}
 
+		int numeroMerci = random.randomInt(6, 13);
 		List<Colore> colori = new ArrayList<>(Giocatore.coloriDisponibiliGiocatori);
+		Collections.shuffle(colori);
 		List<Pianeta> pianeti = new ArrayList<>();
-		int numeroPianeti = random.randomInt(2, 5); // +1 perché il numero max + escluso
+		int numeroPianeti = random.randomInt(2, 5);
+
 		for (int i = 0; i < numeroPianeti; i++) {
 			List<TipoMerce> merci = new ArrayList<>();
-			int numeroMerci = random.randomInt(6, 13);
+			Colore colorePianeta = colori.get(i);
 
-			int indiceColore = random.randomInt(4);
-			Colore colorePianeta = colori.get(indiceColore);
+			// I colori delle merci dipendono dai colori dei pianeti
+			List<TipoMerce> merciCompatibili = new ArrayList<>();
+			for (TipoMerce m : TipoMerce.values()) {
+				if (m.getColore() == colorePianeta) {
+					merciCompatibili.add(m);
+				}
+			}
 
-			//TODO: il colore della merce è lo stesso del pianeta
-			//TODO: numeroMerci attributo della carta?
 			for (int j = 0; j < numeroMerci; j++) {
-				int index = random.randomInt(TipoMerce.values().length);
-				TipoMerce merce = TipoMerce.values()[index];
+				int index = random.randomInt(merciCompatibili.size());
+				TipoMerce merce = merciCompatibili.get(index);
 				merci.add(merce);
 			}
 			pianeti.add(new Pianeta(merci, colorePianeta));
 		}
 
 		List<CartaPianeti> carte = new ArrayList<>();
-		carte.add(new CartaPianeti(pianeti, giorni));
+		carte.add(new CartaPianeti(pianeti, giorni, numeroMerci));
 		return carte;
 	}
 }

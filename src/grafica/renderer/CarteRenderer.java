@@ -9,12 +9,14 @@ import model.carte.PioggiaDiMeteoriti;
 import model.carte.pianeti.*;
 import model.enums.Direzione;
 import grafica.CostantiGrafica;
+import grafica.FormattatoreGrafico;
 import grafica.TextAligner;
 
 public class CarteRenderer {
 
 	private final GestoreIO io = new GestoreIO();
 	private final TextAligner textAligner = new TextAligner();
+	private final FormattatoreGrafico formattatore = new FormattatoreGrafico();
 
 	// TODO riscrivere usando i generici.
 	public String[] rappresentaMeteoriti(PioggiaDiMeteoriti pioggiaDiMeteoriti) {
@@ -143,9 +145,8 @@ public class CarteRenderer {
 		for (int i = 0; i < pianeti.size(); i++) {
 			Pianeta p = pianeti.get(i);
 			if (!p.isOccupato()) {
-				//TODO: Stampare il colore?
-				io.stampa("Pianeta " + (i + 1) + ": richiesti " + giorniVolo + " giorni di volo, merci disponibili: "
-						+ p.getMerciDisponibili());
+				io.stampa("Pianeta " + formattatore.formattaColore(p.getColore()) + ": richiesti " + giorniVolo
+						+ " giorni di volo, merci disponibili: " + p.getMerciDisponibili());
 			}
 		}
 	}

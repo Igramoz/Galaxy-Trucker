@@ -10,19 +10,19 @@ public class CartaPianeti extends Carta {
 
 	private final List<Pianeta> pianeti; // lista dei pianeti di questa carta
 	private final int giorniVoloPersi;
+	private final int numeroMerci;
 
-	public CartaPianeti(List<Pianeta> listaPianeti, int giorni) {
+	public CartaPianeti(List<Pianeta> listaPianeti, int giorni, int numMerci) {
 		super(TipoCarta.PIANETI);
 		pianeti = listaPianeti;
 		giorniVoloPersi = giorni;
+		numeroMerci = numMerci;
 	}
 
 	@Override
 	public void eseguiEvento(Giocatore[] giocatori) {
-		// TODO: gestisci la scelta dei pianeti da parte dei giocatori
-		// (in ordine di rotta, una sola nave per pianeta)
-
 		carteRenderer.stampaPianeti(this);
+		// TODO: menu
 	}
 
 	public List<Pianeta> getPianeti() {
@@ -31,5 +31,9 @@ public class CartaPianeti extends Carta {
 
 	public int getGiorniVoloPersi() {
 		return giorniVoloPersi;
+	}
+
+	public int getNumeroMerci() {
+		return numeroMerci;
 	}
 }
