@@ -1,5 +1,6 @@
 package model.carte.pianeti;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Giocatore;
@@ -22,7 +23,43 @@ public class CartaPianeti extends Carta {
 	@Override
 	public void eseguiEvento(Giocatore[] giocatori) {
 		carteRenderer.stampaPianeti(this);
-		// TODO: menu
+
+		for (Giocatore g : giocatori) {
+			List<Pianeta> pianetiDisponibili = new ArrayList<>();
+			for (Pianeta p : pianeti) {
+				if (!p.isOccupato()) {
+					pianetiDisponibili.add(p);
+				}
+			}
+			int numPianetiDisponibili = pianetiDisponibili.size();
+			if (pianetiDisponibili.isEmpty()) {
+				io.stampa("Non ci sono più pianeti disponibili su cui poter atterrare.");
+				break;
+			}
+
+			// preparazione del menu
+			String[] menu = new String[numPianetiDisponibili + 1];
+			for (int i = 0; i < numPianetiDisponibili; i++) {
+				menu[i] = "Atterra sul Pianeta "
+						+ formattatoreGrafico.formattaColore(pianetiDisponibili.get(i).getColore());
+			}
+			menu[numPianetiDisponibili] = "Non voglio atterare";
+
+			// stampa del menu
+			io.stampa(formattatoreGrafico.formattaGiocatore(g) + ", su quale pianeta vuoi atterrare?");
+			int scelta = io.stampaMenu(menu);
+
+			if (scelta < numPianetiDisponibili) {
+				Pianeta scelto = pianetiDisponibili.get(scelta);
+				if (scelto.atterra(g)) {
+					io.stampa(formattatoreGrafico.formattaGiocatore(g) + " è atterrato sul Pianeta "
+							+ formattatoreGrafico.formattaColore(scelto.getColore()));
+				}
+			} else {
+				io.stampa(formattatoreGrafico.formattaGiocatore(g) + " ha scelto di non atterrare.");
+			}
+		}
+		io.aCapo();
 	}
 
 	public List<Pianeta> getPianeti() {
