@@ -7,9 +7,9 @@ import model.Colpo.DimensioniColpo;
 import model.Colpo.TipoColpo;
 import model.componenti.Cannone;
 import model.componenti.Componente;
+import model.componenti.TipoComponente;
 import model.enums.TipoTubo;
 import model.enums.Direzione;
-import model.enums.TipoComponente;
 import util.Coordinate;
 import util.Util;
 
@@ -90,7 +90,7 @@ public interface VerificatoreImpatti {
 	}
 
 	private boolean meteoritePiccoloColpisce(Nave nave, Direzione direzione, Coordinate coordinate) {
-		if (nave.getComponente(coordinate).getTubo(direzione) == TipoTubo.NESSUNO)
+		if (nave.getCopiaComponente(coordinate).getTubo(direzione) == TipoTubo.NESSUNO)
 			return false;
 
 		// Controllo che ci siano degli scudi
@@ -101,8 +101,8 @@ public interface VerificatoreImpatti {
 
 		// se il meteorite arriva da davanti può essere fatto espoldere solo con un
 		// cannone che punta in avanti nella stessa colonna
-		List<Componente> cannoni = nave.getComponenti(TipoComponente.CANNONE_SINGOLO);
-		cannoni.addAll(nave.getComponenti(TipoComponente.CANNONE_DOPPIO));
+		List<Componente> cannoni = nave.getCopiaComponenti(TipoComponente.CANNONE_SINGOLO);
+		cannoni.addAll(nave.getCopiaComponenti(TipoComponente.CANNONE_DOPPIO));
 
 		for (Componente cannone : cannoni) {
 			// controllo che il cannone punti nella direzione corretta

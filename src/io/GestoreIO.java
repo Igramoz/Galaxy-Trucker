@@ -117,4 +117,16 @@ public class GestoreIO {
 		} while (!sceltaValida);
 		return scelta;
 	}
+	
+	// funzione per fare scegliere all'utente un valore di un enum
+	public <T extends Enum<T>> T leggiEnum(Class<T> enumClass) {
+		T[] enumConstants = enumClass.getEnumConstants();
+		String[] menu = new String[enumConstants.length];
+		for (int i = 0; i < enumConstants.length; i++) {
+			menu[i] = enumConstants[i].name();
+		}
+		int scelta = stampaMenu(menu);
+		return enumConstants[scelta];
+	}
+	
 }

@@ -5,7 +5,6 @@ import java.util.EnumMap;
 
 import model.componenti.*;
 import model.enums.Direzione;
-import model.enums.TipoComponente;
 import model.enums.TipoTubo;
 import util.Coordinate;
 

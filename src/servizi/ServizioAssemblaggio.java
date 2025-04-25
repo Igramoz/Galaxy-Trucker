@@ -5,7 +5,6 @@ import java.util.*;
 import model.componenti.*;
 import model.enums.TipoTubo;
 import model.enums.Direzione;
-import model.enums.TipoComponente;
 import util.RandomUtil;
 
 public class ServizioAssemblaggio {

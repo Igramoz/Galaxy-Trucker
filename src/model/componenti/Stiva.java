@@ -87,7 +87,7 @@ public class Stiva extends Componente{
 	}
 
 	// Elimino la merce dalla stiva, false se non è presente
-	public boolean eliminaMerci(TipoMerce merce) {
+	public boolean eliminaMerce(TipoMerce merce) {
 
 		// Controllo se la merce è presente
 		for (int i = 0; i < scomparti; i++) {

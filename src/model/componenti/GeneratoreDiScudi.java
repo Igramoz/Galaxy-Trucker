@@ -3,7 +3,6 @@ package model.componenti;
 import java.util.Map;
 
 import model.enums.Direzione;
-import model.enums.TipoComponente;
 import model.enums.TipoTubo;
 
 

@@ -12,7 +12,7 @@ import model.Colpo;
 import model.enums.*;
 import util.*;
 
-public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizione {
+public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizione, GestoreComponenti {
 
 	private final GestoreIO io = new GestoreIO();
 	private final FormattatoreGrafico formattatoreGrafico = new FormattatoreGrafico();
@@ -65,9 +65,13 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 		return copiaGrigliaComponenti;
 	}
 
-	public Componente getComponente(Coordinate coordinate) {
+	public Componente getCopiaComponente(Coordinate coordinate) {
 		Componente copiaComponente = grigliaComponenti[coordinate.getX()][coordinate.getY()].clone();
 		return copiaComponente;
+	}
+
+	protected Componente getOriginaleComponente(Coordinate coordinate) {
+		return grigliaComponenti[coordinate.getX()][coordinate.getY()];
 	}
 
 	public TipoNave getLivelloNave() {
@@ -112,7 +116,24 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 		return 0;
 	}
 
-	public List<Componente> getComponenti(TipoComponente componente) {
+	// restituisce una lista di copie dei componenti di un certo tipo
+	public List<Componente> getCopiaComponenti(TipoComponente componente) {
+
+		List<Componente> out = new ArrayList<>();
+
+		for (int x = 0; x < Util.SIZE; x++) {
+			for (int y = 0; y < Util.SIZE; y++) {
+				if (grigliaComponenti[x][y] != null && grigliaComponenti[x][y].getTipo() == componente) {
+					out.add(grigliaComponenti[x][y].clone());// aggiungo alla lista LA COPIA del compoenente
+				}
+			}
+		}
+
+		return out;
+	}
+
+	// restituisce una lista dei componenti di un certo tipo
+	protected List<Componente> getComponentiOriginali(TipoComponente componente) {
 
 		List<Componente> out = new ArrayList<>();
 
@@ -123,12 +144,11 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 				}
 			}
 		}
-
 		return out;
 	}
 
 	public int getEnergia() {
-		List<Componente> batterie = this.getComponenti(TipoComponente.VANO_BATTERIA);
+		List<Componente> batterie = this.getCopiaComponenti(TipoComponente.VANO_BATTERIA);
 		int counter = 0;
 		for (Componente batteria : batterie) {
 			counter += ((VanoBatteria) batteria).getBatterie();
@@ -137,8 +157,8 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 	}
 
 	public List<TipoPedina> getEquipaggio() {
-		List<Componente> cabine = this.getComponenti(TipoComponente.CABINA_EQUIPAGGIO);
-		cabine.addAll(this.getComponenti(TipoComponente.CABINA_PARTENZA));
+		List<Componente> cabine = this.getCopiaComponenti(TipoComponente.CABINA_EQUIPAGGIO);
+		cabine.addAll(this.getCopiaComponenti(TipoComponente.CABINA_PARTENZA));
 		List<TipoPedina> out = new ArrayList<>();
 		for (Componente cabina : cabine) {
 			// Controllo che l'equipaggio non sia null prima di settarlo
@@ -152,43 +172,9 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 	}
 
 	public boolean rimuoviEquipaggio(int numero) {
-		if (getEquipaggio().isEmpty())
-			return false;
-
 		int equipaggioRimosso = 0;
-
-		// salvo le cabine
-		List<Componente> cabine = this.getComponenti(TipoComponente.CABINA_EQUIPAGGIO);
-		cabine.addAll(this.getComponenti(TipoComponente.CABINA_PARTENZA));
-
-		// lascio all'utente scegliere quale pedina rimuovere
-		String[] menu = new String[TipoPedina.values().length];
-		for (int i = 0; i < TipoPedina.values().length; i++) {
-			menu[i] = TipoPedina.values()[i].name();
-		}
-		io.stampa("Scegliere la pedina da rimuovere: ");
-		TipoPedina pedinaDaRimuovere = TipoPedina.values()[io.stampaMenu(menu)];
-
-		// rimuovo le pedine del tipo scelto dall'utente
-		for (Componente cabina : cabine) {
-			List<TipoPedina> equipaggio = ((CabinaDiEquipaggio) cabina).getEquipaggio();
-
-			for (int i = 0; i < equipaggio.size(); i++) {
-				if (equipaggio.get(i) == pedinaDaRimuovere) {
-					equipaggio.remove(i);
-					equipaggioRimosso++;
-					i--; // lista modificata, rimango con lo stesso indice
-					if (equipaggioRimosso == numero)
-						return true;
-				}
-			}
-		}
-		// rimuovo qualsiasi pedina
-		for (Componente cabina : cabine) {
-			List<TipoPedina> equipaggio = ((CabinaDiEquipaggio) cabina).getEquipaggio();
-
-			while (!equipaggio.isEmpty()) {
-				equipaggio.remove(0);
+		for (int i = 0; i < getEquipaggio().size(); i++) {
+			if (rimuoviEquipaggioDaNave(this)) {
 				equipaggioRimosso++;
 				if (equipaggioRimosso == numero)
 					return true;
@@ -197,9 +183,17 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 		return false; // non sono riuscito a rimuovere abbastanza pedine
 	}
 
+	protected boolean forzaEquipaggio(TipoPedina pedina, Coordinate coordinate) {
+		if (this.getCopiaComponente(coordinate).getTipo() == TipoComponente.CABINA_EQUIPAGGIO) {
+			return ((CabinaDiEquipaggio) grigliaComponenti[coordinate.getX()][coordinate.getY()])
+					.aggiungiEquipaggio(pedina);
+		}
+		return false;
+	}
+
 	public List<TipoMerce> getMerci() {
-		List<Componente> stive = this.getComponenti(TipoComponente.STIVA);
-		stive.addAll(this.getComponenti(TipoComponente.STIVA_SPECIALE));
+		List<Componente> stive = this.getCopiaComponenti(TipoComponente.STIVA);
+		stive.addAll(this.getCopiaComponenti(TipoComponente.STIVA_SPECIALE));
 		List<TipoMerce> out = new ArrayList<>();
 
 		for (Componente stiva : stive) {
@@ -219,34 +213,17 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 	// True se la merce è stata rimossa, false se non ha abbastanza merce
 	public boolean rimuoviMerce(int numero) {
 
-		if (getMerci().size() == 0)
-			return false;
-
 		int merciRimosse = 0;
-
-		// salvo le stive
-		List<Componente> stive = this.getComponenti(TipoComponente.STIVA);
-		stive.addAll(this.getComponenti(TipoComponente.STIVA_SPECIALE));
-
-		// parto dalle merci più costose (da regolamento)
-		for (TipoMerce merce : TipoMerce.values()) {
-
-			for (Componente stiva : stive) {
-				TipoMerce[] merci = ((Stiva) stiva).getMerci(); // salvo le merci della stiva
-
-				if (merci != null) {
-					for (int i = 0; i < merci.length; i++) {
-						if (merci[i] == merce) {
-							merci[i] = null;
-							merciRimosse++;
-							if (merciRimosse == numero)
-								return true;
-						}
-					}
+		for (int i = 0; i < getMerci().size(); i++) {
+			// parto dalle merci più costose (da regolamento)
+			for (TipoMerce merce : TipoMerce.values()) {
+				if (rimuoviMerceDaNave(this, merce)) {
+					merciRimosse++;
+					if (merciRimosse == numero)
+						return true;
 				}
 			}
 		}
-
 		// se non ci sono abbastanza merci bisogna rimuovere le batterie
 		for (int i = 0; i < numero - merciRimosse; i++) {
 			if (!usaEnergia()) {
@@ -257,25 +234,22 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 	}
 
 	public boolean setMerci(List<TipoMerce> merci) {
-		
-		if(merci == null ) return false;
-		
-		// TODO da implementare
-		return true;
+		return posizionaMerciInNave(this, merci);
 	}
+
 	protected boolean forzaMerce(TipoMerce merce, Coordinate coordinate) {
-		if(this.getComponente(coordinate).getTipo() == TipoComponente.STIVA_SPECIALE) {
+		if (this.getCopiaComponente(coordinate).getTipo() == TipoComponente.STIVA_SPECIALE) {
 			return ((StivaSpeciale) grigliaComponenti[coordinate.getX()][coordinate.getY()]).setMerci(merce);
-		}			
+		}
 		return ((Stiva) grigliaComponenti[coordinate.getX()][coordinate.getY()]).setMerci(merce);
 	}
-	
+
 	// indicare la direzione verso cui si vuole attivare lo scudo
 	protected boolean attivaScudo(Direzione dir) {
 		if (getEnergia() <= 0)
 			return false;
 
-		List<Componente> scudi = this.getComponenti(TipoComponente.SCUDO);
+		List<Componente> scudi = this.getCopiaComponenti(TipoComponente.SCUDO);
 
 		for (Componente scudo : scudi) {
 			Direzione[] direzioni = ((GeneratoreDiScudi) scudo).getDirezioni();
@@ -314,7 +288,7 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 		if (getEnergia() <= 0)
 			return false;
 
-		List<Componente> vaniBatterie = this.getComponenti(TipoComponente.VANO_BATTERIA);
+		List<Componente> vaniBatterie = this.getComponentiOriginali(TipoComponente.VANO_BATTERIA);
 
 		// TODO lasciare all'utente la possibilita di scegliere da quale vano rimuovere
 		// la batteria
@@ -332,11 +306,11 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 		int potenzaMotrice = 0;
 
 		// contro i motori singoli
-		List<Componente> motori = this.getComponenti(TipoComponente.MOTORE_SINGOLO);
+		List<Componente> motori = this.getCopiaComponenti(TipoComponente.MOTORE_SINGOLO);
 		potenzaMotrice += motori.size();
 
 		// conto i motori doppi
-		motori = this.getComponenti(TipoComponente.MOTORE_DOPPIO);
+		motori = this.getCopiaComponenti(TipoComponente.MOTORE_DOPPIO);
 		for (Componente motore : motori) {
 			io.stampa("scrivere 1 se si vuole usare il motore in posizione: "
 					+ formattatoreGrafico.formattaCoordinate(motore.getPosizione()));
@@ -364,13 +338,13 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 		float potenzaFuoco = 0;
 
 		// contro i cannoni singoli
-		List<Componente> cannoni = this.getComponenti(TipoComponente.CANNONE_SINGOLO);
+		List<Componente> cannoni = this.getCopiaComponenti(TipoComponente.CANNONE_SINGOLO);
 		for (Componente cannone : cannoni) {
 			potenzaFuoco += ((Cannone) cannone).getPotenzaFuoco();
 		}
 
 		// conto i cannoni doppi
-		cannoni = this.getComponenti(TipoComponente.CANNONE_DOPPIO);
+		cannoni = this.getCopiaComponenti(TipoComponente.CANNONE_DOPPIO);
 		for (Componente cannone : cannoni) {
 			io.stampa("scrivere 1 se si vuole usare il cannone in posizione: "
 					+ formattatoreGrafico.formattaCoordinate(cannone.getPosizione()));
@@ -395,7 +369,8 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 		return potenzaFuoco;
 	}
 
-	// TODO fare i setter di merci, equipaggio, batteria, fare le funzioni per
-	// rimuovere l'energia e le merci.
+	// TODO fare la funzione per inizializzare la nave
+	// TODO fare i setter batteria, fare le funzioni per
+	// rimuovere l'energia. fare funz per aggiungere equipaggio.
 
 }

@@ -93,7 +93,7 @@ public interface Distruttore {
 		for (int i = 0; i < coordinateTronconi.size(); i++) {
 			tronconi[i] = new Nave(nave.getLivelloNave());
 			for (Coordinate coord : coordinateTronconi.get(i)) {
-				Componente comp = nave.getComponente(coord);
+				Componente comp = nave.getCopiaComponente(coord);
 				tronconi[i].forzaComponente(comp, coord); // Posiziono il componente senza controlli
 			}
 		}

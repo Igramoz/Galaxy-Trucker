@@ -1,7 +1,6 @@
 package model.componenti;
 
 import model.enums.Direzione;
-import model.enums.TipoComponente;
 import model.enums.TipoPedina;
 import model.enums.TipoTubo;
 import java.util.*;
@@ -9,7 +8,7 @@ import java.util.*;
 public class CabinaDiEquipaggio extends Componente {
 	
     
-    private final List<TipoPedina> equipaggio;
+    private final List<TipoPedina> equipaggio  = new ArrayList<>();
 
     
     public CabinaDiEquipaggio(Map<Direzione, TipoTubo> tubiIniziali) {
@@ -18,8 +17,6 @@ public class CabinaDiEquipaggio extends Componente {
 
     protected CabinaDiEquipaggio(TipoComponente tipoComponente, Map<Direzione, TipoTubo> tubiIniziali, List<TipoPedina> equipaggioIniziale) {
         super(tipoComponente, tubiIniziali);
-
-        this.equipaggio = new ArrayList<>();
         if(equipaggioIniziale == null) { return; }
         
         for (TipoPedina pedina : equipaggioIniziale) {
