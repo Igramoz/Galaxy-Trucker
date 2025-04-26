@@ -127,7 +127,7 @@ public class ServizioCarte {
 		}
 	}
 
-	private List<CartaPianeti> generaCartaPianeti(LivelliPartita livello) {
+	public List<CartaPianeti> generaCartaPianeti(LivelliPartita livello) {
 		int giorni = 0;
 		switch (livello) {
 		case LivelliPartita.LIVELLO_1:

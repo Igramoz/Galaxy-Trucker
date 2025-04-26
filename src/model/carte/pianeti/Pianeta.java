@@ -21,7 +21,6 @@ public class Pianeta {
 	public boolean atterra(Giocatore g) {
 		if (!isOccupato()) {
 			player = g;
-			// TODO: assegnare merci alla nave, e giorni di volo ai giocatori
 			return true;
 		}
 		return false;

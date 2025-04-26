@@ -54,6 +54,7 @@ public class CartaPianeti extends Carta {
 				if (scelto.atterra(g)) {
 					io.stampa(formattatoreGrafico.formattaGiocatore(g) + " è atterrato sul Pianeta "
 							+ formattatoreGrafico.formattaColore(scelto.getColore()));
+					g.getNave().setMerci(scelto.getMerciDisponibili());
 				}
 			} else {
 				io.stampa(formattatoreGrafico.formattaGiocatore(g) + " ha scelto di non atterrare.");
