@@ -22,7 +22,7 @@ public class PioggiaDiMeteoriti extends Carta {
 	public void eseguiEvento(Giocatore[] giocatori) {
 		// Stampo tutti i meteoriti
 		super.io.stampa(super.carteRenderer.rappresentaMeteoriti(this));
-
+		
 		int indice = 0;
 		for (Colpo colpo : meteoriti) {
 			indice++;

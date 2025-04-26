@@ -60,5 +60,15 @@ public class CabinaDiEquipaggio extends Componente {
     public CabinaDiEquipaggio clone() {
         return new CabinaDiEquipaggio(this);
     }
+    
+    public boolean isPiena() {
+    	if(equipaggio.size() >= 2) {
+			return true;
+		}
+    	if(equipaggio.contains(TipoPedina.ALIENO_MARRONE) || equipaggio.contains(TipoPedina.ALIENO_VIOLA)) {
+			return true;
+		}
+    	return false;
+    }
 }
 

@@ -1,13 +1,14 @@
 package model.nave;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import grafica.*;
 import grafica.renderer.ComponenteRenderer;
 import io.GestoreIO;
 import model.componenti.*;
-import model.enums.TipoMerce;
-import model.enums.TipoPedina;
+import model.enums.*;
 import util.Coordinate;
 
 public interface GestoreComponenti {
@@ -26,16 +27,10 @@ public interface GestoreComponenti {
 		}
 		componenti.addAll(nave.getCopiaComponenti(tipoComponente2));
 
-		String[] menu = new String[componenti.size()];
-		for (int i = 0; i < componenti.size(); i++) {
-			menu[i] = formattatoreGrafico.formattaCoordinate(componenti.get(i).getPosizione()) + " "
-					+ componenteRenderer.rappresentazioneCompletaComponente(componenti.get(i));
-		}
+		if (componenti.isEmpty())
+			return null;
 
-		io.stampa("Scegli il componente in base alla posizione");
-		int scelta = io.stampaMenu(menu);
-
-		return componenti.get(scelta).getPosizione();
+		return io.menuComponenti(componenti).getPosizione();
 	}
 
 	default Coordinate scegliComponente(Nave nave, TipoComponente tipoComponente1) {
@@ -83,7 +78,7 @@ public interface GestoreComponenti {
 					sceltaValida = false;
 					break;
 				case 1:
-					while (!rimuoviMerceDaNave(nave)) {
+					if (!rimuoviMerceDaNave(nave)) {
 						io.stampa("Si deve rimuovere una merce per posizionare la nuova");
 					}
 					sceltaValida = false;
@@ -135,11 +130,13 @@ public interface GestoreComponenti {
 	default boolean rimuoviMerceDaNave(Nave nave) {
 		GestoreIO io = new GestoreIO();
 
-		io.stampa("Scegli quanta merce rimuovere");
+		io.stampa("Scegli quanta merce rimuovere, scrivere 0 per non rimuovere nulla");
 		int quantita = io.leggiIntero();
+		if (quantita == 0)
+			return false;
 		boolean output = true;
 		for (int i = 0; i < quantita; i++) {
-			io.stampa("merce numero: " + (i + 1));
+			io.stampa((i + 1) + " scegli il tipo di merce da rimuovere.");
 
 			TipoMerce merce = io.leggiEnum(TipoMerce.class);
 			if (!rimuoviMerceDaNave(nave, merce))
@@ -154,7 +151,7 @@ public interface GestoreComponenti {
 		List<Componente> cabine = nave.getComponentiOriginali(TipoComponente.CABINA_EQUIPAGGIO);
 		cabine.addAll(nave.getComponentiOriginali(TipoComponente.CABINA_PARTENZA));
 
-		if (nave.getEquipaggio().isEmpty())
+		if (nave.getEquipaggio().isEmpty() || cabine.isEmpty())
 			return false;
 
 		boolean sceltaValida;
@@ -185,4 +182,102 @@ public interface GestoreComponenti {
 		} while (!sceltaValida);
 		return true;
 	}
+
+	default boolean posizionaAlienoInNave(Nave nave, TipoPedina pedina) {
+		GestoreIO io = new GestoreIO();
+		List<Componente> cabineCollegate = new ArrayList<>();
+
+		if (pedina == null)
+			return false;
+
+		if (nave.isEquipaggioCompleto()) {
+			return false;
+		}
+		// TODO trattare caso in cui è astronauta
+
+		if (nave.getEquipaggio().contains(pedina)) {
+			return false; // si può ospitare massimo un alieno per tipo
+		}
+
+		// controllo di quale sovrastruttra ho bisogno
+		TipoComponente tipoSovrastruttura = null;
+		if (TipoPedina.ALIENO_MARRONE == pedina) {
+			tipoSovrastruttura = TipoComponente.SOVRASTRUTTURA_ALIENA_MARRONE;
+		} else {
+			tipoSovrastruttura = TipoComponente.SOVRASTRUTTURA_ALIENA_VIOLA;
+		}
+
+		// cerco la sovrastruttura
+		List<Componente> sovrastrutture = nave.getCopiaComponenti(tipoSovrastruttura);
+
+		// non c'è la sovrastruttura
+		if (sovrastrutture.isEmpty()) {
+			return false;
+		}
+
+		// salvo le cabine collegate
+		for (Componente sovrastruttura : sovrastrutture) {
+			cabineCollegate.addAll(ottieniCabineEquipaggioCollegate(nave, sovrastruttura));
+		}
+
+		boolean sceltaValida;
+		do {
+			// lascio all'utente la possibilità di scegliere in quale cabina posizionare
+			// l'alieno
+			Componente cabina = io.menuComponenti(cabineCollegate);
+			if (cabina == null) {
+				return false;
+			}
+
+			if (((CabinaDiEquipaggio) cabina).aggiungiEquipaggio(pedina)) {
+				return true; // alieno posizionato correttamente
+			} else {
+				io.stampa("Non è possibile posizionare l'alieno in questa cabina");
+				String[] menu = { "Riprova", "Non posizionare l'alieno" };
+				int scelta = io.stampaMenu(menu);
+				if (scelta == 1)
+					return false;
+				else
+					sceltaValida = false;
+			}
+		} while (!sceltaValida);
+		return false;
+	}
+
+	// funzione che data una sovrastruttura restitusce una lista con tutte le cabine
+	// di equipaggio collegate
+	private List<Componente> ottieniCabineEquipaggioCollegate(Nave nave, Componente sovrastruttura) {
+		List<Componente> cabineCollegate = new ArrayList<>();
+
+		Map<Direzione, Componente> componentiAdiacenti = nave
+				.getCopiaComponentiAdiacenti(sovrastruttura.getPosizione());
+
+		// rimuovo i componenti non collegati da tubi
+		Map<Direzione, TipoTubo> tubiSovrastruttura = sovrastruttura.getTubi();
+
+		for (Map.Entry<Direzione, TipoTubo> entry : tubiSovrastruttura.entrySet()) {
+			if (entry.getValue() != TipoTubo.NESSUNO) {
+				if (componentiAdiacenti.get(entry.getKey()).getTipo() == TipoComponente.CABINA_EQUIPAGGIO) {
+					cabineCollegate.add(componentiAdiacenti.get(entry.getKey()));
+				}
+			}
+		}
+		return cabineCollegate;
+	}
+	
+	// posiziona l'altronauta in una qualunque cabina d'equipaggio o di partenza
+	public default boolean posizionaAstronatuaInNave(Nave nave) {
+		if(nave.isEquipaggioCompleto()) return false;
+		
+		List<Componente> cabine = nave.getComponentiOriginali(TipoComponente.CABINA_EQUIPAGGIO);
+		cabine.addAll(nave.getComponentiOriginali(TipoComponente.CABINA_PARTENZA));
+		
+		for(Componente cabina : cabine) {
+			if(((CabinaDiEquipaggio) cabina).aggiungiEquipaggio(TipoPedina.ASTRONAUTA)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 }

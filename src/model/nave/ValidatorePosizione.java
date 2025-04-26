@@ -1,7 +1,6 @@
 package model.nave;
 
 import java.util.Map;
-import java.util.EnumMap;
 
 import model.componenti.*;
 import model.enums.Direzione;
@@ -12,9 +11,8 @@ public interface ValidatorePosizione {
 	// Si occupa di controllare se una è possibile insrire un oggetto in una
 	// determinata posizione della nave
 
-	public default boolean valida(Componente[][] griglia, Componente nuovoComponente, Coordinate coord) {
-
-		Map<Direzione, Componente> adiacenti = getComponentiAdiacenti(griglia, coord);
+	public default boolean valida(Nave nave, Componente nuovoComponente, Coordinate coord) {
+		Map<Direzione, Componente> adiacenti = nave.getCopiaComponentiAdiacenti(coord);
 
 		// Controllo che siano presenti dei pezzi attorno
 		if (checkNull(adiacenti))
@@ -41,22 +39,7 @@ public interface ValidatorePosizione {
 		return isPosizionamentoValidoPerCannoniEMotori(adiacenti, nuovoComponente);
 	}
 
-	private Map<Direzione, Componente> getComponentiAdiacenti(Componente[][] griglia, Coordinate coord) {
-
-		Map<Direzione, Componente> adiacenti = new EnumMap<>(Direzione.class);
-
-		// Coord del componente
-		int x = coord.getX();
-		int y = coord.getY();
-
-		adiacenti.put(Direzione.SOPRA, griglia[x][y - 1]);
-		adiacenti.put(Direzione.SINISTRA, griglia[x - 1][y]);
-		adiacenti.put(Direzione.SOTTO, griglia[x][y + 1]);
-		adiacenti.put(Direzione.DESTRA, griglia[x + 1][y]);
-
-		return adiacenti;
-	}
-
+	
 	// Restituisce vero se tutti i componenti sono null
 	private boolean checkNull(Map<Direzione, Componente> adiacenti) {
 

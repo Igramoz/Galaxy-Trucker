@@ -2,7 +2,9 @@ package model.nave;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 import model.componenti.*;
 import grafica.Colore;
@@ -66,6 +68,9 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 	}
 
 	public Componente getCopiaComponente(Coordinate coordinate) {
+		if (coordinate == null) {
+			return null;
+		}
 		Componente copiaComponente = grigliaComponenti[coordinate.getX()][coordinate.getY()].clone();
 		return copiaComponente;
 	}
@@ -93,7 +98,7 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 		}
 
 		// Controllo se il pezzo si collega agli altri
-		if (valida(grigliaComponenti, componente, coordinate)) {
+		if (valida(this, componente, coordinate)) {
 			forzaComponente(componente, coordinate);
 			return true;
 		}
@@ -184,6 +189,8 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 	}
 
 	protected boolean forzaEquipaggio(TipoPedina pedina, Coordinate coordinate) {
+		if (coordinate == null || pedina == null)
+			return false;
 		if (this.getCopiaComponente(coordinate).getTipo() == TipoComponente.CABINA_EQUIPAGGIO) {
 			return ((CabinaDiEquipaggio) grigliaComponenti[coordinate.getX()][coordinate.getY()])
 					.aggiungiEquipaggio(pedina);
@@ -238,6 +245,9 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 	}
 
 	protected boolean forzaMerce(TipoMerce merce, Coordinate coordinate) {
+		if (coordinate == null || merce == null)
+			return false;
+
 		if (this.getCopiaComponente(coordinate).getTipo() == TipoComponente.STIVA_SPECIALE) {
 			return ((StivaSpeciale) grigliaComponenti[coordinate.getX()][coordinate.getY()]).setMerci(merce);
 		}
@@ -323,6 +333,11 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 			}
 		}
 
+		// potenzaMotrice != 0 affinché l'alieno si attivi
+		if (potenzaMotrice == 0) {
+			return potenzaMotrice;
+		}
+
 		// conto gli alieni marroni
 		List<TipoPedina> equipaggio = this.getEquipaggio();
 		for (TipoPedina pedina : equipaggio) {
@@ -337,7 +352,7 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 	public float getPotenzaFuoco() {
 		float potenzaFuoco = 0;
 
-		// contro i cannoni singoli
+		// conto i cannoni singoli
 		List<Componente> cannoni = this.getCopiaComponenti(TipoComponente.CANNONE_SINGOLO);
 		for (Componente cannone : cannoni) {
 			potenzaFuoco += ((Cannone) cannone).getPotenzaFuoco();
@@ -357,6 +372,10 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 			}
 		}
 
+//		se la potenza di fuoco senza l’alieno è 0, l'alieno non si attiva.
+//		Non affronterà una battaglia spaziale a tentacoli nudi
+		if (potenzaFuoco == 0)
+			return potenzaFuoco;
 		// conto gli alieni viola
 		List<TipoPedina> equipaggio = this.getEquipaggio();
 		for (TipoPedina pedina : equipaggio) {
@@ -369,7 +388,59 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 		return potenzaFuoco;
 	}
 
-	// TODO fare la funzione per inizializzare la nave
+	public Map<Direzione, Componente> getCopiaComponentiAdiacenti(Coordinate coord) {
+
+		Map<Direzione, Componente> adiacenti = new EnumMap<>(Direzione.class);
+
+		// Coord del componente
+		int x = coord.getX();
+		int y = coord.getY();
+
+		adiacenti.put(Direzione.SOPRA, grigliaComponenti[x][y - 1].clone());
+		adiacenti.put(Direzione.SINISTRA, grigliaComponenti[x - 1][y].clone());
+		adiacenti.put(Direzione.SOTTO, grigliaComponenti[x][y + 1].clone());
+		adiacenti.put(Direzione.DESTRA, grigliaComponenti[x + 1][y].clone());
+
+		return adiacenti;
+	}
+
+	// funzione per controllare che la nave abbia raggiunto il massimo numero di
+	// componenti dell'equipaggio
+	public boolean isEquipaggioCompleto() {
+
+		List<Componente> cabine = this.getCopiaComponenti(TipoComponente.CABINA_EQUIPAGGIO);
+		cabine.addAll(this.getCopiaComponenti(TipoComponente.CABINA_PARTENZA));
+		for (Componente cabina : cabine) {
+			if (!((CabinaDiEquipaggio) cabina).isPiena()) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	// carica la nave e aggiunge l'equipaggio
+	public void preparaAlVolo() {
+		preparaEquipaggioAlVolo();
+		ricaricaBatterie();
+	}
+
+	private void preparaEquipaggioAlVolo() {
+		// carico gli alieni
+		posizionaAlienoInNave(this, TipoPedina.ALIENO_MARRONE);
+		posizionaAlienoInNave(this, TipoPedina.ALIENO_VIOLA);
+
+		// carico gli astronauti
+		posizionaAstronatuaInNave(this);
+	}
+	
+	// carica al massimo tutte le batterie
+	private void ricaricaBatterie() {
+		List<Componente> batterie = this.getCopiaComponenti(TipoComponente.VANO_BATTERIA);
+		for (Componente batteria : batterie) {
+			((VanoBatteria) batteria).caricaInteramenteBatteria();
+		}
+	}
+
 	// TODO fare i setter batteria, fare le funzioni per
 	// rimuovere l'energia. fare funz per aggiungere equipaggio.
 

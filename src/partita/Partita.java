@@ -24,7 +24,8 @@ public class Partita {
 		// fase composizione nave
 		composizione = new ComposizioneNave(giocatori, modalita.getlivelloPartita());
 		composizione.start();
-
+		//composizione.getCarte();
+		
 		fine = new FineGioco(giocatori);
 		fine.start();
 	}

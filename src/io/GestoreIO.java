@@ -1,10 +1,14 @@
 package io;
 
+import java.util.List;
 import java.util.Scanner;
 
 import grafica.GraficaConfig;
 import grafica.TextAligner;
+import grafica.renderer.ComponenteRenderer;
 import util.Coordinate;
+import model.componenti.Componente;
+import grafica.FormattatoreGrafico;
 
 public class GestoreIO {
 
@@ -94,6 +98,12 @@ public class GestoreIO {
 	public int stampaMenu(String[] menu) {
 		// stampa il menu e riporta la risposta dell'utente sia compresa tra 0 e
 		// menu.length - 1
+		if (menu == null || menu.length == 0) {
+			return -1;
+		}else if (menu.length == 1) {
+			stampa(menu[0]);
+			return 0;
+		}
 		int scelta;
 		boolean sceltaValida;
 		String[] menuStampare = new String[menu.length];
@@ -117,16 +127,36 @@ public class GestoreIO {
 		} while (!sceltaValida);
 		return scelta;
 	}
-	
+
 	// funzione per fare scegliere all'utente un valore di un enum
-	public <T extends Enum<T>> T leggiEnum(Class<T> enumClass) {
-		T[] enumConstants = enumClass.getEnumConstants();
-		String[] menu = new String[enumConstants.length];
-		for (int i = 0; i < enumConstants.length; i++) {
-			menu[i] = enumConstants[i].name();
+	public <T extends Enum<T>> T leggiEnum(Class<T> enumerato) {
+		T[] elementiEnum = enumerato.getEnumConstants();
+		String[] menu = new String[elementiEnum.length];
+		for (int i = 0; i < elementiEnum.length; i++) {
+			menu[i] = elementiEnum[i].name();
 		}
 		int scelta = stampaMenu(menu);
-		return enumConstants[scelta];
+		return elementiEnum[scelta];
 	}
 	
+	public Componente menuComponenti(List<Componente> componenti) {
+		if (componenti == null || componenti.isEmpty()) {
+			return null;
+		} else if (componenti.size() == 1) {
+			return componenti.get(0);
+		}
+		
+		FormattatoreGrafico formattatoreGrafico = new FormattatoreGrafico();
+		ComponenteRenderer componenteRenderer = new ComponenteRenderer();
+		String[] menu = new String[componenti.size()];
+		for (int i = 0; i < componenti.size(); i++) {
+			menu[i] = formattatoreGrafico.formattaCoordinate(componenti.get(i).getPosizione()) + " "
+					+ componenteRenderer.rappresentazioneCompletaComponente(componenti.get(i));
+		}
+
+		stampa("Scegli il componente in base alla posizione");
+		int scelta = stampaMenu(menu);
+		return componenti.get(scelta);
+	}
+
 }

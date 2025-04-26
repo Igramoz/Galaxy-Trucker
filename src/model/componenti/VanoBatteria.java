@@ -78,6 +78,10 @@ public class VanoBatteria extends Componente{
 		return true; // batterie caricate
 	}
 
+	public void caricaInteramenteBatteria() {
+		caricaBatterie(capacitaMassima);
+	}
+	
 	// Controllo se è piena
 	public boolean isFull() {
 		return batterie == capacitaMassima;
