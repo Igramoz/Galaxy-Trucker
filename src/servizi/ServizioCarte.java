@@ -13,8 +13,8 @@ import model.Colpo.DimensioniColpo;
 import model.Colpo.TipoColpo;
 import model.Giocatore;
 import model.carte.*;
+import model.carte.criteriEffetti.*;
 import model.carte.pianeti.*;
-import model.carte.zonaDiGuerra.*;
 import model.enums.Direzione;
 import model.enums.TipoMerce;
 import partita.LivelliPartita;
@@ -69,7 +69,9 @@ public class ServizioCarte {
 			}
 
 			listaAsteroidi = Colpo.ordinaPerDirezione(listaAsteroidi);
-			out.add(new PioggiaDiMeteoriti(listaAsteroidi));
+			CriterioConEffetto criterioEpenalita = new CriterioConEffetto(null, Effetto.COLPI, listaAsteroidi);
+			
+			out.add(new PioggiaDiMeteoriti(criterioEpenalita));
 		}
 
 		return out;
@@ -97,20 +99,20 @@ public class ServizioCarte {
 				new Colpo(TipoColpo.CANNONATA, DimensioniColpo.GROSSO, Direzione.SOTTO));
 
 		// Caratteristiche delle carte
-		final List<PenalitaConCriterio> criteriEpenalitaLivello1 = List.of(
-				new PenalitaConCriterio(Criterio.EQUIPAGGIO, Penalita.GIORNI_VOLO, 3),
-				new PenalitaConCriterio(Criterio.POTENZA_MOTRICE, Penalita.EQUIPAGGIO, 2),
-				new PenalitaConCriterio(Criterio.POTENZA_FUOCO, Penalita.CANNONATE, cannonateLivello1));
+		final List<CriterioConEffetto> criteriEpenalitaLivello1 = List.of(
+				new CriterioConEffetto(Criterio.EQUIPAGGIO, Effetto.GIORNI_VOLO, 3),
+				new CriterioConEffetto(Criterio.POTENZA_MOTRICE, Effetto.EQUIPAGGIO, 2),
+				new CriterioConEffetto(Criterio.POTENZA_FUOCO, Effetto.COLPI, cannonateLivello1));
 
-		final List<PenalitaConCriterio> criteriEpenalitaLivello2 = List.of(
-				new PenalitaConCriterio(Criterio.POTENZA_FUOCO, Penalita.GIORNI_VOLO, 4),
-				new PenalitaConCriterio(Criterio.POTENZA_MOTRICE, Penalita.MERCE, 3),
-				new PenalitaConCriterio(Criterio.EQUIPAGGIO, Penalita.CANNONATE, cannonateLivello2));
+		final List<CriterioConEffetto> criteriEpenalitaLivello2 = List.of(
+				new CriterioConEffetto(Criterio.POTENZA_FUOCO, Effetto.GIORNI_VOLO, 4),
+				new CriterioConEffetto(Criterio.POTENZA_MOTRICE, Effetto.MERCE, 3),
+				new CriterioConEffetto(Criterio.EQUIPAGGIO, Effetto.COLPI, cannonateLivello2));
 
-		final List<PenalitaConCriterio> criteriEpenalitaLivello3 = List.of(
-				new PenalitaConCriterio(Criterio.EQUIPAGGIO, Penalita.MERCE, 4),
-				new PenalitaConCriterio(Criterio.POTENZA_FUOCO, Penalita.EQUIPAGGIO, 4),
-				new PenalitaConCriterio(Criterio.POTENZA_MOTRICE, Penalita.CANNONATE, cannonateLivello3));
+		final List<CriterioConEffetto> criteriEpenalitaLivello3 = List.of(
+				new CriterioConEffetto(Criterio.EQUIPAGGIO, Effetto.MERCE, 4),
+				new CriterioConEffetto(Criterio.POTENZA_FUOCO, Effetto.EQUIPAGGIO, 4),
+				new CriterioConEffetto(Criterio.POTENZA_MOTRICE, Effetto.COLPI, cannonateLivello3));
 
 		switch (lvl) {
 		case LIVELLO_1 -> {

@@ -54,7 +54,7 @@ public interface VerificatoreImpatti {
 	// la quale si muove il colpo)
 	private Coordinate calcolaCoordinateColpite(Nave nave, Direzione direzione, int coordinata) {
 
-		Componente[][] griglia = nave.getGrigliaComponenti();
+		Componente[][] griglia = nave.getGrigliaComponentiCloni();
 
 		switch (direzione) {
 		case SOPRA:

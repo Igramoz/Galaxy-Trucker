@@ -54,19 +54,33 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 		return new Nave(this);
 	}
 
+	// TODO valutare se elinmiare
 	// Metodi griglia componenti
-	public Componente[][] getGrigliaComponenti() {
+//	protected Componente[][] getGrigliaComponentiOriginali() {
+//		Componente[][] copiaGrigliaComponenti = new Componente[Util.SIZE][Util.SIZE];
+//		for (int x = 0; x < Util.SIZE; x++) {
+//			for (int y = 0; y < Util.SIZE; y++) {
+//				if (grigliaComponenti[x][y] != null) {
+//					copiaGrigliaComponenti[x][y] = grigliaComponenti[x][y];
+//				}
+//			}
+//		}
+//		return copiaGrigliaComponenti;
+//	}
+
+	// Metodi griglia componenti
+	public Componente[][] getGrigliaComponentiCloni() {
 		Componente[][] copiaGrigliaComponenti = new Componente[Util.SIZE][Util.SIZE];
 		for (int x = 0; x < Util.SIZE; x++) {
 			for (int y = 0; y < Util.SIZE; y++) {
 				if (grigliaComponenti[x][y] != null) {
-					copiaGrigliaComponenti[x][y] = grigliaComponenti[x][y];
+					copiaGrigliaComponenti[x][y] = grigliaComponenti[x][y].clone();
 				}
 			}
 		}
 		return copiaGrigliaComponenti;
 	}
-
+	
 	public Componente getCopiaComponente(Coordinate coordinate) {
 		if (coordinate == null) {
 			return null;
@@ -233,7 +247,7 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 		}
 		// se non ci sono abbastanza merci bisogna rimuovere le batterie
 		for (int i = 0; i < numero - merciRimosse; i++) {
-			if (!usaEnergia()) {
+			if (!consumaEnergia(this)) {
 				return false; // non ci sono abbastanza batterie
 			}
 		}
@@ -267,7 +281,7 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 
 				io.stampa("scrivere 1 se si vuole attivare lo scudo");
 				if (io.leggiIntero() == 1) {
-					return usaEnergia(); // usaEnergia valuta se è possibile o meno usare 1 di energia e la consuma
+					return consumaEnergia(this); // usaEnergia valuta se è possibile o meno usare 1 di energia e la consuma
 				}
 				return false; // scudo non attivato per scelta dell'utente
 			}
@@ -284,31 +298,13 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 
 			io.stampa("scrivere 1 se si vuole sparare con il " + cannone.getTipo().name());
 			if (io.leggiIntero() == 1) {
-				return usaEnergia(); // sparo se l'utente è d'accordo
+				return consumaEnergia(this); // sparo se l'utente è d'accordo
 			}
 			return false; // fuoco non attivato per scelta dell'utente
 		} else {
 			// se è un cannone singolo può sicuramente sparare
 			return true;
 		}
-	}
-
-	// se è possibile consuma l'energia altrimenti restituisce false
-	private boolean usaEnergia() {
-		if (getEnergia() <= 0)
-			return false;
-
-		List<Componente> vaniBatterie = this.getComponentiOriginali(TipoComponente.VANO_BATTERIA);
-
-		// TODO lasciare all'utente la possibilita di scegliere da quale vano rimuovere
-		// la batteria
-		for (Componente vano : vaniBatterie) {
-			// scarica batteria
-			if (((VanoBatteria) vano).scaricaBatteria()) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	// calcola la potenza motrice
@@ -325,7 +321,7 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 			io.stampa("scrivere 1 se si vuole usare il motore in posizione: "
 					+ formattatoreGrafico.formattaCoordinate(motore.getPosizione()));
 			if (io.leggiIntero() == 1) {
-				if (usaEnergia()) { // uso il motore doppio
+				if (consumaEnergia(this)) { // uso il motore doppio
 					potenzaMotrice += 2;
 				} else {
 					break; // energia finita
@@ -364,7 +360,7 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 			io.stampa("scrivere 1 se si vuole usare il cannone in posizione: "
 					+ formattatoreGrafico.formattaCoordinate(cannone.getPosizione()));
 			if (io.leggiIntero() == 1) {
-				if (usaEnergia()) { // uso il cannone doppio
+				if (consumaEnergia(this)) { // uso il cannone doppio
 					potenzaFuoco += ((Cannone) cannone).getPotenzaFuoco();
 				} else {
 					break; // energia finita
@@ -440,8 +436,4 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 			((VanoBatteria) batteria).caricaInteramenteBatteria();
 		}
 	}
-
-	// TODO fare i setter batteria, fare le funzioni per
-	// rimuovere l'energia. fare funz per aggiungere equipaggio.
-
 }

@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import grafica.*;
-import grafica.renderer.ComponenteRenderer;
 import io.GestoreIO;
 import model.componenti.*;
 import model.enums.*;
@@ -18,8 +16,6 @@ public interface GestoreComponenti {
 	default Coordinate scegliComponente(Nave nave, TipoComponente tipoComponente1, TipoComponente tipoComponente2) {
 
 		GestoreIO io = new GestoreIO();
-		FormattatoreGrafico formattatoreGrafico = new FormattatoreGrafico();
-		ComponenteRenderer componenteRenderer = new ComponenteRenderer();
 
 		List<Componente> componenti = nave.getCopiaComponenti(tipoComponente1);
 		if (tipoComponente2 != null) {
@@ -193,7 +189,8 @@ public interface GestoreComponenti {
 		if (nave.isEquipaggioCompleto()) {
 			return false;
 		}
-		// TODO trattare caso in cui è astronauta
+		if (pedina == TipoPedina.ASTRONAUTA)
+			posizionaAstronatuaInNave(nave);
 
 		if (nave.getEquipaggio().contains(pedina)) {
 			return false; // si può ospitare massimo un alieno per tipo
@@ -264,20 +261,50 @@ public interface GestoreComponenti {
 		}
 		return cabineCollegate;
 	}
-	
+
 	// posiziona l'altronauta in una qualunque cabina d'equipaggio o di partenza
 	public default boolean posizionaAstronatuaInNave(Nave nave) {
-		if(nave.isEquipaggioCompleto()) return false;
-		
+		if (nave.isEquipaggioCompleto())
+			return false;
+
 		List<Componente> cabine = nave.getComponentiOriginali(TipoComponente.CABINA_EQUIPAGGIO);
 		cabine.addAll(nave.getComponentiOriginali(TipoComponente.CABINA_PARTENZA));
-		
-		for(Componente cabina : cabine) {
-			if(((CabinaDiEquipaggio) cabina).aggiungiEquipaggio(TipoPedina.ASTRONAUTA)) {
+
+		for (Componente cabina : cabine) {
+			if (((CabinaDiEquipaggio) cabina).aggiungiEquipaggio(TipoPedina.ASTRONAUTA)) {
 				return true;
 			}
 		}
 		return false;
+	}
+
+	public default boolean consumaEnergia(Nave nave) {
+		GestoreIO io = new GestoreIO();
+
+		if (nave.getEnergia() <= 0)
+			return false;
+
+		boolean sceltaValida;
+		do {
+			sceltaValida = true;
+			io.aCapo();
+			io.stampa("Scegliere da quale vano rimuovere l'energia");
+
+			Coordinate posizioneVanoBatteria = scegliComponente(nave, TipoComponente.VANO_BATTERIA);
+
+			if (posizioneVanoBatteria == null)
+				return false;
+
+			Componente vanoBatteria = nave.getOriginaleComponente(posizioneVanoBatteria);
+
+			if (!((VanoBatteria) vanoBatteria).scaricaBatteria()) {
+				io.stampa("Non è possibile rimuovere energia da questo vano");
+				io.stampa("scegliere un vano carico");
+				sceltaValida = false;
+			}
+		} while (!sceltaValida);
+
+		return true;
 	}
 
 }

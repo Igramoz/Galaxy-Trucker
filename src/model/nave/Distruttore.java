@@ -58,7 +58,7 @@ public interface Distruttore {
 	}
 
 	private void controllaConnessioneComponente(Nave nave, Coordinate coordinate, List<Coordinate> visitati) {
-		Componente[][] griglia = nave.getGrigliaComponenti();
+		Componente[][] griglia = nave.getGrigliaComponentiCloni();
 		Componente c = griglia[coordinate.getX()][coordinate.getY()];
 
 		if (c == null || visitati.contains(coordinate))
