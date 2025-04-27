@@ -1,11 +1,10 @@
 package servizi;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import grafica.Colore;
 import util.*;
@@ -127,7 +126,6 @@ public class ServizioCarte {
 		}
 	}
 
-	
 	public List<CartaPianeti> generaCartaPianeti(LivelliPartita livello) {
 		int giorni = 0;
 		switch (livello) {
@@ -142,25 +140,38 @@ public class ServizioCarte {
 			break;
 		}
 
-		int numeroMerci = random.randomInt(6, 13);
+		int minimoMerci = 1;
+		if (livello == LivelliPartita.LIVELLO_3)
+			minimoMerci = 2;
+
 		List<Colore> colori = new ArrayList<>(Giocatore.coloriDisponibiliGiocatori);
 		Collections.shuffle(colori);
 		List<Pianeta> pianeti = new ArrayList<>();
 		int numeroPianeti = random.randomInt(2, 5);
 
 		for (int i = 0; i < numeroPianeti; i++) {
+			int numeroMerci = random.randomInt(minimoMerci, 6);
 			List<TipoMerce> merci = new ArrayList<>();
 			Colore colorePianeta = colori.get(i);
 
-			// I colori delle merci dipendono dai colori dei pianeti
-			List<TipoMerce> merciCompatibili = new ArrayList<>();
-			for (TipoMerce m : TipoMerce.values()) {
-				if (m.getColore() == colorePianeta) {
-					merciCompatibili.add(m);
-				}
-			}
-
+			Map<Colore, Integer> probabilita = generaProbabilitaMerci(colorePianeta);
 			for (int j = 0; j < numeroMerci; j++) {
+				Colore coloreMerce = random.getEnumValueByProbability(probabilita);
+
+				List<TipoMerce> merciCompatibili = new ArrayList<>();
+				for (TipoMerce m : TipoMerce.values()) {
+					if (m.getColore() == coloreMerce) {
+						merciCompatibili.add(m);
+					}
+				}
+
+				if (merciCompatibili.isEmpty()) {
+					// se la lista è vuota, NON vado avanti, altrimenti avrei un errore
+					// quindi torno indietro per rigenerare questa merce
+					j--;
+					continue;
+				}
+
 				int index = random.randomInt(merciCompatibili.size());
 				TipoMerce merce = merciCompatibili.get(index);
 				merci.add(merce);
@@ -169,7 +180,19 @@ public class ServizioCarte {
 		}
 
 		List<CartaPianeti> carte = new ArrayList<>();
-		carte.add(new CartaPianeti(pianeti, giorni, numeroMerci));
+		carte.add(new CartaPianeti(pianeti, giorni));
 		return carte;
+	}
+
+	private Map<Colore, Integer> generaProbabilitaMerci(Colore colorePianeta) {
+		Map<Colore, Integer> probabilita = new HashMap<>();
+		for (Colore colore : Colore.values()) {
+			if (colore == colorePianeta) {
+				probabilita.put(colore, 50); // molto probabile
+			} else {
+				probabilita.put(colore, 10); // poco probabile
+			}
+		}
+		return probabilita;
 	}
 }

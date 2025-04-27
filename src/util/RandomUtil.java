@@ -23,7 +23,7 @@ public class RandomUtil {
 		return valori[randomInt(valori.length)];
 	}
 
-	// Genera randomicamente un enum tra 2 opzioni
+	// Genera randomicamente un valore di enum tramite probabilità
 	public <E extends Enum<E>> E getEnumValueByProbability(Map<E, Integer> collezione) {
 		int somma = 0;
 		for (int num : collezione.values()) {

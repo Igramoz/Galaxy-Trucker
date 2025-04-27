@@ -11,13 +11,11 @@ public class CartaPianeti extends Carta {
 
 	private final List<Pianeta> pianeti; // lista dei pianeti di questa carta
 	private final int giorniVoloPersi;
-	private final int numeroMerci;
 
-	public CartaPianeti(List<Pianeta> listaPianeti, int giorni, int numMerci) {
+	public CartaPianeti(List<Pianeta> listaPianeti, int giorni) {
 		super(TipoCarta.PIANETI);
 		pianeti = listaPianeti;
 		giorniVoloPersi = giorni;
-		numeroMerci = numMerci;
 	}
 
 	@Override
@@ -69,9 +67,5 @@ public class CartaPianeti extends Carta {
 
 	public int getGiorniVoloPersi() {
 		return giorniVoloPersi;
-	}
-
-	public int getNumeroMerci() {
-		return numeroMerci;
 	}
 }

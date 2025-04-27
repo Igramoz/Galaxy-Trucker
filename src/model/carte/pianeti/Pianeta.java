@@ -41,4 +41,8 @@ public class Pianeta {
 	public Colore getColore() {
 		return colore;
 	}
+
+	public int getNumeroMerci() {
+		return merciDisponibili.size();
+	}
 }
