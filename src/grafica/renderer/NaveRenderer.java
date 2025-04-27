@@ -25,7 +25,7 @@ public class NaveRenderer {
 		public String[] rappresentazioneNave(Nave nave) {
 
 			String[] rappresentazioneNave = new String[	CostantiGrafica.ALTEZZA_COMPONENTE * Util.SIZE];
-			Componente[][] grigliaComponenti = nave.getGrigliaComponenti();
+			Componente[][] grigliaComponenti = nave.getGrigliaComponentiCloni();
 
 			// rappresento l'intera nave riga per riga
 			for (int y = 0; y < Util.SIZE; y++) {

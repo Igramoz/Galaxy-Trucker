@@ -1,4 +1,4 @@
-package model.carte.zonaDiGuerra;
+package model.carte.criteriEffetti;
 
 import java.util.List;
 
@@ -8,13 +8,13 @@ import model.Colpo;
 import model.Dado;
 import model.Giocatore;
 
-public enum Penalita {
-	CANNONATE {
+public enum Effetto {
+	COLPI {
 		@Override
 		public void applica(Giocatore g, Object valore) {
 			@SuppressWarnings("unchecked")
-			List<Colpo> cannonate = (List<Colpo>) valore;
-			for (Colpo c : cannonate) {
+			List<Colpo> colpi = (List<Colpo>) valore;
+			for (Colpo c : colpi) {
 				int posizioneColpo = Dado.lancia2Dadi(g);
 				int pezziDistrutti = g.getNave().subisciImpatto(c, posizioneColpo);
 				g.incrementaPezziDistrutti(pezziDistrutti);

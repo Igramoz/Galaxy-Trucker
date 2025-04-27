@@ -1,5 +1,6 @@
 package model.carte;
 
+
 import grafica.FormattatoreGrafico;
 import grafica.TextAligner;
 import grafica.renderer.CarteRenderer;
@@ -14,6 +15,7 @@ public abstract class Carta {
     protected final GestoreIO io = new GestoreIO();
     protected final FormattatoreGrafico formattatoreGrafico = new FormattatoreGrafico();
     protected final TextAligner textAligner = new TextAligner();
+    
     
     public Carta(TipoCarta tipoCarta) {
     	this.tipoCarta = tipoCarta;

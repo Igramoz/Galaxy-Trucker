@@ -1,7 +1,6 @@
-package model.carte.zonaDiGuerra;
+package model.carte.criteriEffetti;
 
 import model.Giocatore;
-
 public enum Criterio {
 	// minore membri numero di equipaggio
 	EQUIPAGGIO {

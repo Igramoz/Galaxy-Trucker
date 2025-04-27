@@ -1,15 +1,15 @@
-package model.carte.zonaDiGuerra;
+package model.carte.criteriEffetti;
 
-public class PenalitaConCriterio {
+public class CriterioConEffetto {
 		private final Criterio criterio;
-		private final Penalita penalita;
+		private final Effetto effetto;
 		
 		private final Object valore; // valore attribuito alla penalita
 		// è sempre un integer, a parte nel caso delle cannonate dove è una lista di colpi
 		
-		public PenalitaConCriterio(Criterio criterio, Penalita penalita, Object valore) {
+		public CriterioConEffetto(Criterio criterio, Effetto effetto, Object valore) {
 			this.criterio = criterio;
-			this.penalita = penalita;
+			this.effetto = effetto;
 			this.valore = valore;
 		}
 
@@ -17,8 +17,8 @@ public class PenalitaConCriterio {
 			return criterio;
 		}
 
-		public Penalita getPenalita() {
-			return penalita;
+		public Effetto getPenalita() {
+			return effetto;
 		}
 
 		public Object getValore() {

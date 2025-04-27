@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Giocatore;
+import model.carte.criteriEffetti.CriterioConEffetto;
 import model.enums.Direzione;
 import model.Colpo;
 import model.Dado;
@@ -13,9 +14,10 @@ public class PioggiaDiMeteoriti extends Carta {
 	// Lista che contiene i meteoriti associati alla direzione da cui arrivano
 	private final List<Colpo> meteoriti;
 
-	public PioggiaDiMeteoriti(List<Colpo> meteoriti) {
+	@SuppressWarnings("unchecked")
+	public PioggiaDiMeteoriti(CriterioConEffetto effeetto) {
 		super(TipoCarta.PIOGGIA_DI_METEORITI);
-		this.meteoriti = meteoriti;
+		this.meteoriti = ((List<Colpo>)effeetto.getValore());
 	}
 
 	@Override
