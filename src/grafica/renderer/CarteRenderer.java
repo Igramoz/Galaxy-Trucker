@@ -32,14 +32,14 @@ public class CarteRenderer {
 		Arrays.fill(out, "");
 
 		// Aggiunge cannonate che provengono dall'alto e dal basso
-		String[] cannonateSopra = rappresentaColpiVerticali(
-				Colpo.getColpiByDirezione(colpi, Direzione.SOPRA), padding, colonne, Direzione.SOTTO);
+		String[] cannonateSopra = rappresentaColpiVerticali(Colpo.getColpiByDirezione(colpi, Direzione.SOPRA), padding,
+				colonne, Direzione.SOTTO);
 		out[0] = cannonateSopra[0];
 		out[1] = cannonateSopra[1];
 		out[2] = cannonateSopra[2];
 
-		String[] cannonateSotto = rappresentaColpiVerticali(
-				Colpo.getColpiByDirezione(colpi, Direzione.SOTTO), padding, colonne, Direzione.SOPRA);
+		String[] cannonateSotto = rappresentaColpiVerticali(Colpo.getColpiByDirezione(colpi, Direzione.SOTTO), padding,
+				colonne, Direzione.SOPRA);
 		out[out.length - 3] = cannonateSotto[0];
 		out[out.length - 2] = cannonateSotto[1];
 		out[out.length - 1] = cannonateSotto[2];
@@ -69,9 +69,9 @@ public class CarteRenderer {
 	// cannonate (senza padding)
 	private int[] calcolaMaxColpi(List<Colpo> colpi) {
 		int cannonateDestra = Colpo.getColpiByDirezione(colpi, Direzione.DESTRA).size();
-		int cannonateSinistra =  Colpo.getColpiByDirezione(colpi, Direzione.SINISTRA).size();
-		int cannonateSotto =  Colpo.getColpiByDirezione(colpi, Direzione.SOTTO).size();
-		int cannonateSopra =  Colpo.getColpiByDirezione(colpi, Direzione.SOPRA).size();
+		int cannonateSinistra = Colpo.getColpiByDirezione(colpi, Direzione.SINISTRA).size();
+		int cannonateSotto = Colpo.getColpiByDirezione(colpi, Direzione.SOTTO).size();
+		int cannonateSopra = Colpo.getColpiByDirezione(colpi, Direzione.SOPRA).size();
 
 		int colonne = Math.max(cannonateSopra, cannonateSotto);
 		int righe = Math.max(cannonateSinistra, cannonateDestra);
@@ -102,7 +102,7 @@ public class CarteRenderer {
 		}
 		return out;
 	}
-	
+
 	// rappresenta O > oppure < o (DIREZIONE da cui proviene il cannonata)
 	private String rappresentaColpoOrizzontale(Colpo colpo, Direzione direzioneEntrata) {
 		return switch (direzioneEntrata) {
@@ -129,9 +129,10 @@ public class CarteRenderer {
 		for (int i = 0; i < pianeti.size(); i++) {
 			Pianeta p = pianeti.get(i);
 			if (!p.isOccupato()) {
-				io.stampa("Pianeta " + formattatore.formattaColore(p.getColore()) + ": richiesti " + giorniVolo
+				io.stampa("Pianeta " + formattatore.formattaColore(p.getColore())
 						+ " giorni di volo, merci disponibili: " + p.getMerciDisponibili());
 			}
 		}
+		io.stampa("Sono richiesti " + giorniVolo + " per ciascun pianeta");
 	}
 }

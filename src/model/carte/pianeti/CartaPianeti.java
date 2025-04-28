@@ -6,6 +6,7 @@ import java.util.List;
 import model.Giocatore;
 import model.carte.Carta;
 import model.carte.TipoCarta;
+import model.carte.criteriEffetti.Effetto;
 
 public class CartaPianeti extends Carta {
 
@@ -52,7 +53,8 @@ public class CartaPianeti extends Carta {
 				if (scelto.atterra(g)) {
 					io.stampa(formattatoreGrafico.formattaGiocatore(g) + " è atterrato sul Pianeta "
 							+ formattatoreGrafico.formattaColore(scelto.getColore()));
-					g.getNave().setMerci(scelto.getMerciDisponibili());
+					Effetto eff = Effetto.GUADAGNA_MERCE;
+					eff.applica(g, scelto.getMerciDisponibili());
 				}
 			} else {
 				io.stampa(formattatoreGrafico.formattaGiocatore(g) + " ha scelto di non atterrare.");
