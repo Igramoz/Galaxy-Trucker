@@ -2,9 +2,9 @@ package model.nave;
 
 import java.util.List;
 
-import model.Colpo;
-import model.Colpo.DimensioniColpo;
-import model.Colpo.TipoColpo;
+import model.carte.colpo.Colpo;
+import model.carte.colpo.Colpo.DimensioniColpo;
+import model.carte.colpo.Colpo.TipoColpo;
 import model.componenti.Cannone;
 import model.componenti.Componente;
 import model.componenti.TipoComponente;

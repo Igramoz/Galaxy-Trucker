@@ -8,11 +8,11 @@ import java.util.Map;
 
 import grafica.Colore;
 import util.*;
-import model.Colpo;
-import model.Colpo.DimensioniColpo;
-import model.Colpo.TipoColpo;
 import model.Giocatore;
 import model.carte.*;
+import model.carte.colpo.Colpo;
+import model.carte.colpo.Colpo.DimensioniColpo;
+import model.carte.colpo.Colpo.TipoColpo;
 import model.carte.criteriEffetti.*;
 import model.carte.pianeti.*;
 import model.enums.Direzione;
@@ -101,17 +101,17 @@ public class ServizioCarte {
 		// Caratteristiche delle carte
 		final List<CriterioConEffetto> criteriEpenalitaLivello1 = List.of(
 				new CriterioConEffetto(Criterio.EQUIPAGGIO, Effetto.GIORNI_VOLO, 3),
-				new CriterioConEffetto(Criterio.POTENZA_MOTRICE, Effetto.EQUIPAGGIO, 2),
+				new CriterioConEffetto(Criterio.POTENZA_MOTRICE, Effetto.PERDITA_EQUIPAGGIO, 2),
 				new CriterioConEffetto(Criterio.POTENZA_FUOCO, Effetto.COLPI, cannonateLivello1));
 
 		final List<CriterioConEffetto> criteriEpenalitaLivello2 = List.of(
 				new CriterioConEffetto(Criterio.POTENZA_FUOCO, Effetto.GIORNI_VOLO, 4),
-				new CriterioConEffetto(Criterio.POTENZA_MOTRICE, Effetto.MERCE, 3),
+				new CriterioConEffetto(Criterio.POTENZA_MOTRICE, Effetto.PERDITA_MERCE, 3),
 				new CriterioConEffetto(Criterio.EQUIPAGGIO, Effetto.COLPI, cannonateLivello2));
 
 		final List<CriterioConEffetto> criteriEpenalitaLivello3 = List.of(
-				new CriterioConEffetto(Criterio.EQUIPAGGIO, Effetto.MERCE, 4),
-				new CriterioConEffetto(Criterio.POTENZA_FUOCO, Effetto.EQUIPAGGIO, 4),
+				new CriterioConEffetto(Criterio.EQUIPAGGIO, Effetto.PERDITA_MERCE, 4),
+				new CriterioConEffetto(Criterio.POTENZA_FUOCO, Effetto.PERDITA_EQUIPAGGIO, 4),
 				new CriterioConEffetto(Criterio.POTENZA_MOTRICE, Effetto.COLPI, cannonateLivello3));
 
 		switch (lvl) {

@@ -6,11 +6,11 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
+import model.carte.colpo.Colpo;
 import model.componenti.*;
 import grafica.Colore;
 import grafica.FormattatoreGrafico;
 import io.GestoreIO;
-import model.Colpo;
 import model.enums.*;
 import util.*;
 

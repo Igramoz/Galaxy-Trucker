@@ -7,19 +7,30 @@ src/
 │   ├── Giocatore.java
 │   ├── Dado.java
 │   ├── carte/
+│   │   ├── TipoCarta.java
 │   │   ├── Carta.java
-│   │   ├── PianetiCarta.java
+│   │   ├── Pianeti.java
 │   │   ├── StazioneAbbandonataCarta.java
 │   │   ├── NaveAbbandonataCarta.java
-│   │   ├── ContrabbandieriCarta.java
 │   │   ├── SpazioApertoCarta.java
-│   │   ├── PioggiaDiMeteoritiCarta.java
-│   │   ├── ZonaDiGuerraCarta.java
+│   │   ├── PioggiaDiMeteoriti.java
+│   │   ├── ZonaDiGuerra.java
 │   │   ├── PolvereStellareCarta.java
-│   │   ├── PiratiCarta.java
 │   │   ├── SchiavistiCarta.java
 │   │   ├── EpidemiaCarta.java
-│   │   └── SabotaggioCarta.java
+│   │   ├── SabotaggioCarta.java
+│   │   ├── criteriEffetti/
+│   │   |    ├── Criterio.java
+│   │   |    ├── Effetto.java
+│   │   |    └── CriterioConEffetto.java
+│   │   ├── pianeti/
+│   │   |    ├── CartaPianeti.java
+│   │   |    └── Pianeta.java
+│   │   └── nemiciAvanzati/
+│   │        ├── NemicoAvanzato.java
+│   │        ├── Pirati.java
+│   │        ├── Schiavisti.java
+│   │        └── Contrabbandieri.java
 │   ├── colpi/
 │   │   ├── Cannonata.java
 │   │   └── Meteorite.java
@@ -49,6 +60,7 @@ src/
 │   |		├── Nave.java
 │   |		├── TipoNave.java
 │   |		├── ValidatorePosizione.java
+│   |		├── GestoreComponenti.java
 │   |		├── VerificatoreImpatti.java
 │   |		└── Distruttore.java
 │	 |

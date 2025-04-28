@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Giocatore;
+import model.carte.colpo.Colpo;
 import model.carte.criteriEffetti.CriterioConEffetto;
 import model.enums.Direzione;
-import model.Colpo;
 import model.Dado;
 
 public class PioggiaDiMeteoriti extends Carta {
@@ -23,7 +23,8 @@ public class PioggiaDiMeteoriti extends Carta {
 	@Override
 	public void eseguiEvento(Giocatore[] giocatori) {
 		// Stampo tutti i meteoriti
-		super.io.stampa(super.carteRenderer.rappresentaMeteoriti(this));
+		io.stampa(super.textAligner.alignCenter("Pioggia di meteoriti"));
+		super.io.stampa(super.carteRenderer.rappresentaColpi(meteoriti));
 		
 		int indice = 0;
 		for (Colpo colpo : meteoriti) {
@@ -57,16 +58,9 @@ public class PioggiaDiMeteoriti extends Carta {
 	public List<Colpo> getMeteoriti() {
 		return new ArrayList<>(meteoriti);
 	}
-
-	// Restituisce tutti i meteoriti che arrivano da una direzione
-	public List<Colpo> getMeteoritiByDirezione(Direzione direzione) {
-
-		List<Colpo> out = new ArrayList<>();
-
-		for (Colpo elemento : meteoriti) {
-			if (elemento.getDirezione() == direzione)
-				out.add(elemento);
-		}
-		return out;
+	
+	public List<Colpo> getMeteoritiPerDirezione(Direzione direzione) {
+		return Colpo.getColpiByDirezione(meteoriti, direzione);
 	}
+	
 }

@@ -3,8 +3,8 @@ package model.carte;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Colpo;
 import model.Giocatore;
+import model.carte.colpo.Colpo;
 import model.carte.criteriEffetti.Criterio;
 import model.carte.criteriEffetti.CriterioConEffetto;
 import model.carte.criteriEffetti.Effetto;

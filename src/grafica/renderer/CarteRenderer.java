@@ -4,8 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import io.GestoreIO;
-import model.Colpo;
-import model.carte.PioggiaDiMeteoriti;
+import model.carte.colpo.Colpo;
 import model.carte.pianeti.*;
 import model.enums.Direzione;
 import grafica.CostantiGrafica;
@@ -18,17 +17,13 @@ public class CarteRenderer {
 	private final TextAligner textAligner = new TextAligner();
 	private final FormattatoreGrafico formattatore = new FormattatoreGrafico();
 
-	// TODO riscrivere usando i generici.
-	public String[] rappresentaMeteoriti(PioggiaDiMeteoriti pioggiaDiMeteoriti) {
+	public String[] rappresentaColpi(List<Colpo> colpi) {
 
 		// Calcolo padding per l’allineamento orizzontale
-		final int padding = textAligner.lunghezzaVisivaTestoCheck(CostantiGrafica.METEORITE_GROSSO)
+		final int padding = textAligner.lunghezzaVisivaTestoCheck(CostantiGrafica.COLPO_GROSSO)
 				+ CostantiGrafica.FRECCIA_DESTRA.length() + 1;
 
-		io.stampa(textAligner.alignCenter("Pioggia di meteoriti"));
-		io.aCapo();
-
-		int[] dimensioni = calcolaMaxMeteoriti(pioggiaDiMeteoriti);
+		int[] dimensioni = calcolaMaxColpi(colpi);
 
 		final int righe = dimensioni[0];
 		final int colonne = dimensioni[1];
@@ -36,41 +31,34 @@ public class CarteRenderer {
 		String[] out = new String[righe + 2 * padding];
 		Arrays.fill(out, "");
 
-		// Aggiunge meteoriti che provengono dall'alto e dal basso
-		String[] meteoritiSopra = rappresentaMeteoritiVerticali(
-				pioggiaDiMeteoriti.getMeteoritiByDirezione(Direzione.SOPRA), padding, colonne, Direzione.SOTTO);
-		out[0] = meteoritiSopra[0];
-		out[1] = meteoritiSopra[1];
-		out[2] = meteoritiSopra[2];
+		// Aggiunge cannonate che provengono dall'alto e dal basso
+		String[] cannonateSopra = rappresentaColpiVerticali(
+				Colpo.getColpiByDirezione(colpi, Direzione.SOPRA), padding, colonne, Direzione.SOTTO);
+		out[0] = cannonateSopra[0];
+		out[1] = cannonateSopra[1];
+		out[2] = cannonateSopra[2];
 
-		String[] meteoritiSotto = rappresentaMeteoritiVerticali(
-				pioggiaDiMeteoriti.getMeteoritiByDirezione(Direzione.SOTTO), padding, colonne, Direzione.SOPRA);
-		out[out.length - 3] = meteoritiSotto[0];
-		out[out.length - 2] = meteoritiSotto[1];
-		out[out.length - 1] = meteoritiSotto[2];
+		String[] cannonateSotto = rappresentaColpiVerticali(
+				Colpo.getColpiByDirezione(colpi, Direzione.SOTTO), padding, colonne, Direzione.SOPRA);
+		out[out.length - 3] = cannonateSotto[0];
+		out[out.length - 2] = cannonateSotto[1];
+		out[out.length - 1] = cannonateSotto[2];
 
-		// Aggiunge meteoriti orizzontali da destra verso sinistra
-		List<Colpo> daSinistra = pioggiaDiMeteoriti.getMeteoritiByDirezione(Direzione.SINISTRA);
+		// Aggiunge cannonate orizzontali da destra verso sinistra
+		List<Colpo> daSinistra = Colpo.getColpiByDirezione(colpi, Direzione.SINISTRA);
 		for (int i = padding; i < out.length - padding; i++) {
 			if (!daSinistra.isEmpty())
-				out[i] += rappresentaMeteoriteOrizzontale(daSinistra.remove(0), Direzione.SINISTRA);
+				out[i] += rappresentaColpoOrizzontale(daSinistra.remove(0), Direzione.SINISTRA);
 			out[i] = textAligner.estendiStringa(out[i], colonne + padding);
 		}
 
-//		List<TipiMeteorite> daDestra = pioggiaDiMeteoriti.getMeteoritiByDirezione(Direzione.DESTRA);
-//		for (int i = padding; i < out.length - padding; i++) {
-//			if (!daDestra.isEmpty())
-//				out[i] += rappresentaMeteoriteOrizzontale(daDestra.remove(0), Direzione.SINISTRA);
-//			out[i] = textAligner.estendiStringa(out[i], colonne + padding);
-//		}
-
-		// Aggiunge meteoriti orizzontali da sinistra verso destra
-		List<Colpo> daDestra = pioggiaDiMeteoriti.getMeteoritiByDirezione(Direzione.DESTRA);
+		// Aggiunge cannonate orizzontali da sinistra verso destra
+		List<Colpo> daDestra = Colpo.getColpiByDirezione(colpi, Direzione.DESTRA);
 		for (int i = padding; i < out.length - padding; i++) {
 			if (daDestra.isEmpty())
 				out[i] += " ".repeat(padding);
 			else
-				out[i] += rappresentaMeteoriteOrizzontale(daDestra.remove(0), Direzione.DESTRA);
+				out[i] += rappresentaColpoOrizzontale(daDestra.remove(0), Direzione.DESTRA);
 		}
 
 		out = textAligner.alignCenter(out);
@@ -78,34 +66,34 @@ public class CarteRenderer {
 	}
 
 	// Calcola il numero massimo di righe e colonne necessarie per rappresentare i
-	// meteoriti (senza padding)
-	private int[] calcolaMaxMeteoriti(PioggiaDiMeteoriti pioggia) {
-		int meteoritiDestra = pioggia.getMeteoritiByDirezione(Direzione.DESTRA).size();
-		int meteoritiSinistra = pioggia.getMeteoritiByDirezione(Direzione.SINISTRA).size();
-		int meteoritiSotto = pioggia.getMeteoritiByDirezione(Direzione.SOTTO).size();
-		int meteoritiSopra = pioggia.getMeteoritiByDirezione(Direzione.SOPRA).size();
+	// cannonate (senza padding)
+	private int[] calcolaMaxColpi(List<Colpo> colpi) {
+		int cannonateDestra = Colpo.getColpiByDirezione(colpi, Direzione.DESTRA).size();
+		int cannonateSinistra =  Colpo.getColpiByDirezione(colpi, Direzione.SINISTRA).size();
+		int cannonateSotto =  Colpo.getColpiByDirezione(colpi, Direzione.SOTTO).size();
+		int cannonateSopra =  Colpo.getColpiByDirezione(colpi, Direzione.SOPRA).size();
 
-		int colonne = Math.max(meteoritiSopra, meteoritiSotto);
-		int righe = Math.max(meteoritiSinistra, meteoritiDestra);
+		int colonne = Math.max(cannonateSopra, cannonateSotto);
+		int righe = Math.max(cannonateSinistra, cannonateDestra);
 
 		return new int[] { righe, colonne };
 	}
 
-	// Rappresenta i meteoriti che si muovono verticalmente (sopra o sotto).
-	private String[] rappresentaMeteoritiVerticali(List<Colpo> meteoriti, int padding, int colonne, Direzione dir) {
+	// Rappresenta i cannonate che si muovono verticalmente (sopra o sotto).
+	private String[] rappresentaColpiVerticali(List<Colpo> colpi, int padding, int colonne, Direzione dir) {
 		String[] out = new String[padding];
 		Arrays.fill(out, " ".repeat(padding));
 
-		for (Colpo meteorite : meteoriti) {
+		for (Colpo colpo : colpi) {
 
 			if (dir == Direzione.SOTTO) {
-				out[0] += convertiMeteorite(meteorite);
+				out[0] += convertiColpo(colpo);
 				out[1] += "|";
 				out[2] += CostantiGrafica.FRECCIA_SOTTO;
 			} else {
 				out[0] += CostantiGrafica.FRECCIA_SOPRA;
 				out[1] += "|";
-				out[2] += convertiMeteorite(meteorite);
+				out[2] += convertiColpo(colpo);
 			}
 		}
 
@@ -114,25 +102,21 @@ public class CarteRenderer {
 		}
 		return out;
 	}
-
-	// TODO riscrivere usando i generici.
-
-	// rappresenta O > oppure < o (DIREZIONE da cui proviene il meteorite)
-	private String rappresentaMeteoriteOrizzontale(Colpo meteorite, Direzione direzioneEntrata) {
+	
+	// rappresenta O > oppure < o (DIREZIONE da cui proviene il cannonata)
+	private String rappresentaColpoOrizzontale(Colpo colpo, Direzione direzioneEntrata) {
 		return switch (direzioneEntrata) {
-		case DESTRA -> CostantiGrafica.FRECCIA_SINISTRA + "-" + convertiMeteorite(meteorite);
-		case SINISTRA -> convertiMeteorite(meteorite) + "-" + CostantiGrafica.FRECCIA_DESTRA;
+		case DESTRA -> CostantiGrafica.FRECCIA_SINISTRA + "-" + convertiColpo(colpo);
+		case SINISTRA -> convertiColpo(colpo) + "-" + CostantiGrafica.FRECCIA_DESTRA;
 		default -> " ";
 		};
 	}
 
-	// TODO fare overload.
-
-	// Restituisce il simbolo che corrisponde al meteorite
-	private String convertiMeteorite(Colpo meteorite) {
-		return switch (meteorite.getDimensioniColpo()) {
-		case GROSSO -> CostantiGrafica.METEORITE_GROSSO;
-		case PICCOLO -> CostantiGrafica.METEORITE_PICCOLO;
+	// Restituisce il simbolo che corrisponde al cannonata
+	private String convertiColpo(Colpo colpo) {
+		return switch (colpo.getDimensioniColpo()) {
+		case GROSSO -> CostantiGrafica.COLPO_GROSSO;
+		case PICCOLO -> CostantiGrafica.COLPO_PICCOLO;
 		default -> " ";
 		};
 	}

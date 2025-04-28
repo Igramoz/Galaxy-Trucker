@@ -11,7 +11,7 @@ public class CostantiGrafica {
 	public static final String FRECCIA_SINISTRA = "<";
 	public static final String FRECCIA_DESTRA = ">";
 	
-    public static final String METEORITE_PICCOLO = Colore.GIALLO.getCodice() + "o" + Colore.DEFAULT.getCodice();
-    public static final String METEORITE_GROSSO = Colore.ROSSO.getCodice() + "O" + Colore.DEFAULT.getCodice();   
+    public static final String COLPO_PICCOLO = Colore.GIALLO.getCodice() + "o" + Colore.DEFAULT.getCodice();
+    public static final String COLPO_GROSSO = Colore.ROSSO.getCodice() + "O" + Colore.DEFAULT.getCodice();   
     
 }
