@@ -69,9 +69,10 @@ Temporary Items
 out/
 
 # Eclipse files
-.c9/
-.settings/
-bin/
+-.settings/
+-*.classpath
+-.project
+-bin/
 tmp/
 
 # Maven files

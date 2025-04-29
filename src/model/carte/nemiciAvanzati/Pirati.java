@@ -9,12 +9,13 @@ import model.Giocatore;
 import model.carte.TipoCarta;
 import model.carte.colpo.Colpo;
 import model.carte.criteriEffetti.*;
+import partita.fasiGioco.ManagerDiVolo;
 
 public class Pirati extends NemicoAvanzato {
 
 	private final int numeroCrediti;
-	private final  List<Colpo> cannonate;
-	
+	private final List<Colpo> cannonate;
+
 	private final GestoreIO io = new GestoreIO();
 
 	public Pirati(int forza, int numCrediti, int perditaGiorniDiVolo, List<Colpo> cannonate) {
@@ -24,22 +25,23 @@ public class Pirati extends NemicoAvanzato {
 	}
 
 	@Override
-	public void applicaVittoria(Giocatore giocatore) {
+	public void applicaVittoria(ManagerDiVolo manager) {
 		io.stampa("Hai vinto contro i pirati!");
-		io.stampa("Scrivere 1 se sei disposto a perdere " + getPerditaGiorniDiVolo() + " giorni di volo per guadagnare " + numeroCrediti + " crediti.");
+		io.stampa("Scrivere 1 se sei disposto a perdere " + getPerditaGiorniDiVolo() + " giorni di volo per guadagnare "
+				+ numeroCrediti + " crediti.");
 		int scelta = io.leggiIntero();
 		// se sì: giocatore arretra e guadagna crediti
-		if(scelta == 1) {
-			super.getEffettoVittoria().applica(giocatore, numeroCrediti);
-			Effetto.GIORNI_VOLO.applica(giocatore, super.getPerditaGiorniDiVolo());
+		if (scelta == 1) {
+			super.getEffettoVittoria().applica(manager, numeroCrediti);
+			Effetto.GIORNI_VOLO.applica(manager, super.getPerditaGiorniDiVolo());
 		}
 		// se no: niente premio, niente perdita di giorni
 	}
 
 	@Override
-	public void applicaSconfitta(Giocatore giocatore, List<Giocatore> sconfitti) {
+	public void applicaSconfitta(ManagerDiVolo manager, List<ManagerDiVolo> sconfitti) {
 		// aggiungi il giocatore alla lista degli sconfitti
-		sconfitti.add(giocatore);
+		sconfitti.add(manager);
 		// più avanti: danni comuni
 	}
 

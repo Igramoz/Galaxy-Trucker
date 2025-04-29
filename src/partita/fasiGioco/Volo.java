@@ -3,7 +3,7 @@ package partita.fasiGioco;
 import model.Giocatore;
 import model.planciaDiVolo.Plancia;
 import partita.ModalitaGioco;
-import partita.fasiGioco.ManegerDiVolo;
+import partita.fasiGioco.ManagerDiVolo;
 import model.carte.Carta;
 
 public class Volo {
@@ -30,9 +30,9 @@ public class Volo {
 			giocatore.getNave().preparaAlVolo();
 		}
 		//crea i manager di volo
-		ManegerDiVolo[] managerDiVolo = new ManegerDiVolo[giocatori.length];
+		ManagerDiVolo[] managerDiVolo = new ManagerDiVolo[giocatori.length];
 		for(int i = 0; i < giocatori.length; i++) {
-			managerDiVolo[i] = new ManegerDiVolo(giocatori[i], plancia);
+			managerDiVolo[i] = new ManagerDiVolo(giocatori[i], plancia);
 		}
 		while(game) {
 			//TODO implementrare il ciclo di gioco e le carte

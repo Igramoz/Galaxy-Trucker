@@ -1,5 +1,5 @@
 package model.carte;
-import partita.fasiGioco.ManegerDiVolo;
+import partita.fasiGioco.ManagerDiVolo;
 
 
 
@@ -12,9 +12,9 @@ public class SpazioAperto extends Carta {
 	}
 	
 	@Override
-	public void eseguiEvento(ManegerDiVolo[] managerDiVolo) {
+	public void eseguiEvento(ManagerDiVolo[] managerDiVolo) {
 		
-		for (ManegerDiVolo manager : managerDiVolo) {
+		for (ManagerDiVolo manager : managerDiVolo) {
 			
 			super.io.stampa("Turno di " + super.formattatoreGrafico.formattaGiocatore(manager.getGiocatore()) + " - Spazio Aperto");
 			

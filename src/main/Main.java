@@ -57,8 +57,8 @@ public class Main {
 		g[0].setNave(TipoNave.NAVE_1);
 		g[1].setNave(TipoNave.NAVE_1);
 		g[2].setNave(TipoNave.NAVE_1);
-		List<CartaPianeti> lista = servizio.generaCartaPianeti(LivelliPartita.LIVELLO_3);
-		lista.get(0).eseguiEvento(g);
+		//List<CartaPianeti> lista = servizio.generaCartaPianeti(LivelliPartita.LIVELLO_3);
+		//lista.get(0).eseguiEvento(g);
 
 //		Partita p = new Partita();
 //		p.gioca();
