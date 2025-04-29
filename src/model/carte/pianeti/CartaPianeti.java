@@ -7,6 +7,7 @@ import model.Giocatore;
 import model.carte.Carta;
 import model.carte.TipoCarta;
 import model.carte.criteriEffetti.Effetto;
+import partita.fasiGioco.ManagerDiVolo;
 
 public class CartaPianeti extends Carta {
 
@@ -20,10 +21,10 @@ public class CartaPianeti extends Carta {
 	}
 
 	@Override
-	public void eseguiEvento(Giocatore[] giocatori) {
+	public void eseguiEvento(ManagerDiVolo[] listaManager) {
 		carteRenderer.stampaPianeti(this);
-
-		for (Giocatore g : giocatori) {
+		for (ManagerDiVolo m : listaManager) {
+			Giocatore g = m.getGiocatore();
 			List<Pianeta> pianetiDisponibili = new ArrayList<>();
 			for (Pianeta p : pianeti) {
 				if (!p.isOccupato()) {
@@ -53,8 +54,8 @@ public class CartaPianeti extends Carta {
 				if (scelto.atterra(g)) {
 					io.stampa(formattatoreGrafico.formattaGiocatore(g) + " è atterrato sul Pianeta "
 							+ formattatoreGrafico.formattaColore(scelto.getColore()));
-					Effetto eff = Effetto.GUADAGNA_MERCE;
-					eff.applica(g, scelto.getMerciDisponibili());
+					final Effetto eff = Effetto.GUADAGNA_MERCE;
+					eff.applica(m, scelto.getMerciDisponibili());
 				}
 			} else {
 				io.stampa(formattatoreGrafico.formattaGiocatore(g) + " ha scelto di non atterrare.");

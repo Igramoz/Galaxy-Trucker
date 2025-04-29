@@ -9,12 +9,14 @@ import model.Dado;
 import model.Giocatore;
 import model.carte.colpo.Colpo;
 import model.enums.TipoMerce;
+import partita.fasiGioco.ManagerDiVolo;
 
 public enum Effetto {
 	COLPI {
 		@Override // giocatore che subisce i colpi e lista dei colpi subiti
-		public void applica(Giocatore g, Object valore) {
+		public void applica(ManagerDiVolo manager, Object valore) {
 			NaveRenderer renderer = new NaveRenderer();
+			Giocatore g = manager.getGiocatore();
 			@SuppressWarnings("unchecked")
 			List<Colpo> colpi = (List<Colpo>) valore;
 			for (Colpo c : colpi) {
@@ -29,7 +31,8 @@ public enum Effetto {
 	},
 	PERDITA_EQUIPAGGIO {
 		@Override // giocatore che perde le merci e numero di membri dell'equipaggio persi
-		public void applica(Giocatore g, Object valore) {
+		public void applica(ManagerDiVolo manager, Object valore) {
+			Giocatore g = manager.getGiocatore();
 			int n = (Integer) valore;
 			io.stampa(formattatoreGrafico.formattaGiocatore(g) + " perderà " + n + " membri dell'equipaggio");
 			g.getNave().rimuoviEquipaggio(n);
@@ -37,7 +40,8 @@ public enum Effetto {
 	},
 	PERDITA_MERCE {
 		@Override // giocatore che perde le merci e numero di merci perse
-		public void applica(Giocatore g, Object valore) {
+		public void applica(ManagerDiVolo manager, Object valore) {
+			Giocatore g = manager.getGiocatore();
 			int n = (Integer) valore;
 			io.stampa(formattatoreGrafico.formattaGiocatore(g) + " perderà " + n + " merci");
 			g.getNave().rimuoviMerce(n);
@@ -45,15 +49,17 @@ public enum Effetto {
 	},
 	GIORNI_VOLO {
 		@Override // giocatore che perde i giorni di volo e numero di giorni di volo persi
-		public void applica(Giocatore g, Object valore) {
+		public void applica(ManagerDiVolo manager, Object valore) {
 			int n = (Integer) valore;
-			io.stampa(formattatoreGrafico.formattaGiocatore(g) + " perderà " + n + " giorni di volo");
-			// TODO rimuovere giorni di volo
+			io.stampa(formattatoreGrafico.formattaGiocatore(manager.getGiocatore()) + " perderà " + n
+					+ " giorni di volo");
+			manager.aumentaGiorniDiVolo(-n);
 		}
 	},
 	GUADAGNA_CREDITI {
 		@Override // giocatore che guadagna i crediti e numero di crediti guadagnati
-		public void applica(Giocatore g, Object valore) {
+		public void applica(ManagerDiVolo manager, Object valore) {
+			Giocatore g = manager.getGiocatore();
 			int n = (Integer) valore;
 			io.stampa(formattatoreGrafico.formattaGiocatore(g) + " guadagna " + n + " crediti");
 			g.aggiungiCrediti(n);
@@ -61,7 +67,8 @@ public enum Effetto {
 	},
 	GUADAGNA_MERCE {
 		@Override // giocatore che guadagna le merci e numero di merci guadagnate
-		public void applica(Giocatore g, Object valore) {
+		public void applica(ManagerDiVolo manager, Object valore) {
+			Giocatore g = manager.getGiocatore();
 			@SuppressWarnings("unchecked")
 			List<TipoMerce> merci = (List<TipoMerce>) valore;
 			io.stampa(formattatoreGrafico.formattaGiocatore(g) + " ottiene " + merci.size() + " merci");
@@ -69,7 +76,7 @@ public enum Effetto {
 		}
 	};
 
-	public abstract void applica(Giocatore g, Object valore);
+	public abstract void applica(ManagerDiVolo manager, Object valore);
 
 	protected GestoreIO io = new GestoreIO();
 	protected FormattatoreGrafico formattatoreGrafico = new FormattatoreGrafico();

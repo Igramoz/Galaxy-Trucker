@@ -8,6 +8,7 @@ import model.carte.colpo.Colpo;
 import model.carte.criteriEffetti.Criterio;
 import model.carte.criteriEffetti.CriterioConEffetto;
 import model.carte.criteriEffetti.Effetto;
+import partita.fasiGioco.ManagerDiVolo;
 
 public class ZonaDiGuerra extends Carta {
 
@@ -23,7 +24,7 @@ public class ZonaDiGuerra extends Carta {
 	}
 
 	@Override
-	public void eseguiEvento(Giocatore[] giocatori) {
+	public void eseguiEvento(ManagerDiVolo[] listaManager) {
 
 		for (CriterioConEffetto criterioEpenalita : criteriEpenalita) {
 
@@ -31,10 +32,10 @@ public class ZonaDiGuerra extends Carta {
 			Effetto effetto = criterioEpenalita.getPenalita();
 			Object valore = criterioEpenalita.getValore();
 
-			Giocatore peggiorGiocatore = criterio.trovaPeggiore(giocatori);
+			ManagerDiVolo peggiorManager = criterio.trovaPeggiore(listaManager);
 			io.stampa("Il giocatore risultato peggiore secondo il criterio: " + criterio.name() + " è "
-					+ super.formattatoreGrafico.formattaGiocatore(peggiorGiocatore));
-			effetto.applica(peggiorGiocatore, valore);
+					+ super.formattatoreGrafico.formattaGiocatore(peggiorManager.getGiocatore()));
+			effetto.applica(peggiorManager, valore);
 		}
 		io.aCapo();
 		io.stampa("Fine della zona di guerra");

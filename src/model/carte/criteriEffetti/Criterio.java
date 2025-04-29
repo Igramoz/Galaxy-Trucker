@@ -1,61 +1,62 @@
 package model.carte.criteriEffetti;
 
-import model.Giocatore;
+import partita.fasiGioco.ManagerDiVolo;
+
 public enum Criterio {
 	// minore membri numero di equipaggio
 	EQUIPAGGIO {
 		@Override
-		public Giocatore trovaPeggiore(Giocatore[] giocatori) {
+		public ManagerDiVolo trovaPeggiore(ManagerDiVolo[] listaManager) {
 			int minEquipaggio = Integer.MAX_VALUE; // sono sicuro che i giocatori avranno un equipaggio minore di questa
-			Giocatore peggiorGiocatore = null;
+			ManagerDiVolo peggiorManager = null;
 
-			for (Giocatore g : giocatori) {
-				int equipaggio = g.getNave().getEquipaggio().size();
+			for (ManagerDiVolo m : listaManager) {
+				int equipaggio = m.getGiocatore().getNave().getEquipaggio().size();
 				if (equipaggio < minEquipaggio) {
 					minEquipaggio = equipaggio;
-					peggiorGiocatore = g;
+					peggiorManager = m;
 				}
 			}
 
-			return peggiorGiocatore;
+			return peggiorManager;
 		}
 	},
 	// minore potenza motrice
 	POTENZA_MOTRICE {
 		@Override
-		public Giocatore trovaPeggiore(Giocatore[] giocatori) {
+		public ManagerDiVolo trovaPeggiore(ManagerDiVolo[] listaManager) {
 			int minPotenza = Integer.MAX_VALUE; // sono sicuro che i giocatori avranno una potenza motrice minore di
 												// questa
-			Giocatore peggiorGiocatore = null;
+			ManagerDiVolo peggiorManager = null;
 
-			for (Giocatore g : giocatori) {
-				int potenza = g.getNave().getPotenzaMotrice();
+			for (ManagerDiVolo m : listaManager) {
+				int potenza = m.getGiocatore().getNave().getPotenzaMotrice();
 				if (potenza < minPotenza) {
 					minPotenza = potenza;
-					peggiorGiocatore = g;
+					peggiorManager = m;
 				}
 			}
-			return peggiorGiocatore;
+			return peggiorManager;
 		}
 	},
 	// minore potenza di fuoco
 	POTENZA_FUOCO {
 		@Override
-		public Giocatore trovaPeggiore(Giocatore[] giocatori) {
+		public ManagerDiVolo trovaPeggiore(ManagerDiVolo[] listaManager) {
 			float minPotenza = Float.MAX_VALUE; // sono sicuro che i giocatori avranno una potenza di fuoco minore di
 												// questa
-			Giocatore peggiorGiocatore = null;
+			ManagerDiVolo peggiorManager = null;
 
-			for (Giocatore g : giocatori) {
-				float potenza = g.getNave().getPotenzaFuoco();
+			for (ManagerDiVolo m : listaManager) {
+				float potenza = m.getGiocatore().getNave().getPotenzaFuoco();
 				if (potenza < minPotenza) {
 					minPotenza = potenza;
-					peggiorGiocatore = g;
+					peggiorManager = m;
 				}
 			}
-			return peggiorGiocatore;
+			return peggiorManager;
 		}
 	};
 
-	public abstract Giocatore trovaPeggiore(Giocatore[] giocatori);
+	public abstract ManagerDiVolo trovaPeggiore(ManagerDiVolo[] listaManager);
 }
