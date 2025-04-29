@@ -1,5 +1,7 @@
 package grafica;
 
+import java.util.List;
+
 import model.Giocatore;
 import model.enums.TipoMerce;
 import model.enums.TipoPedina;
@@ -28,5 +30,14 @@ public class FormattatoreGrafico {
 	public String formattaMerce(TipoMerce merce) {
 		return merce.getColore().getCodice() + merce.name() + Colore.DEFAULT.getCodice();
 	}
+	
+	public String formattaMerce(List<TipoMerce> merci) {
+		String out ="";
+		for(TipoMerce merce : merci) {
+			out += formattaMerce(merce) + " ";
+		}
+		return out;
+	}
+
 	
 }

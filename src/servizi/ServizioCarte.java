@@ -10,14 +10,15 @@ import grafica.Colore;
 import util.*;
 import model.Giocatore;
 import model.carte.*;
-import model.carte.colpo.Colpo;
-import model.carte.colpo.Colpo.DimensioniColpo;
-import model.carte.colpo.Colpo.TipoColpo;
+import model.carte.colpo.*;
+import model.carte.colpo.Colpo.*;
 import model.carte.criteriEffetti.*;
 import model.carte.pianeti.*;
+import model.carte.nemici.*;
 import model.enums.Direzione;
 import model.enums.TipoMerce;
 import partita.LivelliPartita;
+
 
 public class ServizioCarte {
 	// Genera randomicamente le carte
@@ -197,4 +198,26 @@ public class ServizioCarte {
 		}
 		return probabilita;
 	}
+	
+	private List<Nemico> generaNemici(LivelliPartita lvl){
+		final Schiavisti[] schiavisti = new Schiavisti[3];
+		schiavisti[0] = new Schiavisti(6, 5, 1, 3);
+		schiavisti[1] = new Schiavisti(7, 8, 2, 4);
+		schiavisti[2] = new Schiavisti(8, 10,2, 5);
+
+		@SuppressWarnings("unchecked")
+		final List<Colpo>[] colpiPirati = (List<Colpo>[]) new ArrayList[3];
+		List<Colpo> lista = new ArrayList<>();
+		lista.add(new Colpo(TipoColpo.CANNONATA, DimensioniColpo.PICCOLO, Direzione.SOPRA));
+		// TODO finire i colpi
+		
+		final Pirati[] pirati = new Pirati[3];
+		pirati[0] = new pirati(5, 4, 1, 3);
+		pirati[1] = new pirati(7, 8, 2, 4);
+		pirati[2] = new pirati(8, 10,2, 5);
+		 
+		//TODO DA IMPLEMENTARE
+		return null;
+	}
+	
 }

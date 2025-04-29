@@ -1,4 +1,4 @@
-package model.carte.nemiciAvanzati;
+package model.carte.nemici;
 
 import java.util.List;
 
@@ -8,14 +8,14 @@ import model.carte.TipoCarta;
 import model.carte.criteriEffetti.Effetto;
 import partita.fasiGioco.ManagerDiVolo;
 
-public abstract class NemicoAvanzato extends Carta {
+public abstract class Nemico extends Carta {
 
 	private final int forzaNemico;
 	private final int GiorniDiVoloPersi;
 	private final Effetto effettoVittoria;
 	private final Effetto effettoSconfitta;
 
-	public NemicoAvanzato(TipoCarta tipoCarta, int forzaNemico, Effetto effettoVittoria, Effetto effettoSconfitta,
+	public Nemico(TipoCarta tipoCarta, int forzaNemico, Effetto effettoVittoria, Effetto effettoSconfitta,
 			int GiorniDiVoloPersi) {
 		super(tipoCarta);
 		this.forzaNemico = forzaNemico;
@@ -28,7 +28,7 @@ public abstract class NemicoAvanzato extends Carta {
 
 	public abstract void spiegaVittoria();
 
-	public abstract void applicaSconfitta(ManagerDiVolo manager, List<ManagerDiVolo> sconfitti);
+	public abstract void applicaSconfitta(List<ManagerDiVolo> sconfitti);
 
 	public abstract void spiegaSconfitta();
 
@@ -64,13 +64,13 @@ public abstract class NemicoAvanzato extends Carta {
 			if (giocatore.getNave().getPotenzaFuoco() < getForzaNemico()) {
 				// applica sconfitta
 				io.stampa(formattatoreGrafico.formattaGiocatore(giocatore) + " ha perso contro il nemico avanzato.");
-				applicaSconfitta(m, sconfitti);
 			} else {
 				// applica vittoria
 				applicaVittoria(m);
 			}
 		}
-
+		applicaSconfitta(sconfitti);
+		io.stampa("La carta: " + this.getTipoCarta().name() + " è stata risolta." );		
 	}
 
 }

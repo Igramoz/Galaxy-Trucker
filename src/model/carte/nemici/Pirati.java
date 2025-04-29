@@ -1,17 +1,17 @@
-package model.carte.nemiciAvanzati;
+package model.carte.nemici;
 
 import java.util.List;
 
+import grafica.FormattatoreGrafico;
 import grafica.TextAligner;
 import grafica.renderer.CarteRenderer;
 import io.GestoreIO;
-import model.Giocatore;
 import model.carte.TipoCarta;
-import model.carte.colpo.Colpo;
+import model.carte.colpo.*;
 import model.carte.criteriEffetti.*;
 import partita.fasiGioco.ManagerDiVolo;
 
-public class Pirati extends NemicoAvanzato {
+public class Pirati extends Nemico implements GestoreColpi {
 
 	private final int numeroCrediti;
 	private final List<Colpo> cannonate;
@@ -26,7 +26,8 @@ public class Pirati extends NemicoAvanzato {
 
 	@Override
 	public void applicaVittoria(ManagerDiVolo manager) {
-		io.stampa("Hai vinto contro i pirati!");
+		FormattatoreGrafico formattatoreGrafico = new FormattatoreGrafico();
+		io.stampa(formattatoreGrafico.formattaGiocatore(manager.getGiocatore()) + " ha vinto contro i pirati!");
 		io.stampa("Scrivere 1 se sei disposto a perdere " + getPerditaGiorniDiVolo() + " giorni di volo per guadagnare "
 				+ numeroCrediti + " crediti.");
 		int scelta = io.leggiIntero();
@@ -35,20 +36,19 @@ public class Pirati extends NemicoAvanzato {
 			super.getEffettoVittoria().applica(manager, numeroCrediti);
 			Effetto.GIORNI_VOLO.applica(manager, super.getPerditaGiorniDiVolo());
 		}
-		// se no: niente premio, niente perdita di giorni
+		// se no: niente premio, ma niente perdita di giorni
 	}
 
 	@Override
-	public void applicaSconfitta(ManagerDiVolo manager, List<ManagerDiVolo> sconfitti) {
-		// aggiungi il giocatore alla lista degli sconfitti
-		sconfitti.add(manager);
-		// più avanti: danni comuni
+	public void applicaSconfitta(List<ManagerDiVolo> sconfitti) {
+		// subiscono cannonate
+		gestioneColpi(sconfitti, cannonate);
 	}
 
 	@Override
 	public void spiegaVittoria() {
 		io.aCapo();
-		io.stampa("Se vinci contro i pirati, puoi guadagnare " + numeroCrediti + " crediti,");
+		io.stampa("Chi sconfigge i pirati guadagna " + numeroCrediti + " crediti.");
 	}
 
 	@Override
@@ -58,7 +58,13 @@ public class Pirati extends NemicoAvanzato {
 		io.aCapo();
 		io.stampa(textAligner.alignCenter("e subiranno queste cannonate: "));
 		io.stampa(carteRenderer.rappresentaColpi(cannonate));
-
 	}
 
+	public int getNumeroCrediti() {
+		return numeroCrediti;
+	}
+
+	public List<Colpo> getCannonate() {
+		return cannonate;
+	}
 }
