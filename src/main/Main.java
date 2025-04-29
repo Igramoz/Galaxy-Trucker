@@ -10,6 +10,7 @@ import java.util.*;
 import servizi.*;
 import model.componenti.*;
 import model.nave.TipoNave;
+import model.planciaDiVolo.Plancia;
 import grafica.*;
 import grafica.renderer.ComponenteRenderer;
 import grafica.renderer.NaveRenderer;
@@ -19,6 +20,7 @@ import model.carte.PioggiaDiMeteoriti;
 import model.carte.pianeti.CartaPianeti;
 import partita.LivelliPartita;
 import partita.fasiGioco.FineGioco;
+import partita.fasiGioco.ManagerDiVolo;
 import partita.fasiGioco.composizioneNave.*;
 
 import partita.Partita;
@@ -34,25 +36,31 @@ public class Main {
 		GestoreIO io = new GestoreIO();
 
 		// esempio di com'è la parte di composizione Nave
-
+		io.stampa("ciao mondo");
 		Giocatore[] g = new Giocatore[3];
+		
 
 		g[0] = new Giocatore("Giovanni", Colore.ROSSO);
 		g[1] = new Giocatore("Francesco", Colore.GIALLO);
 		g[2] = new Giocatore("Matteo", Colore.VERDE);
-		/*
-		 * List<PioggiaDiMeteoriti> l =
-		 * servizio.generaMeteoriti(LivelliPartita.LIVELLO_3); PioggiaDiMeteoriti p =
-		 * l.remove(0); PioggiaDiMeteoriti p1 = l.remove(0);
-		 * 
-		 * // Per testare la pioggia di meteoriti ComposizioneNave composizione = new
-		 * ComposizioneNave c = new ComposizioneNave(g, LivelliPartita.LIVELLO_3);
-		 * io.stampa("Composizione nave");
-		 * 
-		 * c.start();
-		 * 
-		 * p.eseguiEvento(g); p1.eseguiEvento(g);
-		 */
+
+//		ManagerDiVolo[] m = new ManagerDiVolo[3];
+//		m[0] = new ManagerDiVolo(g[0], null)
+//		
+//		
+//		List<PioggiaDiMeteoriti> l = servizio.generaMeteoriti(LivelliPartita.LIVELLO_3);
+//		PioggiaDiMeteoriti p = l.remove(0);
+//		PioggiaDiMeteoriti p1 = l.remove(0);
+//
+//		// Per testare la pioggia di meteoriti
+//		ComposizioneNave composizione = new ComposizioneNave(g, LivelliPartita.LIVELLO_3);
+//		io.stampa("Composizione nave");
+//
+//		composizione.start();
+//
+//		p.eseguiEvento(g);
+//		p1.eseguiEvento(g);
+
 
 		g[0].setNave(TipoNave.NAVE_1);
 		g[1].setNave(TipoNave.NAVE_1);
