@@ -1,8 +1,8 @@
 package model.planciaDiVolo;
-
+import partita.LivelliPartita;
+import model.Giocatore;
 import java.util.HashMap;
 import java.util.Map;
-import model.Giocatore;
 
 
 
@@ -13,9 +13,9 @@ public class Plancia {
 	private final TipoPlancia tipoPlancia; // tipo di plancia in base alla modalita di gioco
 	
 	
-	public Plancia(Giocatore[] giocatori, TipoPlancia tipoPlancia) {
+	public Plancia(Giocatore[] giocatori, LivelliPartita livello) {
 		
-		this.tipoPlancia = tipoPlancia;
+		this.tipoPlancia = livello.getTipoPlancia();
 
 		this.plancia = new Giocatore[tipoPlancia.getLunghezza()]; // inizializza la plancia in base alla lunghezza della plancia
 		
