@@ -69,7 +69,6 @@ Temporary Items
 out/
 
 # Eclipse files
-.classpath
 .c9/
 .settings/
 bin/
