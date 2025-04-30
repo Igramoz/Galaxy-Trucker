@@ -9,8 +9,6 @@ import grafica.Colore;
 
 public class PlanciaRenderer {
 
-    private TextAligner textAligner = new TextAligner();
-
     public String[] rappresentaPlancia(Plancia plancia) {
         Giocatore[] arrayPlancia = plancia.getPlancia();
         int lunghezza = arrayPlancia.length; //lunghezza della plancia 18 24 34

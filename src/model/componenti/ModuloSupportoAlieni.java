@@ -12,8 +12,6 @@ public class ModuloSupportoAlieni extends Componente {
 	private final TipoPedina alienoSupportato;
 	private final Colore colore; 
 
-	// TODO: vedere se lasciare il tipocomponente tra i parametri, in caso
-	// aggiungiuamo il colore più avanti
 	public ModuloSupportoAlieni(Map<Direzione, TipoTubo> tubiIniziali, TipoComponente tipoSovrastruttura) {
 		super(tipoSovrastruttura, tubiIniziali);
 		alienoSupportato = gestisciAlieno(tipoSovrastruttura);

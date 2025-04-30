@@ -13,6 +13,8 @@ public abstract class Componente {
 	protected Coordinate posizione;
 
 	public Componente(TipoComponente tipo, Map<Direzione, TipoTubo> tubiIniziali) {
+		if (tubiIniziali == null)
+			throw new NullPointerException("Errore nei tubi del componente");
 		this.tipo = tipo;
 		this.tubi = new EnumMap<>(Direzione.class);
 
@@ -28,7 +30,7 @@ public abstract class Componente {
 	public Componente(Componente componente) {
 		this(componente.tipo, componente.tubi); // chiama l'altro costruttore
 	}
-	
+
 	@Override // Devo fare override affinché l'hashcode funzioni
 	public boolean equals(Object obj) {
 		if (super.equals(obj))
@@ -37,10 +39,10 @@ public abstract class Componente {
 			return false; // se l'altro oggetto è null o se sono di tipi diversi
 
 		Componente altroComponente = (Componente) obj; // cast dell'oggetto
-		
+
 //		if (this.tipo != altroComponente.tipo) // TODO getClass controlla già che siano della stessa classe
 //            return false;
-		
+
 		Direzione[] direzione = Direzione.values();
 
 		int offset = -1; // I tubi sono uguali anche se ruotati di offset volte
@@ -63,16 +65,14 @@ public abstract class Componente {
 				return false; // Se dopo l'offset hanno un tubo diverso i 2 componenti non sono uguali
 		return true;
 	}
-	
-	
 
 	public void ruota() {
 		// Ruota i tubi in senso antiorario
 		Map<Direzione, TipoTubo> tubiRuotati = new EnumMap<>(Direzione.class);
 
 		for (Direzione direzione : Direzione.values()) {
-		    Direzione nuovaDirezione = direzione.ruota();
-		    tubiRuotati.put(nuovaDirezione, tubi.get(direzione));
+			Direzione nuovaDirezione = direzione.ruota();
+			tubiRuotati.put(nuovaDirezione, tubi.get(direzione));
 		}
 		tubi.putAll(tubiRuotati);
 	}
@@ -106,6 +106,6 @@ public abstract class Componente {
 	public void setPosizione(Coordinate posizione) {
 		this.posizione = posizione;
 	}
-	
-	public abstract Componente clone();		
+
+	public abstract Componente clone();
 }

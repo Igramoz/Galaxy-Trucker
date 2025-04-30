@@ -14,7 +14,7 @@ public class Coordinate {
     	
     	if((x < MIN_COORDINATA || x >= MAX_COORDINATA) || (y<MIN_COORDINATA | y>=MAX_COORDINATA)) {
     		
-    		throw new IllegalArgumentException("Le coordinate devono essere comprese tra " + MIN_COORDINATA + "e " + (MAX_COORDINATA - 1));
+    		throw new IllegalArgumentException("Le coordinate devono essere comprese tra " + MIN_COORDINATA + " e " + (MAX_COORDINATA - 1));
     	}
     	
         this.x = x;
