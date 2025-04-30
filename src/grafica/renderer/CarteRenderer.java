@@ -135,4 +135,10 @@ public class CarteRenderer {
 		}
 		io.stampa("Sono richiesti " + giorniVolo + " per ciascun pianeta");
 	}
+	
+	public String rappresentaStazioneAbbandonata() {
+		// TODO implementare
+		return null;
+	}
+	
 }

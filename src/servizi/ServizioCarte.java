@@ -200,24 +200,82 @@ public class ServizioCarte {
 	}
 	
 	private List<Nemico> generaNemici(LivelliPartita lvl){
+		// Istanzio gli schiavisti
 		final Schiavisti[] schiavisti = new Schiavisti[3];
 		schiavisti[0] = new Schiavisti(6, 5, 1, 3);
 		schiavisti[1] = new Schiavisti(7, 8, 2, 4);
 		schiavisti[2] = new Schiavisti(8, 10,2, 5);
 
+		// Istanzio i pirati
 		@SuppressWarnings("unchecked")
 		final List<Colpo>[] colpiPirati = (List<Colpo>[]) new ArrayList[3];
-		List<Colpo> lista = new ArrayList<>();
-		lista.add(new Colpo(TipoColpo.CANNONATA, DimensioniColpo.PICCOLO, Direzione.SOPRA));
-		// TODO finire i colpi
+		List<Colpo> listaColpi = new ArrayList<>();
+		listaColpi.add(new Colpo(TipoColpo.CANNONATA, DimensioniColpo.PICCOLO, Direzione.SOPRA));
+		listaColpi.add(new Colpo(TipoColpo.CANNONATA, DimensioniColpo.GROSSO, Direzione.SOPRA));
+		listaColpi.add(new Colpo(TipoColpo.CANNONATA, DimensioniColpo.PICCOLO, Direzione.SOPRA));
+		colpiPirati[0] = listaColpi;
 		
+		listaColpi = new ArrayList<Colpo>();
+		listaColpi.add(new Colpo(TipoColpo.CANNONATA, DimensioniColpo.GROSSO, Direzione.SOPRA));
+		listaColpi.add(new Colpo(TipoColpo.CANNONATA, DimensioniColpo.PICCOLO, Direzione.SOPRA));
+		listaColpi.add(new Colpo(TipoColpo.CANNONATA, DimensioniColpo.GROSSO, Direzione.SOPRA));
+		colpiPirati[1] = listaColpi;
+
+		listaColpi = new ArrayList<Colpo>();
+		listaColpi.add(new Colpo(TipoColpo.CANNONATA, DimensioniColpo.GROSSO, Direzione.SOPRA));
+		listaColpi.add(new Colpo(TipoColpo.CANNONATA, DimensioniColpo.PICCOLO, Direzione.SOPRA));
+		listaColpi.add(new Colpo(TipoColpo.CANNONATA, DimensioniColpo.GROSSO, Direzione.SOPRA));
+		listaColpi.add(new Colpo(TipoColpo.CANNONATA, DimensioniColpo.PICCOLO, Direzione.SINISTRA));
+		listaColpi.add(new Colpo(TipoColpo.CANNONATA, DimensioniColpo.PICCOLO, Direzione.DESTRA));
+		colpiPirati[2] = listaColpi;
+
 		final Pirati[] pirati = new Pirati[3];
-		pirati[0] = new pirati(5, 4, 1, 3);
-		pirati[1] = new pirati(7, 8, 2, 4);
-		pirati[2] = new pirati(8, 10,2, 5);
+		pirati[0] = new Pirati(5, 4, 1, colpiPirati[0]);
+		pirati[1] = new Pirati(6, 7, 2, colpiPirati[1]);
+		pirati[2] = new Pirati(10,12,2, colpiPirati[2]);
 		 
-		//TODO DA IMPLEMENTARE
-		return null;
+		// Istanzio i contrabbandieri
+		@SuppressWarnings("unchecked")
+		final List<TipoMerce>[] merci = (List<TipoMerce>[]) new ArrayList[3];
+		List<TipoMerce> listaMerci = List.of(TipoMerce.GIALLO, TipoMerce.VERDE, TipoMerce.BLU);
+		merci[0] = listaMerci;
+		
+		listaMerci = List.of(TipoMerce.ROSSO, TipoMerce.GIALLO, TipoMerce.GIALLO);
+		merci[1] = listaMerci;
+
+		listaMerci = List.of(TipoMerce.ROSSO, TipoMerce.ROSSO, TipoMerce.GIALLO, TipoMerce.GIALLO, TipoMerce.VERDE);
+		merci[2] = listaMerci;
+		
+		final Contrabbandieri[] contrabbandieri = new Contrabbandieri[3];
+		contrabbandieri[0] = new Contrabbandieri(4, merci[0], 2, 1);
+		contrabbandieri[1] = new Contrabbandieri(8, merci[1], 1, 3);
+		contrabbandieri[2] = new Contrabbandieri(9, merci[2], 2, 4);
+
+		List<Nemico> out = new ArrayList<>();
+		switch (lvl) {
+		case LIVELLO_1: {
+			out.add(schiavisti[0]);
+			out.add(pirati[0]);
+			out.add(contrabbandieri[0]);
+			break;
+		}
+		case LIVELLO_2: {
+			out.add(schiavisti[1]);
+			out.add(pirati[1]);
+			out.add(contrabbandieri[1]);	
+			break;
+		}
+		case LIVELLO_3: {
+			out.add(schiavisti[0]);
+			out.add(pirati[0]);
+			out.add(contrabbandieri[0]);	
+			break;
+		}
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + lvl.name());
+		}
+		
+		return out;
 	}
 	
 }
