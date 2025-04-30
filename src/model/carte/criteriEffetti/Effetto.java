@@ -5,11 +5,11 @@ import java.util.List;
 import grafica.FormattatoreGrafico;
 import grafica.renderer.NaveRenderer;
 import io.GestoreIO;
-import model.Dado;
 import model.Giocatore;
 import model.carte.colpo.Colpo;
 import model.enums.TipoMerce;
 import partita.fasiGioco.ManagerDiVolo;
+import util.random.Dado;
 
 public enum Effetto {
 	COLPI {

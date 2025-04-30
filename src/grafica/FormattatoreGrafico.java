@@ -5,7 +5,7 @@ import java.util.List;
 import model.Giocatore;
 import model.enums.TipoMerce;
 import model.enums.TipoPedina;
-import util.Coordinate;
+import util.layout.Coordinate;
 
 public class FormattatoreGrafico {
 

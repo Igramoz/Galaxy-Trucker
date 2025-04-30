@@ -6,7 +6,7 @@ import java.util.List;
 import io.GestoreIO;
 import model.carte.colpo.Colpo;
 import model.carte.pianeti.*;
-import model.enums.Direzione;
+import util.layout.Direzione;
 import grafica.CostantiGrafica;
 import grafica.FormattatoreGrafico;
 import grafica.TextAligner;
@@ -137,7 +137,7 @@ public class CarteRenderer {
 	}
 	
 	public String rappresentaStazioneAbbandonata() {
-		// TODO implementare
+		// TODO da implementare 
 		return null;
 	}
 	

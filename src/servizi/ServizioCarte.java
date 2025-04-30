@@ -8,6 +8,8 @@ import java.util.Map;
 
 import grafica.Colore;
 import util.*;
+import util.layout.Direzione;
+import util.random.RandomUtil;
 import model.Giocatore;
 import model.carte.*;
 import model.carte.colpo.*;
@@ -15,7 +17,6 @@ import model.carte.colpo.Colpo.*;
 import model.carte.criteriEffetti.*;
 import model.carte.pianeti.*;
 import model.carte.nemici.*;
-import model.enums.Direzione;
 import model.enums.TipoMerce;
 import partita.LivelliPartita;
 

@@ -1,8 +1,8 @@
 package model.componenti;
 import java.util.Map;
 
-import model.enums.Direzione;
 import model.enums.TipoTubo;
+import util.layout.Direzione;
 
 public class VanoBatteria extends Componente{
 

@@ -1,8 +1,8 @@
-package util;
+package util.random;
 
 import java.util.Map;
 
-import model.enums.Direzione;
+import util.layout.Direzione;
 
 public class RandomUtil {
 

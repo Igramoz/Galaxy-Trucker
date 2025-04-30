@@ -9,12 +9,12 @@ import grafica.GraficaConfig;
 import grafica.TextAligner;
 import model.componenti.Componente;
 import model.componenti.TipoComponente;
-import model.enums.Direzione;
 import model.enums.TipoTubo;
 import model.nave.Nave;
 import model.nave.TipoNave;
-import util.Coordinate;
 import util.Util;
+import util.layout.Coordinate;
+import util.layout.Direzione;
 
 public class NaveRenderer {
 

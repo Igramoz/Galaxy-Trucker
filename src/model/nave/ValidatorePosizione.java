@@ -3,9 +3,9 @@ package model.nave;
 import java.util.Map;
 
 import model.componenti.*;
-import model.enums.Direzione;
 import model.enums.TipoTubo;
-import util.Coordinate;
+import util.layout.Coordinate;
+import util.layout.Direzione;
 
 public interface ValidatorePosizione {
 	// Si occupa di controllare se una è possibile insrire un oggetto in una

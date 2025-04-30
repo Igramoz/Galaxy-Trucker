@@ -3,7 +3,7 @@ package partita.fasiGioco.composizioneNave;
 import model.Giocatore;
 import model.componenti.Componente;
 import servizi.ServizioAssemblaggio;
-import util.Coordinate;
+import util.layout.Coordinate;
 import grafica.*;
 import grafica.renderer.ComponenteRenderer;
 import grafica.renderer.NaveRenderer;

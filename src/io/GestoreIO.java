@@ -6,11 +6,11 @@ import java.util.Scanner;
 import grafica.GraficaConfig;
 import grafica.TextAligner;
 import grafica.renderer.ComponenteRenderer;
-import util.Coordinate;
 import model.componenti.Componente;
+import util.layout.Coordinate;
 import grafica.FormattatoreGrafico;
 
-public class GestoreIO {
+public class GestoreIO implements InterfacciaUtente{
 
 	private final Scanner scanner = new Scanner(System.in);
 
@@ -28,8 +28,6 @@ public class GestoreIO {
 	}
 
 	public String leggiTesto() {
-		// TODO: si potrebbe aggiungere un parametro boolean nel caso in cui ci servisse
-		// mantenere gli spazi nella stringa letta
 		String input;
 		do {
 			input = scanner.nextLine().trim();

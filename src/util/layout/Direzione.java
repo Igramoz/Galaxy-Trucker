@@ -1,4 +1,4 @@
-package model.enums;
+package util.layout;
 
 public enum Direzione {
     SOPRA,

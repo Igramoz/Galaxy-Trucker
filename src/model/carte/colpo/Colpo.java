@@ -3,7 +3,7 @@ package model.carte.colpo;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.enums.Direzione;
+import util.layout.Direzione;
 
 public class Colpo {
 

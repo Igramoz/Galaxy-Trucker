@@ -1,5 +1,7 @@
 package model.enums;
 
+import util.layout.Direzione;
+
 public enum TipoTubo {
 	NESSUNO (" ", " "),
 	SINGOLO ("|", "-"),

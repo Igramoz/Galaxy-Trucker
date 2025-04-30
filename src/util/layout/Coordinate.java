@@ -1,4 +1,6 @@
-package util;
+package util.layout;
+
+import util.Util;
 
 public class Coordinate {
 	public static final int MIN_COORDINATA = 0;

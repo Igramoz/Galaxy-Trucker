@@ -1,8 +1,9 @@
 package model.componenti;
 
-import model.enums.Direzione;
 import model.enums.TipoPedina;
 import model.enums.TipoTubo;
+import util.layout.Direzione;
+
 import java.util.*;
 
 public class CabinaDiEquipaggio extends Componente {

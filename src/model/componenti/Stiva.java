@@ -5,6 +5,7 @@ package model.componenti;
 import java.util.Map;
 
 import model.enums.*;
+import util.layout.Direzione;
 
 public class Stiva extends Componente{
 

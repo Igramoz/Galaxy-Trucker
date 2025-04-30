@@ -9,16 +9,16 @@ src/
 │   ├── carte/
 │   │   ├── TipoCarta.java
 │   │   ├── Carta.java
-│   │   ├── Pianeti.java
-│   │   ├── StazioneAbbandonataCarta.java
+│   │   ├── CartaPianeti.java
+│   │   ├── StazioneAbbandonata.java
 │   │   ├── NaveAbbandonataCarta.java
-│   │   ├── SpazioApertoCarta.java
+│   │   ├── SpazioAperto.java
 │   │   ├── PioggiaDiMeteoriti.java
 │   │   ├── ZonaDiGuerra.java
-│   │   ├── PolvereStellareCarta.java
-│   │   ├── SchiavistiCarta.java
-│   │   ├── EpidemiaCarta.java
-│   │   ├── SabotaggioCarta.java
+│   │   ├── PolvereStellare.java
+│   │   ├── Schiavisti.java
+│   │   ├── Epidemia.java
+│   │   ├── Sabotaggio.java
 │   │   ├── criteriEffetti/
 │   │   |    ├── Criterio.java
 │   │   |    ├── Effetto.java

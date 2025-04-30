@@ -7,6 +7,7 @@ import grafica.*;
 import model.componenti.*;
 import model.enums.*;
 import util.Util;
+import util.layout.Direzione;
 
 public class ComponenteRenderer {
 

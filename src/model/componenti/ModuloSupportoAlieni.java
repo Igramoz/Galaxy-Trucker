@@ -2,9 +2,9 @@ package model.componenti;
 
 import java.util.Map;
 
-import model.enums.Direzione;
 import model.enums.TipoPedina;
 import model.enums.TipoTubo;
+import util.layout.Direzione;
 import grafica.Colore;
 
 public class ModuloSupportoAlieni extends Componente {

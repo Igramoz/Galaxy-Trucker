@@ -1,8 +1,8 @@
-package model;
+package util.random;
 
 import grafica.FormattatoreGrafico;
 import io.GestoreIO;
-import util.RandomUtil;
+import model.Giocatore;
 
 public class Dado {
 	private static final Dado[] istanze = new Dado[2]; // Array per un massimo di 2 istanze

@@ -6,10 +6,10 @@ import java.util.List;
 import grafica.renderer.NaveRenderer;
 import io.GestoreIO;
 import model.componenti.Componente;
-import model.enums.Direzione;
 import model.enums.TipoTubo;
-import util.Coordinate;
 import util.Util;
+import util.layout.Coordinate;
+import util.layout.Direzione;
 
 public interface Distruttore {
 	// TODO fare in modo che vengano stampati i tronconi e che l'utente possa

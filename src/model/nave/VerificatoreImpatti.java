@@ -9,9 +9,9 @@ import model.componenti.Cannone;
 import model.componenti.Componente;
 import model.componenti.TipoComponente;
 import model.enums.TipoTubo;
-import model.enums.Direzione;
-import util.Coordinate;
 import util.Util;
+import util.layout.Coordinate;
+import util.layout.Direzione;
 
 public interface VerificatoreImpatti {
 	// l'interfaccia controlla se il colpo distrugge o meno la nave

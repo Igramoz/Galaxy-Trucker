@@ -13,6 +13,8 @@ import grafica.FormattatoreGrafico;
 import io.GestoreIO;
 import model.enums.*;
 import util.*;
+import util.layout.Coordinate;
+import util.layout.Direzione;
 
 public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizione, GestoreComponenti {
 

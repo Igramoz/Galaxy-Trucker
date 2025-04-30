@@ -7,7 +7,8 @@ import java.util.Map;
 import io.GestoreIO;
 import model.componenti.*;
 import model.enums.*;
-import util.Coordinate;
+import util.layout.Coordinate;
+import util.layout.Direzione;
 
 public interface GestoreComponenti {
 // interfaccia che interagisce con i setter e i getter per gestire l'inserimento o la rimozione di merci/energia/equipaggio dalla nave

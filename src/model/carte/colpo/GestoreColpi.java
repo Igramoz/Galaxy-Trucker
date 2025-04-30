@@ -6,9 +6,9 @@ import grafica.FormattatoreGrafico;
 import grafica.renderer.CarteRenderer;
 import grafica.renderer.NaveRenderer;
 import io.GestoreIO;
-import model.Dado;
 import model.Giocatore;
 import partita.fasiGioco.ManagerDiVolo;
+import util.random.Dado;
 
 public interface GestoreColpi {
 	public default void gestioneColpi(ManagerDiVolo[] listaManager, List<Colpo> colpi) {

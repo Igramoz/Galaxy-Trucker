@@ -4,8 +4,8 @@ import java.util.*;
 
 import model.componenti.*;
 import model.enums.TipoTubo;
-import model.enums.Direzione;
-import util.RandomUtil;
+import util.layout.Direzione;
+import util.random.RandomUtil;
 
 public class ServizioAssemblaggio {
 	// Genera ed estrae randomicamente i componenti della nave

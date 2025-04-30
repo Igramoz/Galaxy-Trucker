@@ -2,6 +2,8 @@ package util;
 
 import java.util.List;
 
+import util.layout.Coordinate;
+
 public class Util {
 
 	public final static int SIZE = 11; // Le coordinate vanno da 0 a 10, i dadi vanno da 2 a 12.

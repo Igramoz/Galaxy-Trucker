@@ -4,7 +4,8 @@ import java.util.EnumMap; // Libreria standard di java
 import java.util.Map;
 
 import model.enums.*;
-import util.Coordinate;
+import util.layout.Coordinate;
+import util.layout.Direzione;
 
 public abstract class Componente {
 
