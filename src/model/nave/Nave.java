@@ -16,10 +16,13 @@ import util.*;
 import util.layout.Coordinate;
 import util.layout.Direzione;
 
-public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizione, GestoreComponenti {
+public class Nave {
 
 	private final GestoreIO io = new GestoreIO();
 	private final FormattatoreGrafico formattatoreGrafico = new FormattatoreGrafico();
+	private final GestoreComponenti gestoreComponenti;
+	private final ValidatorePosizione validatorePosizione;
+	private final VerificatoreImpatti verificatoreImpatti;
 
 	private Componente[][] grigliaComponenti;
 	private final TipoNave livelloNave;
@@ -32,6 +35,9 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 	public Nave(TipoNave livelloNave) {
 		grigliaComponenti = new Componente[Util.SIZE][Util.SIZE];
 		this.livelloNave = livelloNave;
+		gestoreComponenti = new GestoreComponenti(this);
+		validatorePosizione = new ValidatorePosizione(this);
+		verificatoreImpatti = new VerificatoreImpatti(this);
 	}
 
 	// Costruttore
@@ -114,7 +120,7 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 		}
 
 		// Controllo se il pezzo si collega agli altri
-		if (valida(this, componente, coordinate)) {
+		if (validatorePosizione.valida(componente, coordinate)) {
 			forzaComponente(componente, coordinate);
 			return true;
 		}
@@ -129,10 +135,11 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 	}
 
 	public int subisciImpatto(Colpo colpo, int coordinata) {
-		Coordinate coordinate = verificaImpatto(this, colpo, coordinata);
+		Coordinate coordinate = verificatoreImpatti.verificaImpatto(colpo, coordinata);
+		Distruttore distruggiComp = new Distruttore(this, coordinate);
 
 		if (coordinate != null) {
-			return distruggiComponenti(this, coordinate);
+			return distruggiComp.distruggiComponenti();
 		}
 		return 0;
 	}
@@ -195,7 +202,7 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 	public boolean rimuoviEquipaggio(int numero) {
 		int equipaggioRimosso = 0;
 		for (int i = 0; i < getEquipaggio().size(); i++) {
-			if (rimuoviEquipaggioDaNave(this)) {
+			if (gestoreComponenti.rimuoviEquipaggioDaNave()) {
 				equipaggioRimosso++;
 				if (equipaggioRimosso == numero)
 					return true;
@@ -240,7 +247,7 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 		for (int i = 0; i < getMerci().size(); i++) {
 			// parto dalle merci più costose (da regolamento)
 			for (TipoMerce merce : TipoMerce.values()) {
-				if (rimuoviMerceDaNave(this, merce)) {
+				if (gestoreComponenti.rimuoviMerceDaNave(merce)) {
 					merciRimosse++;
 					if (merciRimosse == numero)
 						return true;
@@ -249,7 +256,7 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 		}
 		// se non ci sono abbastanza merci bisogna rimuovere le batterie
 		for (int i = 0; i < numero - merciRimosse; i++) {
-			if (!consumaEnergia(this)) {
+			if (!gestoreComponenti.consumaEnergia()) {
 				return false; // non ci sono abbastanza batterie
 			}
 		}
@@ -257,7 +264,7 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 	}
 
 	public boolean setMerci(List<TipoMerce> merci) {
-		return posizionaMerciInNave(this, merci);
+		return gestoreComponenti.posizionaMerciInNave( merci);
 	}
 
 	protected boolean forzaMerce(TipoMerce merce, Coordinate coordinate) {
@@ -283,7 +290,7 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 
 				io.stampa("scrivere 1 se si vuole attivare lo scudo");
 				if (io.leggiIntero() == 1) {
-					return consumaEnergia(this); // usaEnergia valuta se è possibile o meno usare 1 di energia e la consuma
+					return gestoreComponenti.consumaEnergia(); // usaEnergia valuta se è possibile o meno usare 1 di energia e la consuma
 				}
 				return false; // scudo non attivato per scelta dell'utente
 			}
@@ -300,7 +307,7 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 
 			io.stampa("scrivere 1 se si vuole sparare con il " + cannone.getTipo().name());
 			if (io.leggiIntero() == 1) {
-				return consumaEnergia(this); // sparo se l'utente è d'accordo
+				return gestoreComponenti.consumaEnergia(); // sparo se l'utente è d'accordo
 			}
 			return false; // fuoco non attivato per scelta dell'utente
 		} else {
@@ -323,7 +330,7 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 			io.stampa("scrivere 1 se si vuole usare il motore in posizione: "
 					+ formattatoreGrafico.formattaCoordinate(motore.getPosizione()));
 			if (io.leggiIntero() == 1) {
-				if (consumaEnergia(this)) { // uso il motore doppio
+				if (gestoreComponenti.consumaEnergia()) { // uso il motore doppio
 					potenzaMotrice += 2;
 				} else {
 					break; // energia finita
@@ -362,7 +369,7 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 			io.stampa("scrivere 1 se si vuole usare il cannone in posizione: "
 					+ formattatoreGrafico.formattaCoordinate(cannone.getPosizione()));
 			if (io.leggiIntero() == 1) {
-				if (consumaEnergia(this)) { // uso il cannone doppio
+				if (gestoreComponenti.consumaEnergia()) { // uso il cannone doppio
 					potenzaFuoco += ((Cannone) cannone).getPotenzaFuoco();
 				} else {
 					break; // energia finita
@@ -424,11 +431,11 @@ public class Nave implements Distruttore, VerificatoreImpatti, ValidatorePosizio
 
 	private void preparaEquipaggioAlVolo() {
 		// carico gli alieni
-		posizionaAlienoInNave(this, TipoPedina.ALIENO_MARRONE);
-		posizionaAlienoInNave(this, TipoPedina.ALIENO_VIOLA);
+		gestoreComponenti.posizionaAlienoInNave( TipoPedina.ALIENO_MARRONE);
+		gestoreComponenti.posizionaAlienoInNave( TipoPedina.ALIENO_VIOLA);
 
 		// carico gli astronauti
-		posizionaAstronatuaInNave(this);
+		gestoreComponenti.posizionaAstronatuaInNave();
 	}
 	
 	// carica al massimo tutte le batterie

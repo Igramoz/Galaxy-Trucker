@@ -13,14 +13,22 @@ import util.Util;
 import util.layout.Coordinate;
 import util.layout.Direzione;
 
-public interface VerificatoreImpatti {
+public class VerificatoreImpatti {
 	// l'interfaccia controlla se il colpo distrugge o meno la nave
 
 	// VERIFICATORE IMPATTI PER METEORITI
 
 	// restituisce calcola le coordinate del componente da distruggere ( coordinata
 	// è la x o y lungo la quale si muove il colpo)
-	default Coordinate verificaImpatto(Nave nave, Colpo colpo, int coordinata) {
+	
+	private Nave nave;
+	
+	public VerificatoreImpatti(Nave nave ) {
+		this.nave = nave;
+	}
+	
+	
+	protected Coordinate verificaImpatto(Colpo colpo, int coordinata) {
 
 		Coordinate coordinateColpite = calcolaCoordinateColpite(nave, colpo.getDirezione(), coordinata);
 

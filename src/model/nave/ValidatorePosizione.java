@@ -7,11 +7,17 @@ import model.enums.TipoTubo;
 import util.layout.Coordinate;
 import util.layout.Direzione;
 
-public interface ValidatorePosizione {
+public class ValidatorePosizione {
 	// Si occupa di controllare se una è possibile insrire un oggetto in una
 	// determinata posizione della nave
+	
+	private Nave nave;
+	
+	public ValidatorePosizione(Nave nave) {
+		this.nave = nave;
+	}
 
-	public default boolean valida(Nave nave, Componente nuovoComponente, Coordinate coord) {
+	public  boolean valida( Componente nuovoComponente, Coordinate coord) {
 		Map<Direzione, Componente> adiacenti = nave.getCopiaComponentiAdiacenti(coord);
 
 		// Controllo che siano presenti dei pezzi attorno
