@@ -1,21 +1,35 @@
 package model.nave;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import grafica.renderer.NaveRenderer;
 import io.GestoreIO;
+import java.util.ArrayList;
+import java.util.List;
 import model.componenti.Componente;
 import model.enums.Direzione;
 import model.enums.TipoTubo;
 import util.Coordinate;
 import util.Util;
 
-public interface Distruttore {
+//
+
+public class Distruttore {
 	// TODO fare in modo che vengano stampati i tronconi e che l'utente possa
 	// sceglierli.
-	default int distruggiComponenti(Nave nave, Coordinate coordinate) {
-		int pezziDistrutti = 1;
+	
+	private Nave nave;
+	private Coordinate coordinate;
+	private int pezziDistrutti;
+	
+	public Distruttore(Nave nave, Coordinate coordinate) {
+		
+		this.nave = nave;
+		this.coordinate = coordinate;
+		
+	}
+	
+	public int distruggiComponenti() {
+		pezziDistrutti = 1;
+		
 		nave.distruggiSingoloComponente(coordinate);
 
 		List<List<Coordinate>> tronconiNave = new ArrayList<>();
@@ -55,6 +69,7 @@ public interface Distruttore {
 			}
 		}
 		return pezziDistrutti;
+		
 	}
 
 	private void controllaConnessioneComponente(Nave nave, Coordinate coordinate, List<Coordinate> visitati) {

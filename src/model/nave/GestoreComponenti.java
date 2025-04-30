@@ -9,11 +9,17 @@ import model.componenti.*;
 import model.enums.*;
 import util.Coordinate;
 
-public interface GestoreComponenti {
-// interfaccia che interagisce con i setter e i getter per gestire l'inserimento o la rimozione di merci/energia/equipaggio dalla nave
+public class GestoreComponenti {
+// classe che interagisce con i setter e i getter per gestire l'inserimento o la rimozione di merci/energia/equipaggio dalla nave
 
 	// funzione per scegliere un componente della nave
-	default Coordinate scegliComponente(Nave nave, TipoComponente tipoComponente1, TipoComponente tipoComponente2) {
+	private Nave nave;
+	
+	public GestoreComponenti(Nave nave) {
+		this.nave = nave;
+	}
+	
+	protected Coordinate scegliComponente(TipoComponente tipoComponente1, TipoComponente tipoComponente2) {
 
 		GestoreIO io = new GestoreIO();
 
@@ -28,13 +34,14 @@ public interface GestoreComponenti {
 
 		return io.menuComponenti(componenti).getPosizione();
 	}
-
-	default Coordinate scegliComponente(Nave nave, TipoComponente tipoComponente1) {
-		return scegliComponente(nave, tipoComponente1, null);
+	
+	protected Coordinate scegliComponente(TipoComponente tipoComponente1) {
+		return scegliComponente(tipoComponente1, null);
 	}
 
+
 	// restituisce false se non posiziona tutte le merci
-	default boolean posizionaMerciInNave(Nave nave, List<TipoMerce> merci) {
+	protected boolean posizionaMerciInNave( List<TipoMerce> merci) {
 		GestoreIO io = new GestoreIO();
 
 		if (merci == null || merci.size() == 0) {
@@ -45,13 +52,13 @@ public interface GestoreComponenti {
 		boolean output = true;
 		for (TipoMerce merce : merci) {
 			// se anche una sola merce non viene posizionata la funzione restituisce false
-			if (!posizionaMerce(nave, merce))
+			if (!posizionaMerce(merce))
 				output = false;
 		}
 		return output;
 	}
 
-	default boolean posizionaMerce(Nave nave, TipoMerce merce) {
+	protected boolean posizionaMerce(TipoMerce merce) {
 		GestoreIO io = new GestoreIO();
 		boolean sceltaValida;
 		do {
@@ -59,9 +66,9 @@ public interface GestoreComponenti {
 			sceltaValida = true;
 			Coordinate posizione = null;
 			if (merce == TipoMerce.ROSSO) {
-				posizione = scegliComponente(nave, TipoComponente.STIVA_SPECIALE);
+				posizione = scegliComponente(TipoComponente.STIVA_SPECIALE);
 			} else {
-				posizione = scegliComponente(nave, TipoComponente.STIVA_SPECIALE, TipoComponente.STIVA);
+				posizione = scegliComponente(TipoComponente.STIVA_SPECIALE, TipoComponente.STIVA);
 			}
 
 			if (!nave.forzaMerce(merce, posizione)) {
@@ -74,7 +81,7 @@ public interface GestoreComponenti {
 					sceltaValida = false;
 					break;
 				case 1:
-					if (!rimuoviMerceDaNave(nave)) {
+					if (!rimuoviMerceDaNave()) {
 						io.stampa("Si deve rimuovere una merce per posizionare la nuova");
 					}
 					sceltaValida = false;
@@ -89,7 +96,7 @@ public interface GestoreComponenti {
 	}
 
 	// rimuove un particolare tipo di merce da una stiva della nave
-	default boolean rimuoviMerceDaNave(Nave nave, TipoMerce merce) {
+	protected boolean rimuoviMerceDaNave(TipoMerce merce) {
 		GestoreIO io = new GestoreIO();
 
 		if (nave.getMerci().size() == 0) {
@@ -101,9 +108,9 @@ public interface GestoreComponenti {
 		do {
 			Coordinate posizione = null;
 			if (merce == TipoMerce.ROSSO) {
-				posizione = scegliComponente(nave, TipoComponente.STIVA_SPECIALE);
+				posizione = scegliComponente(TipoComponente.STIVA_SPECIALE);
 			} else {
-				posizione = scegliComponente(nave, TipoComponente.STIVA_SPECIALE, TipoComponente.STIVA);
+				posizione = scegliComponente(TipoComponente.STIVA_SPECIALE, TipoComponente.STIVA);
 			}
 
 			Stiva stiva = (Stiva) nave.getOriginaleComponente(posizione);
@@ -123,7 +130,7 @@ public interface GestoreComponenti {
 	}
 
 	// lascia all'utente la possibilità di rimuovere la merce che vuole dalla stiva
-	default boolean rimuoviMerceDaNave(Nave nave) {
+	protected  boolean rimuoviMerceDaNave() {
 		GestoreIO io = new GestoreIO();
 
 		io.stampa("Scegli quanta merce rimuovere, scrivere 0 per non rimuovere nulla");
@@ -135,13 +142,13 @@ public interface GestoreComponenti {
 			io.stampa((i + 1) + " scegli il tipo di merce da rimuovere.");
 
 			TipoMerce merce = io.leggiEnum(TipoMerce.class);
-			if (!rimuoviMerceDaNave(nave, merce))
+			if (!rimuoviMerceDaNave(merce))
 				output = false;
 		}
 		return output;
 	}
 
-	default boolean rimuoviEquipaggioDaNave(Nave nave) {
+	protected boolean rimuoviEquipaggioDaNave() {
 		GestoreIO io = new GestoreIO();
 		// salvo le cabine
 		List<Componente> cabine = nave.getComponentiOriginali(TipoComponente.CABINA_EQUIPAGGIO);
@@ -163,9 +170,9 @@ public interface GestoreComponenti {
 			io.stampa("Scegliere la cabina da cui rimuovere la pedina: ");
 			Coordinate posizione = null;
 			if (pedinaDaRimuovere == TipoPedina.ASTRONAUTA) {
-				posizione = scegliComponente(nave, TipoComponente.CABINA_EQUIPAGGIO, TipoComponente.CABINA_PARTENZA);
+				posizione = scegliComponente( TipoComponente.CABINA_EQUIPAGGIO, TipoComponente.CABINA_PARTENZA);
 			} else {
-				posizione = scegliComponente(nave, TipoComponente.CABINA_EQUIPAGGIO);
+				posizione = scegliComponente( TipoComponente.CABINA_EQUIPAGGIO);
 			}
 
 			if (!nave.forzaEquipaggio(pedinaDaRimuovere, posizione)) {
@@ -179,7 +186,7 @@ public interface GestoreComponenti {
 		return true;
 	}
 
-	default boolean posizionaAlienoInNave(Nave nave, TipoPedina pedina) {
+	protected boolean posizionaAlienoInNave(TipoPedina pedina) {
 		GestoreIO io = new GestoreIO();
 		List<Componente> cabineCollegate = new ArrayList<>();
 
@@ -190,7 +197,7 @@ public interface GestoreComponenti {
 			return false;
 		}
 		if (pedina == TipoPedina.ASTRONAUTA)
-			posizionaAstronatuaInNave(nave);
+			posizionaAstronatuaInNave();
 
 		if (nave.getEquipaggio().contains(pedina)) {
 			return false; // si può ospitare massimo un alieno per tipo
@@ -263,7 +270,7 @@ public interface GestoreComponenti {
 	}
 
 	// posiziona l'altronauta in una qualunque cabina d'equipaggio o di partenza
-	public default boolean posizionaAstronatuaInNave(Nave nave) {
+	public boolean posizionaAstronatuaInNave() {
 		if (nave.isEquipaggioCompleto())
 			return false;
 
@@ -278,7 +285,7 @@ public interface GestoreComponenti {
 		return false;
 	}
 
-	public default boolean consumaEnergia(Nave nave) {
+	public boolean consumaEnergia() {
 		GestoreIO io = new GestoreIO();
 
 		if (nave.getEnergia() <= 0)
@@ -290,7 +297,7 @@ public interface GestoreComponenti {
 			io.aCapo();
 			io.stampa("Scegliere da quale vano rimuovere l'energia");
 
-			Coordinate posizioneVanoBatteria = scegliComponente(nave, TipoComponente.VANO_BATTERIA);
+			Coordinate posizioneVanoBatteria = scegliComponente(TipoComponente.VANO_BATTERIA);
 
 			if (posizioneVanoBatteria == null)
 				return false;
