@@ -28,14 +28,11 @@ public class Util {
 		public static boolean contieneCoordinata(List<List<Coordinate>> listaCoordinateComponentiControllati,
 				Coordinate coordinate) {
 
-			List<Coordinate> listaIesima;
 			// Controllo una lista della lista alla volta
-			for (int i = 0; i < listaCoordinateComponentiControllati.size(); i++) {
-
-				listaIesima = listaCoordinateComponentiControllati.get(i);
-				if (listaIesima.contains(coordinate)) {
-					return true;
-				}
+			for (List<Coordinate> listaIesima : listaCoordinateComponentiControllati) {
+			    if (listaIesima.contains(coordinate)) {
+			        return true;
+			    }
 			}
 			return false;
 		}

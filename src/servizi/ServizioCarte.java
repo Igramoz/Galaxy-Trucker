@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import grafica.Colore;
-import util.*;
 import util.layout.Direzione;
 import util.random.RandomUtil;
 import model.Giocatore;
@@ -20,23 +19,98 @@ import model.carte.nemici.*;
 import model.enums.TipoMerce;
 import partita.LivelliPartita;
 
-
 public class ServizioCarte {
 	// Genera randomicamente le carte
 
-	private List<Carta> carteGenerate = new ArrayList<>();
+	public final int numMazziNoti = 3; // numero di mazzi noti
+	public final int numMazziIgnoti = 1;
+
+	@SuppressWarnings("unchecked")
+	private List<Carta>[] mazziNoti = new List[numMazziNoti];
+	private List<Carta> mazzoIgnoto;
 	private RandomUtil random = new RandomUtil();
 
 	public ServizioCarte(LivelliPartita livello) {
+		// inizializzo mazziNoti e mazzoIgnoto
+		for (int i = 0; i < mazziNoti.length; i++) {
+			mazziNoti[i] = new ArrayList<>();
+		}
+		mazzoIgnoto = new ArrayList<>();
+
 		generaCarte(livello);
-		Collections.shuffle(carteGenerate);
 	}
 
 	private void generaCarte(LivelliPartita livello) {
+		LivelliPartita[] livelli = LivelliPartita.values();
+		// bisogna generare le carte per ogni livello
+		for (LivelliPartita livelloCarte : livelli) {
+			// se il livello raggiuntò è maggiore di quello passato alla funzione ho
+			// generato tutte le carte
+			if (livelloCarte.ordinal() > livello.ordinal())
+				break;
+
+			List<Carta> mazzoPerLivello = generaCartePerLivello(livelloCarte, livello);
+			separaMazzetti(mazzoPerLivello, livelloCarte);
+
+		}
 	}
 
-	// TODO mettere privato
-	public List<PioggiaDiMeteoriti> generaMeteoriti(LivelliPartita lvl) {
+	// genera tutte le carte di un livello
+	private List<Carta> generaCartePerLivello(LivelliPartita livelloCarte, LivelliPartita livelliPartita) {
+		List<Carta> mazzoPerLivello = new ArrayList<>();
+
+		// genero tutte le carte di quel livello
+		mazzoPerLivello.addAll(generaMeteoriti(livelloCarte));
+		mazzoPerLivello.addAll(generaZonaDiGuerra(livelloCarte));
+		mazzoPerLivello.addAll(generaCartaPianeti(livelloCarte));
+		mazzoPerLivello.addAll(generaNemici(livelloCarte));
+		mazzoPerLivello.addAll(generaPolvereStellare(livelloCarte));
+		// TODO controllare che ci siano tutte le carte
+
+		// mischio le carte
+		Collections.shuffle(mazzoPerLivello);
+		int numCarte = livelliPartita.getCartePerLivello(livelloCarte) * (numMazziNoti + numMazziIgnoti);
+
+		if (mazzoPerLivello.size() < numCarte) {
+			throw new IllegalStateException(
+					"Sono state generate troppe poche carte per il livello " + livelliPartita.name());
+		}
+		return mazzoPerLivello;
+	}
+
+	// seprara il mazzo in mazzetti noti e ignoti
+	private void separaMazzetti(List<Carta> mazzo, LivelliPartita livello) {
+		if (mazzo.size() < (numMazziNoti + numMazziIgnoti) * livello.getCartePerLivello(livello)) {
+			throw new IllegalStateException("Numero insufficiente di carte per separare i mazzetti");
+		}
+
+		for (int i = 0; i < livello.getCartePerLivello(livello); i++) {
+			for (List<Carta> mazzoNoto : mazziNoti) {
+				mazzoNoto.add(mazzo.remove(0));
+			}
+			mazzoIgnoto.add(mazzo.remove(0));
+		}
+	}
+
+	public List<Carta> getMazzoIgnoto() {
+		return mazzoIgnoto;
+	}
+
+	public List<Carta> getMazzoNoto(LivelliPartita lvl) {
+		return mazziNoti[lvl.ordinal()];
+	}
+
+	public List<Carta> getMazzoCompleto() {
+		List<Carta> mazzoCompleto = new ArrayList<>();
+		for (int i = 0; i < mazziNoti.length; i++) {
+			mazzoCompleto.addAll(mazziNoti[i]);
+		}
+		mazzoCompleto.addAll(mazzoIgnoto);
+		Collections.shuffle(mazzoCompleto);
+		return mazzoCompleto;
+	}
+
+	private List<PioggiaDiMeteoriti> generaMeteoriti(LivelliPartita lvl) {
 
 		/*
 		 * livello Nasteroidi rapporto Grandi su totali 1 3 - 4 2 su 12 2 4 - 5 4 su 14
@@ -72,7 +146,7 @@ public class ServizioCarte {
 
 			listaAsteroidi = Colpo.ordinaPerDirezione(listaAsteroidi);
 			CriterioConEffetto criterioEpenalita = new CriterioConEffetto(null, Effetto.COLPI, listaAsteroidi);
-			
+
 			out.add(new PioggiaDiMeteoriti(criterioEpenalita));
 		}
 
@@ -130,6 +204,7 @@ public class ServizioCarte {
 		}
 	}
 
+// TODO mettere privata
 	public List<CartaPianeti> generaCartaPianeti(LivelliPartita livello) {
 		int giorni = 0;
 		switch (livello) {
@@ -199,13 +274,13 @@ public class ServizioCarte {
 		}
 		return probabilita;
 	}
-	
-	private List<Nemico> generaNemici(LivelliPartita lvl){
+
+	private List<Nemico> generaNemici(LivelliPartita lvl) {
 		// Istanzio gli schiavisti
 		final Schiavisti[] schiavisti = new Schiavisti[3];
 		schiavisti[0] = new Schiavisti(6, 5, 1, 3);
 		schiavisti[1] = new Schiavisti(7, 8, 2, 4);
-		schiavisti[2] = new Schiavisti(8, 10,2, 5);
+		schiavisti[2] = new Schiavisti(8, 10, 2, 5);
 
 		// Istanzio i pirati
 		@SuppressWarnings("unchecked")
@@ -215,7 +290,7 @@ public class ServizioCarte {
 		listaColpi.add(new Colpo(TipoColpo.CANNONATA, DimensioniColpo.GROSSO, Direzione.SOPRA));
 		listaColpi.add(new Colpo(TipoColpo.CANNONATA, DimensioniColpo.PICCOLO, Direzione.SOPRA));
 		colpiPirati[0] = listaColpi;
-		
+
 		listaColpi = new ArrayList<Colpo>();
 		listaColpi.add(new Colpo(TipoColpo.CANNONATA, DimensioniColpo.GROSSO, Direzione.SOPRA));
 		listaColpi.add(new Colpo(TipoColpo.CANNONATA, DimensioniColpo.PICCOLO, Direzione.SOPRA));
@@ -233,20 +308,20 @@ public class ServizioCarte {
 		final Pirati[] pirati = new Pirati[3];
 		pirati[0] = new Pirati(5, 4, 1, colpiPirati[0]);
 		pirati[1] = new Pirati(6, 7, 2, colpiPirati[1]);
-		pirati[2] = new Pirati(10,12,2, colpiPirati[2]);
-		 
+		pirati[2] = new Pirati(10, 12, 2, colpiPirati[2]);
+
 		// Istanzio i contrabbandieri
 		@SuppressWarnings("unchecked")
 		final List<TipoMerce>[] merci = (List<TipoMerce>[]) new ArrayList[3];
 		List<TipoMerce> listaMerci = List.of(TipoMerce.GIALLO, TipoMerce.VERDE, TipoMerce.BLU);
 		merci[0] = listaMerci;
-		
+
 		listaMerci = List.of(TipoMerce.ROSSO, TipoMerce.GIALLO, TipoMerce.GIALLO);
 		merci[1] = listaMerci;
 
 		listaMerci = List.of(TipoMerce.ROSSO, TipoMerce.ROSSO, TipoMerce.GIALLO, TipoMerce.GIALLO, TipoMerce.VERDE);
 		merci[2] = listaMerci;
-		
+
 		final Contrabbandieri[] contrabbandieri = new Contrabbandieri[3];
 		contrabbandieri[0] = new Contrabbandieri(4, merci[0], 2, 1);
 		contrabbandieri[1] = new Contrabbandieri(8, merci[1], 1, 3);
@@ -263,20 +338,46 @@ public class ServizioCarte {
 		case LIVELLO_2: {
 			out.add(schiavisti[1]);
 			out.add(pirati[1]);
-			out.add(contrabbandieri[1]);	
+			out.add(contrabbandieri[1]);
 			break;
 		}
 		case LIVELLO_3: {
 			out.add(schiavisti[0]);
 			out.add(pirati[0]);
-			out.add(contrabbandieri[0]);	
+			out.add(contrabbandieri[0]);
 			break;
 		}
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + lvl.name());
 		}
-		
+
 		return out;
 	}
-	
+
+	private List<PolvereStellare> generaPolvereStellare(LivelliPartita lvl) {
+		List<PolvereStellare> out = new ArrayList<>();
+		final int penalitaTempoVoloPerConnettoreEsposto = 1;
+		PolvereStellare polvereStellare = null;
+
+		switch (lvl) {
+		case LIVELLO_1: {
+			polvereStellare = new PolvereStellare(penalitaTempoVoloPerConnettoreEsposto);
+			break;
+		}
+		case LIVELLO_2: {
+			polvereStellare = new PolvereStellare(penalitaTempoVoloPerConnettoreEsposto);
+			break;
+		}
+		case LIVELLO_3: {
+			// non ho bisogno di fare nulla nel default, nel livello tre non ci sono carte
+			// di questo tipo
+			break;
+		}
+		}
+		
+		if (polvereStellare != null)
+			out.add(polvereStellare);
+
+		return out;
+	}
 }

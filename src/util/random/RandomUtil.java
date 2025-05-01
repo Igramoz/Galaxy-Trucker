@@ -2,8 +2,6 @@ package util.random;
 
 import java.util.Map;
 
-import util.layout.Direzione;
-
 public class RandomUtil {
 
 	// escludere max

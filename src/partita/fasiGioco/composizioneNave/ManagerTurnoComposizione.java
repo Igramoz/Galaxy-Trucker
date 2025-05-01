@@ -3,6 +3,7 @@ package partita.fasiGioco.composizioneNave;
 import model.Giocatore;
 import model.componenti.Componente;
 import servizi.ServizioAssemblaggio;
+import servizi.ServizioCarte;
 import util.layout.Coordinate;
 import grafica.*;
 import grafica.renderer.ComponenteRenderer;
@@ -18,6 +19,7 @@ public class ManagerTurnoComposizione {
 
 	private final Giocatore giocatore;
 	private final ServizioAssemblaggio servizioAssemblaggio;
+	private final ServizioCarte servizioCarte;
 	private final GestoreIO io= new GestoreIO();
 	private final FormattatoreGrafico formattatore = new FormattatoreGrafico();
 	private final NaveRenderer naveRenderer = new NaveRenderer();
@@ -30,10 +32,11 @@ public class ManagerTurnoComposizione {
 	private boolean turnoTerminato;
 
 	public ManagerTurnoComposizione(List<Componente> componentiScartati, Giocatore giocatore, LivelliPartita livello,
-			ServizioAssemblaggio servizio) {
+			ServizioAssemblaggio servizioAssemblaggio, ServizioCarte servizioCarte) {
 		this.componentiScartati = componentiScartati;
 		this.giocatore = giocatore;
-		this.servizioAssemblaggio = servizio;
+		this.servizioAssemblaggio = servizioAssemblaggio;
+		this.servizioCarte = servizioCarte;
 		turnoTerminato = false;
 		giocatore.setNave(livello.getTipoNave());
 	}

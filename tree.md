@@ -5,7 +5,6 @@ src/
 │
 ├── model/
 │   ├── Giocatore.java
-│   ├── Dado.java
 │   ├── carte/
 │   │   ├── TipoCarta.java
 │   │   ├── Carta.java
@@ -26,14 +25,14 @@ src/
 │   │   ├── pianeti/
 │   │   |    ├── CartaPianeti.java
 │   │   |    └── Pianeta.java
-│   │   └── nemiciAvanzati/
-│   │        ├── NemicoAvanzato.java
-│   │        ├── Pirati.java
-│   │        ├── Schiavisti.java
-│   │        └── Contrabbandieri.java
-│   ├── colpi/
-│   │   ├── Cannonata.java
-│   │   └── Meteorite.java
+│   │   |── nemiciAvanzati/
+│   │   |    ├── NemicoAvanzato.java
+│   │   |    ├── Pirati.java
+│   │   |    ├── Schiavisti.java
+│   │   |    └── Contrabbandieri.java
+│       └── colpi/
+│   │        ├── Colpo.java
+│   │        └── GestoreColpo.java
 │   ├── componenti/
 │   │   ├── Componente.java
 │   │   ├── Tubo.java
@@ -64,7 +63,7 @@ src/
 │   |		├── VerificatoreImpatti.java
 │   |		└── Distruttore.java
 │	 |
-|     |── planciaDiVolo/
+|    └── planciaDiVolo/
 │   		├── Plancia.java
 │   		└── TipoPlancia.java
 

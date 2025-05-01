@@ -5,14 +5,16 @@ import java.util.List;
 
 import io.GestoreIO;
 import model.Giocatore;
+import model.carte.Carta;
 import model.componenti.Componente;
 import partita.LivelliPartita;
 import servizi.ServizioAssemblaggio;
+import servizi.ServizioCarte;
 
 // Fase del gioco in cui si compongno le navi
 public class ComposizioneNave {
 
-	private final ServizioAssemblaggio servizioAssemblaggio; // Servizio di assemblaggio delle navi
+	private final ServizioCarte servizioCarte;
 	private final ManagerTurnoComposizione[] manager;
 	private List<Giocatore> ordineFine;
 	private List<Componente> componentiScartati = new ArrayList<>();
@@ -21,12 +23,14 @@ public class ComposizioneNave {
 	public ComposizioneNave(Giocatore[] giocatori, LivelliPartita livello) {
 
 		this.manager = new ManagerTurnoComposizione[giocatori.length];
-		this.servizioAssemblaggio = new ServizioAssemblaggio(); // Inizializza il servizio di assemblaggio
 		this.ordineFine = new ArrayList<>();
-		this.livello = livello;
-
+		this.livello = livello;		
+		this.servizioCarte = new ServizioCarte(livello);
+		
+		ServizioAssemblaggio servizioAssemblaggio = new ServizioAssemblaggio(); // Inizializza il servizio di assemblaggio
+		
 		for (int i = 0; i < giocatori.length; i++) {
-			manager[i] = new ManagerTurnoComposizione(componentiScartati, giocatori[i], livello, servizioAssemblaggio);
+			manager[i] = new ManagerTurnoComposizione(componentiScartati, giocatori[i], livello, servizioAssemblaggio, servizioCarte);
 		}
 	}
 
@@ -66,5 +70,9 @@ public class ComposizioneNave {
 		}
 
 		return ordineFine;
+	}
+	
+	public List<Carta> getMazzoDiGioco(){
+		return servizioCarte.getMazzoCompleto();
 	}
 }

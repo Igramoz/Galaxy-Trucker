@@ -36,13 +36,13 @@ public class GestoreComponenti {
 		return io.menuComponenti(componenti).getPosizione();
 	}
 	
-	protected Coordinate scegliComponente(TipoComponente tipoComponente1) {
+	private Coordinate scegliComponente(TipoComponente tipoComponente1) {
 		return scegliComponente(tipoComponente1, null);
 	}
 
 
 	// restituisce false se non posiziona tutte le merci
-	protected boolean posizionaMerciInNave( List<TipoMerce> merci) {
+	public boolean posizionaMerciInNave( List<TipoMerce> merci) {
  
 
 		if (merci == null || merci.size() == 0) {
@@ -59,7 +59,7 @@ public class GestoreComponenti {
 		return output;
 	}
 
-	protected boolean posizionaMerce(TipoMerce merce) {
+	private boolean posizionaMerce(TipoMerce merce) {
 		boolean sceltaValida;
 		do {
 			io.stampa("Posiziona la merce " + merce.name());
@@ -96,8 +96,7 @@ public class GestoreComponenti {
 	}
 
 	// rimuove un particolare tipo di merce da una stiva della nave
-	protected boolean rimuoviMerceDaNave(TipoMerce merce) {
- 
+	public boolean rimuoviMerceDaNave(TipoMerce merce) {
 
 		if (nave.getMerci().size() == 0) {
 			io.stampa("Non ci sono merci da rimuovere");
@@ -130,9 +129,7 @@ public class GestoreComponenti {
 	}
 
 	// lascia all'utente la possibilità di rimuovere la merce che vuole dalla stiva
-	protected  boolean rimuoviMerceDaNave() {
- 
-
+	public boolean rimuoviMerceDaNave() {
 		io.stampa("Scegli quanta merce rimuovere, scrivere 0 per non rimuovere nulla");
 		int quantita = io.leggiIntero();
 		if (quantita == 0)
@@ -148,7 +145,7 @@ public class GestoreComponenti {
 		return output;
 	}
 
-	protected boolean rimuoviEquipaggioDaNave() {
+	public boolean rimuoviEquipaggioDaNave() {
  
 		// salvo le cabine
 		List<Componente> cabine = nave.getComponentiOriginali(TipoComponente.CABINA_EQUIPAGGIO);
@@ -186,7 +183,7 @@ public class GestoreComponenti {
 		return true;
 	}
 
-	protected boolean posizionaAlienoInNave(TipoPedina pedina) {
+	public boolean posizionaAlienoInNave(TipoPedina pedina) {
  
 		List<Componente> cabineCollegate = new ArrayList<>();
 
@@ -228,11 +225,11 @@ public class GestoreComponenti {
 		do {
 			// lascio all'utente la possibilità di scegliere in quale cabina posizionare
 			// l'alieno
-			Componente cabina = io.menuComponenti(cabineCollegate);
-			if (cabina == null) {
+			Componente cloneCabina = io.menuComponenti(cabineCollegate);
+			if (cloneCabina == null) {
 				return false;
 			}
-
+			Componente cabina = nave.getOriginaleComponente(cloneCabina.getPosizione());
 			if (((CabinaDiEquipaggio) cabina).aggiungiEquipaggio(pedina)) {
 				return true; // alieno posizionato correttamente
 			} else {
@@ -286,8 +283,7 @@ public class GestoreComponenti {
 	}
 
 	public boolean consumaEnergia() {
- 
-
+		
 		if (nave.getEnergia() <= 0)
 			return false;
 

@@ -10,8 +10,7 @@ public class Coordinate {
     private final int x;
     private final int y;
 
-    public Coordinate(int x, int y) {
-    	
+    public Coordinate(int x, int y) {    	
     	//controllo se le coordinate sono comprese tra 0 e 9 (compresi)
     	
     	if((x < MIN_COORDINATA || x >= MAX_COORDINATA) || (y<MIN_COORDINATA | y>=MAX_COORDINATA)) {
