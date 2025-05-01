@@ -127,7 +127,7 @@ public class GestoreIO implements InterfacciaUtente{
 	}
 
 	// funzione per fare scegliere all'utente un valore di un enum
-	public <T extends Enum<T>> T leggiEnum(Class<T> enumerato) {
+	public <T extends Enum<T>> T scegliEnum(Class<T> enumerato) {
 		T[] elementiEnum = enumerato.getEnumConstants();
 		String[] menu = new String[elementiEnum.length];
 		for (int i = 0; i < elementiEnum.length; i++) {

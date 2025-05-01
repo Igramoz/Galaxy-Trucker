@@ -17,11 +17,11 @@ public class RandomUtil {
 		return randomInt(0, max);
 	}
 
-	// Genera una direzione randomicamente
-	public Direzione randomDirezione() {
-		Direzione[] valori = Direzione.values();
-		return valori[randomInt(valori.length)];
-	}
+	// Genera un valore casuale da un enum generico
+    public  <T extends Enum<T>> T randomEnum(Class<T> enumClass) {
+        T[] values = enumClass.getEnumConstants();
+        return values[randomInt(values.length)];
+    }
 
 	// Genera randomicamente un valore di enum tramite probabilità
 	public <E extends Enum<E>> E getEnumValueByProbability(Map<E, Integer> collezione) {

@@ -88,10 +88,9 @@ public class ManagerTurnoComposizione {
 		io.stampa(naveRenderer.rappresentazioneNave(giocatore.getNave()));
 		io.aCapo();
 		io.stampa("Componenti prenotati:");
-		io.stampa(componenteRenderer.rappresentaComponenti(componentiPrenotati));
-		io.aCapo();
+		componenteRenderer.rappresentaComponenti(componentiPrenotati);
 		io.stampa("Componenti scartati:");
-		io.stampa(componenteRenderer.rappresentaComponenti(componentiScartati));
+		componenteRenderer.rappresentaComponenti(componentiScartati);
 		io.aCapo();
 	}
 

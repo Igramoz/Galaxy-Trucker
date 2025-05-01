@@ -12,6 +12,12 @@ import partita.fasiGioco.ManagerDiVolo;
 import util.random.Dado;
 
 public enum Effetto {
+	/**
+	 * Applica una serie di colpi alla nave del giocatore.
+	 * <p><b>Tipo richiesto per {@code valore}:</b> {@code List<Colpo>}</p>
+	 * @param manager il gestore del giocatore da colpire
+     * @param lista di colpi che la nave deve subire
+	 */
 	COLPI {
 		@Override // giocatore che subisce i colpi e lista dei colpi subiti
 		public void applica(ManagerDiVolo manager, Object valore) {
@@ -29,6 +35,12 @@ public enum Effetto {
 			io.stampa(renderer.rappresentazioneNave(g.getNave()));
 		}
 	},
+	/**
+	 * Rimuove un certo numero di membri dell'equipaggio dalla nave del giocatore.
+	 * <p><b>Tipo richiesto per {@code valore}:</b> {@code Integer}</p>
+	 * @param manager il gestore del giocatore penalizzato
+	 * @param numero di membri dell'equipaggio da rimuovere
+	 */
 	PERDITA_EQUIPAGGIO {
 		@Override // giocatore che perde le merci e numero di membri dell'equipaggio persi
 		public void applica(ManagerDiVolo manager, Object valore) {
@@ -38,6 +50,12 @@ public enum Effetto {
 			g.getNave().rimuoviEquipaggio(n);
 		}
 	},
+	/**
+	 * Rimuove un certo numero di merci dalla nave del giocatore.
+     * <p><b>Tipo richiesto per {@code valore}:</b> {@code Integer}</p>
+	 * @param manager il gestore del giocatore penalizzato
+	 * @param numero di merci da rimuovere
+	 */
 	PERDITA_MERCE {
 		@Override // giocatore che perde le merci e numero di merci perse
 		public void applica(ManagerDiVolo manager, Object valore) {
@@ -47,6 +65,12 @@ public enum Effetto {
 			g.getNave().rimuoviMerce(n);
 		}
 	},
+	/**
+	 * Riduce i giorni di volo disponibili per il giocatore.
+     * <p><b>Tipo richiesto per {@code valore}:</b> {@code Integer}</p>
+	 * @param manager il gestore del giocatore penalizzato
+	 * @param numero di giorni di volo da sottrarre
+	 */
 	GIORNI_VOLO {
 		@Override // giocatore che perde i giorni di volo e numero di giorni di volo persi
 		public void applica(ManagerDiVolo manager, Object valore) {
@@ -56,6 +80,12 @@ public enum Effetto {
 			manager.aumentaGiorniDiVolo(-n);
 		}
 	},
+	/**
+	 * Aggiunge crediti al giocatore.
+     * <p><b>Tipo richiesto per {@code valore}:</b> {@code Integer}</p>
+	 * @param manager il gestore del giocatore premiato
+	 * @param numero di crediti da aggiungere
+	 */
 	GUADAGNA_CREDITI {
 		@Override // giocatore che guadagna i crediti e numero di crediti guadagnati
 		public void applica(ManagerDiVolo manager, Object valore) {
@@ -65,6 +95,12 @@ public enum Effetto {
 			g.aggiungiCrediti(n);
 		}
 	},
+	/**
+	 * Aggiunge una lista di merci alla nave del giocatore.
+     * <p><b>Tipo richiesto per {@code valore}:</b> {@code List<TipoMerce>}</p>
+	 * @param manager il gestore del giocatore premiato
+	 * @param lista di merci da aggiungere
+	 */
 	GUADAGNA_MERCE {
 		@Override // giocatore che guadagna le merci e numero di merci guadagnate
 		public void applica(ManagerDiVolo manager, Object valore) {
@@ -76,6 +112,16 @@ public enum Effetto {
 		}
 	};
 
+	/**
+	 * Posizionare il cursore sulla costante per vedere il tipo della seconda costante.
+	 * Applica l'effetto della carta. Il tipo del secondo argomento
+	 * {@code Object valore} deve coincidere con quello nella javadoc, altrimenti
+	 * verrà lanciato {@code ClassCastException} a runtime.
+	 *
+	 * @param manager il {@code ManagerDiVolo} del giocatore a cui applicare
+	 *                l'effetto
+	 * @param valore  il parametro dell'effetto che dipende dalla costante
+	 */
 	public abstract void applica(ManagerDiVolo manager, Object valore);
 
 	protected GestoreIO io = new GestoreIO();

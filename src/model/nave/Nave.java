@@ -33,6 +33,10 @@ public class Nave {
 
 	// Costruttore
 	public Nave(TipoNave livelloNave) {
+		if(livelloNave == null) {
+			throw new NullPointerException("Bisogna passare un livello alla nave");
+		}
+		
 		grigliaComponenti = new Componente[Util.SIZE][Util.SIZE];
 		this.livelloNave = livelloNave;
 		gestoreComponenti = new GestoreComponenti(this);
@@ -57,25 +61,6 @@ public class Nave {
 		}
 	}
 
-	@Override
-	public Nave clone() {
-		return new Nave(this);
-	}
-
-	// TODO valutare se elinmiare
-	// Metodi griglia componenti
-//	protected Componente[][] getGrigliaComponentiOriginali() {
-//		Componente[][] copiaGrigliaComponenti = new Componente[Util.SIZE][Util.SIZE];
-//		for (int x = 0; x < Util.SIZE; x++) {
-//			for (int y = 0; y < Util.SIZE; y++) {
-//				if (grigliaComponenti[x][y] != null) {
-//					copiaGrigliaComponenti[x][y] = grigliaComponenti[x][y];
-//				}
-//			}
-//		}
-//		return copiaGrigliaComponenti;
-//	}
-
 	// Metodi griglia componenti
 	public Componente[][] getGrigliaComponentiCloni() {
 		Componente[][] copiaGrigliaComponenti = new Componente[Util.SIZE][Util.SIZE];
@@ -91,7 +76,7 @@ public class Nave {
 	
 	public Componente getCopiaComponente(Coordinate coordinate) {
 		if (coordinate == null) {
-			return null;
+			throw new NullPointerException("Bisogna passare delle coordinate alla nave");
 		}
 		Componente copiaComponente = grigliaComponenti[coordinate.getX()][coordinate.getY()].clone();
 		return copiaComponente;
@@ -112,7 +97,13 @@ public class Nave {
 			grigliaComponenti[coordinate.getX()][coordinate.getY()] = null;
 		}
 	}
-
+	/**
+	 * Prova a posizionare un componente nelle coordinate specificate.
+	 * 
+	 * @param componente da posizionare
+	 * @param coordinate dove posizionare il componente
+	 * @return true se è stato posizionato, false altrimenti
+	 */
 	public boolean setComponente(Componente componente, Coordinate coordinate) {
 		// Controllo se il tipo di nave ammette componenti in quella posizione
 		if (!livelloNave.isPosizionabile(coordinate)) {
@@ -160,7 +151,7 @@ public class Nave {
 		return out;
 	}
 
-	// restituisce una lista dei componenti di un certo tipo
+	// restituisce una lista dei componenti originali di un certo tipo
 	protected List<Componente> getComponentiOriginali(TipoComponente componente) {
 
 		List<Componente> out = new ArrayList<>();
@@ -199,6 +190,12 @@ public class Nave {
 		return out;
 	}
 
+	/**
+	 * Rimuove l'equipaggio dalla nave.
+	 * 
+	 * @param numero di pedine da rimuovere
+	 * @return true se sono state rimosse abbastanza pedine, false altrimenti
+	 */
 	public boolean rimuoviEquipaggio(int numero) {
 		int equipaggioRimosso = 0;
 		for (int i = 0; i < getEquipaggio().size(); i++) {
@@ -240,7 +237,13 @@ public class Nave {
 		return out;
 	}
 
-	// True se la merce è stata rimossa, false se non ha abbastanza merce
+	/**
+	 * Rimuove un certo numero di merci dalla nave. Se non ci sono abbastanza merci,
+	 * cerca di rimuovere batterie. (come da regolamento)
+	 * 
+	 * @param numerodi merci da rimuovere
+	 * @return true se sono state rimosse abbastanza risorse, false altrimenti
+	 */	
 	public boolean rimuoviMerce(int numero) {
 
 		int merciRimosse = 0;
@@ -275,28 +278,6 @@ public class Nave {
 			return ((StivaSpeciale) grigliaComponenti[coordinate.getX()][coordinate.getY()]).setMerci(merce);
 		}
 		return ((Stiva) grigliaComponenti[coordinate.getX()][coordinate.getY()]).setMerci(merce);
-	}
-
-	// indicare la direzione verso cui si vuole attivare lo scudo
-	protected boolean attivaScudo(Direzione dir) {
-		if (getEnergia() <= 0)
-			return false;
-
-		List<Componente> scudi = this.getCopiaComponenti(TipoComponente.SCUDO);
-
-		for (Componente scudo : scudi) {
-			Direzione[] direzioni = ((GeneratoreDiScudi) scudo).getDirezioni();
-			if (Arrays.asList(direzioni).contains(dir)) {
-
-				io.stampa("scrivere 1 se si vuole attivare lo scudo");
-				if (io.leggiIntero() == 1) {
-					return gestoreComponenti.consumaEnergia(); // usaEnergia valuta se è possibile o meno usare 1 di energia e la consuma
-				}
-				return false; // scudo non attivato per scelta dell'utente
-			}
-		}
-		// non sono presenti scudi
-		return false;
 	}
 
 	// spara e restituisce false se non spara
@@ -376,7 +357,6 @@ public class Nave {
 				}
 			}
 		}
-
 //		se la potenza di fuoco senza l’alieno è 0, l'alieno non si attiva.
 //		Non affronterà una battaglia spaziale a tentacoli nudi
 		if (potenzaFuoco == 0)
@@ -394,7 +374,6 @@ public class Nave {
 	}
 
 	public Map<Direzione, Componente> getCopiaComponentiAdiacenti(Coordinate coord) {
-
 		Map<Direzione, Componente> adiacenti = new EnumMap<>(Direzione.class);
 
 		// Coord del componente
@@ -425,24 +404,7 @@ public class Nave {
 
 	// carica la nave e aggiunge l'equipaggio
 	public void preparaAlVolo() {
-		preparaEquipaggioAlVolo();
-		ricaricaBatterie();
-	}
-
-	private void preparaEquipaggioAlVolo() {
-		// carico gli alieni
-		gestoreComponenti.posizionaAlienoInNave( TipoPedina.ALIENO_MARRONE);
-		gestoreComponenti.posizionaAlienoInNave( TipoPedina.ALIENO_VIOLA);
-
-		// carico gli astronauti
-		gestoreComponenti.posizionaAstronatuaInNave();
-	}
-	
-	// carica al massimo tutte le batterie
-	private void ricaricaBatterie() {
-		List<Componente> batterie = this.getCopiaComponenti(TipoComponente.VANO_BATTERIA);
-		for (Componente batteria : batterie) {
-			((VanoBatteria) batteria).caricaInteramenteBatteria();
-		}
+		gestoreComponenti.preparaEquipaggioAlVolo();
+		gestoreComponenti.ricaricaBatterie();
 	}
 }

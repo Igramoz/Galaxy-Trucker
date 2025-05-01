@@ -63,7 +63,7 @@ public class ServizioCarte {
 
 				// Sceglie casualmente un Colpo grosso o piccolo
 				DimensioniColpo dimensioneTemp = random.getEnumValueByProbability(collezione);
-				Direzione direzioneTemp = random.randomDirezione();
+				Direzione direzioneTemp = random.randomEnum(Direzione.class);
 				Colpo temp = new Colpo(TipoColpo.METEORITE, dimensioneTemp, direzioneTemp);
 
 				listaAsteroidi.add(temp);

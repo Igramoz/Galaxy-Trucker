@@ -27,7 +27,7 @@ public class Contrabbandieri extends Nemico{
 	public void applicaVittoria(ManagerDiVolo manager) {
 		io.stampa(formattatoreGrafico.formattaGiocatore(manager.getGiocatore()) + " ha vinto contro i contrabbandieri!");
 		io.stampa("Scrivere 1 se sei disposto a perdere " + getPerditaGiorniDiVolo() + " giorni di volo per guadagnare le seguenti merci");
-		io.stampa(formattatoreGrafico.formattaMerce(merci));
+		formattatoreGrafico.rappresentaMerci(merci);
 		int scelta = io.leggiIntero();
 		// se sì: giocatore arretra e guadagna crediti
 		if (scelta == 1) {
@@ -40,7 +40,7 @@ public class Contrabbandieri extends Nemico{
 	@Override
 	public void spiegaVittoria() {
 		io.stampa("Chi sconfigge i contrabbandieri potrà caricare le seguenti merci:");
-		io.stampa(formattatoreGrafico.formattaMerce(merci));
+		formattatoreGrafico.rappresentaMerci(merci);
 	}
 
 	@Override

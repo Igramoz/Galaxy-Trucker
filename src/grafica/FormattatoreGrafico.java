@@ -2,6 +2,7 @@ package grafica;
 
 import java.util.List;
 
+import io.GestoreIO;
 import model.Giocatore;
 import model.enums.TipoMerce;
 import model.enums.TipoPedina;
@@ -9,6 +10,8 @@ import util.layout.Coordinate;
 
 public class FormattatoreGrafico {
 
+	private GestoreIO io = new GestoreIO();
+	
 	public String formattaGiocatore(Giocatore giocatore) {
 		return giocatore.getColore().getCodice() + giocatore.getNome() + Colore.DEFAULT.getCodice();
 	}
@@ -31,12 +34,12 @@ public class FormattatoreGrafico {
 		return merce.getColore().getCodice() + merce.name() + Colore.DEFAULT.getCodice();
 	}
 	
-	public String formattaMerce(List<TipoMerce> merci) {
+	public void rappresentaMerci(List<TipoMerce> merci) {
 		String out ="";
 		for(TipoMerce merce : merci) {
 			out += formattaMerce(merce) + " ";
 		}
-		return out;
+		io.stampa( out);
 	}
 
 	

@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import grafica.*;
+import io.GestoreIO;
 import model.componenti.*;
 import model.enums.*;
 import util.Util;
@@ -13,7 +14,8 @@ public class ComponenteRenderer {
 
 	private final TextAligner textAligner = new TextAligner();
 	private final FormattatoreGrafico formattatoreGrafico = new FormattatoreGrafico();
-
+	private final GestoreIO io = new GestoreIO();
+	
 	public String[] rappresentaComponente(Componente componente) {
 
 		/*
@@ -89,10 +91,10 @@ public class ComponenteRenderer {
 		return siglaComponente + capacita.toString();
 	}
 
-	public String[] rappresentaComponenti(List<Componente> lista) {
+	public void rappresentaComponenti(List<Componente> lista) {
 
 		if (lista == null) {
-			return null;
+			return; // returno e non lancio l'eccezione perché i primi turni la lista è vuota
 		}
 
 		final int SPAZIO_TRA_COMPONENTI = 4;
@@ -139,8 +141,8 @@ public class ComponenteRenderer {
 			}
 
 		}
-		return righeComponenti;
-
+		io.stampa(righeComponenti);
+		io.aCapo();
 	}
 
 	// stampa il componente con il nome completo e altre informazioni

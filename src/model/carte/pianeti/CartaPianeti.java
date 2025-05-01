@@ -23,7 +23,7 @@ public class CartaPianeti extends Carta {
 
 	@Override
 	public void eseguiEvento(ManagerDiVolo[] listaManager) {
-		carteRenderer.stampaPianeti(this);
+		carteRenderer.rappresentaCarta(this);
 		for (ManagerDiVolo m : listaManager) {
 			Giocatore g = m.getGiocatore();
 			List<Pianeta> pianetiDisponibili = new ArrayList<>();

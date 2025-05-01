@@ -105,12 +105,6 @@ public class ServizioAssemblaggio {
 
 	}
 
-	private TipoTubo generaTubo() {
-		// Genera un tubo randomicamente
-		int randomNum = random.randomInt(TipoTubo.values().length);
-		return TipoTubo.values()[randomNum];
-	}
-
 	private Map<Direzione, TipoTubo> tubiCasuali() {
 
 		// genera i 4 tubi
@@ -118,7 +112,7 @@ public class ServizioAssemblaggio {
 
 		do {
 			for (Direzione direzione : Direzione.values()) {
-				tubi.put(direzione, generaTubo());
+				tubi.put(direzione, random.randomEnum(TipoTubo.class));
 			}
 		} while (!tubiNonNulli(tubi)); // Controlla che almeno un tubo sia diverso da NESSUNO
 

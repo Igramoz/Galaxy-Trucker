@@ -17,7 +17,7 @@ public interface InterfacciaUtente {
 
     // Menu e selezione
     int stampaMenu(String[] menu);
-    <T extends Enum<T>> T leggiEnum(Class<T> enumerato);
+    <T extends Enum<T>> T scegliEnum(Class<T> enumerato);
     Componente menuComponenti(java.util.List<Componente> componenti);
 
 }

@@ -17,7 +17,7 @@ public interface GestoreColpi {
 		FormattatoreGrafico formattatoreGrafico = new FormattatoreGrafico();
 		NaveRenderer naveRenderer = new NaveRenderer();
 
-		io.stampa(carteRenderer.rappresentaColpi(colpi));
+		carteRenderer.rappresentaColpi(colpi);
 
 		int indice = 0;
 		for (Colpo colpo : colpi) {

@@ -57,7 +57,7 @@ public class Pirati extends Nemico implements GestoreColpi {
 		TextAligner textAligner = new TextAligner();
 		io.aCapo();
 		io.stampa(textAligner.alignCenter("e subiranno queste cannonate: "));
-		io.stampa(carteRenderer.rappresentaColpi(cannonate));
+		carteRenderer.rappresentaColpi(cannonate);
 	}
 
 	public int getNumeroCrediti() {

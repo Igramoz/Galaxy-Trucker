@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import io.GestoreIO;
+import model.carte.*;
 import model.carte.colpo.Colpo;
 import model.carte.pianeti.*;
 import util.layout.Direzione;
@@ -17,7 +18,7 @@ public class CarteRenderer {
 	private final TextAligner textAligner = new TextAligner();
 	private final FormattatoreGrafico formattatore = new FormattatoreGrafico();
 
-	public String[] rappresentaColpi(List<Colpo> colpi) {
+	public void rappresentaColpi(List<Colpo> colpi) {
 
 		// Calcolo padding per l’allineamento orizzontale
 		final int padding = textAligner.lunghezzaVisivaTestoCheck(CostantiGrafica.COLPO_GROSSO)
@@ -62,7 +63,7 @@ public class CarteRenderer {
 		}
 
 		out = textAligner.alignCenter(out);
-		return out;
+		io.stampa(out);
 	}
 
 	// Calcola il numero massimo di righe e colonne necessarie per rappresentare i
@@ -121,7 +122,7 @@ public class CarteRenderer {
 		};
 	}
 
-	public void stampaPianeti(CartaPianeti carta) {
+	public void rappresentaCarta(CartaPianeti carta) {
 		List<Pianeta> pianeti = carta.getPianeti();
 		int giorniVolo = carta.getGiorniVoloPersi();
 
@@ -136,9 +137,17 @@ public class CarteRenderer {
 		io.stampa("Sono richiesti " + giorniVolo + " per ciascun pianeta");
 	}
 	
-	public String rappresentaStazioneAbbandonata() {
-		// TODO da implementare 
-		return null;
+	public void rappresentaCarta(StazioneAbbandonata stazioneAbbandonata) {
+		io.stampa(textAligner.alignCenter("Carta stazione abbandonata"));
+		io.stampa("Chi ha almeno: " + stazioneAbbandonata.getNumEquipaggio() + " membri dell'equipaggio può stipare le seguenti merci:");
+		formattatore.rappresentaMerci(stazioneAbbandonata.getMerci());
+		io.stampa("scegliere di stipare la merce comporta la perdita di " + stazioneAbbandonata.getTempoDiVolo());	
 	}
 	
+	public void rappresentaCarta(NaveAbbandonata naveAbbandonata) {
+		io.stampa(textAligner.alignCenter("Carta nave abbandonata"));
+		io.stampa("Perdendo " + naveAbbandonata.getEquipaggioPerso() + " membri dell'equipaggio");
+		io.stampa("si può guadagnare " + naveAbbandonata.getCrediti() + " crediti");
+		io.stampa("scegliere guadagnare i crediti comporta la perdita di " + naveAbbandonata.getTempoDiVolo());	
+	}
 }

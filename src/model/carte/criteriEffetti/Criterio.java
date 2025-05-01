@@ -3,7 +3,9 @@ package model.carte.criteriEffetti;
 import partita.fasiGioco.ManagerDiVolo;
 
 public enum Criterio {
-	// minore membri numero di equipaggio
+	/**
+	 * Restituisce il ManagerDiVolo la cui nave ha il minor numero di membri dell'equipaggio.
+	 */
 	EQUIPAGGIO {
 		@Override
 		public ManagerDiVolo trovaPeggiore(ManagerDiVolo[] listaManager) {
@@ -21,8 +23,9 @@ public enum Criterio {
 			return peggiorManager;
 		}
 	},
-	// minore potenza motrice
-	POTENZA_MOTRICE {
+	/**
+	 * Restituisce il ManagerDiVolo la cui nave ha la potenza motrice minore.
+	 */	POTENZA_MOTRICE {
 		@Override
 		public ManagerDiVolo trovaPeggiore(ManagerDiVolo[] listaManager) {
 			int minPotenza = Integer.MAX_VALUE; // sono sicuro che i giocatori avranno una potenza motrice minore di
@@ -39,8 +42,10 @@ public enum Criterio {
 			return peggiorManager;
 		}
 	},
-	// minore potenza di fuoco
-	POTENZA_FUOCO {
+		/**
+		 * Restituisce il ManagerDiVolo la cui nave ha la potenza di fuoco minore.
+		 */
+	 POTENZA_FUOCO {
 		@Override
 		public ManagerDiVolo trovaPeggiore(ManagerDiVolo[] listaManager) {
 			float minPotenza = Float.MAX_VALUE; // sono sicuro che i giocatori avranno una potenza di fuoco minore di

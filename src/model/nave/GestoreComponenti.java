@@ -1,6 +1,7 @@
 package model.nave;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -13,16 +14,18 @@ import util.layout.Direzione;
 public class GestoreComponenti {
 // classe che interagisce con i setter e i getter per gestire l'inserimento o la rimozione di merci/energia/equipaggio dalla nave
 
+	
 	// funzione per scegliere un componente della nave
 	private Nave nave;
-	
-	public GestoreComponenti(Nave nave) {
+	GestoreIO io = new GestoreIO();
+
+	protected GestoreComponenti(Nave nave) {
 		this.nave = nave;
 	}
 	
 	protected Coordinate scegliComponente(TipoComponente tipoComponente1, TipoComponente tipoComponente2) {
 
-		GestoreIO io = new GestoreIO();
+ 
 
 		List<Componente> componenti = nave.getCopiaComponenti(tipoComponente1);
 		if (tipoComponente2 != null) {
@@ -43,7 +46,7 @@ public class GestoreComponenti {
 
 	// restituisce false se non posiziona tutte le merci
 	protected boolean posizionaMerciInNave( List<TipoMerce> merci) {
-		GestoreIO io = new GestoreIO();
+ 
 
 		if (merci == null || merci.size() == 0) {
 			return false;
@@ -60,7 +63,6 @@ public class GestoreComponenti {
 	}
 
 	protected boolean posizionaMerce(TipoMerce merce) {
-		GestoreIO io = new GestoreIO();
 		boolean sceltaValida;
 		do {
 			io.stampa("Posiziona la merce " + merce.name());
@@ -98,7 +100,7 @@ public class GestoreComponenti {
 
 	// rimuove un particolare tipo di merce da una stiva della nave
 	protected boolean rimuoviMerceDaNave(TipoMerce merce) {
-		GestoreIO io = new GestoreIO();
+ 
 
 		if (nave.getMerci().size() == 0) {
 			io.stampa("Non ci sono merci da rimuovere");
@@ -132,7 +134,7 @@ public class GestoreComponenti {
 
 	// lascia all'utente la possibilità di rimuovere la merce che vuole dalla stiva
 	protected  boolean rimuoviMerceDaNave() {
-		GestoreIO io = new GestoreIO();
+ 
 
 		io.stampa("Scegli quanta merce rimuovere, scrivere 0 per non rimuovere nulla");
 		int quantita = io.leggiIntero();
@@ -142,7 +144,7 @@ public class GestoreComponenti {
 		for (int i = 0; i < quantita; i++) {
 			io.stampa((i + 1) + " scegli il tipo di merce da rimuovere.");
 
-			TipoMerce merce = io.leggiEnum(TipoMerce.class);
+			TipoMerce merce = io.scegliEnum(TipoMerce.class);
 			if (!rimuoviMerceDaNave(merce))
 				output = false;
 		}
@@ -150,7 +152,7 @@ public class GestoreComponenti {
 	}
 
 	protected boolean rimuoviEquipaggioDaNave() {
-		GestoreIO io = new GestoreIO();
+ 
 		// salvo le cabine
 		List<Componente> cabine = nave.getComponentiOriginali(TipoComponente.CABINA_EQUIPAGGIO);
 		cabine.addAll(nave.getComponentiOriginali(TipoComponente.CABINA_PARTENZA));
@@ -164,7 +166,7 @@ public class GestoreComponenti {
 
 			// lascio all'utente scegliere quale pedina rimuovere
 			io.stampa("Scegliere la pedina da rimuovere: ");
-			TipoPedina pedinaDaRimuovere = io.leggiEnum(TipoPedina.class);
+			TipoPedina pedinaDaRimuovere = io.scegliEnum(TipoPedina.class);
 			// rimuovo le pedine del tipo scelto dall'utente
 
 			// lascio scegliere all'utente da quale cabina rimuovere la pedina
@@ -188,7 +190,7 @@ public class GestoreComponenti {
 	}
 
 	protected boolean posizionaAlienoInNave(TipoPedina pedina) {
-		GestoreIO io = new GestoreIO();
+ 
 		List<Componente> cabineCollegate = new ArrayList<>();
 
 		if (pedina == null)
@@ -287,7 +289,7 @@ public class GestoreComponenti {
 	}
 
 	public boolean consumaEnergia() {
-		GestoreIO io = new GestoreIO();
+ 
 
 		if (nave.getEnergia() <= 0)
 			return false;
@@ -314,5 +316,45 @@ public class GestoreComponenti {
 
 		return true;
 	}
+
+	//indicare la direzione verso cui si vuole attivare lo scudo
+	public boolean attivaScudo(Direzione dir) {
+		if (nave.getEnergia() <= 0)
+			return false;
+
+		List<Componente> scudi = nave.getCopiaComponenti(TipoComponente.SCUDO);
+
+		for (Componente scudo : scudi) {
+			Direzione[] direzioni = ((GeneratoreDiScudi) scudo).getDirezioni();
+			if (Arrays.asList(direzioni).contains(dir)) {
+
+				io.stampa("scrivere 1 se si vuole attivare lo scudo");
+				if (io.leggiIntero() == 1) {
+					return consumaEnergia(); // usaEnergia valuta se è possibile o meno usare 1 di energia e la consuma
+				}
+				return false; // scudo non attivato per scelta dell'utente
+			}
+		}
+		// non sono presenti scudi
+		return false;
+	}
+	
+	public void preparaEquipaggioAlVolo() {
+		// carico gli alieni
+		posizionaAlienoInNave( TipoPedina.ALIENO_MARRONE);
+		posizionaAlienoInNave( TipoPedina.ALIENO_VIOLA);
+
+		// carico gli astronauti
+		posizionaAstronatuaInNave();
+	}
+	
+	// carica al massimo tutte le batterie
+	public void ricaricaBatterie() {
+		List<Componente> batterie = nave.getCopiaComponenti(TipoComponente.VANO_BATTERIA);
+		for (Componente batteria : batterie) {
+			((VanoBatteria) batteria).caricaInteramenteBatteria();
+		}
+	}
+	
 
 }

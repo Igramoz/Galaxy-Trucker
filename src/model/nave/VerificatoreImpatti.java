@@ -20,11 +20,14 @@ public class VerificatoreImpatti {
 
 	// restituisce calcola le coordinate del componente da distruggere ( coordinata
 	// è la x o y lungo la quale si muove il colpo)
+	private GestoreComponenti gestoreComponenti;
+
 	
 	private Nave nave;
 	
-	public VerificatoreImpatti(Nave nave ) {
+	protected VerificatoreImpatti(Nave nave ) {
 		this.nave = nave;
+		this.gestoreComponenti = new GestoreComponenti(nave);
 	}
 	
 	
@@ -49,7 +52,7 @@ public class VerificatoreImpatti {
 			}
 		}else {
 			// lo scudo difende dalle cannonate piccole
-			if (colpo.getDimensioniColpo() == DimensioniColpo.PICCOLO && nave.attivaScudo(colpo.getDirezione())) {
+			if (colpo.getDimensioniColpo() == DimensioniColpo.PICCOLO && gestoreComponenti.attivaScudo(colpo.getDirezione())) {
 				return null;
 			}
 			// la cannonata grossa colpisce oggi
@@ -102,7 +105,7 @@ public class VerificatoreImpatti {
 			return false;
 
 		// Controllo che ci siano degli scudi
-		return !nave.attivaScudo(direzione);
+		return !gestoreComponenti.attivaScudo(direzione);
 	}
 
 	private boolean meteoriteGrossoColpisce(Nave nave, Direzione direzione, Coordinate coordinate) {

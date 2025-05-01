@@ -5,6 +5,7 @@ import java.util.List;
 
 import model.carte.colpo.*;
 import model.carte.criteriEffetti.CriterioConEffetto;
+import model.carte.criteriEffetti.Effetto;
 import partita.fasiGioco.ManagerDiVolo;
 import util.layout.Direzione;
 
@@ -12,6 +13,11 @@ public class PioggiaDiMeteoriti extends Carta implements GestoreColpi {
 
 	// Lista che contiene i meteoriti associati alla direzione da cui arrivano
 	private final List<Colpo> meteoriti;
+	private final Effetto effetto = Effetto.COLPI;
+	
+	public Effetto getEffetto() {
+		return effetto;
+	}
 
 	@SuppressWarnings("unchecked")
 	public PioggiaDiMeteoriti(CriterioConEffetto effetto) {

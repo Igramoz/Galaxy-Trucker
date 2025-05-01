@@ -1,5 +1,6 @@
 package model.carte;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import grafica.FormattatoreGrafico;
@@ -16,8 +17,9 @@ public class StazioneAbbandonata extends Carta {
 	private final int numEquipaggio;
 	private final Effetto effetto = Effetto.GUADAGNA_MERCE;
 	
-	public StazioneAbbandonata(TipoCarta tipoCarta, List<TipoMerce> merci, int tempoDiVolo, int numEquipaggio) {
-		super(tipoCarta);
+	public StazioneAbbandonata(List<TipoMerce> merci, int tempoDiVolo, int numEquipaggio) {
+		super(TipoCarta.STAZIONE_ABBANDONATA);
+		
 		this.merci = merci;
 		this.tempoDiVolo = tempoDiVolo;
 		this.numEquipaggio = numEquipaggio;
@@ -29,7 +31,7 @@ public class StazioneAbbandonata extends Carta {
 		CarteRenderer renderer = new CarteRenderer();
 		FormattatoreGrafico formattatoreGrafico = new FormattatoreGrafico();
 		
-		io.stampa(renderer.rappresentaStazioneAbbandonata());
+		renderer.rappresentaCarta(this);
 		for(ManagerDiVolo manager : listaManager) {
 			if(manager.getGiocatore().getNave().getEquipaggio().size() >= numEquipaggio) {
 				io.stampa(formattatoreGrafico.formattaGiocatore(manager.getGiocatore()) + " premere 1 per prendere la merce.");
@@ -48,7 +50,7 @@ public class StazioneAbbandonata extends Carta {
 	}
 
 	public List<TipoMerce> getMerci() {
-		return merci;
+	    return new ArrayList<>(merci);
 	}
 
 	public int getTempoDiVolo() {
@@ -57,6 +59,10 @@ public class StazioneAbbandonata extends Carta {
 
 	public int getNumEquipaggio() {
 		return numEquipaggio;
+	}
+
+	public Effetto getEffetto() {
+		return effetto;
 	}
 
 }
