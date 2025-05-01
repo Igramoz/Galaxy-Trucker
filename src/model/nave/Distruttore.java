@@ -20,7 +20,7 @@ public class Distruttore {
 	private Coordinate coordinate;
 	private int pezziDistrutti;
 	
-	protected Distruttore(Nave nave, Coordinate coordinate) {
+	public Distruttore(Nave nave, Coordinate coordinate) {
 		
 		this.nave = nave;
 		this.coordinate = coordinate;

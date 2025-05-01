@@ -19,14 +19,11 @@ public class GestoreComponenti {
 	private Nave nave;
 	GestoreIO io = new GestoreIO();
 
-	protected GestoreComponenti(Nave nave) {
+	public GestoreComponenti(Nave nave) {
 		this.nave = nave;
 	}
 	
-	protected Coordinate scegliComponente(TipoComponente tipoComponente1, TipoComponente tipoComponente2) {
-
- 
-
+	public Coordinate scegliComponente(TipoComponente tipoComponente1, TipoComponente tipoComponente2) {
 		List<Componente> componenti = nave.getCopiaComponenti(tipoComponente1);
 		if (tipoComponente2 != null) {
 			componenti.addAll(nave.getCopiaComponenti(tipoComponente2));
@@ -355,6 +352,4 @@ public class GestoreComponenti {
 			((VanoBatteria) batteria).caricaInteramenteBatteria();
 		}
 	}
-	
-
 }

@@ -1,7 +1,6 @@
 package model.nave;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -26,10 +25,6 @@ public class Nave {
 
 	private Componente[][] grigliaComponenti;
 	private final TipoNave livelloNave;
-
-	private int potenzaMotrice;
-	private float potenzaFuoco;
-	private List<TipoPedina> equipaggio;
 
 	// Costruttore
 	public Nave(TipoNave livelloNave) {
@@ -186,7 +181,6 @@ public class Nave {
 				out.addAll(equipaggio);
 			}
 		}
-		this.equipaggio = out;
 		return out;
 	}
 
@@ -331,7 +325,6 @@ public class Nave {
 				potenzaMotrice++;
 			}
 		}
-		this.potenzaMotrice = potenzaMotrice;
 		return potenzaMotrice;
 	}
 
@@ -368,8 +361,6 @@ public class Nave {
 				potenzaFuoco++;
 			}
 		}
-
-		this.potenzaFuoco = potenzaFuoco;
 		return potenzaFuoco;
 	}
 

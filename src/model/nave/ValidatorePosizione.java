@@ -13,7 +13,7 @@ public class ValidatorePosizione {
 	
 	private Nave nave;
 	
-	protected ValidatorePosizione(Nave nave) {
+	public ValidatorePosizione(Nave nave) {
 		this.nave = nave;
 	}
 

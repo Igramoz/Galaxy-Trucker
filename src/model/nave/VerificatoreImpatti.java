@@ -25,13 +25,13 @@ public class VerificatoreImpatti {
 	
 	private Nave nave;
 	
-	protected VerificatoreImpatti(Nave nave ) {
+	public VerificatoreImpatti(Nave nave ) {
 		this.nave = nave;
 		this.gestoreComponenti = new GestoreComponenti(nave);
 	}
 	
 	
-	protected Coordinate verificaImpatto(Colpo colpo, int coordinata) {
+	public Coordinate verificaImpatto(Colpo colpo, int coordinata) {
 
 		Coordinate coordinateColpite = calcolaCoordinateColpite(nave, colpo.getDirezione(), coordinata);
 
