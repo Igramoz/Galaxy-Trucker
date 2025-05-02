@@ -6,6 +6,7 @@ import servizi.ServizioAssemblaggio;
 import servizi.ServizioCarte;
 import util.layout.Coordinate;
 import grafica.*;
+import grafica.renderer.CarteRenderer;
 import grafica.renderer.ComponenteRenderer;
 import grafica.renderer.NaveRenderer;
 import io.GestoreIO;
@@ -107,9 +108,15 @@ public class ManagerTurnoComposizione {
 	// Azioni corrispondenti alle scelte del menu
 
 	private void guardaCarte() {
-		// TODO
+		CarteRenderer carteRenderer = new CarteRenderer();
+		
 		// da implementare: interazione con servizio carte e selezione mazzetti
-		System.out.println("Mostro le carte disponibili...");
+		io.stampa("Scegli quale tra i tre mazzi noti guardare");
+		String[] opzioni = {"Mazzo 0", "Mazzo 1", "Mazzo 2"};
+		int scelta = io.stampaMenu(opzioni);
+		
+		carteRenderer.rappresentaCarte(servizioCarte.getMazzoNoto(scelta));
+		
 	}
 
 	private void estraiNuovoComponente() {

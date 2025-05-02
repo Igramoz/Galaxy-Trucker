@@ -59,6 +59,7 @@ src/
 │   |		├── Nave.java
 │   |		├── TipoNave.java
 │   |		├── ValidatorePosizione.java
+│   |		├── AnalizzatoreNave.java
 │   |		├── GestoreComponenti.java
 │   |		├── VerificatoreImpatti.java
 │   |		└── Distruttore.java

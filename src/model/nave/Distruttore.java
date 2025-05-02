@@ -13,21 +13,23 @@ import util.layout.Direzione;
 //
 
 public class Distruttore {
-	// TODO fare in modo che vengano stampati i tronconi e che l'utente possa
-	// sceglierli.
 	
 	private Nave nave;
-	private Coordinate coordinate;
 	private int pezziDistrutti;
 	
-	public Distruttore(Nave nave, Coordinate coordinate) {
-		
-		this.nave = nave;
-		this.coordinate = coordinate;
-		
+	public Distruttore(Nave nave) {
+		this.nave = nave;		
 	}
 	
-	public int distruggiComponenti() {
+	public int distruggiComponenti(Coordinate coordinate) {
+		if(coordinate == null) {
+			throw new NullPointerException("Le coordinate devono essere valide affinché venga distrutta la nave");
+		}
+		
+		if(nave.getCopiaComponente(coordinate) == null) {
+			return 0;
+		}
+		
 		pezziDistrutti = 1;
 		
 		nave.distruggiSingoloComponente(coordinate);
@@ -48,13 +50,13 @@ public class Distruttore {
 			
 			// scansiono il troncone
 			List<Coordinate> nuovaLista = new ArrayList<>();
-			controllaConnessioneComponente(nave, coord, nuovaLista);
+			controllaConnessioneComponente(coord, nuovaLista);
 
 			if (!nuovaLista.isEmpty())
 				tronconiNave.add(nuovaLista);
 		}
 		
-		Nave[] tronconi = generaTronconi(nave, tronconiNave);
+		Nave[] tronconi = generaTronconi(tronconiNave);
 
 		// Se si crea un solo troncone non c'è bisogno di scegliere quale salvare
 		if(tronconi.length <= 1) {
@@ -72,7 +74,7 @@ public class Distruttore {
 		
 	}
 
-	private void controllaConnessioneComponente(Nave nave, Coordinate coordinate, List<Coordinate> visitati) {
+	private void controllaConnessioneComponente(Coordinate coordinate, List<Coordinate> visitati) {
 		Componente[][] griglia = nave.getGrigliaComponentiCloni();
 		Componente c = griglia[coordinate.getX()][coordinate.getY()];
 
@@ -82,11 +84,11 @@ public class Distruttore {
 		visitati.add(coordinate);
 
 		for (Direzione dir : Direzione.values()) {
-			controllaConnessioneInDirezione(nave, c, coordinate, dir, visitati);
+			controllaConnessioneInDirezione(c, coordinate, dir, visitati);
 		}
 	}
 
-	private void controllaConnessioneInDirezione(Nave nave, Componente c, Coordinate coord, Direzione dir,
+	private void controllaConnessioneInDirezione(Componente c, Coordinate coord, Direzione dir,
 			List<Coordinate> visitati) {
 		if (c.getTubo(dir) == TipoTubo.NESSUNO)
 			return;
@@ -100,10 +102,10 @@ public class Distruttore {
 		}
 
 		Coordinate next = new Coordinate(coord.getX() + dx, coord.getY() + dy);
-		controllaConnessioneComponente(nave, next, visitati);
+		controllaConnessioneComponente(next, visitati);
 	}
 
-	private Nave[] generaTronconi(Nave nave, List<List<Coordinate>> coordinateTronconi) {
+	private Nave[] generaTronconi( List<List<Coordinate>> coordinateTronconi) {
 		Nave[] tronconi = new Nave[coordinateTronconi.size()];
 		for (int i = 0; i < coordinateTronconi.size(); i++) {
 			tronconi[i] = new Nave(nave.getLivelloNave());

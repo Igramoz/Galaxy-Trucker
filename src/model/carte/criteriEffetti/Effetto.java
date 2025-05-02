@@ -9,7 +9,7 @@ import model.Giocatore;
 import model.carte.colpo.Colpo;
 import model.enums.TipoMerce;
 import partita.fasiGioco.ManagerDiVolo;
-import util.random.Dado;
+import servizi.ServizioDadi;
 
 public enum Effetto {
 	/**
@@ -21,12 +21,13 @@ public enum Effetto {
 	COLPI {
 		@Override // giocatore che subisce i colpi e lista dei colpi subiti
 		public void applica(ManagerDiVolo manager, Object valore) {
+			ServizioDadi servizioDadi = new ServizioDadi();
 			NaveRenderer renderer = new NaveRenderer();
 			Giocatore g = manager.getGiocatore();
 			@SuppressWarnings("unchecked")
 			List<Colpo> colpi = (List<Colpo>) valore;
 			for (Colpo c : colpi) {
-				int posizioneColpo = Dado.lancia2Dadi(g);
+				int posizioneColpo = servizioDadi.lancia2Dadi(g);
 				int pezziDistrutti = g.getNave().subisciImpatto(c, posizioneColpo);
 				g.incrementaPezziDistrutti(pezziDistrutti);
 			}

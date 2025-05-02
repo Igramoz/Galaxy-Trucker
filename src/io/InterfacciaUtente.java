@@ -1,5 +1,7 @@
 package io;
 
+import java.util.List;
+
 import model.componenti.Componente;
 import util.layout.Coordinate;
 
@@ -8,6 +10,7 @@ public interface InterfacciaUtente {
     // Metodi di stampa
     void stampa(String riga);
     void stampa(String[] righeDaStampare);
+    void stampa(List<String> righeDaStampare);
     void aCapo();
 
     // Input da utente

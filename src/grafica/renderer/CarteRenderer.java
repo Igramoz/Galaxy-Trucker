@@ -1,5 +1,6 @@
 package grafica.renderer;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,6 +19,16 @@ public class CarteRenderer {
 	private final TextAligner textAligner = new TextAligner();
 	private final FormattatoreGrafico formattatore = new FormattatoreGrafico();
 
+	public void rappresentaCarte(List<Carta> mazzo) {
+		List<String> output = new ArrayList<>();
+		
+		for(Carta carta : mazzo) {
+			output.add(carta.getTipoCarta().name());			
+		}
+		io.stampa(output);
+	}
+	
+	
 	public void rappresentaColpi(List<Colpo> colpi) {
 
 		// Calcolo padding per l’allineamento orizzontale

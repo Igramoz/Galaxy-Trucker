@@ -73,6 +73,8 @@ public class GestoreIO implements InterfacciaUtente{
 	public void stampa(String riga) {
 
 		if (riga == null) {
+			// non è un errore così critico da lanciare un eccezione
+	        System.err.println("Errore: La riga da stampare è null.");	 
 			return;
 		}
 
@@ -84,10 +86,24 @@ public class GestoreIO implements InterfacciaUtente{
 
 	public void stampa(String[] righeDaStampare) {
 
-		if (righeDaStampare == null) {
-			return;
+		if(righeDaStampare == null) {
+			// non è un errore così critico da lanciare un eccezione
+	        System.err.println("Errore: L'array delle righe da stampare è null.");	 
+	        return;
 		}
 
+		for (String riga : righeDaStampare) {
+			stampa(riga);
+		}
+	}
+	
+	public void stampa(List<String> righeDaStampare) {
+		if(righeDaStampare == null) {
+			// non è un errore così critico da lanciare un eccezione
+	        System.err.println("Errore: La lista delle righe da stampare è null.");	 
+	        return;
+		}
+		
 		for (String riga : righeDaStampare) {
 			stampa(riga);
 		}

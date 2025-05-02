@@ -29,46 +29,46 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		NaveRenderer naveRenderer = new NaveRenderer();
-		ComponenteRenderer componenteRenderer = new ComponenteRenderer();
-		ServizioCarte servizio = new ServizioCarte(LivelliPartita.LIVELLO_3);
-
-		GestoreIO io = new GestoreIO();
-
-		// esempio di com'è la parte di composizione Nave
-		io.stampa("ciao mondo");
-		Giocatore[] g = new Giocatore[3];
-		
-
-		g[0] = new Giocatore("Giovanni", Colore.ROSSO);
-		g[1] = new Giocatore("Francesco", Colore.GIALLO);
-		g[2] = new Giocatore("Matteo", Colore.VERDE);
-
-//		ManagerDiVolo[] m = new ManagerDiVolo[3];
-//		m[0] = new ManagerDiVolo(g[0], null)
+//		NaveRenderer naveRenderer = new NaveRenderer();
+//		ComponenteRenderer componenteRenderer = new ComponenteRenderer();
+//		ServizioCarte servizio = new ServizioCarte(LivelliPartita.LIVELLO_3);
+//
+//		GestoreIO io = new GestoreIO();
+//
+//		// esempio di com'è la parte di composizione Nave
+//		io.stampa("ciao mondo");
+//		Giocatore[] g = new Giocatore[3];
 //		
-//		
-//		List<PioggiaDiMeteoriti> l = servizio.generaMeteoriti(LivelliPartita.LIVELLO_3);
-//		PioggiaDiMeteoriti p = l.remove(0);
-//		PioggiaDiMeteoriti p1 = l.remove(0);
 //
-//		// Per testare la pioggia di meteoriti
-//		ComposizioneNave composizione = new ComposizioneNave(g, LivelliPartita.LIVELLO_3);
-//		io.stampa("Composizione nave");
+//		g[0] = new Giocatore("Giovanni", Colore.ROSSO);
+//		g[1] = new Giocatore("Francesco", Colore.GIALLO);
+//		g[2] = new Giocatore("Matteo", Colore.VERDE);
 //
-//		composizione.start();
+////		ManagerDiVolo[] m = new ManagerDiVolo[3];
+////		m[0] = new ManagerDiVolo(g[0], null)
+////		
+////		
+////		List<PioggiaDiMeteoriti> l = servizio.generaMeteoriti(LivelliPartita.LIVELLO_3);
+////		PioggiaDiMeteoriti p = l.remove(0);
+////		PioggiaDiMeteoriti p1 = l.remove(0);
+////
+////		// Per testare la pioggia di meteoriti
+////		ComposizioneNave composizione = new ComposizioneNave(g, LivelliPartita.LIVELLO_3);
+////		io.stampa("Composizione nave");
+////
+////		composizione.start();
+////
+////		p.eseguiEvento(g);
+////		p1.eseguiEvento(g);
 //
-//		p.eseguiEvento(g);
-//		p1.eseguiEvento(g);
+//
+//		g[0].setNave(TipoNave.NAVE_1);
+//		g[1].setNave(TipoNave.NAVE_1);
+//		g[2].setNave(TipoNave.NAVE_1);
+//		//List<CartaPianeti> lista = servizio.generaCartaPianeti(LivelliPartita.LIVELLO_3);
+//		//lista.get(0).eseguiEvento(g);
 
-
-		g[0].setNave(TipoNave.NAVE_1);
-		g[1].setNave(TipoNave.NAVE_1);
-		g[2].setNave(TipoNave.NAVE_1);
-		//List<CartaPianeti> lista = servizio.generaCartaPianeti(LivelliPartita.LIVELLO_3);
-		//lista.get(0).eseguiEvento(g);
-
-//		Partita p = new Partita();
-//		p.gioca();
+		Partita p = new Partita();
+		p.gioca();
 	}
 }

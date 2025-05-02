@@ -65,6 +65,7 @@ public class ServizioCarte {
 		mazzoPerLivello.addAll(generaCartaPianeti(livelloCarte));
 		mazzoPerLivello.addAll(generaNemici(livelloCarte));
 		mazzoPerLivello.addAll(generaPolvereStellare(livelloCarte));
+		mazzoPerLivello.addAll(generaSabotaggio(livelloCarte));
 		// TODO controllare che ci siano tutte le carte
 
 		// mischio le carte
@@ -96,8 +97,11 @@ public class ServizioCarte {
 		return mazzoIgnoto;
 	}
 
-	public List<Carta> getMazzoNoto(LivelliPartita lvl) {
-		return mazziNoti[lvl.ordinal()];
+	public List<Carta> getMazzoNoto(int num) {
+	    if (num >= mazziNoti.length || num < 0) {
+	        throw new IndexOutOfBoundsException("Indice non valido: " + num + ". Deve essere compreso tra 0 e " + (mazziNoti.length - 1));
+	    }
+		return mazziNoti[num];
 	}
 
 	public List<Carta> getMazzoCompleto() {
@@ -307,7 +311,7 @@ public class ServizioCarte {
 
 		// Istanzio i contrabbandieri
 		@SuppressWarnings("unchecked")
-		final List<TipoMerce>[] merci = (List<TipoMerce>[]) new ArrayList[3];
+		final List<TipoMerce>[] merci = (List<TipoMerce>[]) new List[3];
 		List<TipoMerce> listaMerci = List.of(TipoMerce.GIALLO, TipoMerce.VERDE, TipoMerce.BLU);
 		merci[0] = listaMerci;
 
@@ -375,4 +379,20 @@ public class ServizioCarte {
 
 		return out;
 	}
+	
+	private List<Sabotaggio> generaSabotaggio(LivelliPartita lvl){
+		List<Sabotaggio> out = new ArrayList<>();
+		
+		switch(lvl) {
+		case LIVELLO_1:
+		case LIVELLO_2:
+			// la carta è presente solo a livello 3
+			break;
+		case LIVELLO_3:
+			out.add(new Sabotaggio());
+			break;
+		}
+		return out;
+	}
+	
 }

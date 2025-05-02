@@ -20,22 +20,24 @@ public class Nave {
 	private final ValidatorePosizione validatorePosizione;
 	private final VerificatoreImpatti verificatoreImpatti;
 	private final AnalizzatoreNave analizzatoreNave;
-	
+	private final Distruttore distruttore;
+
 	private Componente[][] grigliaComponenti;
 	private final TipoNave livelloNave;
 
 	// Costruttore
 	public Nave(TipoNave livelloNave) {
-		if(livelloNave == null) {
+		if (livelloNave == null) {
 			throw new NullPointerException("Bisogna passare un livello alla nave");
 		}
-		
+
 		grigliaComponenti = new Componente[Util.SIZE][Util.SIZE];
 		this.livelloNave = livelloNave;
 		gestoreComponenti = new GestoreComponenti(this);
 		validatorePosizione = new ValidatorePosizione(this);
 		verificatoreImpatti = new VerificatoreImpatti(this);
 		analizzatoreNave = new AnalizzatoreNave(this);
+		distruttore = new Distruttore(this);
 	}
 
 	// Costruttore
@@ -67,7 +69,7 @@ public class Nave {
 		}
 		return copiaGrigliaComponenti;
 	}
-	
+
 	public Componente getCopiaComponente(Coordinate coordinate) {
 		if (coordinate == null) {
 			throw new NullPointerException("Bisogna passare delle coordinate alla nave");
@@ -90,6 +92,17 @@ public class Nave {
 			grigliaComponenti[coordinate.getX()][coordinate.getY()] = null;
 		}
 	}
+
+	/**
+	 * Distrugge il compoenente in posizione coordinate e gli altri ad essi connessi
+	 * 
+	 * @param coordinate
+	 * @return true se il componente a coordiante è stato distrutto
+	 */
+	public int distruggiComponentiConnessi(Coordinate coordinate) {
+		return distruttore.distruggiComponenti(coordinate);
+	}
+
 	/**
 	 * Prova a posizionare un componente nelle coordinate specificate.
 	 * 
@@ -120,10 +133,9 @@ public class Nave {
 
 	public int subisciImpatto(Colpo colpo, int coordinata) {
 		Coordinate coordinate = verificatoreImpatti.verificaImpatto(colpo, coordinata);
-		Distruttore distruggiComp = new Distruttore(this, coordinate);
 
 		if (coordinate != null) {
-			return distruggiComp.distruggiComponenti();
+			return distruttore.distruggiComponenti(coordinate);
 		}
 		return 0;
 	}
@@ -227,7 +239,7 @@ public class Nave {
 	 * 
 	 * @param numerodi merci da rimuovere
 	 * @return true se sono state rimosse abbastanza risorse, false altrimenti
-	 */	
+	 */
 	public boolean rimuoviMerce(int numero) {
 
 		int merciRimosse = 0;
@@ -251,7 +263,7 @@ public class Nave {
 	}
 
 	public boolean setMerci(List<TipoMerce> merci) {
-		return gestoreComponenti.posizionaMerciInNave( merci);
+		return gestoreComponenti.posizionaMerciInNave(merci);
 	}
 
 	protected boolean forzaMerce(TipoMerce merce, Coordinate coordinate) {
@@ -307,7 +319,7 @@ public class Nave {
 		}
 		return true;
 	}
-	
+
 	public int getNumConnettoriEsposti() {
 		return analizzatoreNave.connettoriEspostiConuter();
 	}
@@ -317,11 +329,11 @@ public class Nave {
 		gestoreComponenti.preparaEquipaggioAlVolo();
 		gestoreComponenti.ricaricaBatterie();
 	}
-	
+
 	protected GestoreComponenti getGestoreComponenti() {
 		return gestoreComponenti;
 	}
-	
+
 	protected AnalizzatoreNave getAnalizzatoreNave() {
 		return analizzatoreNave;
 	}

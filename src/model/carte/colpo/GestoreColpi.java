@@ -8,7 +8,7 @@ import grafica.renderer.NaveRenderer;
 import io.GestoreIO;
 import model.Giocatore;
 import partita.fasiGioco.ManagerDiVolo;
-import util.random.Dado;
+import servizi.ServizioDadi;
 
 public interface GestoreColpi {
 	public default void gestioneColpi(ManagerDiVolo[] listaManager, List<Colpo> colpi) {
@@ -16,6 +16,7 @@ public interface GestoreColpi {
 		CarteRenderer carteRenderer = new CarteRenderer();
 		FormattatoreGrafico formattatoreGrafico = new FormattatoreGrafico();
 		NaveRenderer naveRenderer = new NaveRenderer();
+		ServizioDadi servizioDadi = new ServizioDadi();
 
 		carteRenderer.rappresentaColpi(colpi);
 
@@ -26,7 +27,7 @@ public interface GestoreColpi {
 			io.stampa("colpo numero " + (indice) + ": " + colpo.getTipoColpo().name() + " da "
 					+ colpo.getDirezione().name());
 
-			int posizioneColpo = Dado.lancia2Dadi(listaManager[0].getGiocatore());
+			int posizioneColpo = servizioDadi.lancia2Dadi(listaManager[0].getGiocatore());
 
 			io.stampa("I giocatori in volo verranno colpiti alla coordinata " + (posizioneColpo + 2));
 

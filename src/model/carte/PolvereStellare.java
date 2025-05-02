@@ -1,6 +1,11 @@
 package model.carte;
 
 import io.GestoreIO;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import grafica.FormattatoreGrafico;
 import grafica.TextAligner;
 import model.carte.criteriEffetti.Effetto;
@@ -17,15 +22,22 @@ public class PolvereStellare extends Carta {
 	}
 
 	@Override
-	public void eseguiEvento(ManagerDiVolo[] listaManager) {
+	public void eseguiEvento(ManagerDiVolo[] arrayManager) {
 		GestoreIO io = new GestoreIO();
 		TextAligner txtAligner = new TextAligner();
 		FormattatoreGrafico formattatoreGrafico = new FormattatoreGrafico();
 		
 		io.stampa(txtAligner.alignCenter("Carta POLVERE DI STELLE"));
 		io.stampa("Ogni giocatore perderà " + penalitaTempoVoloPerConnettoreEsposto + " per ogni connettore esposto");
+		
+		// i manager vanno letti in ordine inverso di rotta
+		// inverto l'array
+		ManagerDiVolo[] arrayInverso = Arrays.copyOf(arrayManager, arrayManager.length);
+		List<ManagerDiVolo> listaInversa = Arrays.asList(arrayInverso);
+		Collections.reverse(listaInversa);
 
-		for(ManagerDiVolo manager : listaManager){
+		// itero nella lista invertita
+		for(ManagerDiVolo manager : listaInversa){
 			int connettoriEsposti = manager.getGiocatore().getNave().getNumConnettoriEsposti();
 			io.aCapo();
 			io.stampa(formattatoreGrafico.formattaGiocatore(manager.getGiocatore()) + " ha " + connettoriEsposti + " connettori esposti");
