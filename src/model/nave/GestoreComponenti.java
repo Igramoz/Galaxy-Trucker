@@ -14,15 +14,15 @@ import util.layout.Direzione;
 public class GestoreComponenti {
 // classe che interagisce con i setter e i getter per gestire l'inserimento o la rimozione di merci/energia/equipaggio dalla nave
 
-	
 	// funzione per scegliere un componente della nave
 	private Nave nave;
-	GestoreIO io = new GestoreIO();
+	private GestoreIO io = new GestoreIO();
+	private AnalizzatoreNave analizzatore = new AnalizzatoreNave(nave);
 
 	public GestoreComponenti(Nave nave) {
 		this.nave = nave;
 	}
-	
+
 	public Coordinate scegliComponente(TipoComponente tipoComponente1, TipoComponente tipoComponente2) {
 		List<Componente> componenti = nave.getCopiaComponenti(tipoComponente1);
 		if (tipoComponente2 != null) {
@@ -35,15 +35,13 @@ public class GestoreComponenti {
 
 		return io.menuComponenti(componenti).getPosizione();
 	}
-	
+
 	private Coordinate scegliComponente(TipoComponente tipoComponente1) {
 		return scegliComponente(tipoComponente1, null);
 	}
 
-
 	// restituisce false se non posiziona tutte le merci
-	public boolean posizionaMerciInNave( List<TipoMerce> merci) {
- 
+	public boolean posizionaMerciInNave(List<TipoMerce> merci) {
 
 		if (merci == null || merci.size() == 0) {
 			return false;
@@ -146,7 +144,7 @@ public class GestoreComponenti {
 	}
 
 	public boolean rimuoviEquipaggioDaNave() {
- 
+
 		// salvo le cabine
 		List<Componente> cabine = nave.getComponentiOriginali(TipoComponente.CABINA_EQUIPAGGIO);
 		cabine.addAll(nave.getComponentiOriginali(TipoComponente.CABINA_PARTENZA));
@@ -167,9 +165,9 @@ public class GestoreComponenti {
 			io.stampa("Scegliere la cabina da cui rimuovere la pedina: ");
 			Coordinate posizione = null;
 			if (pedinaDaRimuovere == TipoPedina.ASTRONAUTA) {
-				posizione = scegliComponente( TipoComponente.CABINA_EQUIPAGGIO, TipoComponente.CABINA_PARTENZA);
+				posizione = scegliComponente(TipoComponente.CABINA_EQUIPAGGIO, TipoComponente.CABINA_PARTENZA);
 			} else {
-				posizione = scegliComponente( TipoComponente.CABINA_EQUIPAGGIO);
+				posizione = scegliComponente(TipoComponente.CABINA_EQUIPAGGIO);
 			}
 
 			if (!nave.forzaEquipaggio(pedinaDaRimuovere, posizione)) {
@@ -184,7 +182,7 @@ public class GestoreComponenti {
 	}
 
 	public boolean posizionaAlienoInNave(TipoPedina pedina) {
- 
+
 		List<Componente> cabineCollegate = new ArrayList<>();
 
 		if (pedina == null)
@@ -218,7 +216,7 @@ public class GestoreComponenti {
 
 		// salvo le cabine collegate
 		for (Componente sovrastruttura : sovrastrutture) {
-			cabineCollegate.addAll(ottieniCabineEquipaggioCollegate(nave, sovrastruttura));
+			cabineCollegate.addAll(analizzatore.ottieniCabineEquipaggioCollegate(nave, sovrastruttura));
 		}
 
 		boolean sceltaValida;
@@ -245,27 +243,6 @@ public class GestoreComponenti {
 		return false;
 	}
 
-	// funzione che data una sovrastruttura restitusce una lista con tutte le cabine
-	// di equipaggio collegate
-	private List<Componente> ottieniCabineEquipaggioCollegate(Nave nave, Componente sovrastruttura) {
-		List<Componente> cabineCollegate = new ArrayList<>();
-
-		Map<Direzione, Componente> componentiAdiacenti = nave
-				.getCopiaComponentiAdiacenti(sovrastruttura.getPosizione());
-
-		// rimuovo i componenti non collegati da tubi
-		Map<Direzione, TipoTubo> tubiSovrastruttura = sovrastruttura.getTubi();
-
-		for (Map.Entry<Direzione, TipoTubo> entry : tubiSovrastruttura.entrySet()) {
-			if (entry.getValue() != TipoTubo.NESSUNO) {
-				if (componentiAdiacenti.get(entry.getKey()).getTipo() == TipoComponente.CABINA_EQUIPAGGIO) {
-					cabineCollegate.add(componentiAdiacenti.get(entry.getKey()));
-				}
-			}
-		}
-		return cabineCollegate;
-	}
-
 	// posiziona l'altronauta in una qualunque cabina d'equipaggio o di partenza
 	public boolean posizionaAstronatuaInNave() {
 		if (nave.isEquipaggioCompleto())
@@ -283,7 +260,7 @@ public class GestoreComponenti {
 	}
 
 	public boolean consumaEnergia() {
-		
+
 		if (nave.getEnergia() <= 0)
 			return false;
 
@@ -310,7 +287,7 @@ public class GestoreComponenti {
 		return true;
 	}
 
-	//indicare la direzione verso cui si vuole attivare lo scudo
+	// indicare la direzione verso cui si vuole attivare lo scudo
 	public boolean attivaScudo(Direzione dir) {
 		if (nave.getEnergia() <= 0)
 			return false;
@@ -331,16 +308,16 @@ public class GestoreComponenti {
 		// non sono presenti scudi
 		return false;
 	}
-	
+
 	public void preparaEquipaggioAlVolo() {
 		// carico gli alieni
-		posizionaAlienoInNave( TipoPedina.ALIENO_MARRONE);
-		posizionaAlienoInNave( TipoPedina.ALIENO_VIOLA);
+		posizionaAlienoInNave(TipoPedina.ALIENO_MARRONE);
+		posizionaAlienoInNave(TipoPedina.ALIENO_VIOLA);
 
 		// carico gli astronauti
 		posizionaAstronatuaInNave();
 	}
-	
+
 	// carica al massimo tutte le batterie
 	public void ricaricaBatterie() {
 		List<Componente> batterie = nave.getCopiaComponenti(TipoComponente.VANO_BATTERIA);
