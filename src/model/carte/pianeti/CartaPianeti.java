@@ -11,7 +11,6 @@ import partita.fasiGioco.ManagerDiVolo;
 
 public class CartaPianeti extends Carta {
 
-	private final Effetto effetto = Effetto.GUADAGNA_MERCE;
 	private final List<Pianeta> pianeti; // lista dei pianeti di questa carta
 	private final int giorniVoloPersi;
 
@@ -55,7 +54,8 @@ public class CartaPianeti extends Carta {
 				if (scelto.atterra(g)) {
 					io.stampa(formattatoreGrafico.formattaGiocatore(g) + " è atterrato sul Pianeta "
 							+ formattatoreGrafico.formattaColore(scelto.getColore()));
-					effetto.applica(m, scelto.getMerciDisponibili());
+					Effetto.GUADAGNA_MERCE.applica(m, scelto.getMerciDisponibili());
+					Effetto.GIORNI_VOLO.applica(m, giorniVoloPersi);
 				}
 			} else {
 				io.stampa(formattatoreGrafico.formattaGiocatore(g) + " ha scelto di non atterrare.");
@@ -70,9 +70,5 @@ public class CartaPianeti extends Carta {
 
 	public int getGiorniVoloPersi() {
 		return giorniVoloPersi;
-	}
-
-	public Effetto getEffetto() {
-		return effetto;
 	}
 }

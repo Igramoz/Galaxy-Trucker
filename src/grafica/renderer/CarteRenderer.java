@@ -124,8 +124,6 @@ public class CarteRenderer {
 
 	public void rappresentaCarta(CartaPianeti carta) {
 		List<Pianeta> pianeti = carta.getPianeti();
-		int giorniVolo = carta.getGiorniVoloPersi();
-
 		io.stampa("Pianeti non occupati:");
 		for (int i = 0; i < pianeti.size(); i++) {
 			Pianeta p = pianeti.get(i);
@@ -134,20 +132,21 @@ public class CarteRenderer {
 						+ " giorni di volo, merci disponibili: " + p.getMerciDisponibili());
 			}
 		}
-		io.stampa("Sono richiesti " + giorniVolo + " per ciascun pianeta");
+		io.stampa("Sono richiesti " + carta.getGiorniVoloPersi() + " per ciascun pianeta");
 	}
-	
+
 	public void rappresentaCarta(StazioneAbbandonata stazioneAbbandonata) {
 		io.stampa(textAligner.alignCenter("Carta stazione abbandonata"));
-		io.stampa("Chi ha almeno: " + stazioneAbbandonata.getNumEquipaggio() + " membri dell'equipaggio può stipare le seguenti merci:");
+		io.stampa("Chi ha almeno: " + stazioneAbbandonata.getNumEquipaggio()
+				+ " membri dell'equipaggio può stipare le seguenti merci:");
 		formattatore.rappresentaMerci(stazioneAbbandonata.getMerci());
-		io.stampa("scegliere di stipare la merce comporta la perdita di " + stazioneAbbandonata.getTempoDiVolo());	
+		io.stampa("scegliere di stipare la merce comporta la perdita di " + stazioneAbbandonata.getTempoDiVolo());
 	}
-	
+
 	public void rappresentaCarta(NaveAbbandonata naveAbbandonata) {
 		io.stampa(textAligner.alignCenter("Carta nave abbandonata"));
 		io.stampa("Perdendo " + naveAbbandonata.getEquipaggioPerso() + " membri dell'equipaggio");
 		io.stampa("si può guadagnare " + naveAbbandonata.getCrediti() + " crediti");
-		io.stampa("scegliere guadagnare i crediti comporta la perdita di " + naveAbbandonata.getTempoDiVolo());	
+		io.stampa("scegliere guadagnare i crediti comporta la perdita di " + naveAbbandonata.getTempoDiVolo());
 	}
 }

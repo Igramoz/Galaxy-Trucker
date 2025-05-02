@@ -204,62 +204,57 @@ public class ServizioCarte {
 		}
 	}
 
-// TODO mettere privata
-	public List<CartaPianeti> generaCartaPianeti(LivelliPartita livello) {
-		int giorni = 0;
-		switch (livello) {
-		case LivelliPartita.LIVELLO_1:
-			giorni = random.randomInt(1, 4);
-			break;
-		case LivelliPartita.LIVELLO_2:
-			giorni = random.randomInt(2, 5);
-			break;
-		case LivelliPartita.LIVELLO_3:
-			giorni = random.randomInt(2, 6);
-			break;
-		}
+	private List<CartaPianeti> generaCartaPianeti(LivelliPartita livello) {
+		List<CartaPianeti> carte = new ArrayList<>();
+		int numeroCarte = TipoCarta.PIANETI.getNumeroCarte(livello);
+
+		int giorni = switch (livello) {
+		case LIVELLO_1 -> random.randomInt(1, 4);
+		case LIVELLO_2 -> random.randomInt(2, 5);
+		case LIVELLO_3 -> random.randomInt(2, 6);
+		};
 
 		int minimoMerci = 1;
 		if (livello == LivelliPartita.LIVELLO_3)
 			minimoMerci = 2;
 
-		List<Colore> colori = new ArrayList<>(Giocatore.coloriDisponibiliGiocatori);
-		Collections.shuffle(colori);
-		List<Pianeta> pianeti = new ArrayList<>();
-		int numeroPianeti = random.randomInt(2, 5);
+		for (int c = 0; c < numeroCarte; c++) {
+			List<Colore> colori = new ArrayList<>(Giocatore.coloriDisponibiliGiocatori);
+			Collections.shuffle(colori);
+			List<Pianeta> pianeti = new ArrayList<>();
+			int numeroPianeti = random.randomInt(2, 5);
 
-		for (int i = 0; i < numeroPianeti; i++) {
-			int numeroMerci = random.randomInt(minimoMerci, 6);
-			List<TipoMerce> merci = new ArrayList<>();
-			Colore colorePianeta = colori.get(i);
+			for (int i = 0; i < numeroPianeti; i++) {
+				int numeroMerci = random.randomInt(minimoMerci, 6);
+				List<TipoMerce> merci = new ArrayList<>();
+				Colore colorePianeta = colori.get(i);
 
-			Map<Colore, Integer> probabilita = generaProbabilitaMerci(colorePianeta);
-			for (int j = 0; j < numeroMerci; j++) {
-				Colore coloreMerce = random.getEnumValueByProbability(probabilita);
+				Map<Colore, Integer> probabilita = generaProbabilitaMerci(colorePianeta);
+				for (int j = 0; j < numeroMerci; j++) {
+					Colore coloreMerce = random.getEnumValueByProbability(probabilita);
 
-				List<TipoMerce> merciCompatibili = new ArrayList<>();
-				for (TipoMerce m : TipoMerce.values()) {
-					if (m.getColore() == coloreMerce) {
-						merciCompatibili.add(m);
+					List<TipoMerce> merciCompatibili = new ArrayList<>();
+					for (TipoMerce m : TipoMerce.values()) {
+						if (m.getColore() == coloreMerce) {
+							merciCompatibili.add(m);
+						}
 					}
-				}
 
-				if (merciCompatibili.isEmpty()) {
-					// se la lista è vuota, NON vado avanti, altrimenti avrei un errore
-					// quindi torno indietro per rigenerare questa merce
-					j--;
-					continue;
-				}
+					if (merciCompatibili.isEmpty()) {
+						// se la lista è vuota, NON vado avanti, altrimenti avrei un errore
+						// quindi torno indietro per rigenerare questa merce
+						j--;
+						continue;
+					}
 
-				int index = random.randomInt(merciCompatibili.size());
-				TipoMerce merce = merciCompatibili.get(index);
-				merci.add(merce);
+					int index = random.randomInt(merciCompatibili.size());
+					TipoMerce merce = merciCompatibili.get(index);
+					merci.add(merce);
+				}
+				pianeti.add(new Pianeta(merci, colorePianeta));
 			}
-			pianeti.add(new Pianeta(merci, colorePianeta));
+			carte.add(new CartaPianeti(pianeti, giorni));
 		}
-
-		List<CartaPianeti> carte = new ArrayList<>();
-		carte.add(new CartaPianeti(pianeti, giorni));
 		return carte;
 	}
 
@@ -374,7 +369,7 @@ public class ServizioCarte {
 			break;
 		}
 		}
-		
+
 		if (polvereStellare != null)
 			out.add(polvereStellare);
 
