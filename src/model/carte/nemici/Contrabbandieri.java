@@ -7,7 +7,7 @@ import io.GestoreIO;
 import model.carte.TipoCarta;
 import model.carte.criteriEffetti.Effetto;
 import model.enums.TipoMerce;
-import partita.fasiGioco.ManagerDiVolo;
+import partita.fasiGioco.volo.ManagerDiVolo;
 
 public class Contrabbandieri extends Nemico{
 	

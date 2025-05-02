@@ -67,7 +67,7 @@ src/
 |    └── planciaDiVolo/
 │   		├── Plancia.java
 │   		└── TipoPlancia.java
-
+|
 ├── partita/
 │   ├── LivelliPartita.java
 │   ├── Partita.java
@@ -77,9 +77,13 @@ src/
 │       ├── Volo.java
 │       ├── FineVolo.java
 │       ├── FineGioco.java
-│       └── composizioneNave/
-│           ├── ComposizioneNave.java
-│           └── ManagerTurnoComposizione.java
+│       ├── composizioneNave/
+│       |   ├── ComposizioneNave.java
+│       |   └── ManagerTurnoComposizione.java
+|       |
+│       └── volo/
+│           ├── Volo.java
+│           └── ManagerVolo.java
 │
 ├── grafica/
 │   ├── Colore.java

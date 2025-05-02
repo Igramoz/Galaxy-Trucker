@@ -6,7 +6,7 @@ import grafica.FormattatoreGrafico;
 import io.GestoreIO;
 import model.carte.TipoCarta;
 import model.carte.criteriEffetti.Effetto;
-import partita.fasiGioco.ManagerDiVolo;
+import partita.fasiGioco.volo.ManagerDiVolo;
 
 public class Schiavisti extends Nemico {
 

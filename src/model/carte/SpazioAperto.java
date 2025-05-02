@@ -1,5 +1,5 @@
 package model.carte;
-import partita.fasiGioco.ManagerDiVolo;
+import partita.fasiGioco.volo.ManagerDiVolo;
 
 
 

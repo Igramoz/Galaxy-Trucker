@@ -1,6 +1,6 @@
 package model.carte.criteriEffetti;
 
-import partita.fasiGioco.ManagerDiVolo;
+import partita.fasiGioco.volo.ManagerDiVolo;
 
 public enum Criterio {
 	/**

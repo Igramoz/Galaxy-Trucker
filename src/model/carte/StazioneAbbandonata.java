@@ -6,7 +6,7 @@ import java.util.List;
 import grafica.FormattatoreGrafico;
 import grafica.renderer.CarteRenderer;
 import model.enums.TipoMerce;
-import partita.fasiGioco.ManagerDiVolo;
+import partita.fasiGioco.volo.ManagerDiVolo;
 import io.GestoreIO;
 import model.carte.criteriEffetti.Effetto;
 

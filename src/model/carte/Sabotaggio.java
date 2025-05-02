@@ -5,7 +5,7 @@ import grafica.TextAligner;
 import grafica.renderer.NaveRenderer;
 import io.GestoreIO;
 import model.carte.criteriEffetti.Criterio;
-import partita.fasiGioco.ManagerDiVolo;
+import partita.fasiGioco.volo.ManagerDiVolo;
 import servizi.ServizioDadi;
 import util.layout.Coordinate;
 
@@ -24,11 +24,11 @@ public class Sabotaggio extends Carta {
 	}
 
 	@Override
-	public void eseguiEvento(ManagerDiVolo[] listaManager) {
+	public void eseguiEvento(ManagerDiVolo[] arrayManager) {
 		io.stampa(textAligner.alignCenter("Carta: Sabotaggio"));
 		io.stampa("La nave con il minor equipaggio verrà sabotata.");
 
-		ManagerDiVolo giocatoreSabotato = criterio.trovaPeggiore(listaManager);
+		ManagerDiVolo giocatoreSabotato = criterio.trovaPeggiore(arrayManager);
 		io.stampa("La nave con il minor equipaggio verrà sabotata.");
 		io.stampa(formattatoreGrafico.formattaGiocatore(giocatoreSabotato.getGiocatore()) + " è stato sabotato");
 		io.stampa("hai a disposizione 3 lanci per determinare dove la nave verrà sabotata");
@@ -57,7 +57,7 @@ public class Sabotaggio extends Carta {
 				io.aCapo();
 				io.stampa("nave dopo essere stata sabotata");
 				io.stampa(naveRenderer.rappresentazioneNave(giocatoreSabotato.getGiocatore().getNave()));
-				giocatoreSabotato.getGiocatore().incrementaPezziDistrutti(pezziDistrutti);
+				giocatoreSabotato.incrementaPezziDistrutti(pezziDistrutti);
 				break;
 			}
 		}

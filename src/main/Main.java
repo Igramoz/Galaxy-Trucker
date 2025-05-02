@@ -20,9 +20,8 @@ import model.carte.PioggiaDiMeteoriti;
 import model.carte.pianeti.CartaPianeti;
 import partita.LivelliPartita;
 import partita.fasiGioco.FineGioco;
-import partita.fasiGioco.ManagerDiVolo;
 import partita.fasiGioco.composizioneNave.*;
-
+import partita.fasiGioco.volo.ManagerDiVolo;
 import partita.Partita;
 
 public class Main {

@@ -3,7 +3,6 @@ package model.nave;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import io.GestoreIO;
 import model.componenti.*;
@@ -17,7 +16,6 @@ public class GestoreComponenti {
 	// funzione per scegliere un componente della nave
 	private Nave nave;
 	private GestoreIO io = new GestoreIO();
-	private AnalizzatoreNave analizzatore = new AnalizzatoreNave(nave);
 
 	public GestoreComponenti(Nave nave) {
 		this.nave = nave;
@@ -216,7 +214,7 @@ public class GestoreComponenti {
 
 		// salvo le cabine collegate
 		for (Componente sovrastruttura : sovrastrutture) {
-			cabineCollegate.addAll(analizzatore.ottieniCabineEquipaggioCollegate(nave, sovrastruttura));
+			cabineCollegate.addAll(nave.getAnalizzatoreNave().ottieniCabineEquipaggioCollegate(nave, sovrastruttura));
 		}
 
 		boolean sceltaValida;

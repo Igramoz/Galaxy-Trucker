@@ -8,7 +8,7 @@ import model.componenti.Componente;
 import model.componenti.TipoComponente;
 import model.nave.AnalizzatoreNave;
 import model.nave.Nave;
-import partita.fasiGioco.ManagerDiVolo;
+import partita.fasiGioco.volo.ManagerDiVolo;
 
 public class Epidemia extends Carta {
 

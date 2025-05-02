@@ -6,7 +6,7 @@ import java.util.List;
 import model.carte.colpo.*;
 import model.carte.criteriEffetti.CriterioConEffetto;
 import model.carte.criteriEffetti.Effetto;
-import partita.fasiGioco.ManagerDiVolo;
+import partita.fasiGioco.volo.ManagerDiVolo;
 import util.layout.Direzione;
 
 public class PioggiaDiMeteoriti extends Carta implements GestoreColpi {

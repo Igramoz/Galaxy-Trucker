@@ -1,8 +1,10 @@
 package model.nave;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import model.carte.colpo.Colpo;
 import model.componenti.*;
@@ -336,5 +338,26 @@ public class Nave {
 
 	protected AnalizzatoreNave getAnalizzatoreNave() {
 		return analizzatoreNave;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.deepHashCode(grigliaComponenti);
+		result = prime * result + Objects.hash(livelloNave);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Nave other = (Nave) obj;
+		return Arrays.deepEquals(grigliaComponenti, other.grigliaComponenti) && livelloNave == other.livelloNave;
 	}
 }

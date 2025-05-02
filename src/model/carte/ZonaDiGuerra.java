@@ -7,7 +7,7 @@ import model.carte.colpo.Colpo;
 import model.carte.criteriEffetti.Criterio;
 import model.carte.criteriEffetti.CriterioConEffetto;
 import model.carte.criteriEffetti.Effetto;
-import partita.fasiGioco.ManagerDiVolo;
+import partita.fasiGioco.volo.ManagerDiVolo;
 
 public class ZonaDiGuerra extends Carta {
 

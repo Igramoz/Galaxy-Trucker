@@ -1,7 +1,9 @@
 package partita.fasiGioco.composizioneNave;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.GestoreIO;
 import model.Giocatore;
@@ -64,15 +66,28 @@ public class ComposizioneNave {
 			}
 		}
 
-		// I pezzi prenotati e non usati sono considerati pezzi distrutti
-		for (ManagerTurnoComposizione m : manager) {
-			m.getGiocatore().incrementaPezziDistrutti(m.getPezziPrenotatiSize());
-		}
-
 		return ordineFine;
 	}
 	
 	public List<Carta> getMazzoDiGioco(){
 		return servizioCarte.getMazzoCompleto();
 	}
+	
+	/**
+	 * getter per leggere il numero di pezzi prenotati en non usati
+	 * 
+	 * @return mappa che associa ad ogni giocatore il numero di compoenenti prenotati e non usati
+	 */
+	public Map<Giocatore, Integer> getNumPezziPrenotati() {
+	    Map<Giocatore, Integer> numPezziDistrutti = new HashMap<>();
+
+	    for (ManagerTurnoComposizione m : manager) {
+	        Giocatore giocatore = m.getGiocatore();
+	        int pezziPrenotati = m.getPezziPrenotatiSize();
+
+	        numPezziDistrutti.put(giocatore, pezziPrenotati);
+	    }
+	    return numPezziDistrutti;
+	}
+	
 }

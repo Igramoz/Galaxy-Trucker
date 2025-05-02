@@ -2,6 +2,7 @@ package model;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import grafica.Colore;
 import model.nave.Nave;
@@ -15,7 +16,6 @@ public class Giocatore  {
 
 	private final String nome;
 	private final Colore colore;
-	private int pezziDistrutti = 0;
 
 	// TODO assegnare titolo
 	private Nave nave;
@@ -57,23 +57,10 @@ public class Giocatore  {
 		// la nave ha i suoi attributi protetti correttamente.
 		return nave;
 	}
-
-    // Metodi pezzi distrutti
-    public int getPezziDistrutti() {
-    	return this.pezziDistrutti;
-    }
     
-    public void incrementaPezziDistrutti(int numPezziDistrutti) {
-        this.pezziDistrutti += numPezziDistrutti;
-    }
-    
-	// Metodi crediti
+    // Metodi crediti
 	public void aggiungiCrediti(int crediti) {
 		this.crediti += crediti;
-	}
-	
-	public void azzeraPezziDistrutti() {
-		this.pezziDistrutti = 0;
 	}
 
 	public int getCrediti() {
@@ -82,5 +69,23 @@ public class Giocatore  {
 
 	public static void resetNumeroGiocatori() {
 		numeroGiocatori = 0;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(colore, crediti, nave, nome);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Giocatore other = (Giocatore) obj;
+		return colore == other.colore && crediti == other.crediti && Objects.equals(nave, other.nave)
+				&& Objects.equals(nome, other.nome);
 	}
 }

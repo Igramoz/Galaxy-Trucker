@@ -4,7 +4,7 @@ import grafica.FormattatoreGrafico;
 import grafica.renderer.CarteRenderer;
 import io.GestoreIO;
 import model.carte.criteriEffetti.Effetto;
-import partita.fasiGioco.ManagerDiVolo;
+import partita.fasiGioco.volo.ManagerDiVolo;
 
 public class NaveAbbandonata extends Carta{
 	

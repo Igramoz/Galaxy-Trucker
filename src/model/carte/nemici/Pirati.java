@@ -9,7 +9,7 @@ import io.GestoreIO;
 import model.carte.TipoCarta;
 import model.carte.colpo.*;
 import model.carte.criteriEffetti.*;
-import partita.fasiGioco.ManagerDiVolo;
+import partita.fasiGioco.volo.ManagerDiVolo;
 
 public class Pirati extends Nemico implements GestoreColpi {
 

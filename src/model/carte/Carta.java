@@ -5,7 +5,7 @@ import grafica.TextAligner;
 import grafica.renderer.CarteRenderer;
 import grafica.renderer.NaveRenderer;
 import io.GestoreIO;
-import partita.fasiGioco.ManagerDiVolo;
+import partita.fasiGioco.volo.ManagerDiVolo;
 
 public abstract class Carta {
 	private final TipoCarta tipoCarta;

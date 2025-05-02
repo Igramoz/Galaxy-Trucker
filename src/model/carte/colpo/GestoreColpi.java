@@ -7,7 +7,7 @@ import grafica.renderer.CarteRenderer;
 import grafica.renderer.NaveRenderer;
 import io.GestoreIO;
 import model.Giocatore;
-import partita.fasiGioco.ManagerDiVolo;
+import partita.fasiGioco.volo.ManagerDiVolo;
 import servizi.ServizioDadi;
 
 public interface GestoreColpi {
@@ -41,7 +41,7 @@ public interface GestoreColpi {
 					io.stampa("Nave di " + formattatoreGrafico.formattaGiocatore(giocatore)
 							+ " dopo essere stata colpita");
 					io.stampa(naveRenderer.rappresentazioneNave(giocatore.getNave()));
-					giocatore.incrementaPezziDistrutti(pezziDistrutti);
+					m.incrementaPezziDistrutti(pezziDistrutti);
 				} else {
 					io.stampa("Nave di " + formattatoreGrafico.formattaGiocatore(giocatore) + " si è salvata");
 				}

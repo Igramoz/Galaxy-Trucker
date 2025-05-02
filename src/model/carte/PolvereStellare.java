@@ -9,7 +9,7 @@ import java.util.List;
 import grafica.FormattatoreGrafico;
 import grafica.TextAligner;
 import model.carte.criteriEffetti.Effetto;
-import partita.fasiGioco.ManagerDiVolo;
+import partita.fasiGioco.volo.ManagerDiVolo;
 
 public class PolvereStellare extends Carta {
 

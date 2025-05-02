@@ -6,7 +6,7 @@ import model.Giocatore;
 import model.carte.Carta;
 import model.carte.TipoCarta;
 import model.carte.criteriEffetti.Effetto;
-import partita.fasiGioco.ManagerDiVolo;
+import partita.fasiGioco.volo.ManagerDiVolo;
 
 public abstract class Nemico extends Carta {
 

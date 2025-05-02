@@ -8,7 +8,7 @@ import io.GestoreIO;
 import model.Giocatore;
 import model.carte.colpo.Colpo;
 import model.enums.TipoMerce;
-import partita.fasiGioco.ManagerDiVolo;
+import partita.fasiGioco.volo.ManagerDiVolo;
 import servizi.ServizioDadi;
 
 public enum Effetto {
@@ -29,7 +29,7 @@ public enum Effetto {
 			for (Colpo c : colpi) {
 				int posizioneColpo = servizioDadi.lancia2Dadi(g);
 				int pezziDistrutti = g.getNave().subisciImpatto(c, posizioneColpo);
-				g.incrementaPezziDistrutti(pezziDistrutti);
+				manager.incrementaPezziDistrutti(pezziDistrutti);
 			}
 			io.aCapo();
 			io.stampa("Questa è la nave di " + formattatoreGrafico.formattaGiocatore(g) + " dopo aver subito i colpi:");
