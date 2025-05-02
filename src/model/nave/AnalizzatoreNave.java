@@ -1,5 +1,6 @@
 package model.nave;
 
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -24,19 +25,19 @@ public class AnalizzatoreNave {
 
 	private GestoreIO io = new GestoreIO();
 	private FormattatoreGrafico formattatoreGrafico = new FormattatoreGrafico();
-	
+
 	public AnalizzatoreNave(Nave nave) {
-		if(nave == null) {
+		if (nave == null) {
 			throw new NullPointerException("La nave non può essere null");
 		}
-		
+
 		this.nave = nave;
 	}
-	
+
 	public Map<Direzione, Componente> getCopiaComponentiAdiacenti(Coordinate coord) {
 		Map<Direzione, Componente> adiacenti = new EnumMap<>(Direzione.class);
 		Componente[][] grigliaComponenti = nave.getGrigliaComponentiCloni();
-		
+
 		// Coord del componente
 		int x = coord.getX();
 		int y = coord.getY();
@@ -50,43 +51,43 @@ public class AnalizzatoreNave {
 	}
 
 	public int connettoriEspostiConuter() {
-		
+
 		int counter = 0;
 		Componente[][] griglia = nave.getGrigliaComponentiCloni();
-		for(int x = 0; x < Util.SIZE; x++) {
-			for(int y = 0; y < Util.SIZE; y++) {
-				if(griglia[x][y] != null) {
+		for (int x = 0; x < Util.SIZE; x++) {
+			for (int y = 0; y < Util.SIZE; y++) {
+				if (griglia[x][y] != null) {
 					counter += connettoriEspostiComponente(griglia[x][y]);
 				}
 			}
 		}
 		return counter;
 	}
-	
+
 	/**
 	 * @param componete al centro
 	 * @return numero componenti esposti
 	 */
 	private int connettoriEspostiComponente(Componente componente) {
-	
-		 Map<Direzione, Componente> adiacenti = getCopiaComponentiAdiacenti(componente.getPosizione());
-		 int counter = 0;
-		 
-		    for (Map.Entry<Direzione, Componente> entry : adiacenti.entrySet()) {
-		        Direzione direzione = entry.getKey();
-		        Componente adiacente = entry.getValue();
 
-		        // controlla la presenza di un componente
-		        if (adiacente == null) {
-		            // Se il componente ha un tubo in quella direzione è esposto
-		            if (componente.getTubo(direzione) != TipoTubo.NESSUNO) {
-		                counter++;
-		            }
-		        }
-		    }
-		 return counter;
+		Map<Direzione, Componente> adiacenti = getCopiaComponentiAdiacenti(componente.getPosizione());
+		int counter = 0;
+
+		for (Map.Entry<Direzione, Componente> entry : adiacenti.entrySet()) {
+			Direzione direzione = entry.getKey();
+			Componente adiacente = entry.getValue();
+
+			// controlla la presenza di un componente
+			if (adiacente == null) {
+				// Se il componente ha un tubo in quella direzione è esposto
+				if (componente.getTubo(direzione) != TipoTubo.NESSUNO) {
+					counter++;
+				}
+			}
+		}
+		return counter;
 	}
-	
+
 	public float potenzaFuocoCounter() {
 		float potenzaFuoco = 0;
 
@@ -122,7 +123,7 @@ public class AnalizzatoreNave {
 		}
 		return potenzaFuoco;
 	}
-	
+
 	public int potenzaMotriceCounter() {
 		int potenzaMotrice = 0;
 
@@ -157,9 +158,9 @@ public class AnalizzatoreNave {
 			}
 		}
 		return potenzaMotrice;
-		
+
 	}
-	
+
 	public int energiaCounter() {
 		List<Componente> batterie = nave.getCopiaComponenti(TipoComponente.VANO_BATTERIA);
 		int counter = 0;
@@ -169,5 +170,25 @@ public class AnalizzatoreNave {
 		return counter;
 	}
 
-	
+	// funzione che data una sovrastruttura restitusce una lista con tutte le cabine
+	// di equipaggio collegate
+	public List<Componente> ottieniCabineEquipaggioCollegate(Nave nave, Componente componente) {
+		List<Componente> cabineCollegate = new ArrayList<>();
+
+		Map<Direzione, Componente> componentiAdiacenti = nave.getCopiaComponentiAdiacenti(componente.getPosizione());
+
+		// rimuovo i componenti non collegati da tubi
+		Map<Direzione, TipoTubo> tubiSovrastruttura = componente.getTubi();
+
+		for (Map.Entry<Direzione, TipoTubo> entry : tubiSovrastruttura.entrySet()) {
+			if (entry.getValue() != TipoTubo.NESSUNO) {
+				TipoComponente tipoComponente = componentiAdiacenti.get(entry.getKey()).getTipo();
+				if (tipoComponente == TipoComponente.CABINA_EQUIPAGGIO
+						|| tipoComponente == TipoComponente.CABINA_PARTENZA) {
+					cabineCollegate.add(componentiAdiacenti.get(entry.getKey()));
+				}
+			}
+		}
+		return cabineCollegate;
+	}
 }
