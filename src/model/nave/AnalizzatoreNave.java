@@ -170,9 +170,9 @@ public class AnalizzatoreNave {
 		return counter;
 	}
 
-	// funzione che data una sovrastruttura restitusce una lista con tutte le cabine
+	// funzione che dato un componente restitusce una lista con tutte le cabine
 	// di equipaggio collegate
-	public List<Componente> ottieniCabineEquipaggioCollegate(Nave nave, Componente componente) {
+	public List<Componente> ottieniCabineEquipaggioCollegate(Componente componente) {
 		List<Componente> cabineCollegate = new ArrayList<>();
 
 		Map<Direzione, Componente> componentiAdiacenti = nave.getCopiaComponentiAdiacenti(componente.getPosizione());

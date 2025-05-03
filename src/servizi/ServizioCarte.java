@@ -66,6 +66,7 @@ public class ServizioCarte {
 		mazzoPerLivello.addAll(generaNemici(livelloCarte));
 		mazzoPerLivello.addAll(generaPolvereStellare(livelloCarte));
 		mazzoPerLivello.addAll(generaSabotaggio(livelloCarte));
+		mazzoPerLivello.addAll(generaEpidemia(livelloCarte));
 		// TODO controllare che ci siano tutte le carte
 
 		// mischio le carte
@@ -98,9 +99,10 @@ public class ServizioCarte {
 	}
 
 	public List<Carta> getMazzoNoto(int num) {
-	    if (num >= mazziNoti.length || num < 0) {
-	        throw new IndexOutOfBoundsException("Indice non valido: " + num + ". Deve essere compreso tra 0 e " + (mazziNoti.length - 1));
-	    }
+		if (num >= mazziNoti.length || num < 0) {
+			throw new IndexOutOfBoundsException(
+					"Indice non valido: " + num + ". Deve essere compreso tra 0 e " + (mazziNoti.length - 1));
+		}
 		return mazziNoti[num];
 	}
 
@@ -379,13 +381,12 @@ public class ServizioCarte {
 
 		return out;
 	}
-	
-	private List<Sabotaggio> generaSabotaggio(LivelliPartita lvl){
+
+	private List<Sabotaggio> generaSabotaggio(LivelliPartita lvl) {
 		List<Sabotaggio> out = new ArrayList<>();
-		
-		switch(lvl) {
-		case LIVELLO_1:
-		case LIVELLO_2:
+
+		switch (lvl) {
+		case LIVELLO_1, LIVELLO_2:
 			// la carta è presente solo a livello 3
 			break;
 		case LIVELLO_3:
@@ -394,5 +395,17 @@ public class ServizioCarte {
 		}
 		return out;
 	}
-	
+
+	private List<Epidemia> generaEpidemia(LivelliPartita livello) {
+		List<Epidemia> lista = new ArrayList<>();
+		switch (livello) {
+		// La carta epidemia non esiste per il livello 1
+		case LIVELLO_1:
+			break;
+		case LIVELLO_2, LIVELLO_3:
+			lista.add(new Epidemia());
+			break;
+		}
+		return lista;
+	}
 }

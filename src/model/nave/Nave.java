@@ -216,6 +216,24 @@ public class Nave {
 		return false;
 	}
 
+	public void eliminaEquipaggioDaCabineCollegate() {
+		List<Componente> cabine = new ArrayList<>();
+		cabine.addAll(getComponentiOriginali(TipoComponente.CABINA_EQUIPAGGIO));
+		cabine.addAll(getComponentiOriginali(TipoComponente.CABINA_PARTENZA));
+		List<Coordinate> coordinateGiaEsaminate = new ArrayList<>();
+
+		for (Componente cabina : cabine) {
+			if (!coordinateGiaEsaminate.contains(cabina.getPosizione())) {
+				List<Componente> adiacenti = analizzatoreNave.ottieniCabineEquipaggioCollegate(cabina);
+				for (Componente adiacente : adiacenti) {
+					if (!coordinateGiaEsaminate.contains(adiacente.getPosizione())) {
+						// TODO: rimuovi un membro dell'equipaggio da adiacente
+					}
+				}
+			}
+		}
+	}
+
 	public List<TipoMerce> getMerci() {
 		List<Componente> stive = this.getCopiaComponenti(TipoComponente.STIVA);
 		stive.addAll(this.getCopiaComponenti(TipoComponente.STIVA_SPECIALE));
