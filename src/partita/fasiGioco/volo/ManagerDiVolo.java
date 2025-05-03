@@ -1,6 +1,7 @@
 package partita.fasiGioco.volo;
 
 import model.Giocatore;
+import Eccezioni.GiocatoreNonSpostabile;
 import model.planciaDiVolo.*;
 
 public class ManagerDiVolo {
@@ -17,21 +18,23 @@ public class ManagerDiVolo {
 	}
 
 	public boolean spostaGiocatore(int giorniDiVolo) {
-
-		return plancia.spostaGiocatore(giorniDiVolo, giocatore);
+		
+		try {
+			plancia.spostaGiocatore(giorniDiVolo, giocatore);
+		}catch( GiocatoreNonSpostabile e) {
+			return false; // se il giocatore non può essere spostato restituisce false
+		}
+		
+		return true; // se il giocatore può essere spostato restituisce true
 
 	}
-// TODO Integer, vale null se il giocatore ha abbandonato il volo
-	public int getGiorniDiVoloGiocatore() {
+	
+	public Integer getGiorniDiVoloGiocatore() {
 		return plancia.getGiorniDiVoloGiocatore(giocatore); // restituisce i giorni di volo del giocatore
 	}
 
 	public Giocatore getGiocatore() {
 		return giocatore;
-	}
-
-	public void aumentaGiorniDiVolo(int giorni) {
-		plancia.spostaGiocatore(giorni, giocatore);
 	}
 	
     // Metodi pezzi distrutti
@@ -42,4 +45,24 @@ public class ManagerDiVolo {
     public void incrementaPezziDistrutti(int numPezziDistrutti) {
         this.pezziDistrutti += numPezziDistrutti;
     }
+    
+    public boolean isDoppiato() {	
+		// controlla se il giocatore è doppiato
+		
+		float giroGiocatore = plancia.getNumeroGiroGiocatore(giocatore); // numero di giro del giocatore	
+		
+		for (Giocatore giocatore : plancia.getGiocatori()) {
+	
+			if(plancia.getNumeroGiroGiocatore(giocatore) - giroGiocatore > 1) {
+				return true; // giornidivolo/lunghezzaPlancia = numero giro, se numero giro > giroGiocatore + 1 vuol dire che il giocatore è doppiato
+			}
+		}
+		
+		return false; // se il giocatore non è doppiato restituisce false
+		
+	}
+    
+    public void AbbandonaVolo() {
+		plancia.abbandonaVolo(giocatore); // il giocatore abbandona il volo
+	}
 }
