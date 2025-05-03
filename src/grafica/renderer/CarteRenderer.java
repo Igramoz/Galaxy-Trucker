@@ -3,11 +3,13 @@ package grafica.renderer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import io.GestoreIO;
 import model.carte.*;
 import model.carte.colpo.Colpo;
 import model.carte.pianeti.*;
+import partita.fasiGioco.volo.ManagerDiVolo;
 import util.layout.Direzione;
 import grafica.CostantiGrafica;
 import grafica.FormattatoreGrafico;
@@ -21,14 +23,13 @@ public class CarteRenderer {
 
 	public void rappresentaCarte(List<Carta> mazzo) {
 		List<String> output = new ArrayList<>();
-		
-		for(Carta carta : mazzo) {
-			output.add(carta.getTipoCarta().name());			
+
+		for (Carta carta : mazzo) {
+			output.add(carta.getTipoCarta().name());
 		}
 		io.stampa(output);
 	}
-	
-	
+
 	public void rappresentaColpi(List<Colpo> colpi) {
 
 		// Calcolo padding per l’allineamento orizzontale
@@ -159,5 +160,19 @@ public class CarteRenderer {
 		io.stampa("Perdendo " + naveAbbandonata.getEquipaggioPerso() + " membri dell'equipaggio");
 		io.stampa("si può guadagnare " + naveAbbandonata.getCrediti() + " crediti");
 		io.stampa("scegliere guadagnare i crediti comporta la perdita di " + naveAbbandonata.getTempoDiVolo());
+	}
+
+	public void rappresentaCarta(Map<ManagerDiVolo[], Integer> equipaggioPersoPerManager) {
+		io.stampa(textAligner.alignCenter("Carta epidemia"));
+		io.stampa("L'epidemia elimina un membro dell'equipaggio da tutte le cabine adiacenti tra di loro");
+		for (Map.Entry<ManagerDiVolo[], Integer> entry : equipaggioPersoPerManager.entrySet()) {
+			ManagerDiVolo[] listaManager = entry.getKey();
+			int membriPersi = entry.getValue();
+
+			for (ManagerDiVolo manager : listaManager) {
+				io.stampa(formattatore.formattaGiocatore(manager.getGiocatore()) + " ha perso " + membriPersi
+						+ " membri totali dal proprio equipaggio");
+			}
+		}
 	}
 }

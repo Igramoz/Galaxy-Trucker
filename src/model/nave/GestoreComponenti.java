@@ -216,14 +216,9 @@ public class GestoreComponenti {
 		for (Componente sovrastruttura : sovrastrutture) {
 			cabineCollegate.addAll(nave.getAnalizzatoreNave().ottieniCabineEquipaggioCollegate(sovrastruttura));
 		}
+
 		// rimuovo la cabina di partenza, se c'è
-		for (int i = 0; i < sovrastrutture.size(); i++) {
-			Componente c = sovrastrutture.get(i);
-			if (c.getTipo() == TipoComponente.CABINA_PARTENZA) {
-				sovrastrutture.remove(c);
-				break;
-			}
-		}
+		sovrastrutture.removeIf(p -> p.getTipo() == TipoComponente.CABINA_PARTENZA);
 
 		boolean sceltaValida;
 		do {

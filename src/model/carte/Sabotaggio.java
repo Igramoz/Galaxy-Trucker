@@ -1,9 +1,5 @@
 package model.carte;
 
-import grafica.FormattatoreGrafico;
-import grafica.TextAligner;
-import grafica.renderer.NaveRenderer;
-import io.GestoreIO;
 import model.carte.criteriEffetti.Criterio;
 import partita.fasiGioco.volo.ManagerDiVolo;
 import servizi.ServizioDadi;
@@ -11,11 +7,7 @@ import util.layout.Coordinate;
 
 public class Sabotaggio extends Carta {
 
-	private GestoreIO io = new GestoreIO();
-	private TextAligner textAligner = new TextAligner();
-	private FormattatoreGrafico formattatoreGrafico = new FormattatoreGrafico();
 	private ServizioDadi servizioDadi = new ServizioDadi();
-	private NaveRenderer naveRenderer = new NaveRenderer();
 
 	private final Criterio criterio = Criterio.EQUIPAGGIO;
 

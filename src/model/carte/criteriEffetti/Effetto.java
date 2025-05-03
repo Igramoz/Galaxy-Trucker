@@ -14,9 +14,12 @@ import servizi.ServizioDadi;
 public enum Effetto {
 	/**
 	 * Applica una serie di colpi alla nave del giocatore.
-	 * <p><b>Tipo richiesto per {@code valore}:</b> {@code List<Colpo>}</p>
+	 * <p>
+	 * <b>Tipo richiesto per {@code valore}:</b> {@code List<Colpo>}
+	 * </p>
+	 * 
 	 * @param manager il gestore del giocatore da colpire
-     * @param lista di colpi che la nave deve subire
+	 * @param lista   di colpi che la nave deve subire
 	 */
 	COLPI {
 		@Override // giocatore che subisce i colpi e lista dei colpi subiti
@@ -38,9 +41,12 @@ public enum Effetto {
 	},
 	/**
 	 * Rimuove un certo numero di membri dell'equipaggio dalla nave del giocatore.
-	 * <p><b>Tipo richiesto per {@code valore}:</b> {@code Integer}</p>
+	 * <p>
+	 * <b>Tipo richiesto per {@code valore}:</b> {@code Integer}
+	 * </p>
+	 * 
 	 * @param manager il gestore del giocatore penalizzato
-	 * @param numero di membri dell'equipaggio da rimuovere
+	 * @param numero  di membri dell'equipaggio da rimuovere
 	 */
 	PERDITA_EQUIPAGGIO {
 		@Override // giocatore che perde le merci e numero di membri dell'equipaggio persi
@@ -53,9 +59,12 @@ public enum Effetto {
 	},
 	/**
 	 * Rimuove un certo numero di merci dalla nave del giocatore.
-     * <p><b>Tipo richiesto per {@code valore}:</b> {@code Integer}</p>
+	 * <p>
+	 * <b>Tipo richiesto per {@code valore}:</b> {@code Integer}
+	 * </p>
+	 * 
 	 * @param manager il gestore del giocatore penalizzato
-	 * @param numero di merci da rimuovere
+	 * @param numero  di merci da rimuovere
 	 */
 	PERDITA_MERCE {
 		@Override // giocatore che perde le merci e numero di merci perse
@@ -68,9 +77,12 @@ public enum Effetto {
 	},
 	/**
 	 * Riduce i giorni di volo disponibili per il giocatore.
-     * <p><b>Tipo richiesto per {@code valore}:</b> {@code Integer}</p>
+	 * <p>
+	 * <b>Tipo richiesto per {@code valore}:</b> {@code Integer}
+	 * </p>
+	 * 
 	 * @param manager il gestore del giocatore penalizzato
-	 * @param numero di giorni di volo da sottrarre
+	 * @param numero  di giorni di volo da sottrarre
 	 */
 	GIORNI_VOLO {
 		@Override // giocatore che perde i giorni di volo e numero di giorni di volo persi
@@ -78,14 +90,17 @@ public enum Effetto {
 			int n = (Integer) valore;
 			io.stampa(formattatoreGrafico.formattaGiocatore(manager.getGiocatore()) + " perderà " + n
 					+ " giorni di volo");
-			manager.aumentaGiorniDiVolo(-n);
+			manager.spostaGiocatore(-n);
 		}
 	},
 	/**
 	 * Aggiunge crediti al giocatore.
-     * <p><b>Tipo richiesto per {@code valore}:</b> {@code Integer}</p>
+	 * <p>
+	 * <b>Tipo richiesto per {@code valore}:</b> {@code Integer}
+	 * </p>
+	 * 
 	 * @param manager il gestore del giocatore premiato
-	 * @param numero di crediti da aggiungere
+	 * @param numero  di crediti da aggiungere
 	 */
 	GUADAGNA_CREDITI {
 		@Override // giocatore che guadagna i crediti e numero di crediti guadagnati
@@ -98,9 +113,12 @@ public enum Effetto {
 	},
 	/**
 	 * Aggiunge una lista di merci alla nave del giocatore.
-     * <p><b>Tipo richiesto per {@code valore}:</b> {@code List<TipoMerce>}</p>
+	 * <p>
+	 * <b>Tipo richiesto per {@code valore}:</b> {@code List<TipoMerce>}
+	 * </p>
+	 * 
 	 * @param manager il gestore del giocatore premiato
-	 * @param lista di merci da aggiungere
+	 * @param lista   di merci da aggiungere
 	 */
 	GUADAGNA_MERCE {
 		@Override // giocatore che guadagna le merci e numero di merci guadagnate
@@ -114,8 +132,8 @@ public enum Effetto {
 	};
 
 	/**
-	 * Posizionare il cursore sulla costante per vedere il tipo della seconda costante.
-	 * Applica l'effetto della carta. Il tipo del secondo argomento
+	 * Posizionare il cursore sulla costante per vedere il tipo della seconda
+	 * costante. Applica l'effetto della carta. Il tipo del secondo argomento
 	 * {@code Object valore} deve coincidere con quello nella javadoc, altrimenti
 	 * verrà lanciato {@code ClassCastException} a runtime.
 	 *

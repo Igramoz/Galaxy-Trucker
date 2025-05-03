@@ -216,22 +216,29 @@ public class Nave {
 		return false;
 	}
 
-	public void eliminaEquipaggioDaCabineCollegate() {
+	public int eliminaEquipaggioDaCabineCollegate(List<Coordinate> coordinateGiaEsaminate) {
+		int membriEquipaggioEliminati = 0;
 		List<Componente> cabine = new ArrayList<>();
 		cabine.addAll(getComponentiOriginali(TipoComponente.CABINA_EQUIPAGGIO));
 		cabine.addAll(getComponentiOriginali(TipoComponente.CABINA_PARTENZA));
-		List<Coordinate> coordinateGiaEsaminate = new ArrayList<>();
 
 		for (Componente cabina : cabine) {
 			if (!coordinateGiaEsaminate.contains(cabina.getPosizione())) {
+				coordinateGiaEsaminate.add(cabina.getPosizione());
+				((CabinaDiEquipaggio) cabina).rimuoviUnMembroEquipaggio();
+				membriEquipaggioEliminati++;
+
 				List<Componente> adiacenti = analizzatoreNave.ottieniCabineEquipaggioCollegate(cabina);
 				for (Componente adiacente : adiacenti) {
 					if (!coordinateGiaEsaminate.contains(adiacente.getPosizione())) {
-						// TODO: rimuovi un membro dell'equipaggio da adiacente
+						coordinateGiaEsaminate.add(adiacente.getPosizione());
+						((CabinaDiEquipaggio) adiacente).rimuoviUnMembroEquipaggio();
+						membriEquipaggioEliminati++;
 					}
 				}
 			}
 		}
+		return membriEquipaggioEliminati;
 	}
 
 	public List<TipoMerce> getMerci() {
