@@ -2,7 +2,7 @@ package partita.fasiGioco;
 
 import java.util.List;
 
-import grafica.FormattatoreGrafico;
+import grafica.formattatori.FormattatoreGrafico;
 import io.GestoreIO;
 import model.enums.TipoMerce;
 import partita.ModalitaGioco;
@@ -35,6 +35,7 @@ public class FineVolo {
 		io.stampa("È giunta l'ora di assegnare le ricompense");
 		io.aCapo();
 		
+		// assegno i crediti in base al criterio
 		ordineArrivo();
 		venditaMerci();
 		perdite();
@@ -50,7 +51,7 @@ public class FineVolo {
 		for(ManagerDiVolo manager : arrayManager) {
 			if(manager.getGiorniDiVoloGiocatore() != null) {
 				io.aCapo();
-				io.stampa(formattatoreGrafico.formattaGiocatore(manager.getGiocatore()) + " riceve " + crediti + " crediti");
+				io.stampa(formattatoreGrafico.formatta(manager.getGiocatore()) + " riceve " + crediti + " crediti");
 				
 				manager.getGiocatore().aggiungiCrediti(crediti);
 				crediti--;
@@ -70,7 +71,7 @@ public class FineVolo {
 				crediti += merce.getValore();				
 			}
 			
-			io.stampa(formattatoreGrafico.formattaGiocatore(manager.getGiocatore()) + " riceve " + crediti + " crediti");
+			io.stampa(formattatoreGrafico.formatta(manager.getGiocatore()) + " riceve " + crediti + " crediti");
 			manager.getGiocatore().aggiungiCrediti(crediti);
 		}		
 	}
@@ -82,11 +83,12 @@ public class FineVolo {
 		for(ManagerDiVolo manager : arrayManager) {
 	        int pezziDistrutti = manager.getPezziDistrutti();
 			
-			io.stampa(formattatoreGrafico.formattaGiocatore(manager.getGiocatore()) + " perde " + pezziDistrutti + " crediti");
+			io.stampa(formattatoreGrafico.formatta(manager.getGiocatore()) + " perde " + pezziDistrutti + " crediti");
 			manager.getGiocatore().aggiungiCrediti(-pezziDistrutti);
 		}	
 	}
 	
+	// assegna i crediti in base ai connettori esposti se la mod è volo singolo
 	private void bellezzaNave(){
 		final int creditiVoloSingolo = 4;
 		int numCrediti = 0;
@@ -104,7 +106,7 @@ public class FineVolo {
 		for(ManagerDiVolo manager : arrayManager) {
 			int connettoriEspostiManager = manager.getGiocatore().getNave().getNumConnettoriEsposti();
 			
-			io.stampa(formattatoreGrafico.formattaGiocatore(manager.getGiocatore()) + " ha " + connettoriEspostiManager + " connettori esposti");
+			io.stampa(formattatoreGrafico.formatta(manager.getGiocatore()) + " ha " + connettoriEspostiManager + " connettori esposti");
 			
 			if( connettoriEspostiManager < minorConnettoriEsposti) {
 				minorConnettoriEsposti = connettoriEspostiManager;
@@ -112,7 +114,7 @@ public class FineVolo {
 			}
 		}
 		io.aCapo();
-		io.stampa("la nave più bella è quella di " + formattatoreGrafico.formattaGiocatore(managerMinorConnettoriEsposti.getGiocatore()));
+		io.stampa("la nave più bella è quella di " + formattatoreGrafico.formatta(managerMinorConnettoriEsposti.getGiocatore()));
 		io.stampa("che guadagna " + numCrediti);
 		io.aCapo();
 		

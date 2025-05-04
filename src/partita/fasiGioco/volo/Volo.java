@@ -9,13 +9,13 @@ import partita.ModalitaGioco;
 import model.carte.Carta;
 
 public class Volo {
-	
+	// TODO eliminare le variabili o gli import non usati
 	private final ModalitaGioco modalitaGioco;
 	private Giocatore[] giocatori;
 	private final Plancia plancia;
 	private List<Carta> carte;
 	private ManagerDiVolo[] managerDiVolo;
-	
+	// TODO fare una lista di manager solo con quelli in volo e una con tutti (anche quelli che hanno abbandonato)
 	public Volo(ModalitaGioco modalitaGioco, Giocatore[] giocatori, List<Carta> carte) {
 		this.modalitaGioco = modalitaGioco;
 		this.giocatori = giocatori;
@@ -36,7 +36,7 @@ public class Volo {
 		for(Giocatore giocatore : giocatori) {
 			giocatore.getNave().preparaAlVolo();
 		}
-		
+
 		while(game) {
 			//per ogni giocatore applica le carte a partire dall primo giocatore sulla plancia
 			carte.getFirst().eseguiEvento(managerDiVolo);
@@ -46,7 +46,7 @@ public class Volo {
 			ordinaManegerDiVolo();
 			
 			//controllo se i giocatori sono doppiati
-			
+			// TODO ci sono altre condizioni per abbandonare il volo, fare una funzione che si occupa di controllarli e rimuovere
 			for(ManagerDiVolo manager : managerDiVolo) {
 				if(manager.isDoppiato()) {
 					manager.AbbandonaVolo();
@@ -96,5 +96,9 @@ public class Volo {
 	}
 	
 	// TODO fare il getter per i manager di volo
+	// nel getter dei manager bisogna restituire anche quelli con tempo di volo null
+	
+	// TODO fai un metodo privato per controllare se i giocatori possono continare a volare e se no li rimuove dalla lista dei manager e li rimuove dalla plancia
+
 	
 }

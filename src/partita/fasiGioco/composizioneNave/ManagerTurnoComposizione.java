@@ -6,6 +6,7 @@ import servizi.ServizioAssemblaggio;
 import servizi.ServizioCarte;
 import util.layout.Coordinate;
 import grafica.*;
+import grafica.formattatori.FormattatoreGrafico;
 import grafica.renderer.CarteRenderer;
 import grafica.renderer.ComponenteRenderer;
 import grafica.renderer.NaveRenderer;
@@ -87,7 +88,7 @@ public class ManagerTurnoComposizione {
 
 	private void mostraStato() {
 		io.aCapo();
-		io.stampa(txtAligner.alignCenter("Turno di: " + formattatore.formattaGiocatore(giocatore)));
+		io.stampa(txtAligner.alignCenter("Turno di: " + formattatore.formatta(giocatore)));
 		io.aCapo();
 		io.stampa(naveRenderer.rappresentazioneNave(giocatore.getNave()));
 		io.aCapo();

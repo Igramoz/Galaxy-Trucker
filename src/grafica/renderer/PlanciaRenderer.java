@@ -2,8 +2,8 @@ package grafica.renderer;
 
 import model.Giocatore;
 import model.planciaDiVolo.Plancia;
-import grafica.TextAligner;	
-import grafica.FormattatoreGrafico;	
+import grafica.TextAligner;
+import grafica.formattatori.FormattatoreGrafico;
 import grafica.Colore;
 
 
@@ -21,7 +21,7 @@ public class PlanciaRenderer {
         // Inizializzo le righe per i giocatori
         FormattatoreGrafico formattatore = new FormattatoreGrafico();
         for (int i = 0; i < plancia.getGiocatori().length; i++) {
-            righePlancia[i] = formattatore.formattaGiocatore(plancia.getGiocatori()[i]) + " " + SimboloGiornoDiVolo(plancia.getGiocatori()[i]);
+            righePlancia[i] = formattatore.formatta(plancia.getGiocatori()[i]) + " " + SimboloGiornoDiVolo(plancia.getGiocatori()[i]);
         }
         // righa vuota
         righePlancia[plancia.getGiocatori().length] = ""; //riga vuota

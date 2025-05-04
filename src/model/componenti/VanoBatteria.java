@@ -1,6 +1,7 @@
 package model.componenti;
 import java.util.Map;
 
+import eccezioni.ComponenteNonIstanziabileException;
 import model.enums.TipoTubo;
 import util.layout.Direzione;
 
@@ -16,7 +17,7 @@ public class VanoBatteria extends Componente{
 		super(TipoComponente.VANO_BATTERIA, tubiIniziali);
 
 		if (capacitaMassima < MIN_BATTERIE || capacitaMassima > MAX_BATTERIE) {
-			throw new IllegalArgumentException("La capacità massima della batteria deve essere compresa tra 2 e 3.");
+			throw new ComponenteNonIstanziabileException("Impossibile istanziare una batteria con capacità: " + capacitaMassima + " la capacità massima deve essere compresa tra 2 e 3 (inclusi).");
 		}
 
 		this.capacitaMassima = capacitaMassima;

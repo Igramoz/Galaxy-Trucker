@@ -1,6 +1,8 @@
 package grafica;
 
-public enum Colore {
+import grafica.formattatori.Formattabile;
+
+public enum Colore implements Formattabile{
 	//i colori sono codici ANSI
 	DEFAULT("\u001B[0m"), // per settare il colore default di stampa
 	BIANCO("\u001B[38;5;15m"),
@@ -14,7 +16,9 @@ public enum Colore {
 	AZZURRO("\u001B[38;5;51m"),
 	BLU("\u001B[38;5;32m"),
 	ROSSO("\u001B[38;5;203m"),
-	GRIGIO("\u001B[37m");
+	GRIGIO("\u001B[37m"),
+	ARGENTO("\u001B[38;2;192;192;192m"),
+	ORO("\u001B[38;2;255;215;0m");
 
 
 	private final String codice;
@@ -26,4 +30,8 @@ public enum Colore {
 	public String getCodice() {
 		return codice;
 	}
+	
+	public Colore getColore() {
+		return this;
+	}	
 }

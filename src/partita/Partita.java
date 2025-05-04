@@ -25,6 +25,19 @@ public class Partita {
 
 	public void gioca() {
 
+		if(modalita == ModalitaGioco.VOLO_SINGOLO) {
+			voloSingolo(modalita.getlivelloPartita());
+		}else {
+			trasvolataIntergalattica();
+		}
+		
+		// fine del gioco
+		fine = new FineGioco(giocatori);
+		fine.start();
+	}
+	
+	private void voloSingolo(LivelliPartita livelllo) {
+		
 		// fase composizione nave
 		ComposizioneNave composizione = new ComposizioneNave(giocatori, modalita.getlivelloPartita());
 		composizione.start();
@@ -43,10 +56,19 @@ public class Partita {
 		
 		// fine del volo, assegno i crediti
 		// FineVolo fineVolo = new FineVolo(modalita, managerTurni);
-		
-		// fine del gioco
-		fine = new FineGioco(giocatori);
-		fine.start();
+		// fineVolo.assegnaCrediti();
 	}
+	
+	private void trasvolataIntergalattica() {
+		
+		// si gioca ogni livello uno dopo l'altro
+		for(LivelliPartita livelloAttuale :LivelliPartita.values()) {
+			modalita.setlivelloPartita(livelloAttuale);
+			voloSingolo( livelloAttuale);
+			// TODO assegna crediti e titoli
+			
+		}		
+	}
+	
 
 }

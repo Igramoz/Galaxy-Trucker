@@ -33,7 +33,7 @@ public class VerificatoreImpatti {
 	
 	public Coordinate verificaImpatto(Colpo colpo, int coordinata) {
 
-		Coordinate coordinateColpite = calcolaCoordinateColpite(nave, colpo.getDirezione(), coordinata);
+		Coordinate coordinateColpite = calcolaCoordinateColpite(colpo.getDirezione(), coordinata);
 
 		if (coordinateColpite == null) {
 			return null; // nessun componente lungo quella direzione
@@ -42,11 +42,11 @@ public class VerificatoreImpatti {
 		if (colpo.getTipoColpo() == TipoColpo.METEORITE) {
 			// Controllo che tipo di meteorite è
 			if (colpo.getDimensioniColpo() == DimensioniColpo.PICCOLO) {
-				if (meteoritePiccoloColpisce(nave, colpo.getDirezione(), coordinateColpite)) {
+				if (meteoritePiccoloColpisce( colpo.getDirezione(), coordinateColpite)) {
 					return coordinateColpite;
 				}
 			} else {
-				if (meteoriteGrossoColpisce(nave, colpo.getDirezione(), coordinateColpite)) {
+				if (meteoriteGrossoColpisce(colpo.getDirezione(), coordinateColpite)) {
 					return coordinateColpite;
 				}
 			}
@@ -63,7 +63,7 @@ public class VerificatoreImpatti {
 
 	// Restituisce null se la nave non viene colpita ( coordinata è la x o y lungo
 	// la quale si muove il colpo)
-	private Coordinate calcolaCoordinateColpite(Nave nave, Direzione direzione, int coordinata) {
+	private Coordinate calcolaCoordinateColpite(Direzione direzione, int coordinata) {
 
 		Componente[][] griglia = nave.getGrigliaComponentiCloni();
 
@@ -100,7 +100,7 @@ public class VerificatoreImpatti {
 		return null; // nessun componente lungo quella direzione
 	}
 
-	private boolean meteoritePiccoloColpisce(Nave nave, Direzione direzione, Coordinate coordinate) {
+	private boolean meteoritePiccoloColpisce(Direzione direzione, Coordinate coordinate) {
 		if (nave.getCopiaComponente(coordinate).getTubo(direzione) == TipoTubo.NESSUNO)
 			return false;
 
@@ -108,7 +108,7 @@ public class VerificatoreImpatti {
 		return !gestoreComponenti.attivaScudo(direzione);
 	}
 
-	private boolean meteoriteGrossoColpisce(Nave nave, Direzione direzione, Coordinate coordinate) {
+	private boolean meteoriteGrossoColpisce( Direzione direzione, Coordinate coordinate) {
 
 		// se il meteorite arriva da davanti può essere fatto espoldere solo con un
 		// cannone che punta in avanti nella stessa colonna

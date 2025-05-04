@@ -1,6 +1,6 @@
 package servizi;
 
-import grafica.FormattatoreGrafico;
+import grafica.formattatori.FormattatoreGrafico;
 import io.GestoreIO;
 import model.Giocatore;
 import util.random.Dado;
@@ -14,7 +14,7 @@ public class ServizioDadi {
     	Dado dado1 = Dado.getIstanza();
     	Dado dado2 = Dado.getIstanza();
     	
-    	io.stampa( formattatoreGrafico.formattaGiocatore(giocatore) + " premi un tasto per tirare i 2 dadi");
+    	io.stampa( formattatoreGrafico.formatta(giocatore) + " premi un tasto per tirare i 2 dadi");
     	io.leggiTesto();
     	
     	int num1 = dado1.lancia();

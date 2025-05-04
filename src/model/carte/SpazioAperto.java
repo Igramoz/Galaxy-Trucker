@@ -16,7 +16,7 @@ public class SpazioAperto extends Carta {
 		
 		for (ManagerDiVolo manager : managerDiVolo) {
 			
-			super.io.stampa("Turno di " + super.formattatoreGrafico.formattaGiocatore(manager.getGiocatore()) + " - Spazio Aperto");
+			super.io.stampa("Turno di " + super.formattatoreGrafico.formatta(manager.getGiocatore()) + " - Spazio Aperto");
 			
 			super.io.aCapo();
 			super.io.stampa(super.naveRenderer.rappresentazioneNave(manager.getGiocatore().getNave()));

@@ -42,24 +42,24 @@ public class CartaPianeti extends Carta {
 			String[] menu = new String[numPianetiDisponibili + 1];
 			for (int i = 0; i < numPianetiDisponibili; i++) {
 				menu[i] = "Atterra sul Pianeta "
-						+ formattatoreGrafico.formattaColore(pianetiDisponibili.get(i).getColore());
+						+ formattatoreGrafico.formatta(pianetiDisponibili.get(i).getColore());
 			}
 			menu[numPianetiDisponibili] = "Non voglio atterare";
 
 			// stampa del menu
-			io.stampa(formattatoreGrafico.formattaGiocatore(g) + ", su quale pianeta vuoi atterrare?");
+			io.stampa(formattatoreGrafico.formatta(g) + ", su quale pianeta vuoi atterrare?");
 			int scelta = io.stampaMenu(menu);
 
 			if (scelta < numPianetiDisponibili) {
 				Pianeta scelto = pianetiDisponibili.get(scelta);
 				if (scelto.atterra(g)) {
-					io.stampa(formattatoreGrafico.formattaGiocatore(g) + " è atterrato sul Pianeta "
-							+ formattatoreGrafico.formattaColore(scelto.getColore()));
+					io.stampa(formattatoreGrafico.formatta(g) + " è atterrato sul Pianeta "
+							+ formattatoreGrafico.formatta(scelto.getColore()));
 					effetto.applica(m, scelto.getMerciDisponibili());
 					Effetto.GIORNI_VOLO.applica(m, giorniVoloPersi);
 				}
 			} else {
-				io.stampa(formattatoreGrafico.formattaGiocatore(g) + " ha scelto di non atterrare.");
+				io.stampa(formattatoreGrafico.formatta(g) + " ha scelto di non atterrare.");
 			}
 		}
 		io.aCapo();

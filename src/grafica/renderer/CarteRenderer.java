@@ -11,8 +11,8 @@ import model.carte.colpo.Colpo;
 import model.carte.pianeti.*;
 import util.layout.Direzione;
 import grafica.CostantiGrafica;
-import grafica.FormattatoreGrafico;
 import grafica.TextAligner;
+import grafica.formattatori.FormattatoreGrafico;
 
 public class CarteRenderer {
 
@@ -139,7 +139,7 @@ public class CarteRenderer {
 		for (int i = 0; i < pianeti.size(); i++) {
 			Pianeta p = pianeti.get(i);
 			if (!p.isOccupato()) {
-				io.stampa("Pianeta " + formattatore.formattaColore(p.getColore())
+				io.stampa("Pianeta " + formattatore.formatta(p.getColore())
 						+ " giorni di volo, merci disponibili: " + p.getMerciDisponibili());
 			}
 		}
@@ -150,7 +150,7 @@ public class CarteRenderer {
 		io.stampa(textAligner.alignCenter("Carta stazione abbandonata"));
 		io.stampa("Chi ha almeno: " + stazioneAbbandonata.getNumEquipaggio()
 				+ " membri dell'equipaggio può stipare le seguenti merci:");
-		formattatore.rappresentaMerci(stazioneAbbandonata.getMerci());
+		formattatore.formattaEStampaMerci(stazioneAbbandonata.getMerci());
 		io.stampa("scegliere di stipare la merce comporta la perdita di " + stazioneAbbandonata.getTempoDiVolo());
 	}
 
@@ -168,7 +168,7 @@ public class CarteRenderer {
 	}
 
 	public void stampaEquipaggioPersoPerGiocatore(Giocatore g, int membriPersi) {
-		io.stampa(formattatore.formattaGiocatore(g) + " ha perso " + membriPersi
+		io.stampa(formattatore.formatta(g) + " ha perso " + membriPersi
 				+ " membri totali dal proprio equipaggio");
 	}
 }

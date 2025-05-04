@@ -2,7 +2,7 @@ package model.carte.criteriEffetti;
 
 import java.util.List;
 
-import grafica.FormattatoreGrafico;
+import grafica.formattatori.FormattatoreGrafico;
 import grafica.renderer.NaveRenderer;
 import io.GestoreIO;
 import model.Giocatore;
@@ -35,7 +35,7 @@ public enum Effetto {
 				manager.incrementaPezziDistrutti(pezziDistrutti);
 			}
 			io.aCapo();
-			io.stampa("Questa è la nave di " + formattatoreGrafico.formattaGiocatore(g) + " dopo aver subito i colpi:");
+			io.stampa("Questa è la nave di " + formattatoreGrafico.formatta(g) + " dopo aver subito i colpi:");
 			io.stampa(renderer.rappresentazioneNave(g.getNave()));
 		}
 	},
@@ -53,7 +53,7 @@ public enum Effetto {
 		public void applica(ManagerDiVolo manager, Object valore) {
 			Giocatore g = manager.getGiocatore();
 			int n = (Integer) valore;
-			io.stampa(formattatoreGrafico.formattaGiocatore(g) + " perderà " + n + " membri dell'equipaggio");
+			io.stampa(formattatoreGrafico.formatta(g) + " perderà " + n + " membri dell'equipaggio");
 			g.getNave().rimuoviEquipaggio(n);
 		}
 	},
@@ -71,7 +71,7 @@ public enum Effetto {
 		public void applica(ManagerDiVolo manager, Object valore) {
 			Giocatore g = manager.getGiocatore();
 			int n = (Integer) valore;
-			io.stampa(formattatoreGrafico.formattaGiocatore(g) + " perderà " + n + " merci");
+			io.stampa(formattatoreGrafico.formatta(g) + " perderà " + n + " merci");
 			g.getNave().rimuoviMerce(n);
 		}
 	},
@@ -88,7 +88,7 @@ public enum Effetto {
 		@Override // giocatore che perde i giorni di volo e numero di giorni di volo persi
 		public void applica(ManagerDiVolo manager, Object valore) {
 			int n = (Integer) valore;
-			io.stampa(formattatoreGrafico.formattaGiocatore(manager.getGiocatore()) + " perderà " + n
+			io.stampa(formattatoreGrafico.formatta(manager.getGiocatore()) + " perderà " + n
 					+ " giorni di volo");
 			manager.spostaGiocatore(-n);
 		}
@@ -107,7 +107,7 @@ public enum Effetto {
 		public void applica(ManagerDiVolo manager, Object valore) {
 			Giocatore g = manager.getGiocatore();
 			int n = (Integer) valore;
-			io.stampa(formattatoreGrafico.formattaGiocatore(g) + " guadagna " + n + " crediti");
+			io.stampa(formattatoreGrafico.formatta(g) + " guadagna " + n + " crediti");
 			g.aggiungiCrediti(n);
 		}
 	},
@@ -126,7 +126,7 @@ public enum Effetto {
 			Giocatore g = manager.getGiocatore();
 			@SuppressWarnings("unchecked")
 			List<TipoMerce> merci = (List<TipoMerce>) valore;
-			io.stampa(formattatoreGrafico.formattaGiocatore(g) + " ottiene " + merci.size() + " merci");
+			io.stampa(formattatoreGrafico.formatta(g) + " ottiene " + merci.size() + " merci");
 			g.getNave().setMerci(merci);
 		}
 	};

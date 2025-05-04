@@ -3,6 +3,7 @@ package model.componenti;
 import java.util.List;
 import java.util.Map;
 
+import eccezioni.ComponenteNonIstanziabileException;
 import model.Giocatore;
 import model.enums.*;
 import util.layout.Direzione;
@@ -27,7 +28,7 @@ public class CabinaPartenza extends CabinaDiEquipaggio{
 		super(TipoComponente.CABINA_PARTENZA, tubiIniziali, equipaggioIniziale);
 		
 		if(!Giocatore.coloriDisponibiliGiocatori.contains(colore)) {
-            throw new IllegalArgumentException("Colore non valido. Deve essere uno tra: " + Giocatore.coloriDisponibiliGiocatori);
+            throw new ComponenteNonIstanziabileException("Colore non valido. Deve essere uno tra: " + Giocatore.coloriDisponibiliGiocatori);
 		}
 		
 		this.colore = colore;

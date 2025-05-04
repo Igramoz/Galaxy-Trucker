@@ -2,6 +2,7 @@ package model.componenti;
 
 import java.util.Map;
 
+import eccezioni.ComponenteNonIstanziabileException;
 import model.enums.TipoTubo;
 import util.layout.Direzione;
 
@@ -25,7 +26,7 @@ public class GeneratoreDiScudi extends Componente {
 		// valide
 
 		if (direzione.length != 2 || direzione[0] == null || direzione[1] == null || checkDirezioni(direzione)) {
-			throw new IllegalArgumentException("L'array di direzioni è errato");
+			throw new ComponenteNonIstanziabileException("Impossibile istanziare il generatore di scudi: l'array di direzioni non è valido.");
 		}
 
 		this.direzione[0] = direzione[0];

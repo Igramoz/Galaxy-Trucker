@@ -4,6 +4,7 @@ package model.componenti;
 
 import java.util.Map;
 
+import eccezioni.ComponenteNonIstanziabileException;
 import model.enums.*;
 import util.layout.Direzione;
 
@@ -20,7 +21,7 @@ public class Stiva extends Componente{
 
 		// Controllo che abbia un numero di scomparti valido
 		if (scomparti < 2 || scomparti > 3) {
-			throw new IllegalArgumentException("Le stive normali devono avere 2 o 3 scomparti.");
+			throw new ComponenteNonIstanziabileException("Impossibile istanziare una stiva semplice con " + scomparti + " scomparti deve averne 2 o 3.");
 		}
 
 	}

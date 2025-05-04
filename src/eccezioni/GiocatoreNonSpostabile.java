@@ -1,4 +1,4 @@
-package Eccezioni;
+package eccezioni;
 
 public class GiocatoreNonSpostabile extends Exception {
 	

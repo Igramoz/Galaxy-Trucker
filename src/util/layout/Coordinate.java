@@ -1,5 +1,7 @@
 package util.layout;
 
+import java.util.Objects;
+
 import util.Util;
 
 public class Coordinate {
@@ -37,10 +39,16 @@ public class Coordinate {
     }
 
     @Override
+	public int hashCode() {
+		return Objects.hash(x, y);
+	}
+
+    @Override
     public boolean equals(Object c) {
         if (this == c) return true;
         if (c == null || !(c instanceof Coordinate)) return false;
 
         return this.x == ((Coordinate) c).x && this.y == ((Coordinate) c).y;
     }
+	
 }

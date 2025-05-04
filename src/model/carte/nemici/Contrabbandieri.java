@@ -2,7 +2,7 @@ package model.carte.nemici;
 
 import java.util.List;
 
-import grafica.FormattatoreGrafico;
+import grafica.formattatori.FormattatoreGrafico;
 import io.GestoreIO;
 import model.carte.TipoCarta;
 import model.carte.criteriEffetti.Effetto;
@@ -25,9 +25,9 @@ public class Contrabbandieri extends Nemico{
 
 	@Override
 	public void applicaVittoria(ManagerDiVolo manager) {
-		io.stampa(formattatoreGrafico.formattaGiocatore(manager.getGiocatore()) + " ha vinto contro i contrabbandieri!");
+		io.stampa(formattatoreGrafico.formatta(manager.getGiocatore()) + " ha vinto contro i contrabbandieri!");
 		io.stampa("Scrivere 1 se sei disposto a perdere " + getPerditaGiorniDiVolo() + " giorni di volo per guadagnare le seguenti merci");
-		formattatoreGrafico.rappresentaMerci(merci);
+		formattatoreGrafico.formattaEStampaMerci(merci);
 		int scelta = io.leggiIntero();
 		// se sì: giocatore arretra e guadagna crediti
 		if (scelta == 1) {
@@ -40,7 +40,7 @@ public class Contrabbandieri extends Nemico{
 	@Override
 	public void spiegaVittoria() {
 		io.stampa("Chi sconfigge i contrabbandieri potrà caricare le seguenti merci:");
-		formattatoreGrafico.rappresentaMerci(merci);
+		formattatoreGrafico.formattaEStampaMerci(merci);
 	}
 
 	@Override

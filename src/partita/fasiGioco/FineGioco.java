@@ -3,7 +3,7 @@ package partita.fasiGioco;
 import java.util.ArrayList;
 import java.util.List;
 
-import grafica.FormattatoreGrafico;
+import grafica.formattatori.FormattatoreGrafico;
 import io.GestoreIO;
 import model.Giocatore;
 import partita.Partita;
@@ -36,15 +36,15 @@ public class FineGioco {
 		if (lunghezza == 0) {
 			gestoreIO.stampa("Nessun giocatore ha vinto");
 		} else if (lunghezza == 1) {
-			gestoreIO.stampa("L'unico vincitore è stato " + formattatore.formattaGiocatore(maggiorVincitore) + " con "
+			gestoreIO.stampa("L'unico vincitore è stato " + formattatore.formatta(maggiorVincitore) + " con "
 					+ maggiorVincitore.getCrediti() + " punti.");
 		} else {
 			gestoreIO.stampa("I vincitori sono stati:");
 			for (int i = 0; i < lunghezza; i++) {
-				gestoreIO.stampa(formattatore.formattaGiocatore(vincitori.get(i)) + " con "
+				gestoreIO.stampa(formattatore.formatta(vincitori.get(i)) + " con "
 						+ vincitori.get(i).getCrediti() + " punti");
 			}
-			gestoreIO.stampa("Ma " + formattatore.formattaGiocatore(maggiorVincitore) + " ha vinto più degli altri!");
+			gestoreIO.stampa("Ma " + formattatore.formatta(maggiorVincitore) + " ha vinto più degli altri!");
 		}
 
 		String[] menu = { "Rigioca", "Chiudi gioco" };

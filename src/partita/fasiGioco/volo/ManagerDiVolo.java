@@ -1,7 +1,7 @@
 package partita.fasiGioco.volo;
 
+import eccezioni.GiocatoreNonSpostabile;
 import model.Giocatore;
-import Eccezioni.GiocatoreNonSpostabile;
 import model.planciaDiVolo.*;
 
 public class ManagerDiVolo {

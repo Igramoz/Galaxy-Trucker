@@ -5,7 +5,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-import grafica.FormattatoreGrafico;
+import grafica.formattatori.FormattatoreGrafico;
 import io.GestoreIO;
 import model.componenti.Cannone;
 import model.componenti.Componente;
@@ -101,7 +101,7 @@ public class AnalizzatoreNave {
 		cannoni = nave.getCopiaComponenti(TipoComponente.CANNONE_DOPPIO);
 		for (Componente cannone : cannoni) {
 			io.stampa("scrivere 1 se si vuole usare il cannone in posizione: "
-					+ formattatoreGrafico.formattaCoordinate(cannone.getPosizione()));
+					+ formattatoreGrafico.formatta(cannone.getPosizione()));
 			if (io.leggiIntero() == 1) {
 				if (nave.getGestoreComponenti().consumaEnergia()) { // uso il cannone doppio
 					potenzaFuoco += ((Cannone) cannone).getPotenzaFuoco();
@@ -135,7 +135,7 @@ public class AnalizzatoreNave {
 		motori = nave.getCopiaComponenti(TipoComponente.MOTORE_DOPPIO);
 		for (Componente motore : motori) {
 			io.stampa("scrivere 1 se si vuole usare il motore in posizione: "
-					+ formattatoreGrafico.formattaCoordinate(motore.getPosizione()));
+					+ formattatoreGrafico.formatta(motore.getPosizione()));
 			if (io.leggiIntero() == 1) {
 				if (nave.getGestoreComponenti().consumaEnergia()) { // uso il motore doppio
 					potenzaMotrice += 2;

@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import grafica.*;
+import grafica.formattatori.FormattatoreGrafico;
 import io.GestoreIO;
 import model.componenti.*;
 import model.enums.*;
@@ -158,7 +159,7 @@ public class ComponenteRenderer {
 			} else {
 				output += " equipaggio:";
 				for (TipoPedina pedina : equipaggio) {
-					output += " " + formattatoreGrafico.formattaPedina(pedina);
+					output += " " + formattatoreGrafico.formatta(pedina);
 				}
 			}			
 		} else if (componente instanceof Stiva) {
@@ -171,7 +172,7 @@ public class ComponenteRenderer {
 		    	output += " merci:";
 		        for (TipoMerce merce : merci) {
 		            if (merce != null) {
-		                output += " " + formattatoreGrafico.formattaMerce(merce);
+		                output += " " + formattatoreGrafico.formatta(merce);
 		            }
 		        }
 		    }

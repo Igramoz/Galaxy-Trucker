@@ -5,10 +5,11 @@ import java.util.List;
 import java.util.Objects;
 
 import grafica.Colore;
+import grafica.formattatori.Formattabile;
 import model.nave.Nave;
 import model.nave.TipoNave;
 
-public class Giocatore  {
+public class Giocatore implements Formattabile {
 	private final static int giocatoriMax = 4; // Numero massimo di giocatori
 	public static int numeroGiocatori = 0;
 	public static final List<Colore> coloriDisponibiliGiocatori = Arrays.asList(Colore.ROSSO, Colore.BLU, Colore.VERDE,

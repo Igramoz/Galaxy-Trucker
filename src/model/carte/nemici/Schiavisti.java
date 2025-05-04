@@ -2,7 +2,7 @@ package model.carte.nemici;
 
 import java.util.List;
 
-import grafica.FormattatoreGrafico;
+import grafica.formattatori.FormattatoreGrafico;
 import io.GestoreIO;
 import model.carte.TipoCarta;
 import model.carte.criteriEffetti.Effetto;
@@ -25,7 +25,7 @@ public class Schiavisti extends Nemico {
 	public void applicaVittoria(ManagerDiVolo manager) {
 		FormattatoreGrafico formattatoreGrafico = new FormattatoreGrafico();
 		
-		io.stampa(formattatoreGrafico.formattaGiocatore(manager.getGiocatore()) + " ha vinto contro gli schiavisti!");
+		io.stampa(formattatoreGrafico.formatta(manager.getGiocatore()) + " ha vinto contro gli schiavisti!");
 		io.stampa("Scrivere 1 se sei disposto a perdere " + getPerditaGiorniDiVolo() + " giorni di volo per guadagnare "
 				+ numeroCrediti + " crediti.");
 		int scelta = io.leggiIntero();

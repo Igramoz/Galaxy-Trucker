@@ -1,7 +1,7 @@
 package model.carte;
 
-import grafica.FormattatoreGrafico;
 import grafica.TextAligner;
+import grafica.formattatori.FormattatoreGrafico;
 import grafica.renderer.CarteRenderer;
 import grafica.renderer.NaveRenderer;
 import io.GestoreIO;

@@ -22,7 +22,7 @@ public class Sabotaggio extends Carta {
 
 		ManagerDiVolo giocatoreSabotato = criterio.trovaPeggiore(arrayManager);
 		io.stampa("La nave con il minor equipaggio verrà sabotata.");
-		io.stampa(formattatoreGrafico.formattaGiocatore(giocatoreSabotato.getGiocatore()) + " è stato sabotato");
+		io.stampa(formattatoreGrafico.formatta(giocatoreSabotato.getGiocatore()) + " è stato sabotato");
 		io.stampa("hai a disposizione 3 lanci per determinare dove la nave verrà sabotata");
 
 		for (int i = 0; i < 3; i++) {
@@ -44,7 +44,7 @@ public class Sabotaggio extends Carta {
 			} else {
 				io.aCapo();
 				io.stampa(
-						"la nave è stata sabotata in posizione: " + formattatoreGrafico.formattaCoordinate(coordinate));
+						"la nave è stata sabotata in posizione: " + formattatoreGrafico.formatta(coordinate));
 				io.stampa("sono stati distrutti " + pezziDistrutti + " componenti");
 				io.aCapo();
 				io.stampa("nave dopo essere stata sabotata");

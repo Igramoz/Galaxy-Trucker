@@ -1,6 +1,6 @@
 package model.carte;
 
-import grafica.FormattatoreGrafico;
+import grafica.formattatori.FormattatoreGrafico;
 import grafica.renderer.CarteRenderer;
 import io.GestoreIO;
 import model.carte.criteriEffetti.Effetto;
@@ -37,7 +37,7 @@ public class NaveAbbandonata extends Carta{
 		renderer.rappresentaCarta(this);
 		for(ManagerDiVolo manager : listaManager) {
 			if(manager.getGiocatore().getNave().getEquipaggio().size() >= equipaggioPerso) {
-				io.stampa(formattatoreGrafico.formattaGiocatore(manager.getGiocatore()) + " premere 1 per prendere i crediti.");
+				io.stampa(formattatoreGrafico.formatta(manager.getGiocatore()) + " premere 1 per prendere i crediti.");
 				if(io.leggiIntero() == 1) {
 					effetto.applica(manager, crediti);
 					Effetto.GIORNI_VOLO.applica(manager, tempoDiVolo);
@@ -47,7 +47,7 @@ public class NaveAbbandonata extends Carta{
 				}
 				
 			}else {
-				io.stampa(formattatoreGrafico.formattaGiocatore(manager.getGiocatore()) + " equipaggio insufficiente");
+				io.stampa(formattatoreGrafico.formatta(manager.getGiocatore()) + " equipaggio insufficiente");
 			}
 		}	
 	}

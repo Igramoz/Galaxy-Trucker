@@ -2,7 +2,7 @@ package model.carte.colpo;
 
 import java.util.List;
 
-import grafica.FormattatoreGrafico;
+import grafica.formattatori.FormattatoreGrafico;
 import grafica.renderer.CarteRenderer;
 import grafica.renderer.NaveRenderer;
 import io.GestoreIO;
@@ -38,12 +38,12 @@ public interface GestoreColpi {
 				int pezziDistrutti = giocatore.getNave().subisciImpatto(colpo, posizioneColpo);
 				// se la nave è cambiata stampare:
 				if (pezziDistrutti != 0) {
-					io.stampa("Nave di " + formattatoreGrafico.formattaGiocatore(giocatore)
+					io.stampa("Nave di " + formattatoreGrafico.formatta(giocatore)
 							+ " dopo essere stata colpita");
 					io.stampa(naveRenderer.rappresentazioneNave(giocatore.getNave()));
 					m.incrementaPezziDistrutti(pezziDistrutti);
 				} else {
-					io.stampa("Nave di " + formattatoreGrafico.formattaGiocatore(giocatore) + " si è salvata");
+					io.stampa("Nave di " + formattatoreGrafico.formatta(giocatore) + " si è salvata");
 				}
 			}
 		}

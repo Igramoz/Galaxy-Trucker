@@ -33,7 +33,7 @@ public class ZonaDiGuerra extends Carta {
 
 			ManagerDiVolo peggiorManager = criterio.trovaPeggiore(listaManager);
 			io.stampa("Il giocatore risultato peggiore secondo il criterio: " + criterio.name() + " è "
-					+ super.formattatoreGrafico.formattaGiocatore(peggiorManager.getGiocatore()));
+					+ super.formattatoreGrafico.formatta(peggiorManager.getGiocatore()));
 			effetto.applica(peggiorManager, valore);
 		}
 		io.aCapo();

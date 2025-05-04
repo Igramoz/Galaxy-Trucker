@@ -6,8 +6,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import grafica.FormattatoreGrafico;
 import grafica.TextAligner;
+import grafica.formattatori.FormattatoreGrafico;
 import model.carte.criteriEffetti.Effetto;
 import partita.fasiGioco.volo.ManagerDiVolo;
 
@@ -40,7 +40,7 @@ public class PolvereStellare extends Carta {
 		for(ManagerDiVolo manager : listaInversa){
 			int connettoriEsposti = manager.getGiocatore().getNave().getNumConnettoriEsposti();
 			io.aCapo();
-			io.stampa(formattatoreGrafico.formattaGiocatore(manager.getGiocatore()) + " ha " + connettoriEsposti + " connettori esposti");
+			io.stampa(formattatoreGrafico.formatta(manager.getGiocatore()) + " ha " + connettoriEsposti + " connettori esposti");
 			effetto.applica(manager, penalitaTempoVoloPerConnettoreEsposto);
 		}
 		io.aCapo();

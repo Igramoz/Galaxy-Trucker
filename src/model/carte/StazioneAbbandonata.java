@@ -3,7 +3,7 @@ package model.carte;
 import java.util.ArrayList;
 import java.util.List;
 
-import grafica.FormattatoreGrafico;
+import grafica.formattatori.FormattatoreGrafico;
 import grafica.renderer.CarteRenderer;
 import model.enums.TipoMerce;
 import partita.fasiGioco.volo.ManagerDiVolo;
@@ -34,7 +34,7 @@ public class StazioneAbbandonata extends Carta {
 		renderer.rappresentaCarta(this);
 		for(ManagerDiVolo manager : listaManager) {
 			if(manager.getGiocatore().getNave().getEquipaggio().size() >= numEquipaggio) {
-				io.stampa(formattatoreGrafico.formattaGiocatore(manager.getGiocatore()) + " premere 1 per prendere la merce.");
+				io.stampa(formattatoreGrafico.formatta(manager.getGiocatore()) + " premere 1 per prendere la merce.");
 				if(io.leggiIntero() == 1) {
 					effetto.applica(manager, merci);
 					Effetto.GIORNI_VOLO.applica(manager, tempoDiVolo);
@@ -44,7 +44,7 @@ public class StazioneAbbandonata extends Carta {
 				}
 				
 			}else {
-				io.stampa(formattatoreGrafico.formattaGiocatore(manager.getGiocatore()) + " equipaggio insufficiente per prendere la merce.");
+				io.stampa(formattatoreGrafico.formatta(manager.getGiocatore()) + " equipaggio insufficiente per prendere la merce.");
 			}
 		}
 		

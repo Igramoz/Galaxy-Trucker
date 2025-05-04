@@ -2,8 +2,8 @@ package model.carte.nemici;
 
 import java.util.List;
 
-import grafica.FormattatoreGrafico;
 import grafica.TextAligner;
+import grafica.formattatori.FormattatoreGrafico;
 import grafica.renderer.CarteRenderer;
 import io.GestoreIO;
 import model.carte.TipoCarta;
@@ -27,7 +27,7 @@ public class Pirati extends Nemico implements GestoreColpi {
 	@Override
 	public void applicaVittoria(ManagerDiVolo manager) {
 		FormattatoreGrafico formattatoreGrafico = new FormattatoreGrafico();
-		io.stampa(formattatoreGrafico.formattaGiocatore(manager.getGiocatore()) + " ha vinto contro i pirati!");
+		io.stampa(formattatoreGrafico.formatta(manager.getGiocatore()) + " ha vinto contro i pirati!");
 		io.stampa("Scrivere 1 se sei disposto a perdere " + getPerditaGiorniDiVolo() + " giorni di volo per guadagnare "
 				+ numeroCrediti + " crediti.");
 		int scelta = io.leggiIntero();

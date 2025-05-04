@@ -2,6 +2,9 @@
 src/
 ├── main/
 │   └── Main.java
+|
+├── eccezioni/
+│   └──GiocatoreNonSpostabile .java
 │
 ├── model/
 │   ├── Giocatore.java

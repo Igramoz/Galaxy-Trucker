@@ -63,7 +63,7 @@ public abstract class Nemico extends Carta {
 			Giocatore giocatore = m.getGiocatore();
 			if (giocatore.getNave().getPotenzaFuoco() < getForzaNemico()) {
 				// applica sconfitta
-				io.stampa(formattatoreGrafico.formattaGiocatore(giocatore) + " ha perso contro il nemico avanzato.");
+				io.stampa(formattatoreGrafico.formatta(giocatore) + " ha perso contro il nemico avanzato.");
 			} else {
 				// applica vittoria
 				applicaVittoria(m);

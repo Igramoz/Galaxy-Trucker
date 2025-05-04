@@ -6,6 +6,8 @@ import util.layout.Direzione;
 
 import java.util.*;
 
+import eccezioni.ComponenteNonIstanziabileException;
+
 public class CabinaDiEquipaggio extends Componente {
 
 	private final List<TipoPedina> equipaggio = new ArrayList<>();
@@ -24,7 +26,7 @@ public class CabinaDiEquipaggio extends Componente {
 		for (TipoPedina pedina : equipaggioIniziale) {
 
 			if (!aggiungiEquipaggio(pedina)) {
-				throw new IllegalStateException("La cabina è piena");
+				throw new ComponenteNonIstanziabileException("Impossibile creare la cabina: il numero di membri dell'equipaggio supera la capacità massima consentita.");
 			}
 		}
 	}

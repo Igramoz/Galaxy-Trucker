@@ -5,10 +5,10 @@ import java.util.Scanner;
 
 import grafica.GraficaConfig;
 import grafica.TextAligner;
+import grafica.formattatori.FormattatoreGrafico;
 import grafica.renderer.ComponenteRenderer;
 import model.componenti.Componente;
 import util.layout.Coordinate;
-import grafica.FormattatoreGrafico;
 
 public class GestoreIO implements InterfacciaUtente{
 
@@ -164,7 +164,7 @@ public class GestoreIO implements InterfacciaUtente{
 		ComponenteRenderer componenteRenderer = new ComponenteRenderer();
 		String[] menu = new String[componenti.size()];
 		for (int i = 0; i < componenti.size(); i++) {
-			menu[i] = formattatoreGrafico.formattaCoordinate(componenti.get(i).getPosizione()) + " "
+			menu[i] = formattatoreGrafico.formatta(componenti.get(i).getPosizione()) + " "
 					+ componenteRenderer.rappresentazioneCompletaComponente(componenti.get(i));
 		}
 
@@ -172,5 +172,4 @@ public class GestoreIO implements InterfacciaUtente{
 		int scelta = stampaMenu(menu);
 		return componenti.get(scelta);
 	}
-
 }

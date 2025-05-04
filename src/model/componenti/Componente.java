@@ -3,6 +3,7 @@ package model.componenti;
 import java.util.EnumMap; // Libreria standard di java
 import java.util.Map;
 
+import eccezioni.ComponenteNonIstanziabileException;
 import model.enums.*;
 import util.layout.Coordinate;
 import util.layout.Direzione;
@@ -15,7 +16,7 @@ public abstract class Componente {
 
 	public Componente(TipoComponente tipo, Map<Direzione, TipoTubo> tubiIniziali) {
 		if (tubiIniziali == null)
-			throw new NullPointerException("Errore nei tubi del componente");
+			throw new ComponenteNonIstanziabileException("Il parametro 'tubiIniziali' non può essere null: ogni componente deve avere una configurazione iniziale dei tubi.");
 		this.tipo = tipo;
 		this.tubi = new EnumMap<>(Direzione.class);
 
@@ -32,7 +33,7 @@ public abstract class Componente {
 		this(componente.tipo, componente.tubi); // chiama l'altro costruttore
 	}
 
-	@Override // Devo fare override affinché l'hashcode funzioni
+	@Override // Devo fare override per fare funzionare le funzioni delle collections
 	public boolean equals(Object obj) {
 		if (super.equals(obj))
 			return true; // confronto i riferimenti
@@ -40,10 +41,7 @@ public abstract class Componente {
 			return false; // se l'altro oggetto è null o se sono di tipi diversi
 
 		Componente altroComponente = (Componente) obj; // cast dell'oggetto
-
-//		if (this.tipo != altroComponente.tipo) // TODO getClass controlla già che siano della stessa classe
-//            return false;
-
+		
 		Direzione[] direzione = Direzione.values();
 
 		int offset = -1; // I tubi sono uguali anche se ruotati di offset volte

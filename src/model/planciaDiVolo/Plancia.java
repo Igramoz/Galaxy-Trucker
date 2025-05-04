@@ -1,9 +1,10 @@
 package model.planciaDiVolo;
 import partita.LivelliPartita;
-import Eccezioni.GiocatoreNonSpostabile;
 import model.Giocatore;
 import java.util.HashMap;
 import java.util.Map;
+
+import eccezioni.GiocatoreNonSpostabile;
 
 /*
  * @throwable GiocatoreNonSpostabile
@@ -43,7 +44,7 @@ public class Plancia {
 		
 	}
 
-	public int getGiorniDiVoloGiocatore(Giocatore giocatore) {
+	public Integer getGiorniDiVoloGiocatore(Giocatore giocatore) {
 		 // restituisce i giorni di volo del giocatore se è presente nella mappa, se non è presente restituisce null
 
 		if(GiorniDiVoloGiocatori.containsKey(giocatore)){

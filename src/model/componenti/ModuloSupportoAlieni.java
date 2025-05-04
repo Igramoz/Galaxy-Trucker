@@ -2,6 +2,7 @@ package model.componenti;
 
 import java.util.Map;
 
+import eccezioni.ComponenteNonIstanziabileException;
 import model.enums.TipoPedina;
 import model.enums.TipoTubo;
 import util.layout.Direzione;
@@ -25,7 +26,7 @@ public class ModuloSupportoAlieni extends Componente {
 		case SOVRASTRUTTURA_ALIENA_VIOLA:
 			return TipoPedina.ALIENO_VIOLA;
 		default:
-			throw new IllegalArgumentException("Tipo di componente non permesso");
+			throw new ComponenteNonIstanziabileException("Il tipo di questo modulo di supporto alieni non è permesso.");
 		}
 	}
 	
