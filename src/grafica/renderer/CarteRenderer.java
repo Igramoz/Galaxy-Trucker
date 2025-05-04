@@ -161,12 +161,6 @@ public class CarteRenderer {
 		io.stampa("scegliere guadagnare i crediti comporta la perdita di " + naveAbbandonata.getTempoDiVolo());
 	}
 
-	// Carta Epidemia
-	public void rappresentaCarta() {
-		io.stampa(textAligner.alignCenter("Carta epidemia"));
-		io.stampa("L'epidemia elimina un membro dell'equipaggio da tutte le cabine adiacenti tra di loro");
-	}
-
 	public void stampaEquipaggioPersoPerGiocatore(Giocatore g, int membriPersi) {
 		io.stampa(formattatore.formatta(g) + " ha perso " + membriPersi
 				+ " membri totali dal proprio equipaggio");
