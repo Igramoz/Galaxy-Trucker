@@ -15,7 +15,9 @@ public class Epidemia extends Carta {
 
 	@Override
 	public void eseguiEvento(ManagerDiVolo[] listaManager) {
-		carteRenderer.rappresentaCarta();
+		io.stampa(textAligner.alignCenter("Carta epidemia"));
+		io.stampa("L'epidemia elimina un membro dell'equipaggio da tutte le cabine adiacenti tra di loro");
+
 		for (ManagerDiVolo m : listaManager) {
 			List<Coordinate> coordinateGiaEsaminate = new ArrayList<>();
 			Giocatore g = m.getGiocatore();
