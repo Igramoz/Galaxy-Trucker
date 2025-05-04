@@ -3,13 +3,12 @@ package grafica.renderer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import io.GestoreIO;
+import model.Giocatore;
 import model.carte.*;
 import model.carte.colpo.Colpo;
 import model.carte.pianeti.*;
-import partita.fasiGioco.volo.ManagerDiVolo;
 import util.layout.Direzione;
 import grafica.CostantiGrafica;
 import grafica.FormattatoreGrafico;
@@ -162,17 +161,14 @@ public class CarteRenderer {
 		io.stampa("scegliere guadagnare i crediti comporta la perdita di " + naveAbbandonata.getTempoDiVolo());
 	}
 
-	public void rappresentaCarta(Map<ManagerDiVolo[], Integer> equipaggioPersoPerManager) {
+	// Carta Epidemia
+	public void rappresentaCarta() {
 		io.stampa(textAligner.alignCenter("Carta epidemia"));
 		io.stampa("L'epidemia elimina un membro dell'equipaggio da tutte le cabine adiacenti tra di loro");
-		for (Map.Entry<ManagerDiVolo[], Integer> entry : equipaggioPersoPerManager.entrySet()) {
-			ManagerDiVolo[] listaManager = entry.getKey();
-			int membriPersi = entry.getValue();
+	}
 
-			for (ManagerDiVolo manager : listaManager) {
-				io.stampa(formattatore.formattaGiocatore(manager.getGiocatore()) + " ha perso " + membriPersi
-						+ " membri totali dal proprio equipaggio");
-			}
-		}
+	public void stampaEquipaggioPersoPerGiocatore(Giocatore g, int membriPersi) {
+		io.stampa(formattatore.formattaGiocatore(g) + " ha perso " + membriPersi
+				+ " membri totali dal proprio equipaggio");
 	}
 }
