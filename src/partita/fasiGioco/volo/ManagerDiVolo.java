@@ -14,18 +14,11 @@ public class ManagerDiVolo {
 		this.giocatore = giocatore;
 		this.plancia = plancia;
 		plancia.getGiorniDiVoloGiocatore(giocatore); // inizializza i giorni di volo del giocatore in base alla plancia
-
 	}
 
-	public boolean spostaGiocatore(int giorniDiVolo) {
+	public void spostaGiocatore(int giorniDiVolo) throws GiocatoreNonSpostabile {
 		
-		try {
 			plancia.spostaGiocatore(giorniDiVolo, giocatore);
-		}catch( GiocatoreNonSpostabile e) {
-			return false; // se il giocatore non può essere spostato restituisce false
-		}
-		
-		return true; // se il giocatore può essere spostato restituisce true
 
 	}
 	

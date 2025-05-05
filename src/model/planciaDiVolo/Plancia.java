@@ -12,8 +12,6 @@ import eccezioni.GiocatoreNonSpostabile;
  * 
  */
 
-
-
 public class Plancia {
 	
 	private final HashMap<Giocatore, Integer> GiorniDiVoloGiocatori =  new  HashMap<>(); // mappa che tiene traccia dei giorni di volo dei giocatori
@@ -28,8 +26,6 @@ public class Plancia {
 		this.plancia = new Giocatore[tipoPlancia.getLunghezza()]; // inizializza la plancia in base alla lunghezza della plancia
 		
 		// metto i giocatori nella plancia in base alla modalita di gioco
-		
-		
 
 		for(int i =0; i<tipoPlancia.getPosizioni().length && i<tipoPlancia.getLunghezza(); i++) {
 
