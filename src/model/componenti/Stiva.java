@@ -1,14 +1,14 @@
 package model.componenti;
 
-
-
 import java.util.Map;
 
+import eccezioni.CaricamentoNonConsentitoException;
 import eccezioni.ComponenteNonIstanziabileException;
+import eccezioni.ComponentePienoException;
 import model.enums.*;
 import util.layout.Direzione;
 
-public class Stiva extends Componente{
+public class Stiva extends Componente {
 
 	public static final int MAX_SCOMPARTI = 3; // numero massimo di scomparti della stiva
 	public static final int MIN_SCOMPARTI = 2; // numero minimo di scomparti della stiva
@@ -21,7 +21,8 @@ public class Stiva extends Componente{
 
 		// Controllo che abbia un numero di scomparti valido
 		if (scomparti < 2 || scomparti > 3) {
-			throw new ComponenteNonIstanziabileException("Impossibile istanziare una stiva semplice con " + scomparti + " scomparti deve averne 2 o 3.");
+			throw new ComponenteNonIstanziabileException(
+					"Impossibile istanziare una stiva semplice con " + scomparti + " scomparti deve averne 2 o 3.");
 		}
 
 	}
@@ -49,35 +50,36 @@ public class Stiva extends Componente{
 	}
 
 	// Restituisco false se non è possibile aggiungere la merce
-	public boolean setMerci(TipoMerce merce) {
+	public void setMerci(TipoMerce merce) throws ComponentePienoException {
 
 		// Controllo se la merce può essere immagazzinata in stiva
 		if (!isMerceAggiungibile(merce)) {
-			return false;
+			throw new CaricamentoNonConsentitoException("Non è possibile caricare merce rossa sulla stiva semplice");
 		}
 
 		// Carico la merce
 		for (int i = 0; i < scomparti; i++) {
 			if (merci[i] == null) {
 				merci[i] = merce;
-				return true;
-			}
+return;			}
 		}
-		return false; // la stiva è piena
+		throw new ComponentePienoException("La stiva è piena non è possibile caricare ulteriore merce");
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-	    
-	    if (obj == null || getClass() != obj.getClass()) return false;
-	    
-	    Stiva stiva = (Stiva) obj;
-	    if(!super.equals(stiva)) return false;
-	    
-	    if(this.scomparti == stiva.scomparti) {
-	    	return true; // Se hanno la stessa capacità massima e stessi tubi
-	    }
-	    return false;	
+
+		if (obj == null || getClass() != obj.getClass())
+			return false;
+
+		Stiva stiva = (Stiva) obj;
+		if (!super.equals(stiva))
+			return false;
+
+		if (this.scomparti == stiva.scomparti) {
+			return true; // Se hanno la stessa capacità massima e stessi tubi
+		}
+		return false;
 	}
 
 	// Funzione override perché nel figlio le condizioni cambiano
@@ -87,8 +89,12 @@ public class Stiva extends Componente{
 		}
 		return true;
 	}
-
-	// Elimino la merce dalla stiva, false se non è presente
+	/**
+	 * rimuove una merce specifica dalla stiva
+	 * 
+	 * @param pedina
+	 * @return vero se la pedina è stata rimossa
+	 */
 	public boolean eliminaMerce(TipoMerce merce) {
 
 		// Controllo se la merce è presente
@@ -97,22 +103,6 @@ public class Stiva extends Componente{
 				merci[i] = null;
 				return true;
 			}
-		}
-		return false;
-	}
-
-	// Elimino la merce dalla stiva, false se non è presente
-	public boolean eliminaMerci(int index) {
-
-		// Controllo se l'indice è accettabile
-		if (index < 0 || index >= scomparti) {
-			return false;
-		}
-
-		// Controllo se la merce è presente
-		if (merci[index] != null) {
-			merci[index] = null;
-			return true;
 		}
 		return false;
 	}

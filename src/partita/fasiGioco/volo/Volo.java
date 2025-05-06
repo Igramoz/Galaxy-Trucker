@@ -97,7 +97,7 @@ public class Volo {
 		return managerInVolo.toArray(new ManagerDiVolo[managerInVolo.size()]);	
 	}
 	
-	/
+	
 	private void rimuoviManagerInVolo() {
 		//controllo se i giocatori sono doppiati
 		for(ManagerDiVolo manager : managerInVolo) {

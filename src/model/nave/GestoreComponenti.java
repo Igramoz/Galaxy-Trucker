@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import eccezioni.ComponentePienoException;
+import eccezioni.ComponenteVuotoException;
 import io.GestoreIO;
 import model.componenti.*;
 import model.enums.*;
@@ -67,7 +69,11 @@ public class GestoreComponenti {
 				posizione = scegliComponente(TipoComponente.STIVA_SPECIALE, TipoComponente.STIVA);
 			}
 
-			if (!nave.forzaMerce(merce, posizione)) {
+			try {
+				// provo a posizionare la merce
+				nave.forzaMerce(merce, posizione);
+			} catch (ComponentePienoException e) {
+
 				io.stampa("Non è possibile posizionare la merce in questa posizione");
 				String[] menu = { "Riprova", "Rimuovi merce da una stiva", "Scarta merce" };
 				int scelta = io.stampaMenu(menu);
@@ -91,6 +97,29 @@ public class GestoreComponenti {
 		return true;
 	}
 
+	// rimuove un definito numero di merci dalla nave
+	public boolean rimuoviMerceDaNave(int numero) {
+
+		int merciRimosse = 0;
+		for (int i = 0; i < nave.getMerci().size(); i++) {
+			// parto dalle merci più costose (da regolamento)
+			for (TipoMerce merce : TipoMerce.values()) {
+				if (rimuoviMerceDaNave(merce)) {
+					merciRimosse++;
+					if (merciRimosse == numero)
+						return true;
+				}
+			}
+		}
+		// se non ci sono abbastanza merci bisogna rimuovere le batterie
+		for (int i = 0; i < numero - merciRimosse; i++) {
+			if (!consumaEnergia()) {
+				return false; // non ci sono abbastanza batterie
+			}
+		}
+		return true;
+	}
+	
 	// rimuove un particolare tipo di merce da una stiva della nave
 	public boolean rimuoviMerceDaNave(TipoMerce merce) {
 
@@ -141,6 +170,24 @@ public class GestoreComponenti {
 		return output;
 	}
 
+	/**
+	 * Rimuove l'equipaggio dalla nave.
+	 * 
+	 * @param numero di pedine da rimuovere
+	 * @return true se sono state rimosse abbastanza pedine, false altrimenti
+	 */
+	public boolean rimuoviEquipaggioDaNave(int numero) {
+		int equipaggioRimosso = 0;
+		for (int i = 0; i < nave.getEquipaggio().size(); i++) {
+			if (rimuoviEquipaggioDaNave()) {
+				equipaggioRimosso++;
+				if (equipaggioRimosso == numero)
+					return true;
+			}
+		}
+		return false; // non sono riuscito a rimuovere abbastanza pedine
+	}
+	
 	public boolean rimuoviEquipaggioDaNave() {
 
 		// salvo le cabine
@@ -168,18 +215,23 @@ public class GestoreComponenti {
 				posizione = scegliComponente(TipoComponente.CABINA_EQUIPAGGIO);
 			}
 
-			if (!nave.forzaEquipaggio(pedinaDaRimuovere, posizione)) {
+			try {
+				nave.forzaEquipaggio(pedinaDaRimuovere, posizione);
+			} catch (ComponentePienoException e) {
 				io.stampa("Non è possibile rimuovere la pedina da questo componente");
 				String[] menu = { "Riprova", "Non rimuovere pedina" };
 				int scelta = io.stampaMenu(menu);
 				if (scelta == 1)
 					return false;
+				else {
+					sceltaValida = false;
+				}
 			}
 		} while (!sceltaValida);
 		return true;
 	}
 
-	public boolean posizionaAlienoInNave(TipoPedina pedina) {
+	public boolean posizionaEquipaggioInNave(TipoPedina pedina) {
 
 		List<Componente> cabineCollegate = new ArrayList<>();
 
@@ -229,9 +281,11 @@ public class GestoreComponenti {
 				return false;
 			}
 			Componente cabina = nave.getOriginaleComponente(cloneCabina.getPosizione());
-			if (((CabinaDiEquipaggio) cabina).aggiungiEquipaggio(pedina)) {
-				return true; // alieno posizionato correttamente
-			} else {
+
+			try {
+				((CabinaDiEquipaggio) cabina).aggiungiEquipaggio(pedina);
+				return true;
+			} catch (ComponentePienoException e) {
 				io.stampa("Non è possibile posizionare l'alieno in questa cabina");
 				String[] menu = { "Riprova", "Non posizionare l'alieno" };
 				int scelta = io.stampaMenu(menu);
@@ -253,9 +307,10 @@ public class GestoreComponenti {
 		cabine.addAll(nave.getComponentiOriginali(TipoComponente.CABINA_PARTENZA));
 
 		for (Componente cabina : cabine) {
-			if (((CabinaDiEquipaggio) cabina).aggiungiEquipaggio(TipoPedina.ASTRONAUTA)) {
+			try {
+				((CabinaDiEquipaggio) cabina).aggiungiEquipaggio(TipoPedina.ASTRONAUTA);
 				return true;
-			}
+			} catch (ComponentePienoException e) {}
 		}
 		return false;
 	}
@@ -278,7 +333,9 @@ public class GestoreComponenti {
 
 			Componente vanoBatteria = nave.getOriginaleComponente(posizioneVanoBatteria);
 
-			if (!((VanoBatteria) vanoBatteria).scaricaBatteria()) {
+			try {
+				((VanoBatteria) vanoBatteria).scaricaBatteria();
+			}catch(ComponenteVuotoException e) {
 				io.stampa("Non è possibile rimuovere energia da questo vano");
 				io.stampa("scegliere un vano carico");
 				sceltaValida = false;
@@ -312,8 +369,8 @@ public class GestoreComponenti {
 
 	public void preparaEquipaggioAlVolo() {
 		// carico gli alieni
-		posizionaAlienoInNave(TipoPedina.ALIENO_MARRONE);
-		posizionaAlienoInNave(TipoPedina.ALIENO_VIOLA);
+		posizionaEquipaggioInNave(TipoPedina.ALIENO_MARRONE);
+		posizionaEquipaggioInNave(TipoPedina.ALIENO_VIOLA);
 
 		// carico gli astronauti
 		posizionaAstronatuaInNave();

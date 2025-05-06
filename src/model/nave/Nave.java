@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import eccezioni.CaricamentoNonConsentitoException;
+import eccezioni.ComponentePienoException;
+import eccezioni.ComponenteVuotoException;
 import model.carte.colpo.Colpo;
 import model.componenti.*;
 import grafica.Colore;
@@ -195,27 +198,21 @@ public class Nave {
 	 * @return true se sono state rimosse abbastanza pedine, false altrimenti
 	 */
 	public boolean rimuoviEquipaggio(int numero) {
-		int equipaggioRimosso = 0;
-		for (int i = 0; i < getEquipaggio().size(); i++) {
-			if (gestoreComponenti.rimuoviEquipaggioDaNave()) {
-				equipaggioRimosso++;
-				if (equipaggioRimosso == numero)
-					return true;
-			}
-		}
-		return false; // non sono riuscito a rimuovere abbastanza pedine
+		return gestoreComponenti.rimuoviEquipaggioDaNave(numero);
 	}
 
-	protected boolean forzaEquipaggio(TipoPedina pedina, Coordinate coordinate) {
+	protected void forzaEquipaggio(TipoPedina pedina, Coordinate coordinate) throws ComponentePienoException {
 		if (coordinate == null || pedina == null)
-			return false;
-		if (this.getCopiaComponente(coordinate).getTipo() == TipoComponente.CABINA_EQUIPAGGIO) {
-			return ((CabinaDiEquipaggio) grigliaComponenti[coordinate.getX()][coordinate.getY()])
-					.aggiungiEquipaggio(pedina);
+			throw new NullPointerException("Pedina e coordinate non possono essere null");
+
+		if (this.getCopiaComponente(coordinate) instanceof CabinaDiEquipaggio) {
+			((CabinaDiEquipaggio) grigliaComponenti[coordinate.getX()][coordinate.getY()]).aggiungiEquipaggio(pedina);
 		}
-		return false;
+		throw new CaricamentoNonConsentitoException(
+				"Il componente alle coordinate " + coordinate + " non è una cabina di equipaggio.");
 	}
 
+//TODO spostare in gestore componenti
 	public int eliminaEquipaggioDaCabineCollegate(List<Coordinate> coordinateGiaEsaminate) {
 		int membriEquipaggioEliminati = 0;
 		List<Componente> cabine = new ArrayList<>();
@@ -225,14 +222,24 @@ public class Nave {
 		for (Componente cabina : cabine) {
 			if (!coordinateGiaEsaminate.contains(cabina.getPosizione())) {
 				coordinateGiaEsaminate.add(cabina.getPosizione());
-				((CabinaDiEquipaggio) cabina).rimuoviUnMembroEquipaggio();
+				try {
+					((CabinaDiEquipaggio) cabina).rimuoviUnMembroEquipaggio();
+				} catch (ComponenteVuotoException e) {
+					// Se il componente è vuoto non succede nulla, semplicemente non elimino nessun
+					// membro
+				}
 				membriEquipaggioEliminati++;
 
 				List<Componente> adiacenti = analizzatoreNave.ottieniCabineEquipaggioCollegate(cabina);
 				for (Componente adiacente : adiacenti) {
 					if (!coordinateGiaEsaminate.contains(adiacente.getPosizione())) {
 						coordinateGiaEsaminate.add(adiacente.getPosizione());
-						((CabinaDiEquipaggio) adiacente).rimuoviUnMembroEquipaggio();
+						try {
+							((CabinaDiEquipaggio) adiacente).rimuoviUnMembroEquipaggio();
+						} catch (ComponenteVuotoException e) {
+							// Se il componente è vuoto non succede nulla, semplicemente non elimino nessun
+							// membro
+						}
 						membriEquipaggioEliminati++;
 					}
 				}
@@ -268,39 +275,23 @@ public class Nave {
 	 * @return true se sono state rimosse abbastanza risorse, false altrimenti
 	 */
 	public boolean rimuoviMerce(int numero) {
-
-		int merciRimosse = 0;
-		for (int i = 0; i < getMerci().size(); i++) {
-			// parto dalle merci più costose (da regolamento)
-			for (TipoMerce merce : TipoMerce.values()) {
-				if (gestoreComponenti.rimuoviMerceDaNave(merce)) {
-					merciRimosse++;
-					if (merciRimosse == numero)
-						return true;
-				}
-			}
-		}
-		// se non ci sono abbastanza merci bisogna rimuovere le batterie
-		for (int i = 0; i < numero - merciRimosse; i++) {
-			if (!gestoreComponenti.consumaEnergia()) {
-				return false; // non ci sono abbastanza batterie
-			}
-		}
-		return true;
+		return gestoreComponenti.rimuoviMerceDaNave(numero);
 	}
 
 	public boolean setMerci(List<TipoMerce> merci) {
 		return gestoreComponenti.posizionaMerciInNave(merci);
 	}
 
-	protected boolean forzaMerce(TipoMerce merce, Coordinate coordinate) {
+	protected void forzaMerce(TipoMerce merce, Coordinate coordinate) throws ComponentePienoException {
 		if (coordinate == null || merce == null)
-			return false;
+			throw new NullPointerException("merce e coordinate non possono essere null");
 
-		if (this.getCopiaComponente(coordinate).getTipo() == TipoComponente.STIVA_SPECIALE) {
-			return ((StivaSpeciale) grigliaComponenti[coordinate.getX()][coordinate.getY()]).setMerci(merce);
+		if (this.getCopiaComponente(coordinate) instanceof Stiva) {
+			((Stiva) grigliaComponenti[coordinate.getX()][coordinate.getY()]).setMerci(merce);
+		} else {
+			throw new CaricamentoNonConsentitoException(
+					"Il componente alle coordinate " + coordinate + " non è una stiva.");
 		}
-		return ((Stiva) grigliaComponenti[coordinate.getX()][coordinate.getY()]).setMerci(merce);
 	}
 
 	// spara e restituisce false se non spara

@@ -4,6 +4,7 @@ src/
 │   └── Main.java
 |
 ├── eccezioni/
+│   ├── ComponenteNonIstanziabile.java
 │   └──GiocatoreNonSpostabile .java
 │
 ├── model/

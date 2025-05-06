@@ -3,7 +3,9 @@ package model.componenti;
 import java.util.List;
 import java.util.Map;
 
+import eccezioni.CaricamentoNonConsentitoException;
 import eccezioni.ComponenteNonIstanziabileException;
+import eccezioni.ComponentePienoException;
 import model.Giocatore;
 import model.enums.*;
 import util.layout.Direzione;
@@ -38,14 +40,15 @@ public class CabinaPartenza extends CabinaDiEquipaggio{
 		this( cabinaPartenza.colore, cabinaPartenza.getEquipaggio());
 	}
 	
+	
 	@Override
-    public boolean aggiungiEquipaggio(TipoPedina pedina) {
+    public void aggiungiEquipaggio(TipoPedina pedina) throws ComponentePienoException {
     	
 		// La cabina di partenza ospita solo astronauti
     	if(pedina != TipoPedina.ASTRONAUTA) {
-    		return false;
+    		throw new CaricamentoNonConsentitoException("La cabina di partenza può ospiatre solo astronauti");
     	}
-    	return super.aggiungiEquipaggio(pedina);
+    	super.aggiungiEquipaggio(pedina);
     }
 	
 

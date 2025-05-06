@@ -7,6 +7,8 @@ import util.layout.Direzione;
 import java.util.*;
 
 import eccezioni.ComponenteNonIstanziabileException;
+import eccezioni.ComponentePienoException;
+import eccezioni.ComponenteVuotoException;
 
 public class CabinaDiEquipaggio extends Componente {
 
@@ -25,8 +27,11 @@ public class CabinaDiEquipaggio extends Componente {
 
 		for (TipoPedina pedina : equipaggioIniziale) {
 
-			if (!aggiungiEquipaggio(pedina)) {
-				throw new ComponenteNonIstanziabileException("Impossibile creare la cabina: il numero di membri dell'equipaggio supera la capacità massima consentita.");
+			try {
+				aggiungiEquipaggio(pedina);
+			} catch ( ComponentePienoException e) {
+				throw new ComponenteNonIstanziabileException(
+						"Impossibile creare la cabina: il numero di membri dell'equipaggio supera la capacità massima consentita.");
 			}
 		}
 	}
@@ -35,27 +40,40 @@ public class CabinaDiEquipaggio extends Componente {
 		this(altra.tipo, altra.tubi, altra.equipaggio);
 	}
 
-	public boolean aggiungiEquipaggio(TipoPedina pedina) {
+	public void aggiungiEquipaggio(TipoPedina pedina) throws ComponentePienoException {
 
 		// Se c'è un alieno non si può inserire altro
 		if (equipaggio.contains(TipoPedina.ALIENO_MARRONE) || equipaggio.contains(TipoPedina.ALIENO_VIOLA)) {
-			return false;
+			throw new ComponentePienoException(
+					"La cabina d'equipaggio è piena, non è possibile aggungere membri dell'equipaggio");
+
 			// Se ci sono 2 astronauti non si può inserire altro
 		} else if (Collections.frequency(equipaggio, TipoPedina.ASTRONAUTA) > 1) {
-			return false;
+			throw new ComponentePienoException(
+					"La cabina d'equipaggio è piena, non è possibile aggungere membri dell'equipaggio");
 			// Se c'è un astronauta non si può aggiungere un alieno
 		} else if (equipaggio.size() >= 1 && (pedina == TipoPedina.ALIENO_MARRONE || pedina == TipoPedina.ALIENO_VIOLA))
-			return false;
+			throw new ComponentePienoException(
+					"La cabina d'equipaggio è piena, non è possibile aggungere membri dell'equipaggio");
 
 		equipaggio.add(pedina);
-		return true;
 	}
 
+	/**
+	 * rimuove una perdina specifica dalla cabina
+	 * 
+	 * @param pedina
+	 * @return vero se la pedina è stata rimossa
+	 */
 	public boolean rimuoviEquipaggio(TipoPedina pedina) {
 		return equipaggio.removeIf(p -> p == pedina);
 	}
 
-	public void rimuoviUnMembroEquipaggio() {
+	public void rimuoviUnMembroEquipaggio() throws ComponenteVuotoException {
+		if(isVuota()) {
+			throw new ComponenteVuotoException("La cabina d'equipaggio è vuota, non è possibile rimuovere membri dell'equipaggio");
+		}
+		
 		TipoPedina pedina = equipaggio.get(0);
 		if (pedina != null)
 			equipaggio.remove(pedina);
@@ -79,4 +97,12 @@ public class CabinaDiEquipaggio extends Componente {
 		}
 		return false;
 	}
+
+	public boolean isVuota() {
+		if (equipaggio == null || equipaggio.isEmpty())
+			return true;
+		else
+			return false;
+	}
+
 }

@@ -2,11 +2,13 @@ package model.componenti;
 
 import java.util.Map;
 
+import eccezioni.ComponenteNonIstanziabileException;
+import eccezioni.ComponentePienoException;
 import model.enums.*;
 import util.layout.Direzione;
 
 public class StivaSpeciale extends Stiva {
-	
+
 	public static final int MAX_SCOMPARTI = 2; // numero massimo di scomparti della stiva speciale
 	public static final int MIN_SCOMPARTI = 1; // numero minimo di scomparti della stiva speciale
 
@@ -14,7 +16,7 @@ public class StivaSpeciale extends Stiva {
 		super(TipoComponente.STIVA_SPECIALE, tubiIniziali, scomparti); // Chiamo il costruttore restricted di Stiva
 
 		if (scomparti < MIN_SCOMPARTI || scomparti > MAX_SCOMPARTI) {
-			throw new IllegalArgumentException("Le stive speciali devono avere 1 o 2 scomparti.");
+			throw new ComponenteNonIstanziabileException("Le stive speciali devono avere 1 o 2 scomparti.");
 		}
 	}
 
@@ -24,7 +26,7 @@ public class StivaSpeciale extends Stiva {
 		for (int i = 0; i < scomparti; i++) {
 			this.merci[i] = stiva.merci[i];
 		}
-		
+
 	}
 
 	@Override
@@ -33,10 +35,10 @@ public class StivaSpeciale extends Stiva {
 	}
 
 	@Override
-	public boolean setMerci(TipoMerce merce) {		
-		return super.setMerci(merce);
+	public void setMerci(TipoMerce merce) throws ComponentePienoException {
+		super.setMerci(merce);
 	}
-	
+
 	@Override // tutte le merci sono aggiungibili nelle stive speciali
 	protected boolean isMerceAggiungibile(TipoMerce merce) {
 		return true;
