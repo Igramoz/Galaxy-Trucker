@@ -2,6 +2,7 @@ package model.carte.criteriEffetti;
 
 import java.util.List;
 
+import eccezioni.GiocatoreNonSpostabile;
 import grafica.formattatori.FormattatoreGrafico;
 import grafica.renderer.NaveRenderer;
 import io.GestoreIO;
@@ -49,7 +50,7 @@ public enum Effetto {
 	 * @param numero  di membri dell'equipaggio da rimuovere
 	 */
 	PERDITA_EQUIPAGGIO {
-		@Override // giocatore che perde le merci e numero di membri dell'equipaggio persi
+		@Override // giocatore che perde l'equipaggio e numero di membri dell'equipaggio persi
 		public void applica(ManagerDiVolo manager, Object valore) {
 			Giocatore g = manager.getGiocatore();
 			int n = (Integer) valore;
@@ -86,7 +87,7 @@ public enum Effetto {
 	 */
 	GIORNI_VOLO {
 		@Override // giocatore che perde i giorni di volo e numero di giorni di volo persi
-		public void applica(ManagerDiVolo manager, Object valore) {
+		public void applica(ManagerDiVolo manager, Object valore) throws GiocatoreNonSpostabile {
 			int n = (Integer) valore;
 			io.stampa(formattatoreGrafico.formatta(manager.getGiocatore()) + " perderà " + n
 					+ " giorni di volo");

@@ -50,8 +50,7 @@ public class Volo {
 			
 			ordinaManegerDiVolo();
 			
-			//controllo se i giocatori sono doppiati
-			// TODO ci sono altre condizioni per abbandonare il volo, fare una funzione che si occupa di controllarli e rimuovere
+			//controllo se i giocatori sono doppiati o le altre condizioni per abbandonare la corsa
 			rimuoviManagerInVolo();
 			
 			//tolgo la prima carta dalla lista delle carte

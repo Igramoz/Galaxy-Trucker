@@ -1,4 +1,5 @@
 package model.carte;
+import model.carte.criteriEffetti.Effetto;
 import partita.fasiGioco.volo.ManagerDiVolo;
 
 
@@ -7,6 +8,7 @@ import partita.fasiGioco.volo.ManagerDiVolo;
 
 public class SpazioAperto extends Carta {
 	
+	private final Effetto effetto = Effetto.GIORNI_VOLO;
 	public SpazioAperto() {
 		super(TipoCarta.SPAZIO_APERTO);
 	}
@@ -24,7 +26,7 @@ public class SpazioAperto extends Carta {
 			
 			int potenzaMotrice = manager.getGiocatore().getNave().getPotenzaMotrice();
 			
-			manager.spostaGiocatore(potenzaMotrice);
+			effetto.applica(manager, potenzaMotrice);
 
 		}
 	}

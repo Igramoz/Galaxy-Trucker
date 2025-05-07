@@ -178,17 +178,7 @@ public class Nave {
 	}
 
 	public List<TipoPedina> getEquipaggio() {
-		List<Componente> cabine = this.getCopiaComponenti(TipoComponente.CABINA_EQUIPAGGIO);
-		cabine.addAll(this.getCopiaComponenti(TipoComponente.CABINA_PARTENZA));
-		List<TipoPedina> out = new ArrayList<>();
-		for (Componente cabina : cabine) {
-			// Controllo che l'equipaggio non sia null prima di settarlo
-			List<TipoPedina> equipaggio = ((CabinaDiEquipaggio) cabina).getEquipaggio();
-			if (equipaggio != null) {
-				out.addAll(equipaggio);
-			}
-		}
-		return out;
+		return analizzatoreNave.trovaEquipaggioNave();
 	}
 
 	/**
@@ -213,58 +203,14 @@ public class Nave {
 	}
 
 //TODO spostare in gestore componenti
-	public int eliminaEquipaggioDaCabineCollegate(List<Coordinate> coordinateGiaEsaminate) {
-		int membriEquipaggioEliminati = 0;
-		List<Componente> cabine = new ArrayList<>();
-		cabine.addAll(getComponentiOriginali(TipoComponente.CABINA_EQUIPAGGIO));
-		cabine.addAll(getComponentiOriginali(TipoComponente.CABINA_PARTENZA));
-
-		for (Componente cabina : cabine) {
-			if (!coordinateGiaEsaminate.contains(cabina.getPosizione())) {
-				coordinateGiaEsaminate.add(cabina.getPosizione());
-				try {
-					((CabinaDiEquipaggio) cabina).rimuoviUnMembroEquipaggio();
-				} catch (ComponenteVuotoException e) {
-					// Se il componente è vuoto non succede nulla, semplicemente non elimino nessun
-					// membro
-				}
-				membriEquipaggioEliminati++;
-
-				List<Componente> adiacenti = analizzatoreNave.ottieniCabineEquipaggioCollegate(cabina);
-				for (Componente adiacente : adiacenti) {
-					if (!coordinateGiaEsaminate.contains(adiacente.getPosizione())) {
-						coordinateGiaEsaminate.add(adiacente.getPosizione());
-						try {
-							((CabinaDiEquipaggio) adiacente).rimuoviUnMembroEquipaggio();
-						} catch (ComponenteVuotoException e) {
-							// Se il componente è vuoto non succede nulla, semplicemente non elimino nessun
-							// membro
-						}
-						membriEquipaggioEliminati++;
-					}
-				}
-			}
-		}
-		return membriEquipaggioEliminati;
+	public int eliminaEquipaggioDaCabineCollegate() {
+		
+		return gestoreComponenti.eliminaEquipaggioDaCabineCollegate();
 	}
 
 	public List<TipoMerce> getMerci() {
-		List<Componente> stive = this.getCopiaComponenti(TipoComponente.STIVA);
-		stive.addAll(this.getCopiaComponenti(TipoComponente.STIVA_SPECIALE));
-		List<TipoMerce> out = new ArrayList<>();
-
-		for (Componente stiva : stive) {
-			TipoMerce[] merci = ((Stiva) stiva).getMerci();
-
-			if (merci != null) {
-				for (TipoMerce merce : merci) {
-					if (merce != null) {
-						out.add(merce);
-					}
-				}
-			}
-		}
-		return out;
+		
+		return analizzatoreNave.trovaMerciNave();
 	}
 
 	/**

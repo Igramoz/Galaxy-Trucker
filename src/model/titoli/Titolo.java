@@ -1,30 +1,42 @@
 package model.titoli;
 
+import java.util.List;
+
 import grafica.Colore;
 import grafica.formattatori.Formattabile;
+import model.Giocatore;
 
-public enum Titolo implements Formattabile {
 
-	TRASPORTATORE_SUPREMO,
-	BATTERISTA,
-	XENOQUARTIERMASTRO,
-	CAPITANO_DA_CROCIERA,
-	MASTRO_INGEGNERE,
-	MASTRO_CORRIDOISTA;
+
+public abstract class Titolo implements Formattabile{
 	
+	private ColoreTitolo colore;
+	private TipoTitolo titolo;
 	
-	private ColoreTitolo coloreTitolo;
+	public String getNome() {
+		return titolo.name().toLowerCase();
+	}
+	
+	public Titolo(TipoTitolo titolo) {
+		this.titolo = titolo;
+		colore = ColoreTitolo.Argento;
+	}
+	
 	
 	public ColoreTitolo getColoreTitolo() {
-		return coloreTitolo;
+		return colore;
 	}
 	
 	public void rendiOro() {
-		this.coloreTitolo = ColoreTitolo.Oro;
+		this.colore = ColoreTitolo.Oro;
 	}
 	
 	public Colore getColore() {
-		return coloreTitolo.getColore();
+		return colore.getColore();
 	}
 	
+	public abstract Giocatore valutaTitolo (List<Giocatore> giocatori);
+		
+	
+
 }

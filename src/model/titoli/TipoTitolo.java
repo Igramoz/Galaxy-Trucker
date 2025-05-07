@@ -1,0 +1,15 @@
+package model.titoli;
+
+
+public enum TipoTitolo {
+
+	TRASPORTATORE_SUPREMO,
+	BATTERISTA,
+	XENOQUARTIERMASTRO,
+	CAPITANO_DA_CROCIERA,
+	MASTRO_INGEGNERE,
+	MASTRO_CORRIDOISTA;
+	
+	
+	
+}

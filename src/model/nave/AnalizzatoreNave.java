@@ -7,10 +7,13 @@ import java.util.Map;
 
 import grafica.formattatori.FormattatoreGrafico;
 import io.GestoreIO;
+import model.componenti.CabinaDiEquipaggio;
 import model.componenti.Cannone;
 import model.componenti.Componente;
+import model.componenti.Stiva;
 import model.componenti.TipoComponente;
 import model.componenti.VanoBatteria;
+import model.enums.TipoMerce;
 import model.enums.TipoPedina;
 import model.enums.TipoTubo;
 import util.Util;
@@ -26,7 +29,7 @@ public class AnalizzatoreNave {
 	private GestoreIO io = new GestoreIO();
 	private FormattatoreGrafico formattatoreGrafico = new FormattatoreGrafico();
 
-	public AnalizzatoreNave(Nave nave) {
+	protected AnalizzatoreNave(Nave nave) {
 		if (nave == null) {
 			throw new NullPointerException("La nave non può essere null");
 		}
@@ -48,6 +51,39 @@ public class AnalizzatoreNave {
 		adiacenti.put(Direzione.DESTRA, grigliaComponenti[x + 1][y]);
 
 		return adiacenti;
+	}
+	
+	public List<TipoMerce> trovaMerciNave() {
+		List<Componente> stive = nave.getCopiaComponenti(TipoComponente.STIVA);
+		stive.addAll(nave.getCopiaComponenti(TipoComponente.STIVA_SPECIALE));
+		List<TipoMerce> out = new ArrayList<>();
+
+		for (Componente stiva : stive) {
+			TipoMerce[] merci = ((Stiva) stiva).getMerci();
+
+			if (merci != null) {
+				for (TipoMerce merce : merci) {
+					if (merce != null) {
+						out.add(merce);
+					}
+				}
+			}
+		}
+		return out;
+	}
+	
+	public List<TipoPedina> trovaEquipaggioNave() {
+		List<Componente> cabine = nave.getCopiaComponenti(TipoComponente.CABINA_EQUIPAGGIO);
+		cabine.addAll(nave.getCopiaComponenti(TipoComponente.CABINA_PARTENZA));
+		List<TipoPedina> out = new ArrayList<>();
+		for (Componente cabina : cabine) {
+			// Controllo che l'equipaggio non sia null prima di settarlo
+			List<TipoPedina> equipaggio = ((CabinaDiEquipaggio) cabina).getEquipaggio();
+			if (equipaggio != null) {
+				out.addAll(equipaggio);
+			}
+		}
+		return out;
 	}
 
 	public int connettoriEspostiConuter() {
