@@ -16,11 +16,11 @@ public class Epidemia extends Carta {
 		io.stampa("L'epidemia elimina un membro dell'equipaggio da tutte le cabine adiacenti tra di loro");
 
 		for (ManagerDiVolo m : listaManager) {
-			
 			Giocatore g = m.getGiocatore();
 			int membriPersi = g.getNave().eliminaEquipaggioDaCabineCollegate();
-			
-			io.stampa(formattatoreGrafico.formatta(g) + " ha perso " + membriPersi + " membri totali dal proprio equipaggio");
+
+			io.stampa(formattatoreGrafico.formatta(g) + " ha perso " + membriPersi
+					+ " membri totali dal proprio equipaggio");
 		}
 	}
 }

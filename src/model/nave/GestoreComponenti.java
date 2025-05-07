@@ -19,7 +19,7 @@ public class GestoreComponenti {
 	private Nave nave;
 	private GestoreIO io = new GestoreIO();
 
-	public GestoreComponenti(Nave nave) {
+	protected GestoreComponenti(Nave nave) {
 		this.nave = nave;
 	}
 
@@ -119,7 +119,7 @@ public class GestoreComponenti {
 		}
 		return true;
 	}
-	
+
 	// rimuove un particolare tipo di merce da una stiva della nave
 	public boolean rimuoviMerceDaNave(TipoMerce merce) {
 
@@ -187,7 +187,7 @@ public class GestoreComponenti {
 		}
 		return false; // non sono riuscito a rimuovere abbastanza pedine
 	}
-	
+
 	public boolean rimuoviEquipaggioDaNave() {
 
 		// salvo le cabine
@@ -229,6 +229,42 @@ public class GestoreComponenti {
 			}
 		} while (!sceltaValida);
 		return true;
+	}
+
+	public int eliminaEquipaggioDaCabineCollegate() {
+		int membriEquipaggioEliminati = 0;
+		List<Coordinate> coordinateGiaEsaminate = new ArrayList<>();
+		List<Componente> cabine = new ArrayList<>();
+		cabine.addAll(nave.getComponentiOriginali(TipoComponente.CABINA_EQUIPAGGIO));
+		cabine.addAll(nave.getComponentiOriginali(TipoComponente.CABINA_PARTENZA));
+
+		for (Componente cabina : cabine) {
+			if (!coordinateGiaEsaminate.contains(cabina.getPosizione())) {
+				coordinateGiaEsaminate.add(cabina.getPosizione());
+				try {
+					((CabinaDiEquipaggio) cabina).rimuoviUnMembroEquipaggio();
+				} catch (ComponenteVuotoException e) {
+					// Se il componente è vuoto non succede nulla, semplicemente non elimino nessun
+					// membro
+				}
+				membriEquipaggioEliminati++;
+
+				List<Componente> adiacenti = nave.getAnalizzatoreNave().ottieniCabineEquipaggioCollegate(cabina);
+				for (Componente adiacente : adiacenti) {
+					if (!coordinateGiaEsaminate.contains(adiacente.getPosizione())) {
+						coordinateGiaEsaminate.add(adiacente.getPosizione());
+						try {
+							((CabinaDiEquipaggio) adiacente).rimuoviUnMembroEquipaggio();
+						} catch (ComponenteVuotoException e) {
+							// Se il componente è vuoto non succede nulla, semplicemente non elimino nessun
+							// membro
+						}
+						membriEquipaggioEliminati++;
+					}
+				}
+			}
+		}
+		return membriEquipaggioEliminati;
 	}
 
 	public boolean posizionaEquipaggioInNave(TipoPedina pedina) {
@@ -310,7 +346,8 @@ public class GestoreComponenti {
 			try {
 				((CabinaDiEquipaggio) cabina).aggiungiEquipaggio(TipoPedina.ASTRONAUTA);
 				return true;
-			} catch (ComponentePienoException e) {}
+			} catch (ComponentePienoException e) {
+			}
 		}
 		return false;
 	}
@@ -335,7 +372,7 @@ public class GestoreComponenti {
 
 			try {
 				((VanoBatteria) vanoBatteria).scaricaBatteria();
-			}catch(ComponenteVuotoException e) {
+			} catch (ComponenteVuotoException e) {
 				io.stampa("Non è possibile rimuovere energia da questo vano");
 				io.stampa("scegliere un vano carico");
 				sceltaValida = false;

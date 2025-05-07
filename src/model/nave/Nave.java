@@ -1,18 +1,16 @@
 package model.nave;
 
+import eccezioni.CaricamentoNonConsentitoException;
+import eccezioni.ComponentePienoException;
+import grafica.Colore;
+import io.GestoreIO;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-
-import eccezioni.CaricamentoNonConsentitoException;
-import eccezioni.ComponentePienoException;
-import eccezioni.ComponenteVuotoException;
 import model.carte.colpo.Colpo;
 import model.componenti.*;
-import grafica.Colore;
-import io.GestoreIO;
 import model.enums.*;
 import util.*;
 import util.layout.Coordinate;
@@ -202,9 +200,7 @@ public class Nave {
 				"Il componente alle coordinate " + coordinate + " non è una cabina di equipaggio.");
 	}
 
-//TODO spostare in gestore componenti
 	public int eliminaEquipaggioDaCabineCollegate() {
-		
 		return gestoreComponenti.eliminaEquipaggioDaCabineCollegate();
 	}
 
