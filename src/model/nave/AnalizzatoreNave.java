@@ -26,7 +26,7 @@ public class AnalizzatoreNave {
 	private GestoreIO io = new GestoreIO();
 	private FormattatoreGrafico formattatoreGrafico = new FormattatoreGrafico();
 
-	public AnalizzatoreNave(Nave nave) {
+	protected AnalizzatoreNave(Nave nave) {
 		if (nave == null) {
 			throw new NullPointerException("La nave non può essere null");
 		}

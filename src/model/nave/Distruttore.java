@@ -17,7 +17,7 @@ public class Distruttore {
 	private Nave nave;
 	private int pezziDistrutti;
 	
-	public Distruttore(Nave nave) {
+	protected Distruttore(Nave nave) {
 		this.nave = nave;		
 	}
 	

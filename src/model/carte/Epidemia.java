@@ -1,11 +1,7 @@
 package model.carte;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import model.Giocatore;
 import partita.fasiGioco.volo.ManagerDiVolo;
-import util.layout.Coordinate;
 
 public class Epidemia extends Carta {
 
@@ -19,11 +15,11 @@ public class Epidemia extends Carta {
 		io.stampa("L'epidemia elimina un membro dell'equipaggio da tutte le cabine adiacenti tra di loro");
 
 		for (ManagerDiVolo m : listaManager) {
-			List<Coordinate> coordinateGiaEsaminate = new ArrayList<>();
 			Giocatore g = m.getGiocatore();
-			int membriPersi = g.getNave().eliminaEquipaggioDaCabineCollegate(coordinateGiaEsaminate);
+			int membriPersi = g.getNave().eliminaEquipaggioDaCabineCollegate();
 
-			carteRenderer.stampaEquipaggioPersoPerGiocatore(g, membriPersi);
+			io.stampa(formattatoreGrafico.formatta(g) + " ha perso " + membriPersi
+					+ " membri totali dal proprio equipaggio");
 		}
 	}
 }

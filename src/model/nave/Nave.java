@@ -212,40 +212,8 @@ public class Nave {
 				"Il componente alle coordinate " + coordinate + " non è una cabina di equipaggio.");
 	}
 
-//TODO spostare in gestore componenti
-	public int eliminaEquipaggioDaCabineCollegate(List<Coordinate> coordinateGiaEsaminate) {
-		int membriEquipaggioEliminati = 0;
-		List<Componente> cabine = new ArrayList<>();
-		cabine.addAll(getComponentiOriginali(TipoComponente.CABINA_EQUIPAGGIO));
-		cabine.addAll(getComponentiOriginali(TipoComponente.CABINA_PARTENZA));
-
-		for (Componente cabina : cabine) {
-			if (!coordinateGiaEsaminate.contains(cabina.getPosizione())) {
-				coordinateGiaEsaminate.add(cabina.getPosizione());
-				try {
-					((CabinaDiEquipaggio) cabina).rimuoviUnMembroEquipaggio();
-				} catch (ComponenteVuotoException e) {
-					// Se il componente è vuoto non succede nulla, semplicemente non elimino nessun
-					// membro
-				}
-				membriEquipaggioEliminati++;
-
-				List<Componente> adiacenti = analizzatoreNave.ottieniCabineEquipaggioCollegate(cabina);
-				for (Componente adiacente : adiacenti) {
-					if (!coordinateGiaEsaminate.contains(adiacente.getPosizione())) {
-						coordinateGiaEsaminate.add(adiacente.getPosizione());
-						try {
-							((CabinaDiEquipaggio) adiacente).rimuoviUnMembroEquipaggio();
-						} catch (ComponenteVuotoException e) {
-							// Se il componente è vuoto non succede nulla, semplicemente non elimino nessun
-							// membro
-						}
-						membriEquipaggioEliminati++;
-					}
-				}
-			}
-		}
-		return membriEquipaggioEliminati;
+	public int eliminaEquipaggioDaCabineCollegate() {
+		return gestoreComponenti.eliminaEquipaggioDaCabineCollegate();
 	}
 
 	public List<TipoMerce> getMerci() {

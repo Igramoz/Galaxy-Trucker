@@ -139,8 +139,8 @@ public class CarteRenderer {
 		for (int i = 0; i < pianeti.size(); i++) {
 			Pianeta p = pianeti.get(i);
 			if (!p.isOccupato()) {
-				io.stampa("Pianeta " + formattatore.formatta(p.getColore())
-						+ " giorni di volo, merci disponibili: " + p.getMerciDisponibili());
+				io.stampa("Pianeta " + formattatore.formatta(p.getColore()) + " giorni di volo, merci disponibili: "
+						+ p.getMerciDisponibili());
 			}
 		}
 		io.stampa("Sono richiesti " + carta.getGiorniVoloPersi() + " per ciascun pianeta");
@@ -159,10 +159,5 @@ public class CarteRenderer {
 		io.stampa("Perdendo " + naveAbbandonata.getEquipaggioPerso() + " membri dell'equipaggio");
 		io.stampa("si può guadagnare " + naveAbbandonata.getCrediti() + " crediti");
 		io.stampa("scegliere guadagnare i crediti comporta la perdita di " + naveAbbandonata.getTempoDiVolo());
-	}
-
-	public void stampaEquipaggioPersoPerGiocatore(Giocatore g, int membriPersi) {
-		io.stampa(formattatore.formatta(g) + " ha perso " + membriPersi
-				+ " membri totali dal proprio equipaggio");
 	}
 }

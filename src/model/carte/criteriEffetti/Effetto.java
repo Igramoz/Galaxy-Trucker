@@ -88,8 +88,7 @@ public enum Effetto {
 		@Override // giocatore che perde i giorni di volo e numero di giorni di volo persi
 		public void applica(ManagerDiVolo manager, Object valore) {
 			int n = (Integer) valore;
-			io.stampa(formattatoreGrafico.formatta(manager.getGiocatore()) + " perderà " + n
-					+ " giorni di volo");
+			io.stampa(formattatoreGrafico.formatta(manager.getGiocatore()) + " perderà " + n + " giorni di volo");
 			manager.spostaGiocatore(-n);
 		}
 	},

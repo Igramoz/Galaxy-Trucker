@@ -25,7 +25,7 @@ public class VerificatoreImpatti {
 	
 	private Nave nave;
 	
-	public VerificatoreImpatti(Nave nave ) {
+	protected VerificatoreImpatti(Nave nave ) {
 		this.nave = nave;
 		this.gestoreComponenti = new GestoreComponenti(nave);
 	}
