@@ -1,15 +1,24 @@
 package model.titoli;
 
+import grafica.formattatori.Formattabile;
 
-public enum TipoTitolo {
+public enum TipoTitolo implements Formattabile{
 
-	TRASPORTATORE_SUPREMO,
+	TRASPORTATORE_SUPREMO(new TrasportatoreSupremo()),
 	BATTERISTA,
 	XENOQUARTIERMASTRO,
 	CAPITANO_DA_CROCIERA,
 	MASTRO_INGEGNERE,
 	MASTRO_CORRIDOISTA;
 	
+	private final Titolo titolo;
 	
+	public TipoTitolo(Titolo titolo) {
+		this.titolo = titolo;
+	}
+	
+	public Titolo getTitolo() {
+		return titolo;
+	}
 	
 }

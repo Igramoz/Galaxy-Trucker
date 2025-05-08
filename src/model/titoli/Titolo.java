@@ -3,26 +3,20 @@ package model.titoli;
 import java.util.List;
 
 import grafica.Colore;
-import grafica.formattatori.Formattabile;
 import model.Giocatore;
 import partita.LivelliPartita;
 
-public abstract class Titolo implements Formattabile {
+public abstract class Titolo  {
 
 	private ColoreTitolo colore;
-	private TipoTitolo titolo;
 
 	private static final int CREDITI_TITOLO_LIVELLO_1 = 2;
 	private static final int CREDITI_TITOLO_LIVELLO_2 = 4;
 	private static final int CREDITI_TITOLO_LIVELLO_3_ARGENTO = 6;
 	private static final int CREDITI_TITOLO_LIVELLO_3_ORO = 12;
 
-	public String getNome() {
-		return titolo.name().toLowerCase();
-	}
 
-	public Titolo(TipoTitolo titolo) {
-		this.titolo = titolo;
+	public Titolo() {
 		colore = ColoreTitolo.Argento;
 	}
 
