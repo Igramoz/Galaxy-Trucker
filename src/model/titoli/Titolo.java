@@ -6,7 +6,7 @@ import grafica.Colore;
 import model.Giocatore;
 import partita.LivelliPartita;
 
-public abstract class Titolo  {
+public abstract class Titolo {
 
 	private ColoreTitolo colore;
 
@@ -14,7 +14,6 @@ public abstract class Titolo  {
 	private static final int CREDITI_TITOLO_LIVELLO_2 = 4;
 	private static final int CREDITI_TITOLO_LIVELLO_3_ARGENTO = 6;
 	private static final int CREDITI_TITOLO_LIVELLO_3_ORO = 12;
-
 
 	public Titolo() {
 		colore = ColoreTitolo.Argento;

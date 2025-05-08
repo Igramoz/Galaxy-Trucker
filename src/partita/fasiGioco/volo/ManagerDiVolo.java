@@ -1,6 +1,6 @@
 package partita.fasiGioco.volo;
 
-import eccezioni.GiocatoreNonSpostabile;
+import eccezioni.GiocatoreNonSpostabileException;
 import model.Giocatore;
 import model.planciaDiVolo.*;
 
@@ -16,7 +16,7 @@ public class ManagerDiVolo {
 		plancia.getGiorniDiVoloGiocatore(giocatore); // inizializza i giorni di volo del giocatore in base alla plancia
 	}
 
-	public void spostaGiocatore(int giorniDiVolo) throws GiocatoreNonSpostabile {
+	public void spostaGiocatore(int giorniDiVolo) throws GiocatoreNonSpostabileException {
 		
 			plancia.spostaGiocatore(giorniDiVolo, giocatore);
 

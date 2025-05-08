@@ -5,7 +5,7 @@ import grafica.formattatori.Formattabile;
 public enum TipoTitolo implements Formattabile{
 
 	TRASPORTATORE_SUPREMO(new TrasportatoreSupremo()),
-	BATTERISTA,
+	BATTERISTA(new Batterista()),
 	XENOQUARTIERMASTRO,
 	CAPITANO_DA_CROCIERA,
 	MASTRO_INGEGNERE,

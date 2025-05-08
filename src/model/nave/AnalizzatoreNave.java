@@ -52,7 +52,7 @@ public class AnalizzatoreNave {
 
 		return adiacenti;
 	}
-	
+
 	public List<TipoMerce> trovaMerciNave() {
 		List<Componente> stive = nave.getCopiaComponenti(TipoComponente.STIVA);
 		stive.addAll(nave.getCopiaComponenti(TipoComponente.STIVA_SPECIALE));
@@ -71,7 +71,7 @@ public class AnalizzatoreNave {
 		}
 		return out;
 	}
-	
+
 	public List<TipoPedina> trovaEquipaggioNave() {
 		List<Componente> cabine = nave.getCopiaComponenti(TipoComponente.CABINA_EQUIPAGGIO);
 		cabine.addAll(nave.getCopiaComponenti(TipoComponente.CABINA_PARTENZA));

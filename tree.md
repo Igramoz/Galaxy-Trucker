@@ -4,22 +4,23 @@ src/
 │   └── Main.java
 |
 ├── eccezioni/
-│   ├── ComponenteNonIstanziabile.java
-│   └──GiocatoreNonSpostabile .java
+│   ├── ComponenteNonIstanziabileException.java
+│   ├── CaricamentoNonConsentitoException.java
+│   ├── ComponentePienoException.java
+│   ├── ComponenteVuotoException.java
+│   └── GiocatoreNonSpostabileException.java
 │
 ├── model/
 │   ├── Giocatore.java
 │   ├── carte/
 │   │   ├── TipoCarta.java
 │   │   ├── Carta.java
-│   │   ├── CartaPianeti.java
 │   │   ├── StazioneAbbandonata.java
-│   │   ├── NaveAbbandonataCarta.java
+│   │   ├── NaveAbbandonata.java
 │   │   ├── SpazioAperto.java
 │   │   ├── PioggiaDiMeteoriti.java
 │   │   ├── ZonaDiGuerra.java
 │   │   ├── PolvereStellare.java
-│   │   ├── Schiavisti.java
 │   │   ├── Epidemia.java
 │   │   ├── Sabotaggio.java
 │   │   ├── criteriEffetti/
@@ -30,14 +31,15 @@ src/
 │   │   |    ├── CartaPianeti.java
 │   │   |    └── Pianeta.java
 │   │   |── nemiciAvanzati/
-│   │   |    ├── NemicoAvanzato.java
+│   │   |    ├── Nemico.java
 │   │   |    ├── Pirati.java
 │   │   |    ├── Schiavisti.java
 │   │   |    └── Contrabbandieri.java
 │       └── colpi/
 │   │        ├── Colpo.java
-│   │        └── GestoreColpo.java
+│   │        └── GestoreColpi.java
 │   ├── componenti/
+│   │   ├── TipoComponente.java
 │   │   ├── Componente.java
 │   │   ├── Tubo.java
 │   │   ├── Cannone.java
@@ -53,24 +55,28 @@ src/
 │   │       └── MotoreDoppio.java
 │   ├── enums/
 │   │   ├── TipoMerce.java
-│   │   ├── Direzione.java
 │   │   ├── TipoTubo.java
-│   │   ├── TipoCarta.java
-│   │   ├── TipoComponente.java
 │   │   └── TipoPedina.java
 |   |
-|    ├── nave/
-│   |		├── Nave.java
-│   |		├── TipoNave.java
-│   |		├── ValidatorePosizione.java
-│   |		├── AnalizzatoreNave.java
-│   |		├── GestoreComponenti.java
-│   |		├── VerificatoreImpatti.java
-│   |		└── Distruttore.java
-│	 |
-|    └── planciaDiVolo/
-│   		├── Plancia.java
-│   		└── TipoPlancia.java
+|   ├── nave/
+│   |	├── Nave.java
+│   |	├── TipoNave.java
+│   |	├── ValidatorePosizione.java
+│   |	├── AnalizzatoreNave.java
+│   |	├── GestoreComponenti.java
+│   |	├── VerificatoreImpatti.java
+│   |	└── Distruttore.java
+│	|
+|   └── planciaDiVolo/
+│   |	├── Plancia.java
+│   |	└── TipoPlancia.java
+|   |
+|   └── titoli/
+│   	├── Titolo.java
+│   	├── TipoTitolo.java
+│   	├── ColoreTitolo.java
+│   	├── TrasportatoreSupremo.java
+│   	└── Batterista.java
 |
 ├── partita/
 │   ├── LivelliPartita.java
@@ -92,29 +98,35 @@ src/
 ├── grafica/
 │   ├── Colore.java
 │   ├── CostantiGrafica.java
-│   ├── FormattatoreGrafico.java
 │   ├── GraficaConfig.java
 │   ├── TextAligner.java
 │   └── renderer/
-│       ├── CarteRenderer.java
-│       ├── ComponenteRenderer.java
-│       └── NaveRenderer.java
+│   |   ├── CarteRenderer.java
+│   |   ├── ComponenteRenderer.java
+│   |   ├── PlanciaRenderer.java
+│   |   └── NaveRenderer.java
+│   └── formattatori/
+│       ├── FormattatoreGrafico.java
+│       └── Formattabile.java
 │
 ├── io/
-│   └── GestoreIO.java
+│   ├── GestoreIO.java
+│   └── InterfacciaUtente.java
 │
 │
 ├── servizi/
-│   ├── ServizioPunteggio.java
-│   ├── ServizioEventi.java
 │   ├── ServizioAssemblaggio.java
 │   ├── ServizioCarte.java
-│   └── ServizioDistruzioneComponenti.java
+│   └── SerivizioDadi.java
 │
 └── util/
     ├── Util.java
-    ├── RandomUtil.java
-    ├── Coordinate.java
-    └── Coppia.java
+    ├── Coppia.java
+    └── layout/
+    |   ├── Coordinate.java
+    |   └── Direzione.java
+    └── random/
+        ├── Dado.java
+        └── RandomUtil.java
 
 ```

@@ -4,7 +4,7 @@ import model.Giocatore;
 import java.util.HashMap;
 import java.util.Map;
 
-import eccezioni.GiocatoreNonSpostabile;
+import eccezioni.GiocatoreNonSpostabileException;
 
 /*
  * @throwable GiocatoreNonSpostabile
@@ -68,7 +68,7 @@ public class Plancia {
 	
 
 	//sposta un giocatore per n giorni di volo
-	public void spostaGiocatore(int giorniVolo, Giocatore giocatore) throws GiocatoreNonSpostabile {
+	public void spostaGiocatore(int giorniVolo, Giocatore giocatore) throws GiocatoreNonSpostabileException {
 
 		// Controlla se il numero di giorni di volo è positivo
 
@@ -97,7 +97,7 @@ public class Plancia {
 	}
 
 	//sposta un giocatore indietro di un giorno di volo
-	private void  spostaIndietro(Giocatore giocatore, Integer posizioneFin) throws GiocatoreNonSpostabile{
+	private void  spostaIndietro(Giocatore giocatore, Integer posizioneFin) throws GiocatoreNonSpostabileException{
 	    int pos = -1;
 
 	    // Trova la posizione attuale del giocatore
@@ -109,7 +109,7 @@ public class Plancia {
 	    }
 
 	    if (pos == -1) {
-	    	throw new GiocatoreNonSpostabile("Giocatore non trovato nella plancia");
+	    	throw new GiocatoreNonSpostabileException("Giocatore non trovato nella plancia");
 	        
 	    }
 
@@ -126,7 +126,7 @@ public class Plancia {
 	    // Se la plancia è piena (nessuna posizione libera), non fare nulla
 	    if (tentativi == tipoPlancia.getLunghezza()) {
 	        
-	        throw new GiocatoreNonSpostabile("Giocatore non spostabile");
+	        throw new GiocatoreNonSpostabileException("Giocatore non spostabile");
 	    }
 
 	    // Sposta il giocatore alla nuova posizione libera
@@ -139,7 +139,7 @@ public class Plancia {
 
 
 	//sposta un giocatore avanti di un giorno di volo
-	private void  spostaAvanti(Giocatore giocatore, Integer posizioneFin) throws GiocatoreNonSpostabile{
+	private void  spostaAvanti(Giocatore giocatore, Integer posizioneFin) throws GiocatoreNonSpostabileException{
 	    int pos = -1;
 
 	    // Trova la posizione attuale del giocatore
@@ -151,7 +151,7 @@ public class Plancia {
 	    }
 
 	    if (pos == -1) {
-	    	throw new GiocatoreNonSpostabile("Giocatore non trovato nella plancia"); // Giocatore non trovato nella plancia
+	    	throw new GiocatoreNonSpostabileException("Giocatore non trovato nella plancia"); // Giocatore non trovato nella plancia
 	    }
 
 	    int nuovaPos = (pos + 1) % tipoPlancia.getLunghezza();
@@ -166,7 +166,7 @@ public class Plancia {
 
 	    // Se la plancia è piena (nessuna posizione libera), non fare nulla
 	    if (tentativi == tipoPlancia.getLunghezza()) {
-	    	throw new GiocatoreNonSpostabile("Giocatore non spostabile");
+	    	throw new GiocatoreNonSpostabileException("Giocatore non spostabile");
 	    }
 
 	    // Sposta il giocatore alla nuova posizione libera
