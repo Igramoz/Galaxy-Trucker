@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import io.GestoreIO;
-import model.Giocatore;
 import model.carte.*;
 import model.carte.colpo.Colpo;
 import model.carte.pianeti.*;

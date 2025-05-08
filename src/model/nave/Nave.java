@@ -204,8 +204,7 @@ public class Nave {
 		return gestoreComponenti.eliminaEquipaggioDaCabineCollegate();
 	}
 
-	public List<TipoMerce> getMerci() {
-		
+	public List<TipoMerce> getMerci() {		
 		return analizzatoreNave.trovaMerciNave();
 	}
 
@@ -269,7 +268,6 @@ public class Nave {
 	// funzione per controllare che la nave abbia raggiunto il massimo numero di
 	// componenti dell'equipaggio
 	public boolean isEquipaggioCompleto() {
-
 		List<Componente> cabine = this.getCopiaComponenti(TipoComponente.CABINA_EQUIPAGGIO);
 		cabine.addAll(this.getCopiaComponenti(TipoComponente.CABINA_PARTENZA));
 		for (Componente cabina : cabine) {
