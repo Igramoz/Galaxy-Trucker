@@ -23,7 +23,6 @@ public class Batterista extends Titolo {
 		return out;
 	}
 
-	// TODO: è da mettere in AnalizzatoreNave?
 	private int contaComponentiEnergetici(Nave n) {
 		List<Componente> componentiEnergetici = n.getCopiaComponenti(TipoComponente.CANNONE_DOPPIO);
 		componentiEnergetici.addAll(n.getCopiaComponenti(TipoComponente.MOTORE_DOPPIO));

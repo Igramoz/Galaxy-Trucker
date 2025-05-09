@@ -24,7 +24,6 @@ public class TrasportatoreSupremo extends Titolo {
 		return out;
 	}
 
-	// TODO: è da mettere in AnalizzatoreNave?
 	private int contaStiveNonVuote(Nave n) {
 		int contatore = 0;
 		List<Componente> stive = n.getCopiaComponenti(TipoComponente.STIVA);
@@ -32,7 +31,7 @@ public class TrasportatoreSupremo extends Titolo {
 
 		for (int i = 0; i < stive.size(); i++) {
 			Stiva s = (Stiva) stive.get(i);
-			if (s.getMerci().length >= 1)
+			if (!s.isEmpty())
 				contatore++;
 		}
 		return contatore;

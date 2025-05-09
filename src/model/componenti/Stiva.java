@@ -61,7 +61,8 @@ public class Stiva extends Componente {
 		for (int i = 0; i < scomparti; i++) {
 			if (merci[i] == null) {
 				merci[i] = merce;
-return;			}
+				return;
+			}
 		}
 		throw new ComponentePienoException("La stiva è piena non è possibile caricare ulteriore merce");
 	}
@@ -89,6 +90,7 @@ return;			}
 		}
 		return true;
 	}
+
 	/**
 	 * rimuove una merce specifica dalla stiva
 	 * 
@@ -133,7 +135,7 @@ return;			}
 		return scomparti;
 	}
 
-	public boolean isStivaPiena() {
+	public boolean isFull() {
 		for (int i = 0; i < scomparti; i++) {
 			if (merci[i] == null) {
 				return false;
@@ -142,4 +144,7 @@ return;			}
 		return true;
 	}
 
+	public boolean isEmpty() {
+		return merci.length == 0;
+	}
 }
