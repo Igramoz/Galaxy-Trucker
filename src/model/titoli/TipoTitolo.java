@@ -8,7 +8,7 @@ public enum TipoTitolo implements Formattabile {
 	BATTERISTA(new Batterista()),
 	XENOQUARTIERMASTRO,
 	CAPITANO_DA_CROCIERA(new CapitanoDaCrociera()),
-	MASTRO_INGEGNERE,
+	MASTRO_INGEGNERE(new MastroIngegnere()),
 	MASTRO_CORRIDOISTA;
 
 	private final Titolo titolo;
