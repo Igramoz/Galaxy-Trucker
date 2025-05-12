@@ -45,21 +45,21 @@ public class Xenoquartiermastro extends Titolo {
 			return numeroAlieni;
 
 		int sommaDistanze = 0;
-		Componente[][] griglia = n.getGrigliaComponentiCloni();
 		for (CabinaDiEquipaggio cabina : cabineConAlieni) {
-			int distanza = 0;
-			// devo poi controllare se i tubi delle due cabine corrispondono
-//			int temp = getDistanzaEffettivaTraCabine(griglia, cabina);
-			// TODO: finire
-			sommaDistanze += distanza;
+			sommaDistanze += getDistanzaTraCabine(cabine, cabina);
 		}
-
+		
 		return sommaDistanze;
 	}
 
-//	private int getDistanzaEffettivaTraCabine(Componente[][] griglia, CabinaDiEquipaggio cabina) {
-//		int distanza = 0;
-//
-//		return distanza;
-//	}
+	private int getDistanzaTraCabine(List<Componente> listaCabine, CabinaDiEquipaggio cabina) {
+		int minorDistanza = 100;
+		for (Componente c : listaCabine) {
+			int distanza = Math.abs(cabina.getPosizione().getX() - c.getPosizione().getX())
+					+ Math.abs(cabina.getPosizione().getY() - c.getPosizione().getY());
+			if (distanza < minorDistanza)
+				minorDistanza = distanza;
+		}
+		return minorDistanza;
+	}
 }
