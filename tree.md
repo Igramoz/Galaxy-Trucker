@@ -75,6 +75,10 @@ src/
 │   	├── Titolo.java
 │   	├── TipoTitolo.java
 │   	├── ColoreTitolo.java
+│   	├── Xenoquartiermastro.java
+│   	├── CapitanoDaCrociera.java
+│   	├── MastroIngegnere.java
+│   	├── MastroCorridoista.java
 │   	├── TrasportatoreSupremo.java
 │   	└── Batterista.java
 |
@@ -116,13 +120,14 @@ src/
 │
 ├── servizi/
 │   ├── ServizioAssemblaggio.java
+│   ├── ServizioTitoli.java
 │   ├── ServizioCarte.java
 │   └── SerivizioDadi.java
 │
 └── util/
     ├── Util.java
     ├── Coppia.java
-    └── layout/
+    ├── layout/
     |   ├── Coordinate.java
     |   └── Direzione.java
     └── random/

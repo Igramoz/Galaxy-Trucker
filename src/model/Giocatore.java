@@ -8,6 +8,7 @@ import grafica.Colore;
 import grafica.formattatori.Formattabile;
 import model.nave.Nave;
 import model.nave.TipoNave;
+import model.titoli.TipoTitolo;
 
 public class Giocatore implements Formattabile {
 	private final static int giocatoriMax = 4; // Numero massimo di giocatori
@@ -17,8 +18,8 @@ public class Giocatore implements Formattabile {
 
 	private final String nome;
 	private final Colore colore;
-
-	// TODO assegnare titolo
+	private TipoTitolo titolo;
+	
 	private Nave nave;
 
 	private int crediti = 0;
@@ -88,5 +89,13 @@ public class Giocatore implements Formattabile {
 		Giocatore other = (Giocatore) obj;
 		return colore == other.colore && crediti == other.crediti && Objects.equals(nave, other.nave)
 				&& Objects.equals(nome, other.nome);
+	}
+
+	public TipoTitolo getTitolo() {
+		return titolo;
+	}
+
+	public void setTitolo(TipoTitolo titolo) {
+		this.titolo = titolo;
 	}
 }

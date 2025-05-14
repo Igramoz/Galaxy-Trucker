@@ -1,6 +1,5 @@
 package partita.fasiGioco.volo;
 
-import eccezioni.GiocatoreNonSpostabileException;
 import model.Giocatore;
 import model.planciaDiVolo.*;
 
@@ -16,12 +15,16 @@ public class ManagerDiVolo {
 		plancia.getGiorniDiVoloGiocatore(giocatore); // inizializza i giorni di volo del giocatore in base alla plancia
 	}
 
-	public void spostaGiocatore(int giorniDiVolo) throws GiocatoreNonSpostabileException {
+	public void spostaGiocatore(int giorniDiVolo){
 		
 			plancia.spostaGiocatore(giorniDiVolo, giocatore);
 
 	}
-	
+	/**
+	 * funzione per ottenere i giorni di volo del giocatore
+	 * @param giocatore
+	 * @return null se il giocatore non è in volo, altrimenti il numero di giorni di volo
+	 */
 	public Integer getGiorniDiVoloGiocatore() {
 		return plancia.getGiorniDiVoloGiocatore(giocatore); // restituisce i giorni di volo del giocatore
 	}
@@ -58,4 +61,16 @@ public class ManagerDiVolo {
     public void AbbandonaVolo() {
 		plancia.abbandonaVolo(giocatore); // il giocatore abbandona il volo
 	}
+    
+    /**
+     * controlla se io giocatore ha abbandonato il volo o meno
+     * @return true se è ancora in volo, false se ha abbanato il volo
+     */
+    public boolean isInVolo() {
+    	if(getGiorniDiVoloGiocatore() ==  null)
+    		return false;
+    	else 
+    		return true;
+    }
+    
 }

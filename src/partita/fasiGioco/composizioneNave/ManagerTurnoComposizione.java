@@ -70,8 +70,8 @@ public class ManagerTurnoComposizione {
 			switch (mostraMenu()) {
 			case 1 -> guardaCarte();
 			case 2 -> estraiNuovoComponente();
-			case 3 -> usaComponenteScartato();
-			case 4 -> usaComponentePrenotato();
+			case 3 -> posizionaComponenteScartato();
+			case 4 -> posizionaComponentePrenotato();
 			case 0 -> {
 				turnoTerminato = true;
 				return true;
@@ -101,7 +101,7 @@ public class ManagerTurnoComposizione {
 
 	private int mostraMenu() {
 		final String[] azioni = { "Nave completata", "Guarda carte", "Estrai componente nuovo",
-				"Usa un componente scartato", "Usa un componente prenotato" };
+				"Posiziona un componente scartato", "Posiziona un componente prenotato" };
 
 		return io.stampaMenu(azioni);
 	}
@@ -179,13 +179,13 @@ public class ManagerTurnoComposizione {
 		return true;
 	}
 
-	private void usaComponenteScartato() {
+	private void posizionaComponenteScartato() {
 		String[] azioniDisponibili = Arrays.copyOf(azioniDisponibiliSuComponente, azioniDisponibiliSuComponente.length + 1);
 		azioniDisponibili[azioniDisponibili.length - 1] = "Scarta";
 		scegliComponenteDaLista(componentiScartati, azioniDisponibili);
 	}
 
-	private void usaComponentePrenotato() {
+	private void posizionaComponentePrenotato() {
 		scegliComponenteDaLista(componentiPrenotati, azioniDisponibiliSuComponente);
 	}
 	

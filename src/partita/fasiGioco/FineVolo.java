@@ -7,6 +7,7 @@ import io.GestoreIO;
 import model.enums.TipoMerce;
 import partita.ModalitaGioco;
 import partita.fasiGioco.volo.ManagerDiVolo;
+import servizi.ServizioTitoli;
 
 /**
  * La classe conta i punteggi alla fine di ciascun volo e assegna i crediti 
@@ -39,7 +40,10 @@ public class FineVolo {
 		ordineArrivo();
 		venditaMerci();
 		perdite();
-		bellezzaNave();
+		if(modalita == ModalitaGioco.VOLO_SINGOLO)
+			bellezzaNave();
+		else
+			assegnaTitoli();
 	}
 	
 	// assegna i crediti secondo il criterio dell'ordine d'arrivo
@@ -121,5 +125,10 @@ public class FineVolo {
 		managerMinorConnettoriEsposti.getGiocatore().aggiungiCrediti(numCrediti);
 	}
 	
+	// assegna i titoli
+	private void assegnaTitoli() {
+		ServizioTitoli servizioTitoli = new ServizioTitoli(arrayManager, modalita.getlivelloPartita());
+		servizioTitoli.assegnaTitoli();
+	}
 	
 }

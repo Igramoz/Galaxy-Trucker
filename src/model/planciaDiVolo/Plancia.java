@@ -22,24 +22,28 @@ public class Plancia {
 	public Plancia(Giocatore[] giocatori, LivelliPartita livello) {
 		
 		this.tipoPlancia = livello.getTipoPlancia();
-
+// TODO CAMBIARE
 		this.plancia = new Giocatore[tipoPlancia.getLunghezza()]; // inizializza la plancia in base alla lunghezza della plancia
 		
 		// metto i giocatori nella plancia in base alla modalita di gioco
 
-		for(int i =0; i<tipoPlancia.getPosizioni().length && i<tipoPlancia.getLunghezza(); i++) {
+		for(int i =0; i<tipoPlancia.getPosizioni().length && i<tipoPlancia.getLunghezza() && i < giocatori.length; i++) {
 
 			plancia[tipoPlancia.getPosizioni()[i]] = giocatori[i]; // metto i giocatori nella plancia in base alla modalita di gioco
 			
 		}
 
 		//memorizzo i giorni di volo dei giocatori nella mappa
-		for(int i =0; i<tipoPlancia.getPosizioni().length && i<tipoPlancia.getLunghezza(); i++) {
+		for(int i =0; i<tipoPlancia.getPosizioni().length && i<tipoPlancia.getLunghezza() && i < giocatori.length; i++) {
 			GiorniDiVoloGiocatori.put(giocatori[i], tipoPlancia.getPosizioni()[i]); // metto i giorni di volo dei giocatori nella mappa
 		}
 		
 	}
-
+	/**
+	 * funzione per ottenere i giorni di volo di un giocatore
+	 * @param giocatore
+	 * @return null se il giocatore non è in volo, altrimenti il numero di giorni di volo
+	 */
 	public Integer getGiorniDiVoloGiocatore(Giocatore giocatore) {
 		 // restituisce i giorni di volo del giocatore se è presente nella mappa, se non è presente restituisce null
 
@@ -68,7 +72,7 @@ public class Plancia {
 	
 
 	//sposta un giocatore per n giorni di volo
-	public void spostaGiocatore(int giorniVolo, Giocatore giocatore) throws GiocatoreNonSpostabileException {
+	public void spostaGiocatore(int giorniVolo, Giocatore giocatore){
 
 		// Controlla se il numero di giorni di volo è positivo
 
@@ -97,7 +101,7 @@ public class Plancia {
 	}
 
 	//sposta un giocatore indietro di un giorno di volo
-	private void  spostaIndietro(Giocatore giocatore, Integer posizioneFin) throws GiocatoreNonSpostabileException{
+	private void  spostaIndietro(Giocatore giocatore, Integer posizioneFin){
 	    int pos = -1;
 
 	    // Trova la posizione attuale del giocatore

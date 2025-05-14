@@ -9,7 +9,6 @@ import model.componenti.Componente;
 import model.componenti.TipoComponente;
 import model.enums.TipoPedina;
 import model.nave.Nave;
-import util.layout.Coordinate;
 
 public class Xenoquartiermastro extends Titolo {
 
