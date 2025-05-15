@@ -109,7 +109,7 @@ public abstract class Componente {
 	 * @throws IllegalStateException se il componente è stato già posizionato
 	 */
 	public void setPosizione(Coordinate posizione) {
-		if (this.posizione != null) {
+		if (this.posizione == null) {
 			this.posizione = posizione;
 		} else {
 			throw new IllegalStateException("Non si può spostare un componente");
