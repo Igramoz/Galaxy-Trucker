@@ -6,6 +6,7 @@ import java.util.List;
 
 import eccezioni.ComponentePienoException;
 import eccezioni.ComponenteVuotoException;
+import grafica.formattatori.FormattatoreGrafico;
 import io.GestoreIO;
 import model.componenti.*;
 import model.enums.*;
@@ -18,21 +19,30 @@ public class GestoreComponenti {
 	// funzione per scegliere un componente della nave
 	private Nave nave;
 	private GestoreIO io = new GestoreIO();
+	private FormattatoreGrafico formattatore = new FormattatoreGrafico();
 
 	protected GestoreComponenti(Nave nave) {
 		this.nave = nave;
 	}
 
+	/**
+	 * Sceglie un componente della nave in base ai tipi specificati e restituisce la posizione di un componente.
+	 * 
+	 * @param tipoComponente1 un tipo di componente da selezionare.
+	 * @param tipoComponente2 (Opzionale) Il secondo tipo di componente da considerare. 
+	 *                        Se null, viene considerato solo il primo tipo di componente.
+	 * @return La posizione del componente scelto come {@link Coordinate}, 
+	 *         oppure <strong> null </strong> se non ci sono componenti disponibili per i tipi specificati.
+	 */
 	public Coordinate scegliComponente(TipoComponente tipoComponente1, TipoComponente tipoComponente2) {
 		List<Componente> componenti = nave.getCopiaComponenti(tipoComponente1);
 		if (tipoComponente2 != null) {
 			componenti.addAll(nave.getCopiaComponenti(tipoComponente2));
 		}
-		componenti.addAll(nave.getCopiaComponenti(tipoComponente2));
 
 		if (componenti.isEmpty())
 			return null;
-
+		
 		return io.menuComponenti(componenti).getPosizione();
 	}
 
@@ -57,10 +67,10 @@ public class GestoreComponenti {
 		return output;
 	}
 
-	private boolean posizionaMerce(TipoMerce merce) {
+	private boolean posizionaMerce(TipoMerce merce) {	
 		boolean sceltaValida;
 		do {
-			io.stampa("Posiziona la merce " + merce.name());
+			io.stampa("Posiziona la merce " + formattatore.formatta(merce));
 			sceltaValida = true;
 			Coordinate posizione = null;
 			if (merce == TipoMerce.ROSSO) {

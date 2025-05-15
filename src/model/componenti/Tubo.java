@@ -14,6 +14,7 @@ public class Tubo extends Componente {
 	// Costruttore di copia
 	public Tubo(Tubo tubo) {
 		this(tubo.tubi);
+		this.setPosizione(tubo.getPosizione());
 	}
 	
 	@Override

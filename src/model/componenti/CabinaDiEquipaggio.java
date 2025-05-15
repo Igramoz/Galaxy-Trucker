@@ -38,6 +38,7 @@ public class CabinaDiEquipaggio extends Componente implements Contenitore<TipoPe
 
 	public CabinaDiEquipaggio(CabinaDiEquipaggio altra) {
 		this(altra.tipo, altra.tubi, altra.equipaggio);
+		this.setPosizione(altra.getPosizione());
 	}
 
 	public void aggiungi(TipoPedina pedina) throws ComponentePienoException {

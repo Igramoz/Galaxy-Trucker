@@ -44,6 +44,7 @@ public class ModuloSupportoAlieni extends Componente {
 	// costruttore di copia
 	public ModuloSupportoAlieni(ModuloSupportoAlieni msa) {
 		this(msa.tubi, msa.tipo);
+		this.setPosizione(msa.getPosizione());
 	}
 
 	public TipoPedina getAlienoSupportato() {

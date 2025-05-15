@@ -24,6 +24,7 @@ public class Cannone extends Componente {
 
 	public Cannone(Cannone can) {
 		this(can.tipo, can.tubi, can.direzioneFuoco);
+		this.setPosizione(can.getPosizione());
 	}
 
 	protected void aggiornaPotenzaFuoco() {

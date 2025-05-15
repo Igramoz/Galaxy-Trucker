@@ -42,6 +42,7 @@ public class Stiva extends Componente implements Contenitore<TipoMerce> {
 		for (int i = 0; i < scomparti; i++) {
 			this.merci[i] = stiva.merci[i];
 		}
+		this.setPosizione(stiva.getPosizione());
 	}
 
 	@Override
