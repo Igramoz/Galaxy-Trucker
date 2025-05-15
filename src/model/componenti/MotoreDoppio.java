@@ -13,6 +13,7 @@ public class MotoreDoppio extends Motore {
 	
 	public MotoreDoppio(MotoreDoppio m) {
 		this(m.tubi);
+		this.setPosizione(m.getPosizione());
 	}
 	
 	@Override

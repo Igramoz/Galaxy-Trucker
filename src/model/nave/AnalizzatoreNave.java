@@ -38,6 +38,9 @@ public class AnalizzatoreNave {
 	}
 
 	public Map<Direzione, Componente> getCopiaComponentiAdiacenti(Coordinate coord) {
+		if(coord == null)
+			throw new NullPointerException("Non è possibile trovare i componenti adiacenti ad una posizione nulla");
+		
 		Map<Direzione, Componente> adiacenti = new EnumMap<>(Direzione.class);
 		Componente[][] grigliaComponenti = nave.getGrigliaComponentiCloni();
 

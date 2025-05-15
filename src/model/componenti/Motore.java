@@ -21,6 +21,7 @@ public class Motore extends Componente{
 	
 	public Motore(Motore m) {		
 		this(TipoComponente.MOTORE_SINGOLO, m.tubi);
+		this.setPosizione(m.getPosizione());
 	}
 	
 	public Direzione getDirezioneMotore() {

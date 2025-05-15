@@ -38,6 +38,7 @@ public class CabinaDiEquipaggio extends Componente {
 
 	public CabinaDiEquipaggio(CabinaDiEquipaggio altra) {
 		this(altra.tipo, altra.tubi, altra.equipaggio);
+		this.setPosizione(altra.getPosizione());
 	}
 
 	public void aggiungiEquipaggio(TipoPedina pedina) throws ComponentePienoException {

@@ -43,6 +43,7 @@ public class VanoBatteria extends Componente {
 	// Costruttore di copia
 	public VanoBatteria(VanoBatteria vanoBatteria) {
 		this(vanoBatteria.tubi, vanoBatteria.capacitaMassima, vanoBatteria.batterie);
+		this.setPosizione(vanoBatteria.getPosizione());
 	}
 
 	@Override

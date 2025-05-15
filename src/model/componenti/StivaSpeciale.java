@@ -26,7 +26,7 @@ public class StivaSpeciale extends Stiva {
 		for (int i = 0; i < scomparti; i++) {
 			this.merci[i] = stiva.merci[i];
 		}
-
+		this.setPosizione(stiva.getPosizione());
 	}
 
 	@Override

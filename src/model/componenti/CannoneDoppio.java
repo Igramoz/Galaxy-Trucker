@@ -14,6 +14,7 @@ public class CannoneDoppio extends Cannone {
 
 	public CannoneDoppio(CannoneDoppio can) {
 		super(TipoComponente.CANNONE_DOPPIO, can.tubi, can.direzioneFuoco);
+		this.setPosizione(can.getPosizione());
 	}
 
 	@Override

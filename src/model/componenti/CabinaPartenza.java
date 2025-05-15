@@ -41,6 +41,7 @@ public class CabinaPartenza extends CabinaDiEquipaggio {
 
 	public CabinaPartenza(CabinaPartenza cabinaPartenza) { // costruttore di copia
 		this(cabinaPartenza.colore, cabinaPartenza.getEquipaggio());
+		this.setPosizione(cabinaPartenza.getPosizione());
 	}
 
 	@Override

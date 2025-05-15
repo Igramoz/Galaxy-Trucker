@@ -31,6 +31,7 @@ public abstract class Componente {
 	// Costruttore di copia
 	public Componente(Componente componente) {
 		this(componente.tipo, componente.tubi); // chiama l'altro costruttore
+		this.setPosizione(componente.getPosizione());
 	}
 
 	@Override // Devo fare override per fare funzionare le funzioni delle collections
@@ -109,6 +110,10 @@ public abstract class Componente {
 	 * @throws IllegalStateException se il componente è stato già posizionato
 	 */
 	public void setPosizione(Coordinate posizione) {
+		if(posizione == null)
+			throw new IllegalStateException("Non si può posizionare un componente in posizione null");
+
+			
 		if (this.posizione == null) {
 			this.posizione = posizione;
 		} else {

@@ -142,7 +142,7 @@ public class Nave {
 			throw new NullPointerException("Passare un componete alla funzione");
 		}
 		if(coordinate == null){
-			throw new NullPointerException("Passare un delle coordinate valide alla funzione");
+			throw new NullPointerException("Passare delle coordinate valide alla funzione");
 		}
 		grigliaComponenti[coordinate.getX()][coordinate.getY()] = componente;
 		componente.setPosizione(coordinate);
