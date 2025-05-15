@@ -112,6 +112,9 @@ public abstract class Componente {
 	public void setPosizione(Coordinate posizione) {
 		if(posizione == null)
 			throw new IllegalStateException("Non si può posizionare un componente in posizione null");
+		
+		// è possibile assegnare più volte la stessa posizione ad un componente
+		if(this.posizione.equals(posizione)) return;
 
 			
 		if (this.posizione == null) {

@@ -430,7 +430,7 @@ public class GestoreComponenti {
 
 	// carica al massimo tutte le batterie
 	public void ricaricaBatterie() {
-		List<Componente> batterie = nave.getCopiaComponenti(TipoComponente.VANO_BATTERIA);
+		List<Componente> batterie = nave.getComponentiOriginali(TipoComponente.VANO_BATTERIA);
 		for (Componente batteria : batterie) {
 			((VanoBatteria) batteria).caricaInteramenteBatteria();
 		}
