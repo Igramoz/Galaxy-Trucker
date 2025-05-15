@@ -8,7 +8,7 @@ import eccezioni.ComponentePienoException;
 import model.enums.*;
 import util.layout.Direzione;
 
-public class Stiva extends Componente {
+public class Stiva extends Componente implements Contenitore<TipoMerce> {
 
 	public static final int MAX_SCOMPARTI = 3; // numero massimo di scomparti della stiva
 	public static final int MIN_SCOMPARTI = 2; // numero minimo di scomparti della stiva
@@ -51,7 +51,7 @@ public class Stiva extends Componente {
 	}
 
 	// Restituisco false se non è possibile aggiungere la merce
-	public void setMerci(TipoMerce merce) throws ComponentePienoException {
+	public void aggiungi(TipoMerce merce) throws ComponentePienoException {
 
 		// Controllo se la merce può essere immagazzinata in stiva
 		if (!isMerceAggiungibile(merce)) {
@@ -98,7 +98,7 @@ public class Stiva extends Componente {
 	 * @param pedina
 	 * @return vero se la pedina è stata rimossa
 	 */
-	public boolean eliminaMerce(TipoMerce merce) {
+	public boolean rimuovi(TipoMerce merce) {
 
 		// Controllo se la merce è presente
 		for (int i = 0; i < scomparti; i++) {

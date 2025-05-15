@@ -134,15 +134,16 @@ public class CarteRenderer {
 
 	public void rappresentaCarta(CartaPianeti carta) {
 		List<Pianeta> pianeti = carta.getPianeti();
+		textAligner.alignCenter("Carta pianeti");
 		io.stampa("Pianeti non occupati:");
 		for (int i = 0; i < pianeti.size(); i++) {
 			Pianeta p = pianeti.get(i);
 			if (!p.isOccupato()) {
-				io.stampa("Pianeta " + formattatore.formatta(p.getColore()) + " giorni di volo, merci disponibili: "
-						+ p.getMerciDisponibili());
+				io.stampa("Pianeta " + formattatore.formatta(p.getColore()) + ", merci disponibili: ");
+				formattatore.formattaEStampaMerci(p.getMerciDisponibili());
 			}
 		}
-		io.stampa("Sono richiesti " + carta.getGiorniVoloPersi() + " per ciascun pianeta");
+		io.stampa("Sono richiesti " + carta.getGiorniVoloPersi() + " giorni di volo per ciascun pianeta");
 	}
 
 	public void rappresentaCarta(StazioneAbbandonata stazioneAbbandonata) {

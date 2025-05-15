@@ -45,13 +45,13 @@ public class CabinaPartenza extends CabinaDiEquipaggio {
 	}
 
 	@Override
-	public void aggiungiEquipaggio(TipoPedina pedina) throws ComponentePienoException {
+	public void aggiungi(TipoPedina pedina) throws ComponentePienoException {
 
 		// La cabina di partenza ospita solo astronauti
 		if (pedina != TipoPedina.ASTRONAUTA) {
 			throw new CaricamentoNonConsentitoException("La cabina di partenza può ospiatre solo astronauti");
 		}
-		super.aggiungiEquipaggio(pedina);
+		super.aggiungi(pedina);
 	}
 
 	@Override

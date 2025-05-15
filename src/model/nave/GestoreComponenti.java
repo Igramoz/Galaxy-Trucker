@@ -154,7 +154,7 @@ public class GestoreComponenti {
 
 			Stiva stiva = (Stiva) nave.getOriginaleComponente(posizione);
 
-			if (stiva.eliminaMerce(merce)) {
+			if (stiva.rimuovi(merce)) {
 				io.stampa("Merce rimossa");
 				return true;
 			} else {
@@ -257,7 +257,7 @@ public class GestoreComponenti {
 			if (!coordinateGiaEsaminate.contains(cabina.getPosizione())) {
 				coordinateGiaEsaminate.add(cabina.getPosizione());
 				try {
-					((CabinaDiEquipaggio) cabina).rimuoviUnMembroEquipaggio();
+					((CabinaDiEquipaggio) cabina).rimuoviUnMembro();
 				} catch (ComponenteVuotoException e) {
 					// Se il componente è vuoto non succede nulla, semplicemente non elimino nessun
 					// membro
@@ -269,7 +269,7 @@ public class GestoreComponenti {
 					if (!coordinateGiaEsaminate.contains(adiacente.getPosizione())) {
 						coordinateGiaEsaminate.add(adiacente.getPosizione());
 						try {
-							((CabinaDiEquipaggio) adiacente).rimuoviUnMembroEquipaggio();
+							((CabinaDiEquipaggio) adiacente).rimuoviUnMembro();
 						} catch (ComponenteVuotoException e) {
 							// Se il componente è vuoto non succede nulla, semplicemente non elimino nessun
 							// membro
@@ -334,7 +334,7 @@ public class GestoreComponenti {
 			Componente cabina = nave.getOriginaleComponente(cloneCabina.getPosizione());
 
 			try {
-				((CabinaDiEquipaggio) cabina).aggiungiEquipaggio(pedina);
+				((CabinaDiEquipaggio) cabina).aggiungi(pedina);
 				return true;
 			} catch (ComponentePienoException e) {
 				io.stampa("Non è possibile posizionare l'alieno in questa cabina");
@@ -359,7 +359,7 @@ public class GestoreComponenti {
 
 		for (Componente cabina : cabine) {
 			try {
-				((CabinaDiEquipaggio) cabina).aggiungiEquipaggio(TipoPedina.ASTRONAUTA);
+				((CabinaDiEquipaggio) cabina).aggiungi(TipoPedina.ASTRONAUTA);
 				return true;
 			} catch (ComponentePienoException e) {
 			}
