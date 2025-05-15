@@ -35,8 +35,8 @@ public class StivaSpeciale extends Stiva {
 	}
 
 	@Override
-	public void setMerci(TipoMerce merce) throws ComponentePienoException {
-		super.setMerci(merce);
+	public void aggiungi(TipoMerce merce) throws ComponentePienoException {
+		super.aggiungi(merce);
 	}
 
 	@Override // tutte le merci sono aggiungibili nelle stive speciali

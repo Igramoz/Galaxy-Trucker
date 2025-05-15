@@ -208,7 +208,7 @@ public class Nave {
 			throw new NullPointerException("Pedina e coordinate non possono essere null");
 
 		if (this.getCopiaComponente(coordinate) instanceof CabinaDiEquipaggio) {
-			((CabinaDiEquipaggio) grigliaComponenti[coordinate.getX()][coordinate.getY()]).aggiungiEquipaggio(pedina);
+			((CabinaDiEquipaggio) grigliaComponenti[coordinate.getX()][coordinate.getY()]).aggiungi(pedina);
 		}
 		throw new CaricamentoNonConsentitoException(
 				"Il componente alle coordinate " + coordinate + " non è una cabina di equipaggio.");
@@ -242,7 +242,7 @@ public class Nave {
 			throw new NullPointerException("merce e coordinate non possono essere null");
 
 		if (this.getCopiaComponente(coordinate) instanceof Stiva) {
-			((Stiva) grigliaComponenti[coordinate.getX()][coordinate.getY()]).setMerci(merce);
+			((Stiva) grigliaComponenti[coordinate.getX()][coordinate.getY()]).aggiungi(merce);
 		} else {
 			throw new CaricamentoNonConsentitoException(
 					"Il componente alle coordinate " + coordinate + " non è una stiva.");
@@ -298,7 +298,7 @@ public class Nave {
 		List<Componente> cabine = this.getCopiaComponenti(TipoComponente.CABINA_EQUIPAGGIO);
 		cabine.addAll(this.getCopiaComponenti(TipoComponente.CABINA_PARTENZA));
 		for (Componente cabina : cabine) {
-			if (!((CabinaDiEquipaggio) cabina).isPiena()) {
+			if (!((CabinaDiEquipaggio) cabina).isFull()) {
 				return false;
 			}
 		}

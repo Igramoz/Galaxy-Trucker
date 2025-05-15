@@ -10,7 +10,7 @@ import eccezioni.ComponenteNonIstanziabileException;
 import eccezioni.ComponentePienoException;
 import eccezioni.ComponenteVuotoException;
 
-public class CabinaDiEquipaggio extends Componente {
+public class CabinaDiEquipaggio extends Componente implements Contenitore<TipoPedina> {
 
 	private final List<TipoPedina> equipaggio = new ArrayList<>();
 
@@ -28,8 +28,8 @@ public class CabinaDiEquipaggio extends Componente {
 		for (TipoPedina pedina : equipaggioIniziale) {
 
 			try {
-				aggiungiEquipaggio(pedina);
-			} catch ( ComponentePienoException e) {
+				aggiungi(pedina);
+			} catch (ComponentePienoException e) {
 				throw new ComponenteNonIstanziabileException(
 						"Impossibile creare la cabina: il numero di membri dell'equipaggio supera la capacità massima consentita.");
 			}
@@ -40,7 +40,7 @@ public class CabinaDiEquipaggio extends Componente {
 		this(altra.tipo, altra.tubi, altra.equipaggio);
 	}
 
-	public void aggiungiEquipaggio(TipoPedina pedina) throws ComponentePienoException {
+	public void aggiungi(TipoPedina pedina) throws ComponentePienoException {
 
 		// Se c'è un alieno non si può inserire altro
 		if (equipaggio.contains(TipoPedina.ALIENO_MARRONE) || equipaggio.contains(TipoPedina.ALIENO_VIOLA)) {
@@ -65,18 +65,22 @@ public class CabinaDiEquipaggio extends Componente {
 	 * @param pedina
 	 * @return vero se la pedina è stata rimossa
 	 */
-	public boolean rimuoviEquipaggio(TipoPedina pedina) {
+	public boolean rimuovi(TipoPedina pedina) {
 		return equipaggio.removeIf(p -> p == pedina);
 	}
 
-	public void rimuoviUnMembroEquipaggio() throws ComponenteVuotoException {
-		if(isVuota()) {
-			throw new ComponenteVuotoException("La cabina d'equipaggio è vuota, non è possibile rimuovere membri dell'equipaggio");
+	public boolean rimuoviUnMembro() throws ComponenteVuotoException {
+		if (isEmpty()) {
+			throw new ComponenteVuotoException(
+					"La cabina d'equipaggio è vuota, non è possibile rimuovere membri dell'equipaggio");
 		}
-		
+
 		TipoPedina pedina = equipaggio.get(0);
-		if (pedina != null)
+		if (pedina != null) {
 			equipaggio.remove(pedina);
+			return true;
+		}
+		return false;
 	}
 
 	public List<TipoPedina> getEquipaggio() {
@@ -88,7 +92,7 @@ public class CabinaDiEquipaggio extends Componente {
 		return new CabinaDiEquipaggio(this);
 	}
 
-	public boolean isPiena() {
+	public boolean isFull() {
 		if (equipaggio.size() >= 2) {
 			return true;
 		}
@@ -98,11 +102,10 @@ public class CabinaDiEquipaggio extends Componente {
 		return false;
 	}
 
-	public boolean isVuota() {
+	public boolean isEmpty() {
 		if (equipaggio == null || equipaggio.isEmpty())
 			return true;
 		else
 			return false;
 	}
-
 }
