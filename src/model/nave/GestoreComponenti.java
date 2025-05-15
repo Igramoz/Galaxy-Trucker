@@ -79,6 +79,11 @@ public class GestoreComponenti {
 				posizione = scegliComponente(TipoComponente.STIVA_SPECIALE, TipoComponente.STIVA);
 			}
 
+			if(posizione == null) {
+				io.stampa("Il giocatore non dispone di stive adatte per immagazzinare la merce in questione");
+				return false;
+			}
+			
 			try {
 				// provo a posizionare la merce
 				nave.forzaMerce(merce, posizione);

@@ -238,9 +238,12 @@ public class Nave {
 	}
 
 	protected void forzaMerce(TipoMerce merce, Coordinate coordinate) throws ComponentePienoException {
-		if (coordinate == null || merce == null)
-			throw new NullPointerException("merce e coordinate non possono essere null");
+		if (coordinate == null)
+			throw new NullPointerException("coordinate non può essere null");
+		if (merce == null)
+			throw new NullPointerException("merce non può essere null");
 
+			
 		if (this.getCopiaComponente(coordinate) instanceof Stiva) {
 			((Stiva) grigliaComponenti[coordinate.getX()][coordinate.getY()]).setMerci(merce);
 		} else {
