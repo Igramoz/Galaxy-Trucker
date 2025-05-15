@@ -46,7 +46,7 @@ public class Nave {
 	// Costruttore
 	public Nave(TipoNave livelloNave, Colore colore) {
 		this(livelloNave);
-		grigliaComponenti[Util.SIZE / 2][Util.SIZE / 2] = new CabinaPartenza(colore);
+		forzaComponente(new CabinaPartenza(colore), new Coordinate(Util.SIZE / 2, Util.SIZE / 2));
 	}
 
 	// Costruttore di copia
@@ -112,8 +112,16 @@ public class Nave {
 	 * @param componente da posizionare
 	 * @param coordinate dove posizionare il componente
 	 * @return true se è stato posizionato, false altrimenti
+	 * @throws NullPointerException se uno dei 2 param è null
 	 */
 	public boolean setComponente(Componente componente, Coordinate coordinate) {
+		if(componente == null) {
+			throw new NullPointerException("Passare un componete alla funzione");
+		}
+		if(coordinate == null){
+			throw new NullPointerException("Passare un delle coordinate valide alla funzione");
+		}
+		
 		// Controllo se il tipo di nave ammette componenti in quella posizione
 		if (!livelloNave.isPosizionabile(coordinate)) {
 			return false;
@@ -130,6 +138,12 @@ public class Nave {
 	// setto il componente senza controlli, usato dalle classi/interfacce di
 	// supporto della nave
 	protected void forzaComponente(Componente componente, Coordinate coordinate) {
+		if(componente == null) {
+			throw new NullPointerException("Passare un componete alla funzione");
+		}
+		if(coordinate == null){
+			throw new NullPointerException("Passare un delle coordinate valide alla funzione");
+		}
 		grigliaComponenti[coordinate.getX()][coordinate.getY()] = componente;
 		componente.setPosizione(coordinate);
 	}
@@ -261,7 +275,20 @@ public class Nave {
 		return analizzatoreNave.potenzaFuocoCounter();
 	}
 
+	/**
+	 * Restituisce una mappa contenente una copia dei componenti adiacenti alla posizione passata alla funzione.
+	 * 
+	 * La mappa restituita associa ad ogni direzione il componente corrispondente 
+	 * 
+	 * @param coord le coordinate per le quali cercare i componenti adiacenti (non può essere {@code null})
+	 * @return una mappa dei componenti adiacenti
+	 * @throws NullPointerException se coord è {@code null}
+	 */
 	public Map<Direzione, Componente> getCopiaComponentiAdiacenti(Coordinate coord) {
+		if(coord == null) {
+			throw new NullPointerException("Non è possibile cercare i componenti adiacenti a delle coordinate nulle");
+		}
+		
 		return analizzatoreNave.getCopiaComponentiAdiacenti(coord);
 	}
 

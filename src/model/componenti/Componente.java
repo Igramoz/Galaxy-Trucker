@@ -12,7 +12,7 @@ public abstract class Componente {
 
 	protected final TipoComponente tipo;
 	protected Map<Direzione, TipoTubo> tubi;
-	protected Coordinate posizione;
+	private Coordinate posizione;
 
 	public Componente(TipoComponente tipo, Map<Direzione, TipoTubo> tubiIniziali) {
 		if (tubiIniziali == null)
@@ -102,8 +102,18 @@ public abstract class Componente {
 		return posizione;
 	}
 
+	/**
+	 * Setta la posizione del componente
+	 *  
+	 * @param posizione
+	 * @throws IllegalStateException se il componente è stato già posizionato
+	 */
 	public void setPosizione(Coordinate posizione) {
-		this.posizione = posizione;
+		if (this.posizione != null) {
+			this.posizione = posizione;
+		} else {
+			throw new IllegalStateException("Non si può spostare un componente");
+		}
 	}
 
 	public abstract Componente clone();

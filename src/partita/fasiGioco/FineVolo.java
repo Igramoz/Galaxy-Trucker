@@ -128,7 +128,7 @@ public class FineVolo {
 	// assegna i titoli
 	private void assegnaTitoli() {
 		ServizioTitoli servizioTitoli = new ServizioTitoli(arrayManager, modalita.getlivelloPartita());
-		servizioTitoli.assegnaTitoli();
+		servizioTitoli.gestisciTitoli();
 	}
 	
 }

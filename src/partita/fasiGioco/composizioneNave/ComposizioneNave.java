@@ -40,6 +40,7 @@ public class ComposizioneNave {
 		// Ogni giocatore compone la propria nave
 
 		GestoreIO io = new GestoreIO();
+		io.aCapo();
 		io.stampa("E' ora di comporre le navi");
 
 		final int turniTotali = livello.getTipoNave().getCapacitaComponenti();

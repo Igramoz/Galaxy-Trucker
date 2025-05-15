@@ -44,18 +44,19 @@ public class Volo {
 
 		while(game) {
 			//per ogni giocatore applica le carte a partire dall primo giocatore sulla plancia
-			carte.getFirst().eseguiEvento((ManagerDiVolo[])managerInVolo.toArray());
+			ManagerDiVolo[] managers = managerInVolo.toArray(new ManagerDiVolo[0]);
+			carte.getFirst().eseguiEvento(managers);
 			
 			//aggiorno i manager di volo in base alla posizione dei giocatori nella plancia
 			
 			ordinaManegerDiVolo();
-			
+			// TODO spostare all'inizio del ciclo
 			//controllo se i giocatori sono doppiati o le altre condizioni per abbandonare la corsa
 			rimuoviManagerInVolo();
 			
 			//tolgo la prima carta dalla lista delle carte
 			carte.remove(0);
-			//controllo se è finito il volo
+			//controllo se è finito il volo TODO spostare all'inizio del ciclo
 			if(carte.isEmpty()) {
 				game = false; // se non ci sono più carte il volo è finito
 			}

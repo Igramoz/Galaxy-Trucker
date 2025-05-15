@@ -132,7 +132,7 @@ public enum Effetto {
 	};
 
 	/**
-	 * Posizionare il cursore sulla costante per vedere il tipo della seconda
+	 * Guardare la javadoc della costante per vedere il tipo della seconda
 	 * costante. Applica l'effetto della carta. Il tipo del secondo argomento
 	 * {@code Object valore} deve coincidere con quello nella javadoc, altrimenti
 	 * verrà lanciato {@code ClassCastException} a runtime.

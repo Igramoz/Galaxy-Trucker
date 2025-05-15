@@ -24,6 +24,8 @@ public class ValidatorePosizione {
 		if (checkNull(adiacenti))
 			return false;
 
+		boolean isCollegato = false;
+		
 		// Itero in ogni direzione
 		for (Map.Entry<Direzione, Componente> entry : adiacenti.entrySet()) {
 
@@ -36,8 +38,16 @@ public class ValidatorePosizione {
 				if (!tuboNuovoComponente.isCompatibileCon(tuboComponenteAdiacente)) {
 					return false;
 				}
+				
+				// se il tubo è nessuno è compatibile, ma non è sufficiente per attaccare il pezzo alla nave
+				if(tuboNuovoComponente != TipoTubo.NESSUNO) {
+					isCollegato = true;
+				}
 			}
 		}
+		
+		// gli unici tubi compatibili sono NESSUNO-NESSUNO
+		if(!isCollegato) return false;
 		
 		if(!controllaCannoniOMotoriAttorno(adiacenti)) return false;
 

@@ -7,7 +7,9 @@ import model.Giocatore;
 import model.carte.Carta;
 import partita.fasiGioco.*;
 import partita.fasiGioco.composizioneNave.ComposizioneNave;
+import partita.fasiGioco.volo.ManagerDiVolo;
 import partita.fasiGioco.volo.Volo;
+import servizi.ServizioTitoli;
 
 public class Partita {
 	// CLASSE CHE GESTISCE LA PARTITA
@@ -36,7 +38,7 @@ public class Partita {
 		fine.start();
 	}
 	
-	private void voloSingolo(LivelliPartita livelllo) {
+	private ManagerDiVolo[] voloSingolo(LivelliPartita livelllo) {
 		
 		// fase composizione nave
 		ComposizioneNave composizione = new ComposizioneNave(giocatori, modalita.getlivelloPartita());
@@ -52,21 +54,28 @@ public class Partita {
 		volo.iniziaVolo();
 		
 		// salvo le informazioni che servono per la fase fine volo
-		// TODO get.managerTurnoDiVolo
+		ManagerDiVolo[] managersVolo = volo.getManagerDiVolo();
 		
 		// fine del volo, assegno i crediti
-		// FineVolo fineVolo = new FineVolo(modalita, managerTurni);
-		// fineVolo.assegnaCrediti();
+		FineVolo fineVolo = new FineVolo(modalita, managersVolo);
+		fineVolo.assegnaRicompense();
+		
+		return managersVolo;
 	}
 	
 	private void trasvolataIntergalattica() {
 		
 		// si gioca ogni livello uno dopo l'altro
 		for(LivelliPartita livelloAttuale :LivelliPartita.values()) {
-			modalita.setlivelloPartita(livelloAttuale);
-			voloSingolo( livelloAttuale);
-			// TODO assegna crediti e titoli
 			
+			modalita.setlivelloPartita(livelloAttuale);
+			
+			// eseguo il singolo livello
+			ManagerDiVolo[] managers = voloSingolo(livelloAttuale);
+			
+			//gestisco i titoli
+			ServizioTitoli servizioTitoli = new ServizioTitoli(managers, livelloAttuale);
+			servizioTitoli.gestisciTitoli();
 		}		
 	}
 	

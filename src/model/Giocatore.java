@@ -18,8 +18,8 @@ public class Giocatore implements Formattabile {
 
 	private final String nome;
 	private final Colore colore;
-	private TipoTitolo titolo;
-	
+	private TipoTitolo tipoTitolo;
+
 	private Nave nave;
 
 	private int crediti = 0;
@@ -59,8 +59,8 @@ public class Giocatore implements Formattabile {
 		// la nave ha i suoi attributi protetti correttamente.
 		return nave;
 	}
-    
-    // Metodi crediti
+
+	// Metodi crediti
 	public void aggiungiCrediti(int crediti) {
 		this.crediti += crediti;
 	}
@@ -91,11 +91,22 @@ public class Giocatore implements Formattabile {
 				&& Objects.equals(nome, other.nome);
 	}
 
-	public TipoTitolo getTitolo() {
-		return titolo;
+	public TipoTitolo getTipoTitolo() {
+		return tipoTitolo;
 	}
 
-	public void setTitolo(TipoTitolo titolo) {
-		this.titolo = titolo;
+	/**
+	 * Assegna un titolo al giocatore se non è stato già assegnato.
+	 * 
+	 * @param titolo da assegnare
+	 * @throws IllegalStateException Se un titolo è già stato assegnato.
+	 */
+	public void setTipoTitolo(TipoTitolo titolo) {
+		if (this.tipoTitolo != null) {
+			this.tipoTitolo = titolo;
+		} else {
+			throw new IllegalStateException("Il titolo è già stato assegnato.");
+		}
+
 	}
 }
