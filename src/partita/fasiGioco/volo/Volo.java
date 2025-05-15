@@ -1,8 +1,12 @@
 package partita.fasiGioco.volo;
 
 import java.util.List;
+import io.GestoreIO;
+import grafica.renderer.PlanciaRenderer;
 import java.util.Map;
+import java.util.Set;
 import java.util.ArrayList;
+import java.util.HashSet;
 import model.Giocatore;
 import model.planciaDiVolo.Plancia;
 import partita.ModalitaGioco;
@@ -17,7 +21,8 @@ public class Volo {
 	private List<ManagerDiVolo> managerInVolo; // manager di volo che gestisce solo giocatori in volo
 	private List<ManagerDiVolo> managerDiVolo; // manager di volo che gestisce tutti i giocatori
 	
-	// TODO fare una lista di manager solo con quelli in volo e una con tutti (anche quelli che hanno abbandonato)
+	
+	
 	public Volo(ModalitaGioco modalitaGioco, Giocatore[] giocatori, List<Carta> carte) {
 		this.giocatori = giocatori;
 		this.plancia = new Plancia(giocatori,modalitaGioco.getlivelloPartita());
@@ -42,21 +47,30 @@ public class Volo {
 			giocatore.getNave().preparaAlVolo();
 		}
 
+		ordinaManegerDiVolo();
+		
 		while(game) {
-			//per ogni giocatore applica le carte a partire dall primo giocatore sulla plancia
-			ManagerDiVolo[] managers = managerInVolo.toArray(new ManagerDiVolo[0]);
-			carte.getFirst().eseguiEvento(managers);
 			
 			//aggiorno i manager di volo in base alla posizione dei giocatori nella plancia
-			
-			ordinaManegerDiVolo();
-			// TODO spostare all'inizio del ciclo
-			//controllo se i giocatori sono doppiati o le altre condizioni per abbandonare la corsa
 			rimuoviManagerInVolo();
 			
+			ordinaManegerDiVolo();
+			//controllo se i giocatori sono doppiati o le altre condizioni per abbandonare la corsa
+			
+			//stampa la plancia
+			
+			PlanciaRenderer planciaRenderer = new PlanciaRenderer();
+			GestoreIO gestoreIO = new GestoreIO();
+			
+			gestoreIO.stampa(planciaRenderer.rappresentaPlancia(plancia));
+
+			ManagerDiVolo[] managers = managerInVolo.toArray(new ManagerDiVolo[0]);
+			
 			//tolgo la prima carta dalla lista delle carte
+			
+			carte.getFirst().eseguiEvento(managers);
 			carte.remove(0);
-			//controllo se è finito il volo TODO spostare all'inizio del ciclo
+			
 			if(carte.isEmpty()) {
 				game = false; // se non ci sono più carte il volo è finito
 			}
@@ -65,15 +79,18 @@ public class Volo {
 	
 	private void ordinaManegerDiVolo() {
 		// ordina i manager di volo in base alla posizione dei giocatori nella plancia
+		List<ManagerDiVolo> ordinati = new ArrayList<>();
 		Giocatore[] giocatoriOrdinati = plancia.getGiocatori();
-		for(int i = 0; i < giocatoriOrdinati.length; i++){
-			for(ManagerDiVolo manager: managerInVolo) {
-				if(manager.getGiocatore().equals(giocatoriOrdinati[i])) {
-					managerInVolo.set(i, manager);
-					break;
-				}
-			}
+
+		for (Giocatore g : giocatoriOrdinati) {
+		    for (ManagerDiVolo m : managerInVolo) {
+		        if (m.getGiocatore().equals(g)) {
+		            ordinati.add(m);
+		            break;
+		        }
+		    }
 		}
+		managerInVolo = ordinati;
 	}
 	
 	public void inizializzaPezziDistrutti(Map<Giocatore, Integer> pezziDistrutti) {
@@ -99,33 +116,41 @@ public class Volo {
 	
 	
 	private void rimuoviManagerInVolo() {
+		
+		Set<ManagerDiVolo> managerDaRimuovere = new HashSet<>();
+		
 		//controllo se i giocatori sono doppiati
 		for(ManagerDiVolo manager : managerInVolo) {
 			if(manager.isDoppiato()) {
-				managerInVolo.remove(manager);
+				managerDaRimuovere.add(manager);
 				manager.AbbandonaVolo();
 			}
 		}
 		//se perdi tutti gli umani dell' equipaggio
 		for(ManagerDiVolo manager : managerInVolo) {
 			if(manager.getGiocatore().getNave().getEquipaggio().isEmpty()) {
-				managerInVolo.remove(manager);
+				managerDaRimuovere.add(manager);
 				manager.AbbandonaVolo();
 			}
 		}
 		
 		//se ti imbatti in un’avventura Spazio Aperto, devi dichiarare una potenza motrice maggiore di zero o abbandonare la corsa.
-		if(carte.getFirst().getTipoCarta() == TipoCarta.SPAZIO_APERTO) {
+		if(!carte.isEmpty() && carte.getFirst().getTipoCarta() == TipoCarta.SPAZIO_APERTO) {
 			
 			for(ManagerDiVolo manager : managerInVolo) {
 				if(manager.getGiocatore().getNave().getPotenzaMotrice() <= 0) {
-					managerInVolo.remove(manager);
-					manager.AbbandonaVolo();
-					
+					managerDaRimuovere.add(manager);
+					manager.AbbandonaVolo();		
 				}
-			}
-			
+			}	
 		}
+		//rimuovo effettivamente i manager di volo da managerInVolo
+		
+		for(ManagerDiVolo manager : managerDaRimuovere) {
+			managerInVolo.remove(manager);
+			//TODO decidere se scrivere un messaggio di avviso per il giocatore che ha abbandonato la corsa
+		}
+
 	}
 	
 	

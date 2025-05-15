@@ -7,8 +7,7 @@ import java.util.Map;
 import eccezioni.GiocatoreNonSpostabileException;
 
 /*
- * @throwable GiocatoreNonSpostabile
- * Eccezione lanciata quando un giocatore non può essere spostato
+ * @throwable GiocatoreNonSpostabile Eccezione lanciata quando un giocatore non può essere spostato
  * 
  */
 
@@ -26,15 +25,17 @@ public class Plancia {
 		this.plancia = new Giocatore[tipoPlancia.getLunghezza()]; // inizializza la plancia in base alla lunghezza della plancia
 		
 		// metto i giocatori nella plancia in base alla modalita di gioco
+		
+		
 
-		for(int i =0; i<tipoPlancia.getPosizioni().length && i<tipoPlancia.getLunghezza() && i < giocatori.length; i++) {
+		for(int i =0; i<giocatori.length; i++) {
 
 			plancia[tipoPlancia.getPosizioni()[i]] = giocatori[i]; // metto i giocatori nella plancia in base alla modalita di gioco
 			
 		}
 
 		//memorizzo i giorni di volo dei giocatori nella mappa
-		for(int i =0; i<tipoPlancia.getPosizioni().length && i<tipoPlancia.getLunghezza() && i < giocatori.length; i++) {
+		for(int i =0; i< giocatori.length; i++) {
 			GiorniDiVoloGiocatori.put(giocatori[i], tipoPlancia.getPosizioni()[i]); // metto i giorni di volo dei giocatori nella mappa
 		}
 		
@@ -72,112 +73,90 @@ public class Plancia {
 	
 
 	//sposta un giocatore per n giorni di volo
-	public void spostaGiocatore(int giorniVolo, Giocatore giocatore){
+	public void spostaGiocatore(int giorniVolo, Giocatore giocatore) {
+		int saltiExtra = 0;
 
-		// Controlla se il numero di giorni di volo è positivo
-
-		Integer pos = 0;
-
-		if(giorniVolo < 0) {
-			// Se i giorni di volo sono negativi, sposta indietro
-			for (; pos > giorniVolo; pos--) {
-				spostaIndietro(giocatore, pos);
+		if (giorniVolo < 0) {
+			for (int i = 0; i < -giorniVolo; i++) {
+				saltiExtra -= spostaIndietro(giocatore);
 			}
-		} else if(giorniVolo > 0) {
-			// Se i giorni di volo sono positivi, sposta avanti
-			for (; pos < giorniVolo; pos++) {
-				spostaAvanti(giocatore, pos);
-				
+		} else if (giorniVolo > 0) {
+			for (int i = 0; i < giorniVolo; i++) {
+				saltiExtra += spostaAvanti(giocatore);
 			}
 		}
 
-		GiorniDiVoloGiocatori.put(giocatore, GiorniDiVoloGiocatori.getOrDefault(giocatore, 0) + giorniVolo + pos); // aggiorna i giorni di volo del giocatore
-
-
+		GiorniDiVoloGiocatori.put(giocatore,GiorniDiVoloGiocatori.getOrDefault(giocatore, 0) + giorniVolo + saltiExtra);
 	}
 
 	public Giocatore[] getPlancia() {
 		return plancia;
 	}
 
-	//sposta un giocatore indietro di un giorno di volo
-	private void  spostaIndietro(Giocatore giocatore, Integer posizioneFin){
-	    int pos = -1;
-
-	    // Trova la posizione attuale del giocatore
-	    for (int i = 0; i < tipoPlancia.getLunghezza(); i++) {
-	        if (plancia[i] == giocatore) {
-	            pos = i;
-	            break;
-	        }
-	    }
-
-	    if (pos == -1) {
-	    	throw new GiocatoreNonSpostabileException("Giocatore non trovato nella plancia");
-	        
-	    }
-
-	    int nuovaPos = (pos - 1 + tipoPlancia.getLunghezza()) % tipoPlancia.getLunghezza();
-	    int tentativi = 0;
-
-	    // Cerca la prima posizione libera indietro, saltando quelle occupate
-	    while (plancia[nuovaPos] != null && tentativi < tipoPlancia.getLunghezza()) {
-	        nuovaPos = (nuovaPos - 1 + tipoPlancia.getLunghezza()) % tipoPlancia.getLunghezza();
-	        tentativi++;
-			posizioneFin--;
-	    }
-
-	    // Se la plancia è piena (nessuna posizione libera), non fare nulla
-	    if (tentativi == tipoPlancia.getLunghezza()) {
-	        
-	        throw new GiocatoreNonSpostabileException("Giocatore non spostabile");
-	    }
-
-	    // Sposta il giocatore alla nuova posizione libera
-	    
-	    plancia[nuovaPos] = giocatore;
-	    plancia[pos] = null;
-
-		
-	}
+	
+	
 
 
 	//sposta un giocatore avanti di un giorno di volo
-	private void  spostaAvanti(Giocatore giocatore, Integer posizioneFin) throws GiocatoreNonSpostabileException{
-	    int pos = -1;
+	
+	private int spostaAvanti(Giocatore giocatore) {
+		int pos = -1;
+		for (int i = 0; i < tipoPlancia.getLunghezza(); i++) {
+			if (plancia[i] == giocatore) {
+				pos = i;
+				break;
+			}
+		}
+		if (pos == -1) throw new GiocatoreNonSpostabileException("Giocatore non trovato");
 
-	    // Trova la posizione attuale del giocatore
-	    for (int i = 0; i < tipoPlancia.getLunghezza(); i++) {
-	        if (plancia[i] == giocatore) {
-	            pos = i;
-	            break;
-	        }
-	    }
+		int nuovaPos = (pos + 1) % tipoPlancia.getLunghezza();
+		int salti = 0;
+		while (plancia[nuovaPos] != null && salti < tipoPlancia.getLunghezza()) {
+			nuovaPos = (nuovaPos  + 1) % tipoPlancia.getLunghezza();
+			salti++;
+		}
 
-	    if (pos == -1) {
-	    	throw new GiocatoreNonSpostabileException("Giocatore non trovato nella plancia"); // Giocatore non trovato nella plancia
-	    }
+		if (salti == tipoPlancia.getLunghezza()) {
+			throw new GiocatoreNonSpostabileException("Giocatore non spostabile: plancia piena");
+		}
 
-	    int nuovaPos = (pos + 1) % tipoPlancia.getLunghezza();
-	    int tentativi = 0;
+		plancia[nuovaPos] = giocatore;
+		plancia[pos] = null;
 
-	    // Cerca la prima posizione libera, saltando quelle occupate
-	    while (plancia[nuovaPos] != null && tentativi < tipoPlancia.getLunghezza()) {
-	        nuovaPos = (nuovaPos + 1) % tipoPlancia.getLunghezza();
-	        tentativi++;
-			posizioneFin++;
-	    }
+		return salti;
+	}
+	
+	
+	//sposta un giocatore indietro di un giorno di volo
+	private int spostaIndietro(Giocatore giocatore) {
+		int pos = -1;
+		
+		for (int i = 0; i < tipoPlancia.getLunghezza(); i++) {
+			if (plancia[i] == giocatore) {
+				pos = i;
+				break;
+			}
+		}
+		
+		if (pos == -1) { 
+			throw new GiocatoreNonSpostabileException("Giocatore non trovato");
+		}
 
-	    // Se la plancia è piena (nessuna posizione libera), non fare nulla
-	    if (tentativi == tipoPlancia.getLunghezza()) {
-	    	throw new GiocatoreNonSpostabileException("Giocatore non spostabile");
-	    }
+		int nuovaPos = (pos - 1 + tipoPlancia.getLunghezza()) % tipoPlancia.getLunghezza();
+		int salti = 0;
+		while (plancia[nuovaPos] != null && salti < tipoPlancia.getLunghezza()) {
+			nuovaPos = (nuovaPos - 1 + tipoPlancia.getLunghezza()) % tipoPlancia.getLunghezza();
+			salti++;
+		}
 
-	    // Sposta il giocatore alla nuova posizione libera
-	    
-	    plancia[nuovaPos] = giocatore;
-	    plancia[pos] = null;
+		if (salti == tipoPlancia.getLunghezza()) {
+			throw new GiocatoreNonSpostabileException("Giocatore non spostabile: plancia piena");
+		}
 
+		plancia[nuovaPos] = giocatore;
+		plancia[pos] = null;
+
+		return salti;
 	}
 	
 	public void abbandonaVolo(Giocatore giocatore) {

@@ -2,12 +2,16 @@ package grafica.renderer;
 
 import model.Giocatore;
 
+
+import grafica.TextAligner;
 import model.planciaDiVolo.Plancia;
 import grafica.formattatori.FormattatoreGrafico;
 import grafica.Colore;
 
 
 public class PlanciaRenderer {
+	
+		private final TextAligner textAligner = new TextAligner();
 
     public String[] rappresentaPlancia(Plancia plancia) {
         Giocatore[] arrayPlancia = plancia.getPlancia();
@@ -15,7 +19,7 @@ public class PlanciaRenderer {
         int righe =  plancia.getGiocatori().length + 4; //numero di giocatori aggiunti a riga per creare la leggenda  1 riga per spazio e 3 righe per la plancia
         //ogni giorno di volo della plancia occupa 3 caratteri quindi lunghezza *
         
-        //TODO crerare un metodo per calcolare la lunghezza della plancia in base alla larghezza dello schermo
+        
         String[] righePlancia = new String[righe];
 
         // Inizializzo le righe per i giocatori
@@ -60,7 +64,7 @@ public class PlanciaRenderer {
         
 
 
-        return righePlancia;
+        return textAligner.alignCenter(righePlancia);
   
     }
     
