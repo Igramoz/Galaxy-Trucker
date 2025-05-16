@@ -29,107 +29,321 @@ package io {
   class GestoreIO
   class InterfacciaUtente
 }
+@startuml
+' === PACKAGE: MODEL ===
+package "model" {
+    class Giocatore {
+        - nome: String
+        - colore: Colore
+        - nave: Nave
+        - tipoTitolo: TipoTitolo
+        - crediti: int
+        + Giocatore(String, Colore)
+        + setNave(TipoNave)
+        + getNave(): Nave
+        + aggiungiCrediti(int)
+        + getCrediti(): int
+        + setTipoTitolo(TipoTitolo)
+        + getTipoTitolo(): TipoTitolo
+    }
 
-package main {
-  class Main
+    class Nave {
+        - grigliaComponenti: Componente[][]
+        - analizzatoreNave: AnalizzatoreNave
+        + Nave(TipoNave, Colore)
+        + getComponentiOriginali(TipoComponente): List<Componente>
+        + getEnergia(): int
+        + getEquipaggio(): List<TipoPedina>
+        + subisciImpatto(Colpo, int): int
+        + eliminaEquipaggioDaCabineCollegate(): int
+    }
+
+    class AnalizzatoreNave {
+        - nave: Nave
+        + AnalizzatoreNave(Nave)
+        + getCopiaComponentiAdiacenti(Coordinate): Map<Direzione, Componente>
+        + trovaMerciNave(): List<TipoMerce>
+        + trovaEquipaggioNave(): List<TipoPedina>
+        + connettoriEspostiConuter(): int
+        + potenzaFuocoCounter(): float
+        + potenzaMotriceCounter(): int
+        + energiaCounter(): int
+        + ottieniCabineEquipaggioCollegate(Componente): List<Componente>
+    }
+
+    class TipoTitolo
+    class TipoNave
 }
 
-package model {
-  class Giocatore
-  package carte {
-    class Carta
-    class StazioneAbbandonata
-    class NaveAbbandonata
-    class Sabotaggio
-    class PolvereStellare
+' === PACKAGE: MODEL.CARTE ===
+package "model.carte" {
+    abstract class Carta {
+        - tipoCarta: TipoCarta
+        + getTipoCarta(): TipoCarta
+        + eseguiEvento(ManagerDiVolo[]): void
+    }
+
+    class Epidemia extends Carta {
+        + Epidemia()
+        + eseguiEvento(ManagerDiVolo[]): void
+    }
+    class SpazioAperto extends Carta {
+        + SpazioAperto()
+        + eseguiEvento(ManagerDiVolo[]): void
+    }
+    class ZonaDiGuerra extends Carta {
+        + ZonaDiGuerra(List<CriterioConEffetto>, List<Colpo>)
+        + getCriteriEpenalita(): List<CriterioConEffetto>
+        + eseguiEvento(ManagerDiVolo[]): void
+    }
+    class PioggiaDiMeteoriti extends Carta implements GestoreColpi {
+        + PioggiaDiMeteoriti(CriterioConEffetto)
+        + getEffetto(): Effetto
+        + eseguiEvento(ManagerDiVolo[]): void
+        + getMeteoriti(): List<Colpo>
+        + getMeteoritiPerDirezione(Direzione): List<Colpo>
+    }
+    class NaveAbbandonata extends Carta
+    class StazioneAbbandonata extends Carta
+    class PolvereStellare extends Carta
+    interface GestoreColpi {
+        + gestioneColpi(ManagerDiVolo[], List<Colpo>)
+        + gestioneColpi(List<ManagerDiVolo>, List<Colpo>)
+    }
     class TipoCarta
-    class ZonaDiGuerra
-    class CartaPianeti
-  }
-  package componenti {
-    class Componente
-    class CabinaPartenza
-    class CabinaDiEquipaggio
-    class Cannone
-    class CannoneDoppio
-    class GeneratoreDiScudi
-    class ModuloSupportoAlieni
-    class Motore
-    class MotoreDoppio
-    class Stiva
-    class StivaSpeciale
-    class Tubo
-    class VanoBatteria
-  }
-  package enums {
-    enum TipoMerce
-    enum TipoTubo
-    enum TipoPedina
-  }
-  package nave {
-    class Nave
-    class AnalizzatoreNave
-    class GestoreComponenti
-    class Distruttore
-    class VerificatoreImpatti
-    class ValidatorePosizione
-  }
-  package planciaDiVolo {
-
-  }
-  package titoli {
-    class Titolo
-    class Xenoquartiermastro
-  }
 }
 
-package partita {
-  class LivelliPartita
-  class ModalitaGioco
-  class Partita
-  package fasiGioco {
-    package composizioneNave {
-      class ComposizioneNave
-      class ManagerTurnoComposizione
+' === PACKAGE: MODEL.COMPONENTI ===
+package "model.componenti" {
+abstract class Componente {
+        # tipo: TipoComponente
+        # tubi: Map<Direzione, TipoTubo>
+        - posizione: Coordinate
+
+        + Componente(TipoComponente, Map<Direzione, TipoTubo>)
+        + Componente(Componente)
+        + equals(Object): boolean
+        + ruota()
+        + getTubo(Direzione): TipoTubo
+        + getTipo(): TipoComponente
+        + getTubi(): Map<Direzione, TipoTubo>
+        + getMaxIstanze(): int
+        + getPosizione(): Coordinate
+        + setPosizione(Coordinate)
+        + clone(): Componente
     }
-    package volo {
-      class ManagerDiVolo
+ class Tubo extends Componente {
+        + Tubo(Map<Direzione, TipoTubo>)
+        + Tubo(Tubo)
+        + clone(): Tubo
     }
-  }
+    class Motore extends Componente {
+        - direzioneMotore: Direzione = Direzione.SOTTO
+
+        + Motore(Map<Direzione, TipoTubo>)
+        # Motore(TipoComponente, Map<Direzione, TipoTubo>)
+        + Motore(Motore)
+        + getDirezioneMotore(): Direzione
+        + clone(): Motore
+        + ruota()
+    }
+    class MotoreDoppio extends Motore {
+        + MotoreDoppio(Map<Direzione, TipoTubo>)
+        + MotoreDoppio(MotoreDoppio)
+        + clone(): MotoreDoppio
+    }
+    
+    class Cannone extends Componente {
+        # potenzaFuoco: float
+        # direzioneFuoco: Direzione
+
+        + Cannone(Map<Direzione, TipoTubo>)
+        # Cannone(TipoComponente, Map<Direzione, TipoTubo>, Direzione)
+        + Cannone(Cannone)
+        # aggiornaPotenzaFuoco()
+        + ruota()
+        + getDirezioneFuoco(): Direzione
+        + getPotenzaFuoco(): float
+        + clone(): Cannone
+    }
+
+
+    class CannoneDoppio extends Cannone {
+        + CannoneDoppio(Map<Direzione, TipoTubo>)
+        + CannoneDoppio(CannoneDoppio)
+        + clone(): CannoneDoppio
+        # aggiornaPotenzaFuoco()
+    }
+
+    class GeneratoreDiScudi extends Componente
+    class CabinaDiEquipaggio extends Componente implements Contenitore<TipoPedina> {
+        + aggiungi(TipoPedina)
+        + rimuovi(TipoPedina): boolean
+        + isEmpty(): boolean
+        + isFull(): boolean
+    }
+    class CabinaPartenza extends CabinaDiEquipaggio
+
+    class Stiva extends Componente implements Contenitore<TipoMerce>{
+        + static MAX_SCOMPARTI: int
+        + static MIN_SCOMPARTI: int
+        # scomparti: int
+        # merci: TipoMerce[]
+
+        + Stiva(Map<Direzione, TipoTubo>, int)
+        # Stiva(TipoComponente, Map<Direzione, TipoTubo>, int)
+        + Stiva(Stiva)
+        + clone(): Stiva
+        + aggiungi(TipoMerce) throws ComponentePienoException
+        + rimuovi(TipoMerce): boolean
+        + isEmpty(): boolean
+        + isFull(): boolean
+        + getMerci(): TipoMerce[]
+        + getScomparti(): int
+        + valoreMerci(): int
+        - isMerceAggiungibile(TipoMerce): boolean
+        + equals(Object): boolean
+    }
+
+    class StivaSpeciale extends Stiva
+    class VanoBatteria extends Componente {
+        + VanoBatteria(Map<Direzione, TipoTubo>, int)
+        + getBatterie(): int
+    }
+    class ModuloSupportoAlieni extends Componente
+    interface Contenitore<T> {
+        + aggiungi(T)
+        + rimuovi(T): boolean
+        + isEmpty(): boolean
+        + isFull(): boolean
+    }
+    class TipoComponente
+    class TipoTubo
 }
 
-package servizi {
-  class ServizioAssemblaggio
-  class ServizioCarte
-  class ServizioDadi
+' === PACKAGE: GRAFICA ===
+package "grafica" {
+    class Colore
+}
+package "grafica.formattatori" {
+    interface Formattabile {
+        + getColore(): Colore
+        + getNome(): String
+    }
+    class FormattatoreGrafico {
+        + formatta(Coordinate): String
+        + formatta(Formattabile): String
+        + formattaEStampaMerci(List<TipoMerce>)
+    }
+}
+package "grafica.renderer" {
+    class CarteRenderer
+    class NaveRenderer
 }
 
-package util {
-  class Util
-  class Coppia
-  package layout {
-    class Coordinate
-    class Direzione
-  }
-  package random {
-    class Dado
-    class RandomUtil
-  }
+' === PACKAGE: IO ===
+package "io" {
+    interface InterfacciaUtente {
+        + stampa(String)
+        + stampa(String[])
+        + stampa(List<String>)
+        + aCapo()
+        + leggiIntero(): int
+        + leggiTesto(): String
+        + leggiCoordinate(): Coordinate
+        + stampaMenu(String[]): int
+        + scegliEnum(Class<T>): T
+        + menuComponenti(List<Componente>): Componente
+    }
+    class GestoreIO implements InterfacciaUtente {
+        + leggiIntero(): int
+        + leggiTesto(): String
+        + leggiCoordinate(): Coordinate
+        + aCapo()
+        + stampa(String)
+        + stampa(String[])
+        + stampa(List<String>)
+    }
 }
 
-' Relazioni principali (esempi)
-model.carte.Carta <|-- model.carte.StazioneAbbandonata
-model.carte.Carta <|-- model.carte.NaveAbbandonata
-model.carte.Carta <|-- model.carte.Sabotaggio
-model.componenti.Componente <|-- model.componenti.CabinaPartenza
-model.componenti.Componente <|-- model.componenti.Cannone
-model.nave.Nave "1" o-- "1" model.nave.GestoreComponenti
-model.nave.Nave "1" o-- "1" model.nave.AnalizzatoreNave
-model.nave.Nave "1" o-- "1" model.nave.Distruttore
-model.nave.Nave "1" o-- "1" model.nave.ValidatorePosizione
-model.Giocatore "1" o-- "1" model.nave.Nave
-servizi.ServizioCarte ..> model.carte.Carta
-servizi.ServizioAssemblaggio ..> model.componenti.Componente
-io.GestoreIO ..> io.InterfacciaUtente
+' === PACKAGE: UTIL ===
+package "util" {
+    class Util {
+        + isArrayEmpty(T[]): boolean
+        + contieneCoordinata(List<List<Coordinate>>, Coordinate): boolean
+    }
+    class Coppia
+}
+package "util.layout" {
+    class Coordinate {
+        + getX(): int
+        + getY(): int
+    }
+    class Direzione {
+        + ruota(): Direzione
+    }
+}
+package "util.random" {
+    class Dado {
+        + getIstanza(): Dado
+        + lancia(): int
+        + getValore(): int
+    }
+    class RandomUtil {
+        + randomInt(int, int): int
+        + randomInt(int): int
+        + randomEnum(Class<T>): T
+        + getEnumValueByProbability(Map<E, Integer>): E
+    }
+}
+
+' === RELAZIONI TRA LE CLASSI PRINCIPALI ===
+
+Giocatore --> Nave : nave
+Giocatore --> TipoTitolo : tipoTitolo
+Giocatore --> Colore : colore
+Nave --> AnalizzatoreNave : analizzatoreNave
+Nave --> Componente : grigliaComponenti
+AnalizzatoreNave --> Nave : nave
+Carta <|-- Epidemia
+Carta <|-- SpazioAperto
+Carta <|-- ZonaDiGuerra
+Carta <|-- PioggiaDiMeteoriti
+Carta <|-- NaveAbbandonata
+Carta <|-- StazioneAbbandonata
+Carta <|-- PolvereStellare
+Carta o-- TipoCarta
+Carta --> CarteRenderer
+Carta --> NaveRenderer
+Carta --> GestoreIO
+Carta --> FormattatoreGrafico
+Carta --> TextAligner
+PioggiaDiMeteoriti ..|> GestoreColpi
+GestoreIO ..|> InterfacciaUtente
+Colore ..|> Formattabile
+TipoMerce ..|> Formattabile
+TipoPedina ..|> Formattabile
+TipoTitolo ..|> Formattabile
+model.componenti.Componente ..> model.componenti.TipoComponente
+model.componenti.Componente ..> model.componenti.TipoTubo
+model.componenti.Componente ..> util.layout.Direzione
+model.componenti.Componente ..> util.layout.Coordinate
+model.componenti.Contenitore ..> eccezioni.ComponentePienoException
+model.componenti.Contenitore ..> eccezioni.ComponenteVuotoException
+CabinaDiEquipaggio ..|> Contenitore
+model.componenti.Stiva ..> model.enums.TipoMerce
+MotoreDoppio --|> Motore
+model.componenti.Stiva ..|> model.componenti.Contenitore
+CannoneDoppio --|> Cannone
+StivaSpeciale --|> Stiva
+CabinaPartenza --|> CabinaDiEquipaggio
+VanoBatteria --|> Componente
+model.componenti.Tubo --|> model.componenti.Componente
+model.componenti.Motore --|> model.componenti.Componente
+model.componenti.MotoreDoppio --|> model.componenti.Motore
+model.componenti.Cannone --|> model.componenti.Componente
+model.componenti.CannoneDoppio --|> model.componenti.Cannone
+GeneratoreDiScudi --|> Componente
+ModuloSupportoAlieni --|> Componente
 
 @enduml

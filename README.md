@@ -2,7 +2,7 @@ scrivere il file .puml basandosi su questo sito: https://plantuml.com/class-diag
 
 # Galaxy Trucker - Gruppo 38
 
-**Galaxy Trucker** è un gioco da tavolo in cui i giocatori costruiscono astronavi al fine di trasportare e vendere merci attraverso lo spazio, affrontando imprevisti e pericoli.  
+**Galaxy Trucker** è un gioco da tavolo in cui i giocatori costruiscono astronavi al fine di trasportare e vendere merci nell'universo, affrontando imprevisti e pericoli.  
 Questo repository contiene una versione digitale del gioco, realizzata come progetto per il corso di Programmazione ad Oggetti presso l’[Università degli Studi di Bergamo](https://www.unibg.it/).
 
 ---
