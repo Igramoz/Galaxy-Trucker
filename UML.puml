@@ -1,0 +1,135 @@
+@startuml
+' Package principali
+package eccezioni {
+  class CaricamentoNonConsentitoException
+  class ComponenteNonIstanziabileException
+  class ComponentePienoException
+  class ComponenteVuotoException
+  class GiocatoreNonSpostabileException
+}
+
+package grafica {
+  class Colore
+  class CostantiGrafica
+  class GraficaConfig
+  class TextAligner
+  package formattatori {
+    class FormattatoreGrafico
+    class Formattabile
+  }
+  package renderer {
+    class CarteRenderer
+    class ComponenteRenderer
+    class NaveRenderer
+    class PlanciaRenderer
+  }
+}
+
+package io {
+  class GestoreIO
+  class InterfacciaUtente
+}
+
+package main {
+  class Main
+}
+
+package model {
+  class Giocatore
+  package carte {
+    class Carta
+    class StazioneAbbandonata
+    class NaveAbbandonata
+    class Sabotaggio
+    class PolvereStellare
+    class TipoCarta
+    class ZonaDiGuerra
+    class CartaPianeti
+  }
+  package componenti {
+    class Componente
+    class CabinaPartenza
+    class CabinaDiEquipaggio
+    class Cannone
+    class CannoneDoppio
+    class GeneratoreDiScudi
+    class ModuloSupportoAlieni
+    class Motore
+    class MotoreDoppio
+    class Stiva
+    class StivaSpeciale
+    class Tubo
+    class VanoBatteria
+  }
+  package enums {
+    enum TipoMerce
+    enum TipoTubo
+    enum TipoPedina
+  }
+  package nave {
+    class Nave
+    class AnalizzatoreNave
+    class GestoreComponenti
+    class Distruttore
+    class VerificatoreImpatti
+    class ValidatorePosizione
+  }
+  package planciaDiVolo {
+
+  }
+  package titoli {
+    class Titolo
+    class Xenoquartiermastro
+  }
+}
+
+package partita {
+  class LivelliPartita
+  class ModalitaGioco
+  class Partita
+  package fasiGioco {
+    package composizioneNave {
+      class ComposizioneNave
+      class ManagerTurnoComposizione
+    }
+    package volo {
+      class ManagerDiVolo
+    }
+  }
+}
+
+package servizi {
+  class ServizioAssemblaggio
+  class ServizioCarte
+  class ServizioDadi
+}
+
+package util {
+  class Util
+  class Coppia
+  package layout {
+    class Coordinate
+    class Direzione
+  }
+  package random {
+    class Dado
+    class RandomUtil
+  }
+}
+
+' Relazioni principali (esempi)
+model.carte.Carta <|-- model.carte.StazioneAbbandonata
+model.carte.Carta <|-- model.carte.NaveAbbandonata
+model.carte.Carta <|-- model.carte.Sabotaggio
+model.componenti.Componente <|-- model.componenti.CabinaPartenza
+model.componenti.Componente <|-- model.componenti.Cannone
+model.nave.Nave "1" o-- "1" model.nave.GestoreComponenti
+model.nave.Nave "1" o-- "1" model.nave.AnalizzatoreNave
+model.nave.Nave "1" o-- "1" model.nave.Distruttore
+model.nave.Nave "1" o-- "1" model.nave.ValidatorePosizione
+model.Giocatore "1" o-- "1" model.nave.Nave
+servizi.ServizioCarte ..> model.carte.Carta
+servizi.ServizioAssemblaggio ..> model.componenti.Componente
+io.GestoreIO ..> io.InterfacciaUtente
+
+@enduml
