@@ -1,8 +1,7 @@
 package grafica.renderer;
 
 import model.Giocatore;
-
-
+import io.GestoreIO;
 import grafica.TextAligner;
 import model.planciaDiVolo.Plancia;
 import grafica.formattatori.FormattatoreGrafico;
@@ -12,6 +11,7 @@ import grafica.Colore;
 public class PlanciaRenderer {
 	
 		private final TextAligner textAligner = new TextAligner();
+		
 
     public String[] rappresentaPlancia(Plancia plancia) {
         Giocatore[] arrayPlancia = plancia.getPlancia();
@@ -20,7 +20,7 @@ public class PlanciaRenderer {
         //ogni giorno di volo della plancia occupa 3 caratteri quindi lunghezza *
         
         
-        String[] righePlancia = new String[righe];
+        String[] righePlancia = new String[righe+1];
 
         // Inizializzo le righe per i giocatori
         FormattatoreGrafico formattatore = new FormattatoreGrafico();
@@ -61,6 +61,10 @@ public class PlanciaRenderer {
 	        	
 	        	righePlancia[plancia.getGiocatori().length+3] += SimboloGiornoDiVolo(arrayPlancia[i]);
 	        }
+			
+			//a capo
+			
+			righePlancia[righe] = "";
         
 
 

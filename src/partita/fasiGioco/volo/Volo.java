@@ -1,6 +1,7 @@
 package partita.fasiGioco.volo;
 
 import java.util.List;
+import grafica.Colore;
 import io.GestoreIO;
 import grafica.renderer.PlanciaRenderer;
 import java.util.Map;
@@ -20,6 +21,8 @@ public class Volo {
 	private List<Carta> carte;
 	private List<ManagerDiVolo> managerInVolo; // manager di volo che gestisce solo giocatori in volo
 	private List<ManagerDiVolo> managerDiVolo; // manager di volo che gestisce tutti i giocatori
+	PlanciaRenderer planciaRenderer = new PlanciaRenderer();
+	GestoreIO gestoreIO = new GestoreIO();
 	
 	
 	
@@ -57,19 +60,19 @@ public class Volo {
 			ordinaManegerDiVolo();
 			//controllo se i giocatori sono doppiati o le altre condizioni per abbandonare la corsa
 			
-			//stampa la plancia
-			
-			PlanciaRenderer planciaRenderer = new PlanciaRenderer();
-			GestoreIO gestoreIO = new GestoreIO();
 			
 			gestoreIO.stampa(planciaRenderer.rappresentaPlancia(plancia));
 
 			ManagerDiVolo[] managers = managerInVolo.toArray(new ManagerDiVolo[0]);
 			
+			//TODO gestire il caso in cui non ci sono più manager di volo in volo (se hanno abbandonato tutti)
+			
 			//tolgo la prima carta dalla lista delle carte
 			
 			carte.getFirst().eseguiEvento(managers);
 			carte.remove(0);
+			
+			//TODO decidere se  chiedere di proseguire con la prossima carta
 			
 			if(carte.isEmpty()) {
 				game = false; // se non ci sono più carte il volo è finito
@@ -115,7 +118,7 @@ public class Volo {
 	}
 	
 	
-	private void rimuoviManagerInVolo() {
+private void rimuoviManagerInVolo() {
 		
 		Set<ManagerDiVolo> managerDaRimuovere = new HashSet<>();
 		
@@ -124,6 +127,11 @@ public class Volo {
 			if(manager.isDoppiato()) {
 				managerDaRimuovere.add(manager);
 				manager.AbbandonaVolo();
+				gestoreIO.stampa("Il giocatore "+ manager.getGiocatore().getColore().getCodice() + manager.getGiocatore().getNome() + Colore.DEFAULT.getCodice()+ 
+				" ha abbandonato il volo siccome è stato doppiato");
+				gestoreIO.aCapo();	
+				
+				
 			}
 		}
 		//se perdi tutti gli umani dell' equipaggio
@@ -131,6 +139,9 @@ public class Volo {
 			if(manager.getGiocatore().getNave().getEquipaggio().isEmpty()) {
 				managerDaRimuovere.add(manager);
 				manager.AbbandonaVolo();
+				gestoreIO.stampa("Il giocatore "+ manager.getGiocatore().getColore().getCodice() + manager.getGiocatore().getNome() + Colore.DEFAULT.getCodice()+ 
+				" ha abbandonato il volo siccome ha perso tutti gli umani dell' equipaggio");
+				gestoreIO.aCapo();
 			}
 		}
 		
@@ -141,6 +152,9 @@ public class Volo {
 				if(manager.getGiocatore().getNave().getPotenzaMotrice() <= 0) {
 					managerDaRimuovere.add(manager);
 					manager.AbbandonaVolo();		
+					gestoreIO.stampa("Il giocatore "+ manager.getGiocatore().getColore().getCodice() + manager.getGiocatore().getNome() + Colore.DEFAULT.getCodice()+ 
+					" ha abbandonato il volo siccome è in uno spazio aperto senza potenza motrice");
+					gestoreIO.aCapo();
 				}
 			}	
 		}
@@ -148,7 +162,7 @@ public class Volo {
 		
 		for(ManagerDiVolo manager : managerDaRimuovere) {
 			managerInVolo.remove(manager);
-			//TODO decidere se scrivere un messaggio di avviso per il giocatore che ha abbandonato la corsa
+			
 		}
 
 	}

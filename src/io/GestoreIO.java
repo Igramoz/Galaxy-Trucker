@@ -43,6 +43,8 @@ public class GestoreIO implements InterfacciaUtente{
 		int x, y;
 		x = leggiCoordinata("X");
 		y = leggiCoordinata("Y");
+		
+		System.out.println("Coordinate lette: " + (x - GraficaConfig.OFFSET) + " " + (y - GraficaConfig.OFFSET));
 
 		return new Coordinate(x - GraficaConfig.OFFSET, y - GraficaConfig.OFFSET);
 	}
@@ -58,10 +60,10 @@ public class GestoreIO implements InterfacciaUtente{
 			stampa("Inserisci la coordinata " + nomeCoordinata + " (" + MIN_VALUE + "-" + MAX_VALUE + "): ");
 			valore = leggiIntero();
 
-			if (valore < MIN_VALUE || valore > MAX_VALUE)
+			if (valore < MIN_VALUE || valore >= MAX_VALUE)
 				stampa("Valore non valido. Riprova");
 
-		} while (valore < MIN_VALUE || valore > MAX_VALUE);
+		} while (valore < MIN_VALUE || valore >= MAX_VALUE);
 		return valore;
 	}
 
