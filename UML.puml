@@ -103,9 +103,45 @@ package "model.carte" {
         + getMeteoriti(): List<Colpo>
         + getMeteoritiPerDirezione(Direzione): List<Colpo>
     }
-    class NaveAbbandonata extends Carta
-    class StazioneAbbandonata extends Carta
-    class PolvereStellare extends Carta
+    class NaveAbbandonata extends Carta {
+        - crediti: int
+        - tempoDiVolo: int
+        - equipaggioPerso: int
+        - effetto: Effetto
+        + NaveAbbandonata(int, int, int)
+        + eseguiEvento(ManagerDiVolo[]): void
+        + getCrediti(): int
+        + getTempoDiVolo(): int
+        + getEquipaggioPerso(): int
+        + getEffetto(): Effetto
+    }
+    class StazioneAbbandonata extends Carta {
+        - merci: List<TipoMerce>
+        - tempoDiVolo: int
+        - numEquipaggio: int
+        - effetto: Effetto
+        + StazioneAbbandonata(List<TipoMerce>, int, int)
+        + eseguiEvento(ManagerDiVolo[]): void
+        + getMerci(): List<TipoMerce>
+        + getTempoDiVolo(): int
+        + getNumEquipaggio(): int
+        + getEffetto: Effetto
+    }
+    class PolvereStellare extends Carta {
+        - penalitaTempoVoloPerConnettoreEsposto: int
+        - effetto: Effetto
+        + PolvereStellare(int)
+        + eseguiEvento(ManagerDiVolo[]): void
+        + getPenalitaTempoVoloPerConnettoreEsposto(): int
+        + getEffetto: Effetto
+    }
+    class Sabotaggio extends Carta {
+        - servizioDadi: ServizioDadi
+        - criterio: Criterio
+        + Sabotaggio()
+        + eseguiEvento(ManagerDiVolo[]): void
+        + getCriterio(): Criterio
+    }
     interface GestoreColpi {
         + gestioneColpi(ManagerDiVolo[], List<Colpo>)
         + gestioneColpi(List<ManagerDiVolo>, List<Colpo>)
