@@ -11,13 +11,14 @@ import model.carte.colpo.*;
 import model.carte.criteriEffetti.*;
 import partita.fasiGioco.volo.ManagerDiVolo;
 
-public class Pirati extends Nemico implements GestoreColpi {
+public class Pirati extends Nemico {
 
 	private final int numeroCrediti;
 	private final List<Colpo> cannonate;
 
 	private final GestoreIO io = new GestoreIO();
-
+	private final GestoreColpi gestoreColpi = new GestoreColpi();
+	
 	public Pirati(int forza, int numCrediti, int perditaGiorniDiVolo, List<Colpo> cannonate) {
 		super(TipoCarta.PIRATI, forza, Effetto.GUADAGNA_CREDITI, Effetto.COLPI, perditaGiorniDiVolo);
 		this.numeroCrediti = numCrediti;
@@ -42,7 +43,7 @@ public class Pirati extends Nemico implements GestoreColpi {
 	@Override
 	public void applicaSconfitta(List<ManagerDiVolo> sconfitti) {
 		// subiscono cannonate
-		gestioneColpi(sconfitti, cannonate);
+		gestoreColpi.gestioneColpi(sconfitti, cannonate);
 	}
 
 	@Override

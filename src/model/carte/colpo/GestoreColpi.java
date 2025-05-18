@@ -10,14 +10,14 @@ import model.Giocatore;
 import partita.fasiGioco.volo.ManagerDiVolo;
 import servizi.ServizioDadi;
 
-public interface GestoreColpi {
-	public default void gestioneColpi(ManagerDiVolo[] listaManager, List<Colpo> colpi) {
-		GestoreIO io = new GestoreIO();
-		CarteRenderer carteRenderer = new CarteRenderer();
-		FormattatoreGrafico formattatoreGrafico = new FormattatoreGrafico();
-		NaveRenderer naveRenderer = new NaveRenderer();
-		ServizioDadi servizioDadi = new ServizioDadi();
-
+public class GestoreColpi {
+	GestoreIO io = new GestoreIO();
+	CarteRenderer carteRenderer = new CarteRenderer();
+	FormattatoreGrafico formattatoreGrafico = new FormattatoreGrafico();
+	NaveRenderer naveRenderer = new NaveRenderer();
+	ServizioDadi servizioDadi = new ServizioDadi();
+	
+	public void gestioneColpi(ManagerDiVolo[] listaManager, List<Colpo> colpi) {
 		carteRenderer.rappresentaColpi(colpi);
 
 		int indice = 0;
@@ -48,7 +48,7 @@ public interface GestoreColpi {
 			}
 		}
 	}
-	public default void gestioneColpi(List<ManagerDiVolo> listaManager, List<Colpo> colpi) {
+	public void gestioneColpi(List<ManagerDiVolo> listaManager, List<Colpo> colpi) {
 	    ManagerDiVolo[] array = listaManager.toArray(new ManagerDiVolo[listaManager.size()]);
 		gestioneColpi(array, colpi);
 	}

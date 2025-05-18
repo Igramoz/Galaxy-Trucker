@@ -1,7 +1,6 @@
 package partita.fasiGioco.volo;
 
 import java.util.List;
-import grafica.Colore;
 import grafica.formattatori.FormattatoreGrafico;
 import io.GestoreIO;
 import grafica.renderer.PlanciaRenderer;

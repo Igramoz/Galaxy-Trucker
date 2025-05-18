@@ -11,7 +11,7 @@ public class ValidatorePosizione {
 	// Si occupa di controllare se una è possibile insrire un oggetto in una
 	// determinata posizione della nave
 	
-	private Nave nave;
+	private final Nave nave;
 	
 	protected ValidatorePosizione(Nave nave) {
 		this.nave = nave;
@@ -20,6 +20,10 @@ public class ValidatorePosizione {
 	public  boolean valida( Componente nuovoComponente, Coordinate coord) {
 		Map<Direzione, Componente> adiacenti = nave.getCopiaComponentiAdiacenti(coord);
 
+		// Controllo che non ci sia nessun componente in quella posizione nella nave
+		if(nave.getCopiaComponente(coord) == null)
+			return false;
+		
 		// Controllo che siano presenti dei pezzi attorno
 		if (checkNull(adiacenti))
 			return false;

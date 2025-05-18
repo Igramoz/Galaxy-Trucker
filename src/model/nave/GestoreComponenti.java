@@ -152,6 +152,11 @@ public class GestoreComponenti {
 				posizione = scegliComponente(TipoComponente.STIVA_SPECIALE, TipoComponente.STIVA);
 			}
 
+			if(posizione == null) {
+				io.stampa("La nave non ha stive adatte ad immagazzinare merce " + formattatore.formatta(merce));
+				return false;
+			}
+			
 			Stiva stiva = (Stiva) nave.getOriginaleComponente(posizione);
 
 			if (stiva.rimuovi(merce)) {
@@ -318,6 +323,11 @@ public class GestoreComponenti {
 		// salvo le cabine collegate
 		for (Componente sovrastruttura : sovrastrutture) {
 			cabineCollegate.addAll(nave.getAnalizzatoreNave().ottieniCabineEquipaggioCollegate(sovrastruttura));
+		}
+		
+		// la nave non ha cabine d'equipaggio collegate alla sovrastruttura
+		if(cabineCollegate.isEmpty()) {
+			return false;
 		}
 
 		// rimuovo la cabina di partenza, se c'è

@@ -47,6 +47,7 @@ public class Partita {
 		// salvo le informazioni che servono per la fase di volo
 		List<Carta> mazzoDiGioco = composizione.getMazzoDiGioco();
 		Map<Giocatore, Integer> numPezziDistrutti = composizione.getNumPezziPrenotati();
+		giocatori = composizione.getOrdineFine();
 		
 		// fase di volo
 		Volo volo = new Volo(modalita, giocatori, mazzoDiGioco);

@@ -62,14 +62,19 @@ public abstract class Nemico extends Carta {
 		for (ManagerDiVolo m : listaManager) {
 			Giocatore giocatore = m.getGiocatore();
 			if (giocatore.getNave().getPotenzaFuoco() < getForzaNemico()) {
-				// applica sconfitta
+				// aggiungo agli sconfitti
+				sconfitti.add(m);
 				io.stampa(formattatoreGrafico.formatta(giocatore) + " ha perso contro il nemico avanzato.");
 			} else {
 				// applica vittoria
 				applicaVittoria(m);
 			}
 		}
-		applicaSconfitta(sconfitti);
+		
+		// applico la sconfitta
+		if(!sconfitti.isEmpty())
+			applicaSconfitta(sconfitti);
+		
 		io.stampa("La carta: " + this.getTipoCarta().name() + " è stata risolta." );		
 	}
 

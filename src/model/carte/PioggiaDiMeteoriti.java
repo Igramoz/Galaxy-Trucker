@@ -9,11 +9,13 @@ import model.carte.criteriEffetti.Effetto;
 import partita.fasiGioco.volo.ManagerDiVolo;
 import util.layout.Direzione;
 
-public class PioggiaDiMeteoriti extends Carta implements GestoreColpi {
+public class PioggiaDiMeteoriti extends Carta{
 
 	// Lista che contiene i meteoriti associati alla direzione da cui arrivano
 	private final List<Colpo> meteoriti;
 	private final Effetto effetto = Effetto.COLPI;
+	private final GestoreColpi gestoreColpi = new GestoreColpi();
+	
 	
 	public Effetto getEffetto() {
 		return effetto;
@@ -29,7 +31,7 @@ public class PioggiaDiMeteoriti extends Carta implements GestoreColpi {
 	public void eseguiEvento(ManagerDiVolo[] listaManager) {
 		// Stampo tutti i meteoriti
 		io.stampa(super.textAligner.alignCenter("Pioggia di meteoriti"));
-		gestioneColpi(listaManager, meteoriti);
+		gestoreColpi.gestioneColpi(listaManager, meteoriti);
 		io.aCapo();
 		io.stampa("Fine della pioggia di meteoriti");
 		io.aCapo();

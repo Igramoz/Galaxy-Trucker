@@ -36,7 +36,7 @@ public class ComposizioneNave {
 		}
 	}
 
-	public List<Giocatore> start() {
+	public void start() {
 		// Ogni giocatore compone la propria nave
 
 		GestoreIO io = new GestoreIO();
@@ -62,12 +62,10 @@ public class ComposizioneNave {
 				}
 
 				if (ordineFine.size() == manager.length) {
-					return ordineFine;
+					return;
 				}
 			}
 		}
-
-		return ordineFine;
 	}
 	
 	public List<Carta> getMazzoDiGioco(){
@@ -89,6 +87,14 @@ public class ComposizioneNave {
 	        numPezziDistrutti.put(giocatore, pezziPrenotati);
 	    }
 	    return numPezziDistrutti;
+	}	
+	
+	/**
+	 * Funzione per capire l'ordine di volo
+	 * @return lista di giocatori nell'ordine con cui hanno concluso le navi
+	 */
+	public Giocatore[] getOrdineFine() {
+		return ordineFine.toArray(new Giocatore[0]);
 	}
 	
 }

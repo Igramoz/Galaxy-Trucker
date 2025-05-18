@@ -6,7 +6,6 @@ import java.util.Map;
 
 import model.Giocatore;
 import model.nave.Nave;
-import util.layout.Coordinate;
 import util.layout.Direzione;
 import model.componenti.Componente;
 import model.enums.TipoTubo;
