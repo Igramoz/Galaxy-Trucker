@@ -1,21 +1,100 @@
 @startuml
 ' Package principali
 package eccezioni {
-  class CaricamentoNonConsentitoException
-  class ComponenteNonIstanziabileException
-  class ComponentePienoException
-  class ComponenteVuotoException
-  class GiocatoreNonSpostabileException
+  class CaricamentoNonConsentitoException {
+    - serialVersionUID: long
+    + CaricamentoNonConsentitoException()
+    + CaricamentoNonConsentitoException(String)
+  }
+  class ComponenteNonIstanziabileException {
+    - serialVersionUID: long
+    + ComponenteNonIstanziabileException()
+    + ComponenteNonIstanziabileException(String)
+  }
+  class ComponentePienoException {
+    - serialVersionUID: long
+    + ComponentePienoException()
+    + ComponentePienoException(String)
+  }
+  class ComponenteVuotoException {
+    - serialVersionUID: long
+    + ComponenteVuotoException()
+    + ComponenteVuotoException(String)
+  }
+  class GiocatoreNonSpostabileException {
+    - serialVersionUID: long
+    + GiocatoreNonSpostabileException()
+    + GiocatoreNonSpostabileException(String)
+  }
 }
 
 package grafica {
-  class Colore
-  class CostantiGrafica
-  class GraficaConfig
-  class TextAligner
+  enum Colore {
+    DEFAULT
+    BIANCO
+    GIALLO
+    VIOLA
+    VIOLA_LILLA
+    MARRONE
+    MARRONE_BEIGE
+    VERDE
+    VERDE_LIME
+    AZZURRO
+    BLU
+    ROSSO
+    GRIGIO
+    ARGENTO
+    ORO
+    --
+    - codice: String
+    + Colore(String)
+    + getCodice(): String
+    + getColore(): Colore
+  }
+  class CostantiGrafica {
+    + static LARGHEZZA_COMPONENTE: int
+    + static ALTEZZA_COMPONENTE: int
+    + static COMPONENTE_NULL: String
+    + static FRECCIA_SOPRA: String
+    + static FRECCIA_SOTTO: String
+    + static FRECCIA_SINISTRA: String
+    + static FRECCIA_DESTRA: String
+    + static COLPO_PICCOLO: String
+    + static COLPO_GROSSO: String
+  }
+  class GraficaConfig{
+    + static LARGHEZZA_SCHERMO: int
+    + static OFFSET: int
+    + static A_CAPO: String
+  }
+  class TextAligner{
+    - maxLunghezzaRiga(String[]): int
+    - aggiungiRighe(String[], int): String[]
+    - rimuoviAnsi(String): String
+    - trovaIndiceReale(String, int): int
+    + estendiStringa(String, int): String
+    + alignLeft(String): String
+    + alignRight(String): String
+    + estendiStringhe(String[], int): String[]
+    + centraTestoInLarghezza(String, int): String
+    + alignCenter(String): String
+    + alignCenter(String[]): String[]
+    + affiancaStringhe(String[], String[]): String[]
+    + lunghezzaVisivaTestoCheck(String, int): int
+    + lunghezzaVisivaTestoCheck(String): int
+    + replace(String, String, int): String
+  }
   package formattatori {
-    class FormattatoreGrafico
-    class Formattabile
+    class FormattatoreGrafico {
+        - io: GestoreIO
+        + formatta(Coordinate): String
+        + formatta(Formattabile): String
+        + formattaEStampaMerci(List<TipoMerce>): void
+    }
+    interface Formattabile {
+        + getColore(): Colore
+        + getNome(): String
+    }
   }
   package renderer {
     class CarteRenderer
@@ -348,6 +427,7 @@ Carta <|-- PioggiaDiMeteoriti
 Carta <|-- NaveAbbandonata
 Carta <|-- StazioneAbbandonata
 Carta <|-- PolvereStellare
+Carta <|-- Sabotaggio
 Carta o-- TipoCarta
 Carta --> CarteRenderer
 Carta --> NaveRenderer

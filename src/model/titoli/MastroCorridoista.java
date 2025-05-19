@@ -33,7 +33,7 @@ public class MastroCorridoista extends Titolo {
 			}
 		}
 
-		int maxLunghezza = 1;
+		int maxLunghezza = 0;
 		for (Componente c : listaComponentiCorridoio) {
 			List<Coordinate> coordinateGiaEsaminate = new ArrayList<>();
 			int lunghezza = calcolaLunghezzaCorridoio(n, c, coordinateGiaEsaminate);
@@ -61,7 +61,7 @@ public class MastroCorridoista extends Titolo {
 	// calcola e restituisce la lunghezza max del corridoio trovato
 	private int calcolaLunghezzaCorridoio(Nave n, Componente c, List<Coordinate> coordinateGiaEsaminate) {
 		Map<Direzione, Componente> adiacenti = n.getCopiaComponentiAdiacenti(c.getPosizione());
-		int maxLunghezza = 1;
+		int maxLunghezza = 0;
 		coordinateGiaEsaminate.add(c.getPosizione());
 
 		for (Direzione d : Direzione.values()) {
@@ -74,6 +74,6 @@ public class MastroCorridoista extends Titolo {
 					maxLunghezza = lunghezza;
 			}
 		}
-		return maxLunghezza;
+		return maxLunghezza + 1;
 	}
 }
