@@ -56,7 +56,7 @@ public class PlanciaRenderer {
 			
 			righePlancia[plancia.getGiocatori().length+3] = "";
 			
-			for(int i = (lunghezza - 2)/2 + 1; i < lunghezza-1; i++) {
+			for(int i = lunghezza - 2; i > (lunghezza - 2)/2; i--) {
 	        	
 	        	righePlancia[plancia.getGiocatori().length+3] += SimboloGiornoDiVolo(arrayPlancia[i]);
 	        }
