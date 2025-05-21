@@ -16,7 +16,7 @@ public class ComponenteRenderer {
 	private final TextAligner textAligner = new TextAligner();
 	private final FormattatoreGrafico formattatoreGrafico = new FormattatoreGrafico();
 	private final GestoreIO io = new GestoreIO();
-	
+
 	public String[] rappresentaComponente(Componente componente) {
 
 		/*
@@ -148,34 +148,40 @@ public class ComponenteRenderer {
 
 	// stampa il componente con il nome completo e altre informazioni
 	public String rappresentazioneCompletaComponente(Componente componente) {
-		String output = componente.getTipo().getColore().getCodice() + componente.getTipo().name()
-				+ Colore.DEFAULT.getCodice();
+		String output;
+		if (componente.getTipo() == TipoComponente.CABINA_PARTENZA) {
+			CabinaPartenza cabina = (CabinaPartenza) componente;
+			output = cabina.getColore().getCodice();
+		} else
+			output = componente.getTipo().getColore().getCodice();
+
+		output = output + componente.getTipo().name() + Colore.DEFAULT.getCodice();
 
 		// Se il componente è una cabina rappresento l'equipaggio
 		if (componente instanceof CabinaDiEquipaggio) {
 			List<TipoPedina> equipaggio = ((CabinaDiEquipaggio) componente).getEquipaggio();
-			if(equipaggio.isEmpty()) {
+			if (equipaggio.isEmpty()) {
 				output += " vuota";
 			} else {
 				output += " equipaggio:";
 				for (TipoPedina pedina : equipaggio) {
 					output += " " + formattatoreGrafico.formatta(pedina);
 				}
-			}			
+			}
 		} else if (componente instanceof Stiva) {
-		    TipoMerce[] merci = ((Stiva) componente).getMerci();
-		    output += " capienza: " + ((Stiva) componente).getScomparti();
-		    // se merci è null o se vuota
-		    if (Util.isArrayEmpty(merci)) {
-		        output += " la stiva è vuota.";
-		    } else {
-		    	output += " merci:";
-		        for (TipoMerce merce : merci) {
-		            if (merce != null) {
-		                output += " " + formattatoreGrafico.formatta(merce);
-		            }
-		        }
-		    }
+			TipoMerce[] merci = ((Stiva) componente).getMerci();
+			output += " capienza: " + ((Stiva) componente).getScomparti();
+			// se merci è null o se vuota
+			if (Util.isArrayEmpty(merci)) {
+				output += " la stiva è vuota.";
+			} else {
+				output += " merci:";
+				for (TipoMerce merce : merci) {
+					if (merce != null) {
+						output += " " + formattatoreGrafico.formatta(merce);
+					}
+				}
+			}
 		} else if (componente.getTipo() == TipoComponente.VANO_BATTERIA) {
 			int carica = ((VanoBatteria) componente).getBatterie();
 			if (carica == 0) {

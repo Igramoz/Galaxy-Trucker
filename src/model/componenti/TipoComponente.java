@@ -5,7 +5,7 @@ import grafica.formattatori.Formattabile;
 
 public enum TipoComponente implements Formattabile{
 	CABINA_EQUIPAGGIO("CE", 17, Colore.BIANCO), 
-	CABINA_PARTENZA("CP", 4, Colore.BIANCO), //TODO:
+	CABINA_PARTENZA("CP", 4, null),
 	CANNONE_SINGOLO("CS", 25, Colore.VIOLA_LILLA), 
 	CANNONE_DOPPIO("CD", 11, Colore.VIOLA_LILLA),
 	MOTORE_SINGOLO("MS", 21, Colore.MARRONE_BEIGE), 
