@@ -1,6 +1,7 @@
 package partita.fasiGioco.volo;
 
 import java.util.List;
+
 import grafica.formattatori.FormattatoreGrafico;
 import io.GestoreIO;
 import grafica.renderer.PlanciaRenderer;
@@ -52,6 +53,8 @@ public class Volo {
 		ordinaManegerDiVolo();
 
 		while (game) {
+			
+			
 
 			// aggiorno i manager di volo in base alla posizione dei giocatori nella plancia
 			rimuoviManagerInVolo();
@@ -59,24 +62,30 @@ public class Volo {
 			ordinaManegerDiVolo();
 			// controllo se i giocatori sono doppiati o le altre condizioni per abbandonare
 			// la corsa
+			
+			if(managerInVolo.isEmpty()) {
+				game = false;
+				break;
+			}
 
 			gestoreIO.stampa(planciaRenderer.rappresentaPlancia(plancia));
 
 			ManagerDiVolo[] managers = managerInVolo.toArray(new ManagerDiVolo[0]);
 
-			// TODO gestire il caso in cui non ci sono più manager di volo in volo (se hanno
-			// abbandonato tutti)
 
 			// tolgo la prima carta dalla lista delle carte
-
+			if (carte.isEmpty()) {
+							game = false;
+							break;// se non ci sono più carte il volo è finito
+			}
 			carte.getFirst().eseguiEvento(managers);
 			carte.remove(0);
 
-			// TODO decidere se chiedere di proseguire con la prossima carta
 
-			if (carte.isEmpty()) {
-				game = false; // se non ci sono più carte il volo è finito
-			}
+			
+			gestoreIO.stampa("Scrivi per proseguire con la prossima carta: ");
+			gestoreIO.leggiTesto();
+			
 		}
 	}
 
