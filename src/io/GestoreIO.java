@@ -44,8 +44,6 @@ public class GestoreIO implements InterfacciaUtente{
 		x = leggiCoordinata("X");
 		y = leggiCoordinata("Y");
 		
-		System.out.println("Coordinate lette: " + (x - GraficaConfig.OFFSET) + " " + (y - GraficaConfig.OFFSET));
-
 		return new Coordinate(x - GraficaConfig.OFFSET, y - GraficaConfig.OFFSET);
 	}
 

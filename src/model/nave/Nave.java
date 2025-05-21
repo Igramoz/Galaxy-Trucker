@@ -77,6 +77,10 @@ public class Nave {
 		if (coordinate == null) {
 			throw new NullPointerException("Bisogna passare delle coordinate alla nave");
 		}
+		
+		if(grigliaComponenti[coordinate.getX()][coordinate.getY()] == null)
+			return null;
+		
 		return grigliaComponenti[coordinate.getX()][coordinate.getY()].clone();
 	}
 

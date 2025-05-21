@@ -21,7 +21,7 @@ public class ValidatorePosizione {
 		Map<Direzione, Componente> adiacenti = nave.getCopiaComponentiAdiacenti(coord);
 
 		// Controllo che non ci sia nessun componente in quella posizione nella nave
-		if(nave.getCopiaComponente(coord) == null)
+		if(nave.getCopiaComponente(coord) != null)
 			return false;
 		
 		// Controllo che siano presenti dei pezzi attorno
