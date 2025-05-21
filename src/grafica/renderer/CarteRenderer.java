@@ -134,7 +134,7 @@ public class CarteRenderer {
 
 	public void rappresentaCarta(CartaPianeti carta) {
 		List<Pianeta> pianeti = carta.getPianeti();
-		textAligner.alignCenter("Carta pianeti");
+		io.stampa(textAligner.alignCenter("Carta pianeti"));
 		io.stampa("Pianeti non occupati:");
 		for (int i = 0; i < pianeti.size(); i++) {
 			Pianeta p = pianeti.get(i);

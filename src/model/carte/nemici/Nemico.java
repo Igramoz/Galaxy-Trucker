@@ -52,7 +52,7 @@ public abstract class Nemico extends Carta {
 	public void eseguiEvento(ManagerDiVolo[] listaManager) {
 		List<ManagerDiVolo> sconfitti = new java.util.ArrayList<>();
 		io.aCapo();
-		io.stampa("Carta: " + this.getTipoCarta().name());
+		io.stampa(textAligner.alignCenter("Carta: " + this.getTipoCarta().name()));
 		io.stampa("Tutti i giocatori che hanno una nave con potenza di fuoco minore di " + getForzaNemico()
 				+ " verrano sconfitti.");
 		spiegaSconfitta();

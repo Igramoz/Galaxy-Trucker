@@ -26,13 +26,16 @@ public class GestoreComponenti {
 	}
 
 	/**
-	 * Sceglie un componente della nave in base ai tipi specificati e restituisce la posizione di un componente.
+	 * Sceglie un componente della nave in base ai tipi specificati e restituisce la
+	 * posizione di un componente.
 	 * 
 	 * @param tipoComponente1 un tipo di componente da selezionare.
-	 * @param tipoComponente2 (Opzionale) Il secondo tipo di componente da considerare. 
-	 *                        Se null, viene considerato solo il primo tipo di componente.
-	 * @return La posizione del componente scelto come {@link Coordinate}, 
-	 *         oppure <strong> null </strong> se non ci sono componenti disponibili per i tipi specificati.
+	 * @param tipoComponente2 (Opzionale) Il secondo tipo di componente da
+	 *                        considerare. Se null, viene considerato solo il primo
+	 *                        tipo di componente.
+	 * @return La posizione del componente scelto come {@link Coordinate}, oppure
+	 *         <strong> null </strong> se non ci sono componenti disponibili per i
+	 *         tipi specificati.
 	 */
 	public Coordinate scegliComponente(TipoComponente tipoComponente1, TipoComponente tipoComponente2) {
 		List<Componente> componenti = nave.getCopiaComponenti(tipoComponente1);
@@ -42,7 +45,7 @@ public class GestoreComponenti {
 
 		if (componenti.isEmpty())
 			return null;
-		
+
 		return io.menuComponenti(componenti).getPosizione();
 	}
 
@@ -67,7 +70,7 @@ public class GestoreComponenti {
 		return output;
 	}
 
-	private boolean posizionaMerce(TipoMerce merce) {	
+	private boolean posizionaMerce(TipoMerce merce) {
 		boolean sceltaValida;
 		do {
 			io.stampa("Posiziona la merce " + formattatore.formatta(merce));
@@ -79,11 +82,11 @@ public class GestoreComponenti {
 				posizione = scegliComponente(TipoComponente.STIVA_SPECIALE, TipoComponente.STIVA);
 			}
 
-			if(posizione == null) {
+			if (posizione == null) {
 				io.stampa("Il giocatore non dispone di stive adatte per immagazzinare la merce in questione");
 				return false;
 			}
-			
+
 			try {
 				// provo a posizionare la merce
 				nave.forzaMerce(merce, posizione);
@@ -152,11 +155,11 @@ public class GestoreComponenti {
 				posizione = scegliComponente(TipoComponente.STIVA_SPECIALE, TipoComponente.STIVA);
 			}
 
-			if(posizione == null) {
+			if (posizione == null) {
 				io.stampa("La nave non ha stive adatte ad immagazzinare merce " + formattatore.formatta(merce));
 				return false;
 			}
-			
+
 			Stiva stiva = (Stiva) nave.getOriginaleComponente(posizione);
 
 			if (stiva.rimuovi(merce)) {
@@ -234,10 +237,15 @@ public class GestoreComponenti {
 			} else {
 				posizione = scegliComponente(TipoComponente.CABINA_EQUIPAGGIO);
 			}
+			
+			if (posizione == null) {
+				io.stampa("Il giocatore ha delle cabina contenenti questo tipo di pedina");
+				return false;
+			}
+			
+			CabinaDiEquipaggio cabina = (CabinaDiEquipaggio) nave.getOriginaleComponente(posizione);
 
-			try {
-				nave.forzaEquipaggio(pedinaDaRimuovere, posizione);
-			} catch (ComponentePienoException e) {
+			if (!cabina.rimuovi(pedinaDaRimuovere)) {
 				io.stampa("Non è possibile rimuovere la pedina da questo componente");
 				String[] menu = { "Riprova", "Non rimuovere pedina" };
 				int scelta = io.stampaMenu(menu);
@@ -249,6 +257,7 @@ public class GestoreComponenti {
 			}
 		} while (!sceltaValida);
 		return true;
+
 	}
 
 	public int eliminaEquipaggioDaCabineCollegate() {
@@ -324,16 +333,15 @@ public class GestoreComponenti {
 		for (Componente sovrastruttura : sovrastrutture) {
 			cabineCollegate.addAll(nave.getAnalizzatoreNave().ottieniCabineEquipaggioCollegate(sovrastruttura));
 		}
-		
+
 		// la nave non ha cabine d'equipaggio collegate alla sovrastruttura
-		if(cabineCollegate.isEmpty()) {
+		if (cabineCollegate.isEmpty()) {
 			return false;
 		}
 
 		// rimuovo la cabina di partenza, se c'è
-		sovrastrutture.removeIf(p -> p.getTipo() == TipoComponente.CABINA_PARTENZA);
+		cabineCollegate.removeIf(p -> p.getTipo() == TipoComponente.CABINA_PARTENZA);
 
-		boolean sceltaValida;
 		do {
 			// lascio all'utente la possibilità di scegliere in quale cabina posizionare
 			// l'alieno
@@ -352,11 +360,8 @@ public class GestoreComponenti {
 				int scelta = io.stampaMenu(menu);
 				if (scelta == 1)
 					return false;
-				else
-					sceltaValida = false;
 			}
-		} while (!sceltaValida);
-		return false;
+		} while (true);
 	}
 
 	// posiziona l'altronauta in una qualunque cabina d'equipaggio o di partenza
