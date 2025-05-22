@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import model.Giocatore;
 import model.planciaDiVolo.Plancia;
-import partita.ModalitaGioco;
+import partita.LivelliPartita;
 import model.carte.TipoCarta;
 import model.carte.Carta;
 
@@ -26,9 +26,9 @@ public class Volo {
 	GestoreIO gestoreIO = new GestoreIO();
 	FormattatoreGrafico formattatore = new FormattatoreGrafico();
 
-	public Volo(ModalitaGioco modalitaGioco, Giocatore[] giocatori, List<Carta> carte) {
+	public Volo(LivelliPartita livello, Giocatore[] giocatori, List<Carta> carte) {
 		this.giocatori = giocatori;
-		this.plancia = new Plancia(giocatori, modalitaGioco.getlivelloPartita());
+		this.plancia = new Plancia(giocatori, livello);
 		this.carte = carte;
 		this.managerInVolo = new ArrayList<>();
 		this.managerDiVolo = new ArrayList<>();
