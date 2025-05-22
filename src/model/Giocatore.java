@@ -47,9 +47,6 @@ public class Giocatore implements Formattabile {
 	}
 
 	public void setNave(TipoNave tipoNave) {
-		if (this.nave != null) {
-			throw new IllegalStateException("La nave è già stata assegnata");
-		}
 		this.nave = new Nave(tipoNave, colore);
 	}
 
@@ -102,9 +99,11 @@ public class Giocatore implements Formattabile {
 	 * @throws IllegalStateException Se un titolo è già stato assegnato.
 	 */
 	public void setTipoTitolo(TipoTitolo titolo) {
-		if (this.tipoTitolo != null) {
+		if (this.tipoTitolo == null) {
 			this.tipoTitolo = titolo;
 		} else {
+			if(titolo == this.tipoTitolo)
+				return;
 			throw new IllegalStateException("Il titolo è già stato assegnato.");
 		}
 

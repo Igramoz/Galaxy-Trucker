@@ -2,7 +2,6 @@ package model.carte;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import model.carte.colpo.Colpo;
 import model.carte.criteriEffetti.Criterio;
 import model.carte.criteriEffetti.CriterioConEffetto;

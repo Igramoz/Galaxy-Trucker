@@ -1,7 +1,6 @@
 package model.carte.nemici;
 
 import java.util.List;
-
 import model.Giocatore;
 import model.carte.Carta;
 import model.carte.TipoCarta;

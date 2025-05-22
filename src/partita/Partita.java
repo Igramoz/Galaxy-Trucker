@@ -50,7 +50,7 @@ public class Partita {
 		giocatori = composizione.getOrdineFine();
 		
 		// fase di volo
-		Volo volo = new Volo(modalita, giocatori, mazzoDiGioco);
+		Volo volo = new Volo(modalita.getlivelloPartita(), giocatori, mazzoDiGioco);
 		volo.inizializzaPezziDistrutti(numPezziDistrutti);
 		volo.iniziaVolo();
 		
@@ -74,9 +74,10 @@ public class Partita {
 			// eseguo il singolo livello
 			ManagerDiVolo[] managers = voloSingolo(livelloAttuale);
 			
-			//gestisco i titoli
-			ServizioTitoli servizioTitoli = new ServizioTitoli(managers, livelloAttuale);
-			servizioTitoli.gestisciTitoli();
+			//TODO fare in modo che start non restituisccca nulla 
+//			//gestisco i titoli
+//			ServizioTitoli servizioTitoli = new ServizioTitoli(managers, livelloAttuale);
+//			servizioTitoli.gestisciTitoli();
 		}		
 	}
 	
