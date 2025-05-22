@@ -15,7 +15,7 @@ import grafica.TextAligner;
 
 public class Partita {
 	// CLASSE CHE GESTISCE LA PARTITA
-	private Giocatore[] giocatori = new Giocatore[4];
+	private Giocatore[] giocatori;
 	private ModalitaGioco modalita;
 
 	private Inizializzazione inizializzazione = new Inizializzazione();
@@ -28,7 +28,7 @@ public class Partita {
 	
 	public Partita(String args[] ){
 		
-		
+		 giocatori = new Giocatore[args.length];
 		
         Colore[] colori = {Colore.ROSSO, Colore.BLU, Colore.VERDE, Colore.GIALLO};
 
@@ -36,11 +36,8 @@ public class Partita {
         	if(args[i] != null) {
         		giocatori[i] = new Giocatore(args[i], colori[i]);
         		System.out.println(i);
-        	}
-            
+        	}   
         }
-        
-        
         
         modalita = inizializzazione.getModalita();
 		
@@ -105,11 +102,6 @@ public class Partita {
 //			//gestisco i titoli
 //			ServizioTitoli servizioTitoli = new ServizioTitoli(managers, livelloAttuale);
 //			servizioTitoli.gestisciTitoli();
-			
-			
-			
-			
-			
 		}		
 	}
 	
