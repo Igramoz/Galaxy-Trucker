@@ -26,6 +26,7 @@ public class ZonaDiGuerra extends Carta {
 	public void eseguiEvento(ManagerDiVolo[] listaManager) {
 
 		io.stampa(textAligner.alignCenter("Carta zona di guerra"));
+		io.aCapo();
 		for (CriterioConEffetto criterioEpenalita : criteriEpenalita) {
 
 			Criterio criterio = criterioEpenalita.getCriterio();

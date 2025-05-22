@@ -7,6 +7,7 @@ import java.util.List;
 import io.GestoreIO;
 import model.carte.*;
 import model.carte.colpo.Colpo;
+import model.carte.criteriEffetti.CriterioConEffetto;
 import model.carte.pianeti.*;
 import util.layout.Direzione;
 import grafica.CostantiGrafica;
@@ -160,4 +161,22 @@ public class CarteRenderer {
 		io.stampa("si può guadagnare " + naveAbbandonata.getCrediti() + " crediti");
 		io.stampa("scegliere guadagnare i crediti comporta la perdita di " + naveAbbandonata.getTempoDiVolo());
 	}
+	
+	public void rappresentaCarta(ZonaDiGuerra zonaDiGuerra) {
+		io.aCapo();
+		io.stampa(textAligner.alignCenter("Carta zona di guerra"));
+		io.aCapo();
+		
+		io.stampa("la carta ha 3 criteri e 3 effetti");
+		io.stampa("il giocatore che risulta peggiore secondo ciascun criterio");
+		io.stampa("subirà il corrispondente effetto");
+		
+		List<CriterioConEffetto> criteriEdEffetti= zonaDiGuerra.getCriteriEpenalita();
+		for(CriterioConEffetto criterioEdEffetto : criteriEdEffetti) {
+			io.stampa("criterio: " + criterioEdEffetto.getCriterio().name() + " -> effetto: " + criterioEdEffetto.getPenalita().name());
+		io.aCapo();
+		}
+		
+	}
+	
 }

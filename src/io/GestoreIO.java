@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import grafica.GraficaConfig;
 import grafica.TextAligner;
+import grafica.formattatori.Formattabile;
 import grafica.formattatori.FormattatoreGrafico;
 import grafica.renderer.ComponenteRenderer;
 import model.componenti.Componente;
@@ -109,9 +110,12 @@ public class GestoreIO implements InterfacciaUtente{
 		}
 	}
 
+	/**
+	 * stampa il menu e riporta la risposta dell'utente sia compresa tra 0 e menu.length - 1
+	 * @param menu, ciascun elemento dell'array deve essere un'opzione
+	 */
 	public int stampaMenu(String[] menu) {
-		// stampa il menu e riporta la risposta dell'utente sia compresa tra 0 e
-		// menu.length - 1
+
 		if (menu == null || menu.length == 0) {
 			return -1;
 		}else if (menu.length == 1) {
@@ -142,17 +146,30 @@ public class GestoreIO implements InterfacciaUtente{
 		return scelta;
 	}
 
-	// funzione per fare scegliere all'utente un valore di un enum
+	/**
+	 * Funzione per fare scegliere all'utente un valore di un enum
+	 * @param enumerato da stampare
+	 */
 	public <T extends Enum<T>> T scegliEnum(Class<T> enumerato) {
+		FormattatoreGrafico formattatore = new FormattatoreGrafico();
 		T[] elementiEnum = enumerato.getEnumConstants();
 		String[] menu = new String[elementiEnum.length];
 		for (int i = 0; i < elementiEnum.length; i++) {
-			menu[i] = elementiEnum[i].name();
+		    if (elementiEnum[i] instanceof Formattabile) {
+		    	menu[i] = formattatore.formatta((Formattabile)elementiEnum[i]);
+		    } else {
+		        menu[i] = elementiEnum[i].name();
+		    }
 		}
 		int scelta = stampaMenu(menu);
 		return elementiEnum[scelta];
 	}
 	
+	
+	/**
+	 * Permette all'utente di scegliere un componente da una lista
+	 * @param lista dal quale scegliere un componente
+	 */
 	public Componente menuComponenti(List<Componente> componenti) {
 		if (componenti == null || componenti.isEmpty()) {
 			return null;
