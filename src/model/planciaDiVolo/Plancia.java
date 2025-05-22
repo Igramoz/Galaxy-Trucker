@@ -64,7 +64,9 @@ public class Plancia {
 		return (float)GiorniDiVoloGiocatori.getOrDefault(giocatore, 0)/tipoPlancia.getLunghezza(); // restituisce il numero di giorni di volo del giocatore
 	}
 	
-	
+	public boolean isInVolo(Giocatore g) {
+		return GiorniDiVoloGiocatori.containsKey(g); 
+	}
 
 	//sposta un giocatore per n giorni di volo
 	public void spostaGiocatore(int giorniVolo, Giocatore giocatore) {

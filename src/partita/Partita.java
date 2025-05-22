@@ -9,11 +9,13 @@ import partita.fasiGioco.*;
 import partita.fasiGioco.composizioneNave.ComposizioneNave;
 import partita.fasiGioco.volo.ManagerDiVolo;
 import partita.fasiGioco.volo.Volo;
-import servizi.ServizioTitoli;
+import io.GestoreIO;
+import grafica.Colore;
+import grafica.TextAligner;
 
 public class Partita {
 	// CLASSE CHE GESTISCE LA PARTITA
-	private Giocatore[] giocatori;
+	private Giocatore[] giocatori = new Giocatore[4];
 	private ModalitaGioco modalita;
 
 	private Inizializzazione inizializzazione = new Inizializzazione();
@@ -22,7 +24,27 @@ public class Partita {
 	public Partita() {
 		giocatori = inizializzazione.getGiocatori();
 		modalita = inizializzazione.getModalita();
+	}
+	
+	public Partita(String args[] ){
+		
+		
+		
+        Colore[] colori = {Colore.ROSSO, Colore.BLU, Colore.VERDE, Colore.GIALLO};
 
+        for (int i = 0; i < args.length; i++) {
+        	if(args[i] != null) {
+        		giocatori[i] = new Giocatore(args[i], colori[i]);
+        		System.out.println(i);
+        	}
+            
+        }
+        
+        
+        
+        modalita = inizializzazione.getModalita();
+		
+		
 	}
 
 	public void gioca() {
@@ -69,6 +91,11 @@ public class Partita {
 		// si gioca ogni livello uno dopo l'altro
 		for(LivelliPartita livelloAttuale :LivelliPartita.values()) {
 			
+			GestoreIO gestoreIO = new GestoreIO();
+			TextAligner a = new TextAligner();
+			
+			gestoreIO.stampa(a.alignCenter("INIZIO LIVELLO " + livelloAttuale.getNumeroLivello()));
+			
 			modalita.setlivelloPartita(livelloAttuale);
 			
 			// eseguo il singolo livello
@@ -78,6 +105,11 @@ public class Partita {
 //			//gestisco i titoli
 //			ServizioTitoli servizioTitoli = new ServizioTitoli(managers, livelloAttuale);
 //			servizioTitoli.gestisciTitoli();
+			
+			
+			
+			
+			
 		}		
 	}
 	
