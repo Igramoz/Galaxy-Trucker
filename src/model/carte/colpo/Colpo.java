@@ -2,6 +2,7 @@ package model.carte.colpo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import util.layout.Direzione;
 
@@ -68,6 +69,23 @@ public class Colpo {
 				out.add(elemento);
 		}
 		return out;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(dimensioniColpo, direzione, tipoColpo);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Colpo other = (Colpo) obj;
+		return dimensioniColpo == other.dimensioniColpo && direzione == other.direzione && tipoColpo == other.tipoColpo;
 	}
 
 }

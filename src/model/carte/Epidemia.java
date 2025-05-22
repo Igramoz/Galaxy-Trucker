@@ -23,4 +23,21 @@ public class Epidemia extends Carta {
 					+ " membri totali dal proprio equipaggio");
 		}
 	}
+
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+
+	/**
+	 * La carta epidemia non ha attributi particolari, quindi,
+	 * a meno che la reference sia la stessa, 2 carte sabotaggio sono diverse
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+
+		return false;
+	}
 }

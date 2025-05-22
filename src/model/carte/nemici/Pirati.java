@@ -1,6 +1,7 @@
 package model.carte.nemici;
 
 import java.util.List;
+import java.util.Objects;
 
 import grafica.TextAligner;
 import grafica.formattatori.FormattatoreGrafico;
@@ -67,5 +68,25 @@ public class Pirati extends Nemico {
 
 	public List<Colpo> getCannonate() {
 		return cannonate;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(cannonate, numeroCrediti);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Pirati other = (Pirati) obj;
+		return Objects.equals(cannonate, other.cannonate) && numeroCrediti == other.numeroCrediti;
 	}
 }

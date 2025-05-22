@@ -1,5 +1,7 @@
 package model.carte;
 
+import java.util.Objects;
+
 import model.carte.criteriEffetti.Criterio;
 import partita.fasiGioco.volo.ManagerDiVolo;
 import servizi.ServizioDadi;
@@ -59,6 +61,26 @@ public class Sabotaggio extends Carta {
 
 	public Criterio getCriterio() {
 		return criterio;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(criterio);
+		return result;
+	}
+
+	/**
+	 * La carta sabotaggio non ha attributi particolari, quindi,
+	 * a meno che la reference sia la stessa, 2 carte sabotaggio sono diverse
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+
+		return false;
 	}
 
 }

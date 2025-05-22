@@ -48,6 +48,8 @@ Il progetto è suddiviso in package con responsabilità distinte:
 
 3. Esegui la classe `main.Main` per giocare.
 
+4. Regolare lo zoom per nascondere la linea verticale a destra, oppure modificare il valore della costante `LARGHEZZA_SCHERMO` nella classe `GraficaConfig`, appartenente al package `grafica`.
+
 ---
 
 ## Cranio Creations

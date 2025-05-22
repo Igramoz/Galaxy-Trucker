@@ -133,7 +133,7 @@ public class TextAligner {
 	private String[] aggiungiRighe(String[] righe, int righeDaRaggiungere) {
 
 		if (righe == null) {
-			throw new IllegalArgumentException("L'array di righe non può essere null.");
+			throw new NullPointerException("L'array di righe non può essere null.");
 		}
 
 		if (righeDaRaggiungere < righe.length) {
