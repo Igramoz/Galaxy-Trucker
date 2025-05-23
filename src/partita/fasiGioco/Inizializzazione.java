@@ -25,6 +25,12 @@ public class Inizializzazione {
 		formattatore = new FormattatoreGrafico();
 	}
 
+	/**
+	 * Funzione iniziale del gioco che richiede la scelta e l'inserimento del numero
+	 * dei giocatori, e dei loro rispettivi nomi e colori
+	 * 
+	 * @return restituisce l'array dei giocatori partecipanti
+	 */
 	public Giocatore[] getGiocatori() {
 		Giocatore.resetNumeroGiocatori();
 		// gestione numero dei giocatori
@@ -44,7 +50,6 @@ public class Inizializzazione {
 			int lunghezza = COLORI_RIMASTI.size();
 			String[] menuColori = new String[lunghezza];
 			for (int j = 0; j < lunghezza; j++) {
-//				menuColori[j] = COLORI_RIMASTI.get(j).toString();
 				menuColori[j] = formattatore.formatta(COLORI_RIMASTI.get(j));
 			}
 
@@ -60,6 +65,12 @@ public class Inizializzazione {
 		return giocatori;
 	}
 
+	/**
+	 * Funzione che richiede ai giocatori la scelta della modalità e del rispettivo
+	 * livello di difficoltà
+	 * 
+	 * @return restituisce la modalità di gioco scelta, a cui è associato il livello
+	 */
 	public ModalitaGioco getModalita() {
 		// preparo il menu per scegliere la modalità
 		String[] menuModalita = { "Volo Singolo", "Trasvolata Intergalattica" };

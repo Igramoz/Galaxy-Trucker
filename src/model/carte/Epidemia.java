@@ -3,13 +3,16 @@ package model.carte;
 import model.Giocatore;
 import partita.fasiGioco.volo.ManagerDiVolo;
 
-
 public class Epidemia extends Carta {
 
 	public Epidemia() {
 		super(TipoCarta.EPIDEMIA);
 	}
 
+	/**
+	 * La carta epidemia elimina un membro dell'equipaggio da tutte le cabine
+	 * adiacenti tra di loro.
+	 */
 	@Override
 	public void eseguiEvento(ManagerDiVolo[] listaManager) {
 		io.stampa(textAligner.alignCenter("Carta epidemia"));
@@ -30,8 +33,8 @@ public class Epidemia extends Carta {
 	}
 
 	/**
-	 * La carta epidemia non ha attributi particolari, quindi,
-	 * a meno che la reference sia la stessa, 2 carte sabotaggio sono diverse
+	 * La carta epidemia non ha attributi particolari, quindi, a meno che la
+	 * reference sia la stessa, 2 carte epidemia sono diverse
 	 */
 	@Override
 	public boolean equals(Object obj) {

@@ -16,6 +16,15 @@ public class Xenoquartiermastro extends Titolo {
 		super();
 	}
 
+	/**
+	 * La funzione stabilisce qual è il giocatore che rispetta il seguente criterio:
+	 * per ogni alieno sulla tua nave, somma la sua distanza dalla cabina più
+	 * vicina.
+	 * 
+	 * @param giocatori: lista dei giocatori valutabili
+	 * @return out: il giocatore la cui somma delle distanze, secondo il criterio,
+	 *         risulta maggiore.
+	 */
 	@Override
 	public Giocatore valutaTitolo(List<Giocatore> giocatori) {
 		Giocatore out = giocatori.get(0);
@@ -26,31 +35,42 @@ public class Xenoquartiermastro extends Titolo {
 		return out;
 	}
 
+	/**
+	 * Questa funzione somma le distanze tra ciascun alieno, e cabina più vicina.
+	 * 
+	 * @param n: nave del giocatore
+	 * @return sommaDistanze, oppure 0 se non ci sono alieni.
+	 */
 	private int sommaDistanzeCabineAlieni(Nave n) {
 		List<Componente> cabine = n.getCopiaComponenti(TipoComponente.CABINA_EQUIPAGGIO);
 		List<CabinaDiEquipaggio> cabineConAlieni = new ArrayList<>();
-		int numeroAlieni = 0;
 		for (Componente comp : cabine) {
 			CabinaDiEquipaggio c = (CabinaDiEquipaggio) comp;
 			List<TipoPedina> equipaggio = c.getEquipaggio();
 			for (TipoPedina pedina : equipaggio) {
 				if (pedina == TipoPedina.ALIENO_MARRONE || pedina == TipoPedina.ALIENO_VIOLA) {
 					cabineConAlieni.add(c);
-					numeroAlieni++;
 				}
 			}
 		}
-		if (numeroAlieni == 0)
-			return numeroAlieni;
+		if (cabineConAlieni.size() == 0)
+			return 0;
 
 		int sommaDistanze = 0;
 		for (CabinaDiEquipaggio cabina : cabineConAlieni) {
 			sommaDistanze += getDistanzaTraCabine(cabine, cabina);
 		}
-		
+
 		return sommaDistanze;
 	}
 
+	/**
+	 * Trova la distanza tra l'alieno e la cabina più vicina
+	 * 
+	 * @param listaCabine: cabine di equipaggio totali della nave.
+	 * @param cabina:      quella dove si trova l'alieno.
+	 * @return minorDistanza
+	 */
 	private int getDistanzaTraCabine(List<Componente> listaCabine, CabinaDiEquipaggio cabina) {
 		int minorDistanza = 100;
 		for (Componente c : listaCabine) {
