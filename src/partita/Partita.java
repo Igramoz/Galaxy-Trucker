@@ -21,26 +21,28 @@ public class Partita {
 	private Inizializzazione inizializzazione = new Inizializzazione();
 	private FineGioco fine;
 
-	public Partita() {
-		giocatori = inizializzazione.getGiocatori();
-		modalita = inizializzazione.getModalita();
-	}
 	
 	public Partita(String args[] ){
 		
-		 giocatori = new Giocatore[args.length];
-		
-        Colore[] colori = {Colore.ROSSO, Colore.BLU, Colore.VERDE, Colore.GIALLO};
-
-        for (int i = 0; i < args.length; i++) {
-        	if(args[i] != null) {
-        		giocatori[i] = new Giocatore(args[i], colori[i]);
-        		System.out.println(i);
-        	}   
-        }
-        
-        modalita = inizializzazione.getModalita();
-		
+		if (args.length == 0) {
+	        // Chiama il costruttore senza argomenti
+	        giocatori = inizializzazione.getGiocatori();
+	        modalita = inizializzazione.getModalita();
+	    }else {
+			
+			 giocatori = new Giocatore[args.length];
+			
+			 Colore[] colori = {Colore.ROSSO, Colore.BLU, Colore.VERDE, Colore.GIALLO};
+	
+			 for (int i = 0; i < args.length; i++) {
+	        	if(args[i] != null) {
+	        		giocatori[i] = new Giocatore(args[i], colori[i]);
+	        		System.out.println(i);
+	        	}   
+			 }
+	        
+			 modalita = inizializzazione.getModalita();
+	    }
 		
 	}
 

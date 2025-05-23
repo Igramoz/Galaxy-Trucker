@@ -51,7 +51,8 @@ public class FineGioco {
 		int scelta = gestoreIO.stampaMenu(menu);
 		switch (scelta) {
 		case 0:
-			Partita p = new Partita();
+			String temp[] = new String[0];
+			Partita p = new Partita(temp);
 			p.gioca();
 			break;
 		case 1:

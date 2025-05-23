@@ -1,8 +1,10 @@
 #!/bin/bash
 
 # Compila
-find ./src -name "*.java" > sources.txt
-javac -d bin @sources.txt
+
+javac -d bin $(find src -name "*.java")
+
+
 if [ $? -ne 0 ]; then
   echo "❌ Errore durante la compilazione"
   exit 1
@@ -32,4 +34,4 @@ fi
 
 # Esegui
 echo "✅ Avvio partita con: ${noms[*]}"
-java -cp bin main.MainFromArgs "${noms[@]}"
+java -cp bin main.Main "${noms[@]}"
