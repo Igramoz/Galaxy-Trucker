@@ -57,5 +57,5 @@ Per maggiori informazioni sul gioco originale, consultare la pagina ufficiale:
 
 ---
 
-Progetto sviluppato per l’esame di Programmazione ad Oggetti –[Università degli Studi di Bergamo](https://www.unibg.it/)  
+Progetto sviluppato per l’esame di Programmazione ad Oggetti presso l'[Università degli Studi di Bergamo](https://www.unibg.it/)  
 Gruppo 38

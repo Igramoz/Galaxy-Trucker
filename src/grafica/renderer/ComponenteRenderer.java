@@ -20,7 +20,9 @@ public class ComponenteRenderer {
 	public String[] rappresentaComponente(Componente componente) {
 
 		/*
-		 * Esempio di output: || #MD = |
+		 * Esempio di output: 	  ||
+		 * 						 #MD = 
+		 * 						  |
 		 */
 		String[] rappresentazioneComponente = new String[CostantiGrafica.ALTEZZA_COMPONENTE];
 
