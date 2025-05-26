@@ -5,6 +5,7 @@ import io.GestoreIO;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import grafica.TextAligner;
 import grafica.formattatori.FormattatoreGrafico;
@@ -53,6 +54,27 @@ public class PolvereStellare extends Carta {
 
 	public Effetto getEffetto() {
 		return effetto;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(effetto, penalitaTempoVoloPerConnettoreEsposto);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PolvereStellare other = (PolvereStellare) obj;
+		return effetto == other.effetto
+				&& penalitaTempoVoloPerConnettoreEsposto == other.penalitaTempoVoloPerConnettoreEsposto;
 	}
 	
 }

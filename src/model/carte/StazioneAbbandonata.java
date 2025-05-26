@@ -2,6 +2,7 @@ package model.carte;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import grafica.formattatori.FormattatoreGrafico;
 import grafica.renderer.CarteRenderer;
@@ -64,6 +65,27 @@ public class StazioneAbbandonata extends Carta {
 
 	public Effetto getEffetto() {
 		return effetto;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(effetto, merci, numEquipaggio, tempoDiVolo);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		StazioneAbbandonata other = (StazioneAbbandonata) obj;
+		return effetto == other.effetto && Objects.equals(merci, other.merci) && numEquipaggio == other.numEquipaggio
+				&& tempoDiVolo == other.tempoDiVolo;
 	}
 
 }

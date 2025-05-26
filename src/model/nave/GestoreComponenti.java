@@ -25,33 +25,7 @@ public class GestoreComponenti {
 		this.nave = nave;
 	}
 
-	/**
-	 * Sceglie un componente della nave in base ai tipi specificati e restituisce la
-	 * posizione di un componente.
-	 * 
-	 * @param tipoComponente1 un tipo di componente da selezionare.
-	 * @param tipoComponente2 (Opzionale) Il secondo tipo di componente da
-	 *                        considerare. Se null, viene considerato solo il primo
-	 *                        tipo di componente.
-	 * @return La posizione del componente scelto come {@link Coordinate}, oppure
-	 *         <strong> null </strong> se non ci sono componenti disponibili per i
-	 *         tipi specificati.
-	 */
-	public Coordinate scegliComponente(TipoComponente tipoComponente1, TipoComponente tipoComponente2) {
-		List<Componente> componenti = nave.getCopiaComponenti(tipoComponente1);
-		if (tipoComponente2 != null) {
-			componenti.addAll(nave.getCopiaComponenti(tipoComponente2));
-		}
-
-		if (componenti.isEmpty())
-			return null;
-
-		return io.menuComponenti(componenti).getPosizione();
-	}
-
-	private Coordinate scegliComponente(TipoComponente tipoComponente1) {
-		return scegliComponente(tipoComponente1, null);
-	}
+	
 
 	// restituisce false se non posiziona tutte le merci
 	public boolean posizionaMerciInNave(List<TipoMerce> merci) {
@@ -77,9 +51,9 @@ public class GestoreComponenti {
 			sceltaValida = true;
 			Coordinate posizione = null;
 			if (merce == TipoMerce.ROSSO) {
-				posizione = scegliComponente(TipoComponente.STIVA_SPECIALE);
+				posizione = nave.getAnalizzatoreNave().scegliComponente(TipoComponente.STIVA_SPECIALE);
 			} else {
-				posizione = scegliComponente(TipoComponente.STIVA_SPECIALE, TipoComponente.STIVA);
+				posizione = nave.getAnalizzatoreNave().scegliComponente(TipoComponente.STIVA_SPECIALE, TipoComponente.STIVA);
 			}
 
 			if (posizione == null) {
@@ -150,9 +124,9 @@ public class GestoreComponenti {
 		do {
 			Coordinate posizione = null;
 			if (merce == TipoMerce.ROSSO) {
-				posizione = scegliComponente(TipoComponente.STIVA_SPECIALE);
+				posizione = nave.getAnalizzatoreNave().scegliComponente(TipoComponente.STIVA_SPECIALE);
 			} else {
-				posizione = scegliComponente(TipoComponente.STIVA_SPECIALE, TipoComponente.STIVA);
+				posizione = nave.getAnalizzatoreNave().scegliComponente(TipoComponente.STIVA_SPECIALE, TipoComponente.STIVA);
 			}
 
 			if (posizione == null) {
@@ -233,9 +207,9 @@ public class GestoreComponenti {
 			io.stampa("Scegliere la cabina da cui rimuovere la pedina: ");
 			Coordinate posizione = null;
 			if (pedinaDaRimuovere == TipoPedina.ASTRONAUTA) {
-				posizione = scegliComponente(TipoComponente.CABINA_EQUIPAGGIO, TipoComponente.CABINA_PARTENZA);
+				posizione = nave.getAnalizzatoreNave().scegliComponente(TipoComponente.CABINA_EQUIPAGGIO, TipoComponente.CABINA_PARTENZA);
 			} else {
-				posizione = scegliComponente(TipoComponente.CABINA_EQUIPAGGIO);
+				posizione = nave.getAnalizzatoreNave().scegliComponente(TipoComponente.CABINA_EQUIPAGGIO);
 			}
 			
 			if (posizione == null) {
@@ -393,7 +367,7 @@ public class GestoreComponenti {
 			io.aCapo();
 			io.stampa("Scegliere da quale vano rimuovere l'energia");
 
-			Coordinate posizioneVanoBatteria = scegliComponente(TipoComponente.VANO_BATTERIA);
+			Coordinate posizioneVanoBatteria = nave.getAnalizzatoreNave().scegliComponente(TipoComponente.VANO_BATTERIA);
 
 			if (posizioneVanoBatteria == null)
 				return false;

@@ -1,5 +1,7 @@
 package model.carte.criteriEffetti;
 
+import java.util.Objects;
+
 public class CriterioConEffetto {
 		private final Criterio criterio;
 		private final Effetto effetto;
@@ -23,5 +25,22 @@ public class CriterioConEffetto {
 
 		public Object getValore() {
 			return valore;
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(criterio, effetto, valore);
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			CriterioConEffetto other = (CriterioConEffetto) obj;
+			return criterio == other.criterio && effetto == other.effetto && Objects.equals(valore, other.valore);
 		}
 }

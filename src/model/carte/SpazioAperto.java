@@ -1,9 +1,8 @@
 package model.carte;
+import java.util.Objects;
+
 import model.carte.criteriEffetti.Effetto;
 import partita.fasiGioco.volo.ManagerDiVolo;
-
-
-
 
 
 public class SpazioAperto extends Carta {
@@ -29,6 +28,26 @@ public class SpazioAperto extends Carta {
 			effetto.applica(manager, potenzaMotrice);
 
 		}
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(effetto);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SpazioAperto other = (SpazioAperto) obj;
+		return effetto == other.effetto;
 	}
 	
 }

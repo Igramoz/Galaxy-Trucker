@@ -84,15 +84,14 @@ public abstract class Componente {
 	public TipoTubo getTubo(Direzione direzione) {
 		return tubi.get(direzione);
 	}
-
-	// genera uncopia dei tubi
+	/**
+	 * Restutisce una copia della mappa dei tubi del componente.
+	 * 
+	 * @return la copia della mappa dei tubi del componente 
+	 */
 	public Map<Direzione, TipoTubo> getTubi() {
-		Map<Direzione, TipoTubo> copiaTubi = new EnumMap<>(Direzione.class);
-		Direzione[] direzione = Direzione.values();
-		for (int i = 0; i < direzione.length; i++) {
-			tubi.put(direzione[i], this.tubi.get(direzione[i]));
-		}
-		return copiaTubi;
+	    // Restituisce una copia della mappa tubi
+	    return new EnumMap<>(this.tubi);
 	}
 
 	public int getMaxIstanze() {

@@ -1,6 +1,7 @@
 package model.carte.nemici;
 
 import java.util.List;
+import java.util.Objects;
 
 import model.Giocatore;
 import model.carte.Carta;
@@ -76,6 +77,27 @@ public abstract class Nemico extends Carta {
 			applicaSconfitta(sconfitti);
 		
 		io.stampa("La carta: " + this.getTipoCarta().name() + " è stata risolta." );		
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(GiorniDiVoloPersi, effettoSconfitta, effettoVittoria, forzaNemico);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Nemico other = (Nemico) obj;
+		return GiorniDiVoloPersi == other.GiorniDiVoloPersi && effettoSconfitta == other.effettoSconfitta
+				&& effettoVittoria == other.effettoVittoria && forzaNemico == other.forzaNemico;
 	}
 
 }

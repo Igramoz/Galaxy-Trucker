@@ -210,6 +210,13 @@ public class ServizioCarte {
 		}
 	}
 
+	/**
+	 * Si occupa di generare delle carte pianeti con caratteristiche differenti in
+	 * base al livello della partita.
+	 * 
+	 * @param livello
+	 * @return carte: lista della carte generate
+	 */
 	private List<CartaPianeti> generaCartaPianeti(LivelliPartita livello) {
 		List<CartaPianeti> carte = new ArrayList<>();
 		int numeroCarte = TipoCarta.PIANETI.getNumeroCarte(livello);
@@ -264,6 +271,13 @@ public class ServizioCarte {
 		return carte;
 	}
 
+	/**
+	 * Associa ad ogni elemento dell'enum colore una probabilità
+	 * 
+	 * @param colorePianeta
+	 * @return probabilita: l'insieme dei valori dell'enum Colore, a cui è stata
+	 *         associata una probabilità in base al colore
+	 */
 	private Map<Colore, Integer> generaProbabilitaMerci(Colore colorePianeta) {
 		Map<Colore, Integer> probabilita = new HashMap<>();
 		for (Colore colore : Colore.values()) {

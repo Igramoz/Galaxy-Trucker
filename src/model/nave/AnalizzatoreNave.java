@@ -29,7 +29,7 @@ public class AnalizzatoreNave {
 	private GestoreIO io = new GestoreIO();
 	private FormattatoreGrafico formattatoreGrafico = new FormattatoreGrafico();
 
-	protected AnalizzatoreNave(Nave nave) {
+	public AnalizzatoreNave(Nave nave) {
 		if (nave == null) {
 			throw new NullPointerException("La nave non può essere null");
 		}
@@ -37,6 +37,35 @@ public class AnalizzatoreNave {
 		this.nave = nave;
 	}
 
+	/**
+	 * Sceglie un componente della nave in base ai tipi specificati e restituisce la
+	 * posizione di un componente.
+	 * 
+	 * @param tipoComponente1 un tipo di componente da selezionare.
+	 * @param tipoComponente2 (Opzionale) Il secondo tipo di componente da
+	 *                        considerare. Se null, viene considerato solo il primo
+	 *                        tipo di componente.
+	 * @return La posizione del componente scelto come {@link Coordinate}, oppure
+	 *         <strong> null </strong> se non ci sono componenti disponibili per i
+	 *         tipi specificati.
+	 */
+	public Coordinate scegliComponente(TipoComponente tipoComponente1, TipoComponente tipoComponente2) {
+		List<Componente> componenti = nave.getCopiaComponenti(tipoComponente1);
+		if (tipoComponente2 != null) {
+			componenti.addAll(nave.getCopiaComponenti(tipoComponente2));
+		}
+
+		if (componenti.isEmpty())
+			return null;
+
+		return io.menuComponenti(componenti).getPosizione();
+	}
+
+	public Coordinate scegliComponente(TipoComponente tipoComponente1) {
+		return scegliComponente(tipoComponente1, null);
+	}
+	
+	
 	public Map<Direzione, Componente> getCopiaComponentiAdiacenti(Coordinate coord) {
 		if(coord == null)
 			throw new NullPointerException("Non è possibile trovare i componenti adiacenti ad una posizione nulla");
@@ -104,6 +133,7 @@ public class AnalizzatoreNave {
 	}
 
 	/**
+	 * funzione per contare i connettori esposti di un componente
 	 * @param componete al centro
 	 * @return numero componenti esposti
 	 */
@@ -221,7 +251,14 @@ public class AnalizzatoreNave {
 
 		for (Map.Entry<Direzione, TipoTubo> entry : tubiSovrastruttura.entrySet()) {
 			if (entry.getValue() != TipoTubo.NESSUNO) {
-				TipoComponente tipoComponente = componentiAdiacenti.get(entry.getKey()).getTipo();
+				
+				Componente adiacente = componentiAdiacenti.get(entry.getKey());
+				
+				if (adiacente == null) {
+					continue; // non c'è un componente adiacente in quella direzione
+				}
+				
+				TipoComponente tipoComponente = adiacente.getTipo();
 				if (tipoComponente == TipoComponente.CABINA_EQUIPAGGIO
 						|| tipoComponente == TipoComponente.CABINA_PARTENZA) {
 					cabineCollegate.add(componentiAdiacenti.get(entry.getKey()));

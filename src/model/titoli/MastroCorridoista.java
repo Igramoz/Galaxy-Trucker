@@ -13,6 +13,17 @@ import model.enums.TipoTubo;
 
 public class MastroCorridoista extends Titolo {
 
+	public MastroCorridoista() {
+		super();
+	}
+
+	/**
+	 * La funzione stabilisce qual è il giocatore la cui nave contiene il maggior
+	 * numero di componenti con almeno una merce presente.
+	 * 
+	 * @param giocatori: lista dei giocatori valutabili
+	 * @return out: il giocatore secondo il criterio già citato
+	 */
 	@Override
 	public Giocatore valutaTitolo(List<Giocatore> giocatori) {
 		Giocatore out = giocatori.get(0);
@@ -23,6 +34,13 @@ public class MastroCorridoista extends Titolo {
 		return out;
 	}
 
+	/**
+	 * Controlla se ogni componente della nave sia un corridoio o meno, e ottiene la
+	 * max lunghezza del corridoio trovato.
+	 * 
+	 * @param n: nave del giocatore
+	 * @return maxLunghezza trovata
+	 */
 	private int getLunghezzaCorridoio(Nave n) {
 		List<Componente> listaComponentiCorridoio = new ArrayList<>();
 		Componente[][] griglia = n.getGrigliaComponentiCloni();
@@ -43,7 +61,13 @@ public class MastroCorridoista extends Titolo {
 		return maxLunghezza;
 	}
 
-	// un componente è un corridoio se il numero dei suoi tubi è esattamente 1 o 2
+	/**
+	 * Controlla se un componente è un corridoio, cioè se il numero dei suoi tubi è
+	 * esattamente 1 o 2
+	 * 
+	 * @param c: componente da controllare
+	 * @return false se è null, oppure se i suoi tubi non sono nè 1 nè 2
+	 */
 	private boolean isCorridoio(Componente c) {
 		if (c == null)
 			return false;
@@ -58,17 +82,27 @@ public class MastroCorridoista extends Titolo {
 		return numTubi == 1 || numTubi == 2;
 	}
 
-	// calcola e restituisce la lunghezza max del corridoio trovato
-	private int calcolaLunghezzaCorridoio(Nave n, Componente c, List<Coordinate> coordinateGiaEsaminate) {
+	/**
+	 * Calcola e restituisce la lunghezza max del corridoio trovato
+	 * 
+	 * @param n:               nave del giocatore
+	 * @param c:               componente corridoio
+	 * @param checkCoordinate: lista delle coordinate dei componenti che sono già
+	 *                         stati interamente controllati, necessaria per non
+	 *                         conteggiare più volte lo stesso componente
+	 * @return maxLunghezza + 1: ogni ricorsione di questa funzione aumenta di 1
+	 *         questa funzione
+	 */
+	private int calcolaLunghezzaCorridoio(Nave n, Componente c, List<Coordinate> checkCoordinate) {
 		Map<Direzione, Componente> adiacenti = n.getCopiaComponentiAdiacenti(c.getPosizione());
 		int maxLunghezza = 0;
-		coordinateGiaEsaminate.add(c.getPosizione());
+		checkCoordinate.add(c.getPosizione());
 
 		for (Direzione d : Direzione.values()) {
 			Componente adiacente = adiacenti.get(d);
-			if (isCorridoio(adiacente) && !coordinateGiaEsaminate.contains(adiacente.getPosizione())) {
+			if (isCorridoio(adiacente) && !checkCoordinate.contains(adiacente.getPosizione())) {
 				// copio la lista per evitare interferenze tra rami
-				List<Coordinate> copiaEsaminate = new ArrayList<>(coordinateGiaEsaminate);
+				List<Coordinate> copiaEsaminate = new ArrayList<>(checkCoordinate);
 				int lunghezza = calcolaLunghezzaCorridoio(n, adiacente, copiaEsaminate);
 				if (lunghezza > maxLunghezza)
 					maxLunghezza = lunghezza;

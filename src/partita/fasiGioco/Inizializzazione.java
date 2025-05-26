@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import grafica.Colore;
+import grafica.formattatori.FormattatoreGrafico;
 import io.GestoreIO;
 import model.Giocatore;
 import partita.LivelliPartita;
@@ -14,22 +15,30 @@ public class Inizializzazione {
 	private Giocatore[] giocatori;
 	private int numGiocatori;
 	private GestoreIO gestoreIO;
+	private FormattatoreGrafico formattatore;
 
 	private static List<Colore> COLORI_RIMASTI;
 
 	public Inizializzazione() {
 		gestoreIO = new GestoreIO();
 		COLORI_RIMASTI = new ArrayList<>(Giocatore.coloriDisponibiliGiocatori);
+		formattatore = new FormattatoreGrafico();
 	}
 
+	/**
+	 * Funzione iniziale del gioco che richiede la scelta e l'inserimento del numero
+	 * dei giocatori, e dei loro rispettivi nomi e colori
+	 * 
+	 * @return restituisce l'array dei giocatori partecipanti
+	 */
 	public Giocatore[] getGiocatori() {
 		Giocatore.resetNumeroGiocatori();
 		// gestione numero dei giocatori
-		gestoreIO.stampa("Inserisci il numero dei giocatori (minimo due, massimo quattro)");
 		do {
+			gestoreIO.stampa("Inserisci il numero dei giocatori (minimo due, massimo quattro)");
 			numGiocatori = gestoreIO.leggiIntero();
 			if (numGiocatori < 2 || numGiocatori > 4)
-				gestoreIO.stampa("Inserisci il numero dei giocatori (minimo due, massimo quattro).");
+				continue;
 		} while (numGiocatori < 2 || numGiocatori > 4);
 		giocatori = new Giocatore[numGiocatori];
 
@@ -41,11 +50,11 @@ public class Inizializzazione {
 			int lunghezza = COLORI_RIMASTI.size();
 			String[] menuColori = new String[lunghezza];
 			for (int j = 0; j < lunghezza; j++) {
-				menuColori[j] = COLORI_RIMASTI.get(j).toString();
+				menuColori[j] = formattatore.formatta(COLORI_RIMASTI.get(j));
 			}
 
 			// ottengo la scelta del colore
-			gestoreIO.stampa("Scegli il colore del giocatore " + (i + 1));
+			gestoreIO.stampa(nome + ", scegli il tuo colore");
 			int sceltaColore = gestoreIO.stampaMenu(menuColori);
 
 			// rimuovo il colore dalla lista
@@ -56,6 +65,12 @@ public class Inizializzazione {
 		return giocatori;
 	}
 
+	/**
+	 * Funzione che richiede ai giocatori la scelta della modalità e del rispettivo
+	 * livello di difficoltà
+	 * 
+	 * @return restituisce la modalità di gioco scelta, a cui è associato il livello
+	 */
 	public ModalitaGioco getModalita() {
 		// preparo il menu per scegliere la modalità
 		String[] menuModalita = { "Volo Singolo", "Trasvolata Intergalattica" };

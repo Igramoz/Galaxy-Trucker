@@ -21,6 +21,12 @@ public class CartaPianeti extends Carta {
 		giorniVoloPersi = giorni;
 	}
 
+	/**
+	 * La carta pianeti gestisce la possibilità dei giocatori presenti di poter
+	 * atterrare su determinati pianeti o meno.
+	 * 
+	 * @param listaManager: array dei giocatori presenti nel volo
+	 */
 	@Override
 	public void eseguiEvento(ManagerDiVolo[] listaManager) {
 		carteRenderer.rappresentaCarta(this);
@@ -41,8 +47,7 @@ public class CartaPianeti extends Carta {
 			// preparazione del menu
 			String[] menu = new String[numPianetiDisponibili + 1];
 			for (int i = 0; i < numPianetiDisponibili; i++) {
-				menu[i] = "Atterra sul Pianeta "
-						+ formattatoreGrafico.formatta(pianetiDisponibili.get(i).getColore());
+				menu[i] = "Atterra sul Pianeta " + formattatoreGrafico.formatta(pianetiDisponibili.get(i).getColore());
 			}
 			menu[numPianetiDisponibili] = "Non voglio atterare";
 

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import model.Giocatore;
 import model.planciaDiVolo.Plancia;
-import partita.ModalitaGioco;
+import partita.LivelliPartita;
 import model.carte.TipoCarta;
 import model.carte.Carta;
 
@@ -26,9 +26,9 @@ public class Volo {
 	GestoreIO gestoreIO = new GestoreIO();
 	FormattatoreGrafico formattatore = new FormattatoreGrafico();
 
-	public Volo(ModalitaGioco modalitaGioco, Giocatore[] giocatori, List<Carta> carte) {
+	public Volo(LivelliPartita livello, Giocatore[] giocatori, List<Carta> carte) {
 		this.giocatori = giocatori;
-		this.plancia = new Plancia(giocatori, modalitaGioco.getlivelloPartita());
+		this.plancia = new Plancia(giocatori, livello);
 		this.carte = carte;
 		this.managerInVolo = new ArrayList<>();
 		this.managerDiVolo = new ArrayList<>();
@@ -55,14 +55,18 @@ public class Volo {
 		while (game) {
 			
 			
+			rimuoviManagerInVolo(); // controllo i giocatori che hanno abbandonato la corsa
 
-			// aggiorno i manager di volo in base alla posizione dei giocatori nella plancia
-			rimuoviManagerInVolo();
-
-			ordinaManegerDiVolo();
-			// controllo se i giocatori sono doppiati o le altre condizioni per abbandonare
-			// la corsa
+			ordinaManegerDiVolo();  // ripristino l' ordine dei giocatori in base a chi è più avanti nel volo
 			
+
+			// controllo le carte
+		    if (carte.isEmpty()) {
+		        game = false;
+		        break;
+		    }
+			
+		    //controllo se hanno abbandonato tutti il volo
 			if(managerInVolo.isEmpty()) {
 				game = false;
 				break;
@@ -73,17 +77,11 @@ public class Volo {
 			ManagerDiVolo[] managers = managerInVolo.toArray(new ManagerDiVolo[0]);
 
 
-			// tolgo la prima carta dalla lista delle carte
-			if (carte.isEmpty()) {
-							game = false;
-							break;// se non ci sono più carte il volo è finito
-			}
-			carte.getFirst().eseguiEvento(managers);
+			
+			carte.get(0).eseguiEvento(managers);
 			carte.remove(0);
 
-
-			
-			gestoreIO.stampa("Scrivi per proseguire con la prossima carta: ");
+			gestoreIO.stampa("premi un tasto per proseguire con la prossima carta: ");
 			gestoreIO.leggiTesto();
 			
 		}
@@ -153,7 +151,7 @@ public class Volo {
 
 		// se ti imbatti in un’avventura Spazio Aperto, devi dichiarare una potenza
 		// motrice maggiore di zero o abbandonare la corsa.
-		if (!carte.isEmpty() && carte.getFirst().getTipoCarta() == TipoCarta.SPAZIO_APERTO) {
+		if (!carte.isEmpty() && carte.get(0).getTipoCarta() == TipoCarta.SPAZIO_APERTO) {
 
 			for (ManagerDiVolo manager : managerInVolo) {
 				if (manager.getGiocatore().getNave().getPotenzaMotrice() <= 0) {

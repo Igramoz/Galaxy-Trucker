@@ -40,17 +40,18 @@ public class PlanciaRenderer {
         
         //riga in mezzo	
         righePlancia[plancia.getGiocatori().length+2] = "";
+       
         
         //prendo la lunghezza e gli tolgo 6 spazi (che sono per per i due giorni di volo dei due lati)
         
-			righePlancia[plancia.getGiocatori().length+2] += SimboloGiornoDiVolo(arrayPlancia[(lunghezza - 2)/2]);
+			righePlancia[plancia.getGiocatori().length+2] += SimboloGiornoDiVolo(arrayPlancia[arrayPlancia.length -1]);
 			
 			for(int i = 0; i < ((lunghezza - 2)/2)-2; i++) {
 	        	
 	        	righePlancia[plancia.getGiocatori().length+2] += "   ";	
 			}
 			
-			righePlancia[plancia.getGiocatori().length+2] += SimboloGiornoDiVolo(arrayPlancia[(lunghezza - 2)/2]);
+			righePlancia[plancia.getGiocatori().length+2] += SimboloGiornoDiVolo(arrayPlancia[(lunghezza)/2 - 1]);
 			
 		//riga finale
 			
@@ -64,12 +65,19 @@ public class PlanciaRenderer {
 			//a capo
 			
 			righePlancia[righe] = "";
+			
+			
         
 
 
         return textAligner.alignCenter(righePlancia);
+        
+        
+        
+        
   
     }
+    
     
     //metodo per formattare il simbolo del giocatore
     private String SimboloGiornoDiVolo(Giocatore giocatore) {

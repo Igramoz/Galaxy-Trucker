@@ -44,13 +44,19 @@ public class ManagerDiVolo {
     
     public boolean isDoppiato() {	
 		// controlla se il giocatore è doppiato
+    	
+    	if(!plancia.isInVolo(giocatore)) return false;
 		
-		float giroGiocatore = plancia.getNumeroGiroGiocatore(giocatore); // numero di giro del giocatore	
+		float giroGiocatore = plancia.getNumeroGiroGiocatore(giocatore); // numero di giro del giocatore
 		
-		for (Giocatore giocatore : plancia.getGiocatori()) {
-	
-			if(plancia.getNumeroGiroGiocatore(giocatore) - giroGiocatore > 1) {
-				return true; // giornidivolo/lunghezzaPlancia = numero giro, se numero giro > giroGiocatore + 1 vuol dire che il giocatore è doppiato
+		
+		for (Giocatore g1 : plancia.getGiocatori()) {
+			if (g1.equals(giocatore)) continue;
+			if (!plancia.isInVolo(g1)) continue;
+
+			float giroAltro = plancia.getNumeroGiroGiocatore(g1);
+			if (giroAltro - giroGiocatore > 1) {
+				return true;
 			}
 		}
 		

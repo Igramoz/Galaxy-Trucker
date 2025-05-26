@@ -20,14 +20,20 @@ public class FineGioco {
 		formattatore = new FormattatoreGrafico();
 	}
 
+	/**
+	 * Stabilisce quali siano i giocatori vincenti (ed il più vincente) in base al
+	 * numero di punti finali. Infine, richiede agli stessi giocatori di giocare
+	 * ancora.
+	 */
 	public void start() {
 		List<Giocatore> vincitori = new ArrayList<>();
 		Giocatore maggiorVincitore = giocatori[0];
 		for (int i = 0; i < giocatori.length; i++) {
-			if (giocatori[i].getCrediti() >= 1) {
-				vincitori.add(giocatori[i]);
-				if (giocatori[i].getCrediti() > maggiorVincitore.getCrediti()) {
-					maggiorVincitore = giocatori[i];
+			Giocatore g = giocatori[i];
+			if (g.getCrediti() >= 1) {
+				vincitori.add(g);
+				if (g.getCrediti() > maggiorVincitore.getCrediti()) {
+					maggiorVincitore = g;
 				}
 			}
 		}
@@ -41,8 +47,8 @@ public class FineGioco {
 		} else {
 			gestoreIO.stampa("I vincitori sono stati:");
 			for (int i = 0; i < lunghezza; i++) {
-				gestoreIO.stampa(formattatore.formatta(vincitori.get(i)) + " con "
-						+ vincitori.get(i).getCrediti() + " punti");
+				gestoreIO.stampa(
+						formattatore.formatta(vincitori.get(i)) + " con " + vincitori.get(i).getCrediti() + " punti");
 			}
 			gestoreIO.stampa("Ma " + formattatore.formatta(maggiorVincitore) + " ha vinto più degli altri!");
 		}
@@ -51,7 +57,8 @@ public class FineGioco {
 		int scelta = gestoreIO.stampaMenu(menu);
 		switch (scelta) {
 		case 0:
-			Partita p = new Partita();
+			String temp[] = new String[0];
+			Partita p = new Partita(temp);
 			p.gioca();
 			break;
 		case 1:

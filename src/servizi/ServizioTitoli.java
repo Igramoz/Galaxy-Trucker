@@ -48,7 +48,9 @@ public class ServizioTitoli {
 		if(livello == LivelliPartita.LIVELLO_1)
 			assegnaTitoli();
 		else
-			valutaDifesaTitoli();		
+			valutaDifesaTitoli();
+		
+		assegnaCreditiPerTitoli();
 	}
 
 	private void assegnaTitoli() {
@@ -82,8 +84,6 @@ public class ServizioTitoli {
 			giocatore.setTipoTitolo(titolo);
 			renderer.stampaAssegnazioneTitolo(giocatore, titolo);
 		}
-
-		assegnaCreditiPerTitoli(giocatoriInVolo);
 	}
 
 	private void valutaDifesaTitoli() {
@@ -105,17 +105,16 @@ public class ServizioTitoli {
 		    	
 		    	renderer.stampaDifesaTitolo(giocatore);
 		    }
-		}
-		assegnaCreditiPerTitoli(difensoriTitolo);		
+		}	
 	}
-
+	
 	/**
 	 * assegna i crediti ai giocatori nella lista
 	 * 
 	 * @param giocatori
 	 */
-	public void assegnaCreditiPerTitoli(List<Giocatore> giocatori) {
-		giocatori.forEach(
+	 void assegnaCreditiPerTitoli() {
+		giocatoriInVolo.forEach(
 				giocatore -> giocatore.aggiungiCrediti(giocatore.getTipoTitolo().getTitolo().getCrediti(livello)));
 	}
 

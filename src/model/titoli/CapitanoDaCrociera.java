@@ -17,6 +17,15 @@ public class CapitanoDaCrociera extends Titolo {
 		super();
 	}
 
+	/**
+	 * La funzione stabilisce qual è il giocatore con il maggior numero di cabine
+	 * con vista. Una cabina con vista è una cabina con un lato liscio (cioè senza
+	 * tubo) e che non abbia nessun componente nella casella adiacente al lato
+	 * liscio della cabina.
+	 * 
+	 * @param giocatori: lista dei giocatori valutabili
+	 * @return out: il giocatore secondo il criterio già citato
+	 */
 	@Override
 	public Giocatore valutaTitolo(List<Giocatore> giocatori) {
 		Giocatore out = giocatori.get(0);

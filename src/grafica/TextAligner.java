@@ -1,5 +1,7 @@
 package grafica;
 
+import eccezioni.StringaTroppoLungaException;
+
 public class TextAligner {
 
 	// Aggiunge spazi a sinistra per estendere la stinga
@@ -74,7 +76,7 @@ public class TextAligner {
 		TextAligner txtAligner = new TextAligner();
 
 		if (maxLunghezzaSinistra + maxLunghezzaDestra >= GraficaConfig.LARGHEZZA_SCHERMO) {
-			throw new IllegalArgumentException(
+			throw new StringaTroppoLungaException(
 					"La somma delle righe a sinistra e a destra supera la larghezza dello schermo");
 		}
 
@@ -133,7 +135,7 @@ public class TextAligner {
 	private String[] aggiungiRighe(String[] righe, int righeDaRaggiungere) {
 
 		if (righe == null) {
-			throw new IllegalArgumentException("L'array di righe non può essere null.");
+			throw new NullPointerException("L'array di righe non può essere null.");
 		}
 
 		if (righeDaRaggiungere < righe.length) {
@@ -168,7 +170,7 @@ public class TextAligner {
 		int lunghezzaVisiva = rimuoviAnsi(testo).length();
 
 		if (lunghezzaVisiva > spaziDisponibili) {
-			throw new IllegalArgumentException("Il testo \"" + testo + "\" è troppo lungo per lo spazio disponibile di "
+			throw new StringaTroppoLungaException("Il testo \"" + testo + "\" è troppo lungo per lo spazio disponibile di "
 					+ spaziDisponibili + " caratteri.");
 		}
 		return lunghezzaVisiva;
@@ -195,7 +197,7 @@ public class TextAligner {
 
 	    // Controlla che l'indice sia valido
 	    if (indiceReale == -1)
-	    	throw new IndexOutOfBoundsException("Indice visivo fuori dai limiti per: " + stringaOriginale + " in posizione " + indice);
+	    	throw new StringaTroppoLungaException("Indice visivo fuori dai limiti per: " + stringaOriginale + " in posizione " + indice);
 
 	    
 	    String out = stringaOriginale.substring(0, indiceReale);

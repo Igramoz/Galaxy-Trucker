@@ -48,6 +48,8 @@ Il progetto è suddiviso in package con responsabilità distinte:
 
 3. Esegui la classe `main.Main` per giocare.
 
+4. Regolare lo zoom per nascondere la linea verticale a destra, oppure modificare il valore della costante `LARGHEZZA_SCHERMO` nella classe `GraficaConfig`, appartenente al package `grafica`.
+
 ---
 
 ## Cranio Creations
@@ -59,3 +61,12 @@ Per maggiori informazioni sul gioco originale, consultare la pagina ufficiale:
 
 Progetto sviluppato per l’esame di Programmazione ad Oggetti presso l'[Università degli Studi di Bergamo](https://www.unibg.it/)  
 Gruppo 38
+
+---
+
+## Come eseguire il progetto (MacOS/Linux)
+
+1. Clona il repository 
+2. Apri il terminale e naviga nella cartella del progetto
+3. Esegui ```chmod +x esegui.sh``` (per rendere eseguibile lo script)
+4. Esegui lo script con ```./esegui.sh```

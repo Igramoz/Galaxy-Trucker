@@ -14,6 +14,13 @@ public class TrasportatoreSupremo extends Titolo {
 		super();
 	}
 
+	/**
+	 * La funzione stabilisce qual è il giocatore la cui nave contiene il maggior
+	 * numero di componenti con almeno una merce presente.
+	 * 
+	 * @param giocatori: lista dei giocatori valutabili
+	 * @return out: il giocatore secondo il criterio già citato
+	 */
 	@Override
 	public Giocatore valutaTitolo(List<Giocatore> giocatori) {
 		Giocatore out = giocatori.get(0);

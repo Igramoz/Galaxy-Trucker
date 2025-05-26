@@ -1,6 +1,7 @@
 package model.carte.nemici;
 
 import java.util.List;
+import java.util.Objects;
 
 import grafica.formattatori.FormattatoreGrafico;
 import io.GestoreIO;
@@ -54,5 +55,25 @@ public class Contrabbandieri extends Nemico{
 	public void spiegaSconfitta() {
 		io.aCapo();
 		io.stampa("Chi viene sconfitto dai contrabbandieri perde " + mercePersa + " merci");
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(mercePersa, merci);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Contrabbandieri other = (Contrabbandieri) obj;
+		return mercePersa == other.mercePersa && Objects.equals(merci, other.merci);
 	}
 }

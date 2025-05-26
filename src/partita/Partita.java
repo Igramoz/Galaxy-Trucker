@@ -9,7 +9,9 @@ import partita.fasiGioco.*;
 import partita.fasiGioco.composizioneNave.ComposizioneNave;
 import partita.fasiGioco.volo.ManagerDiVolo;
 import partita.fasiGioco.volo.Volo;
-import servizi.ServizioTitoli;
+import io.GestoreIO;
+import grafica.Colore;
+import grafica.TextAligner;
 
 public class Partita {
 	// CLASSE CHE GESTISCE LA PARTITA
@@ -19,10 +21,29 @@ public class Partita {
 	private Inizializzazione inizializzazione = new Inizializzazione();
 	private FineGioco fine;
 
-	public Partita() {
-		giocatori = inizializzazione.getGiocatori();
-		modalita = inizializzazione.getModalita();
-
+	
+	public Partita(String args[] ){
+		
+		if (args.length == 0) {
+	        // Chiama il costruttore senza argomenti
+	        giocatori = inizializzazione.getGiocatori();
+	        modalita = inizializzazione.getModalita();
+	    }else {
+			
+			 giocatori = new Giocatore[args.length];
+			
+			 Colore[] colori = {Colore.ROSSO, Colore.BLU, Colore.VERDE, Colore.GIALLO};
+	
+			 for (int i = 0; i < args.length; i++) {
+	        	if(args[i] != null) {
+	        		giocatori[i] = new Giocatore(args[i], colori[i]);
+	        		System.out.println(i);
+	        	}   
+			 }
+	        
+			 modalita = inizializzazione.getModalita();
+	    }
+		
 	}
 
 	public void gioca() {
@@ -38,7 +59,7 @@ public class Partita {
 		fine.start();
 	}
 	
-	private ManagerDiVolo[] voloSingolo(LivelliPartita livelllo) {
+	private void voloSingolo(LivelliPartita livelllo) {
 		
 		// fase composizione nave
 		ComposizioneNave composizione = new ComposizioneNave(giocatori, modalita.getlivelloPartita());
@@ -50,7 +71,7 @@ public class Partita {
 		giocatori = composizione.getOrdineFine();
 		
 		// fase di volo
-		Volo volo = new Volo(modalita, giocatori, mazzoDiGioco);
+		Volo volo = new Volo(modalita.getlivelloPartita(), giocatori, mazzoDiGioco);
 		volo.inizializzaPezziDistrutti(numPezziDistrutti);
 		volo.iniziaVolo();
 		
@@ -60,8 +81,6 @@ public class Partita {
 		// fine del volo, assegno i crediti
 		FineVolo fineVolo = new FineVolo(modalita, managersVolo);
 		fineVolo.assegnaRicompense();
-		
-		return managersVolo;
 	}
 	
 	private void trasvolataIntergalattica() {
@@ -69,14 +88,15 @@ public class Partita {
 		// si gioca ogni livello uno dopo l'altro
 		for(LivelliPartita livelloAttuale :LivelliPartita.values()) {
 			
+			GestoreIO gestoreIO = new GestoreIO();
+			TextAligner a = new TextAligner();
+			
+			gestoreIO.stampa(a.alignCenter("INIZIO LIVELLO " + livelloAttuale.getNumeroLivello()));
+			
 			modalita.setlivelloPartita(livelloAttuale);
 			
 			// eseguo il singolo livello
-			ManagerDiVolo[] managers = voloSingolo(livelloAttuale);
-			
-			//gestisco i titoli
-			ServizioTitoli servizioTitoli = new ServizioTitoli(managers, livelloAttuale);
-			servizioTitoli.gestisciTitoli();
+			voloSingolo(livelloAttuale);
 		}		
 	}
 	
