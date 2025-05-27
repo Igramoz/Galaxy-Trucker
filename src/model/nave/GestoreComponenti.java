@@ -7,6 +7,7 @@ import java.util.List;
 import eccezioni.ComponentePienoException;
 import eccezioni.ComponenteVuotoException;
 import grafica.formattatori.FormattatoreGrafico;
+import grafica.renderer.ComponenteRenderer;
 import io.GestoreIO;
 import model.componenti.*;
 import model.enums.*;
@@ -17,9 +18,10 @@ public class GestoreComponenti {
 // classe che interagisce con i setter e i getter per gestire l'inserimento o la rimozione di merci/energia/equipaggio dalla nave
 
 	// funzione per scegliere un componente della nave
-	private Nave nave;
+	private final Nave nave;
 	private GestoreIO io = new GestoreIO();
 	private FormattatoreGrafico formattatore = new FormattatoreGrafico();
+	private ComponenteRenderer componentiRender = new ComponenteRenderer();
 
 	protected GestoreComponenti(Nave nave) {
 		this.nave = nave;
@@ -327,6 +329,7 @@ public class GestoreComponenti {
 
 			try {
 				((CabinaDiEquipaggio) cabina).aggiungi(pedina);
+				io.stampa("" + formattatore.formatta(pedina) + " posizionato in: " + componentiRender.rappresentazioneCompletaComponente(cabina) );
 				return true;
 			} catch (ComponentePienoException e) {
 				io.stampa("Non è possibile posizionare l'alieno in questa cabina");
@@ -349,6 +352,7 @@ public class GestoreComponenti {
 		for (Componente cabina : cabine) {
 			try {
 				((CabinaDiEquipaggio) cabina).aggiungi(TipoPedina.ASTRONAUTA);
+				io.stampa("" + formattatore.formatta(TipoPedina.ASTRONAUTA) + " posizionato in: " + componentiRender.rappresentazioneCompletaComponente(cabina) );
 				return true;
 			} catch (ComponentePienoException e) {
 			}
@@ -410,6 +414,7 @@ public class GestoreComponenti {
 
 	public void preparaEquipaggioAlVolo() {
 		// carico gli alieni
+		io.stampa("Posizionamento equipaggio in nave");
 		posizionaEquipaggioInNave(TipoPedina.ALIENO_MARRONE);
 		posizionaEquipaggioInNave(TipoPedina.ALIENO_VIOLA);
 
@@ -419,6 +424,7 @@ public class GestoreComponenti {
 
 	// carica al massimo tutte le batterie
 	public void ricaricaBatterie() {
+		io.stampa("Ricarica batterie");
 		List<Componente> batterie = nave.getComponentiOriginali(TipoComponente.VANO_BATTERIA);
 		for (Componente batteria : batterie) {
 			((VanoBatteria) batteria).caricaInteramenteBatteria();

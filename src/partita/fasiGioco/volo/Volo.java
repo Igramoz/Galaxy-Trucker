@@ -17,6 +17,7 @@ import model.carte.Carta;
 
 public class Volo {
 
+	private final GestoreIO io = new GestoreIO();
 	private Giocatore[] giocatori;
 	private final Plancia plancia;
 	private List<Carta> carte;
@@ -47,6 +48,7 @@ public class Volo {
 		// caricare le navi dei giocatori con batteria e equipaggiamento
 
 		for (Giocatore giocatore : giocatori) {
+			io.stampa("Il giocatore " + formattatore.formatta(giocatore) + " sta preparando la nave al volo");
 			giocatore.getNave().preparaAlVolo();
 		}
 
