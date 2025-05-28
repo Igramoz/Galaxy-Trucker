@@ -8,11 +8,11 @@ Questo repository contiene una versione digitale del gioco, realizzata come prog
 ---
 
 ## Autori – Gruppo 38
-- Matteo Baccanelli  
-- Michele Bisignano  
-- Marco Magri  
-- Henry Iannella Jones  
-- Michele Messina  
+- Matteo Baccanelli (MatteoBaccanelli)
+- Michele Bisignano (michele-bisignano)
+- Marco Magri (Igramoz)
+- Henry Iannella Jones (HenryIannella) 
+- Michele Messina (8TB-Available)
 
 ---
 
