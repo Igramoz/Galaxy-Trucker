@@ -16,7 +16,7 @@ import util.layout.Coordinate;
 
 public class GestoreIO implements InterfacciaUtente{
 
-	private final Scanner scanner = new Scanner(System.in);
+	private final static Scanner scanner = new Scanner(System.in);
 
 	/**
 	 *  Legge un numero intero dall'input dell'utente.
