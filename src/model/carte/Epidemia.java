@@ -22,8 +22,11 @@ public class Epidemia extends Carta {
 			Giocatore g = m.getGiocatore();
 			int membriPersi = g.getNave().eliminaEquipaggioDaCabineCollegate();
 
-			io.stampa(formattatoreGrafico.formatta(g) + " ha perso " + membriPersi
-					+ " membri totali dal proprio equipaggio");
+			if (membriPersi == 0)
+				io.stampa(formattatoreGrafico.formatta(g) + " non ha perso membri dell'equipaggio");
+			else
+				io.stampa(formattatoreGrafico.formatta(g) + " ha perso " + membriPersi
+						+ " membri totali dal proprio equipaggio");
 		}
 	}
 

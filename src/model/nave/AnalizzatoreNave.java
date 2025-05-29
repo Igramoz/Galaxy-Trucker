@@ -64,12 +64,11 @@ public class AnalizzatoreNave {
 	public Coordinate scegliComponente(TipoComponente tipoComponente1) {
 		return scegliComponente(tipoComponente1, null);
 	}
-	
-	
+
 	public Map<Direzione, Componente> getCopiaComponentiAdiacenti(Coordinate coord) {
-		if(coord == null)
+		if (coord == null)
 			throw new NullPointerException("Non è possibile trovare i componenti adiacenti ad una posizione nulla");
-		
+
 		Map<Direzione, Componente> adiacenti = new EnumMap<>(Direzione.class);
 		Componente[][] grigliaComponenti = nave.getGrigliaComponentiCloni();
 
@@ -134,6 +133,7 @@ public class AnalizzatoreNave {
 
 	/**
 	 * funzione per contare i connettori esposti di un componente
+	 * 
 	 * @param componete al centro
 	 * @return numero componenti esposti
 	 */
@@ -239,8 +239,13 @@ public class AnalizzatoreNave {
 		return counter;
 	}
 
-	// funzione che dato un componente restitusce una lista con tutte le cabine
-	// di equipaggio collegate
+	/**
+	 * funzione che dato un componente restitusce una lista con tutte le cabine di
+	 * equipaggio collegate (compresa quella di partenza).
+	 * 
+	 * @param componente: è il componente da cui cerco i componenti adiacenti
+	 * @return cabinaCollegate: lista delle cabine collegate
+	 */
 	public List<Componente> ottieniCabineEquipaggioCollegate(Componente componente) {
 		List<Componente> cabineCollegate = new ArrayList<>();
 
@@ -251,13 +256,13 @@ public class AnalizzatoreNave {
 
 		for (Map.Entry<Direzione, TipoTubo> entry : tubiSovrastruttura.entrySet()) {
 			if (entry.getValue() != TipoTubo.NESSUNO) {
-				
+
 				Componente adiacente = componentiAdiacenti.get(entry.getKey());
-				
+
 				if (adiacente == null) {
 					continue; // non c'è un componente adiacente in quella direzione
 				}
-				
+
 				TipoComponente tipoComponente = adiacente.getTipo();
 				if (tipoComponente == TipoComponente.CABINA_EQUIPAGGIO
 						|| tipoComponente == TipoComponente.CABINA_PARTENZA) {
