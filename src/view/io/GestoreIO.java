@@ -17,6 +17,7 @@ import view.renderer.ComponenteRenderer;
 public class GestoreIO implements InterfacciaUtente {
 
 	private final static Scanner scanner = new Scanner(System.in);
+
 	private TextAligner aligner = new TextAligner();
 
 	/**
@@ -85,6 +86,24 @@ public class GestoreIO implements InterfacciaUtente {
 		stampa("");
 	}
 
+	/**
+	 * Metodo che permette all'utente di scegliere o no di eseguire un azione.
+	 * BISOGNA PRIMA STAMPARE L'OUTPUT per indicare all'utente di quale azione si tratta.
+	 * LA funzione stampa solo: <p> Scrivere 1 per eseguire l'azione </p>
+	 * 
+	 * @return vero se l'utente ha deciso di eseguire l'azione
+	 */
+	public boolean leggiBoolean() {
+		this.stampa("Scrivere 1 per eseguire l'azione");
+		int scelta = leggiIntero();
+		if(scelta == 1) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	
 	// Metodi da usare per stampare a video
 	public void stampa(String riga) {
 
@@ -198,6 +217,7 @@ public class GestoreIO implements InterfacciaUtente {
 	 * @param lista dal quale scegliere un componente
 	 */
 	public Componente menuComponenti(List<Componente> componenti) {
+		
 		if (componenti == null || componenti.isEmpty()) {
 			return null;
 		} else if (componenti.size() == 1) {
@@ -212,7 +232,7 @@ public class GestoreIO implements InterfacciaUtente {
 					+ componenteRenderer.rappresentazioneCompletaComponente(componenti.get(i));
 		}
 
-		stampa("Scegli il componente in base alla posizione");
+		stampa("Scegli il componente scrivendo la posizione");
 		int scelta = stampaMenu(menu);
 		return componenti.get(scelta);
 	}

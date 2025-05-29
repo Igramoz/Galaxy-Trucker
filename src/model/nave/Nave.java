@@ -307,7 +307,7 @@ public class Nave {
 	}
 
 	// funzione per controllare che la nave abbia raggiunto il massimo numero di
-	// componenti dell'equipaggio
+	// componenti dell'equipaggib
 	public boolean isEquipaggioCompleto() {
 		List<Componente> cabine = this.getCopiaComponenti(TipoComponente.CABINA_EQUIPAGGIO);
 		cabine.addAll(this.getCopiaComponenti(TipoComponente.CABINA_PARTENZA));

@@ -67,6 +67,7 @@ public class ServizioCarte {
 		mazzoPerLivello.addAll(generaPolvereStellare(livelloCarte));
 		mazzoPerLivello.addAll(generaSabotaggio(livelloCarte));
 		mazzoPerLivello.addAll(generaEpidemia(livelloCarte));
+		mazzoPerLivello.addAll(generaNaveAbbandonata(livelloCarte));
 		// TODO controllare che ci siano tutte le carte
 
 		// mischio le carte
@@ -422,4 +423,27 @@ public class ServizioCarte {
 		}
 		return lista;
 	}
+
+	private List<NaveAbbandonata> generaNaveAbbandonata(LivelliPartita livello) {
+		final int NUMERO_NAVI_ABBANDONATE = 2; // in tutti i livelli ci sono 2 navi abbandonate
+		final int MIN_EQUIPAGGIO = 2; // equipaggio minimo da perdere
+		final int MIN_CREDITI = 3; // crediti minimi
+
+		List<NaveAbbandonata> lista = new ArrayList<NaveAbbandonata>();
+		int crediti, tempoDiVolo, equipaggioPerso;
+
+		for (int i = 0; i < NUMERO_NAVI_ABBANDONATE; i++) {
+
+			equipaggioPerso = random.randomInt(MIN_EQUIPAGGIO * livello.getNumeroLivello(),
+					(MIN_EQUIPAGGIO * livello.getNumeroLivello()) + 2);
+			crediti = random.randomInt(MIN_CREDITI * livello.getNumeroLivello(),
+					MIN_CREDITI * livello.getNumeroLivello() + 3);
+			tempoDiVolo = random.randomInt(1, 2);
+
+			lista.add(new NaveAbbandonata(crediti, tempoDiVolo, equipaggioPerso));
+		}
+		return lista;
+	}
+	
+
 }
