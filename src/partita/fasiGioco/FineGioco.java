@@ -62,7 +62,7 @@ public class FineGioco {
 			p.gioca();
 			break;
 		case 1:
-			gestoreIO.stampa("Grazie per aver giocato.");
+			gestoreIO.chiusuraGioco();
 			break;
 		}
 	}

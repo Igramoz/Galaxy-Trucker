@@ -27,8 +27,6 @@ public class GestoreComponenti {
 		this.nave = nave;
 	}
 
-	
-
 	// restituisce false se non posiziona tutte le merci
 	public boolean posizionaMerciInNave(List<TipoMerce> merci) {
 
@@ -55,7 +53,8 @@ public class GestoreComponenti {
 			if (merce == TipoMerce.ROSSO) {
 				posizione = nave.getAnalizzatoreNave().scegliComponente(TipoComponente.STIVA_SPECIALE);
 			} else {
-				posizione = nave.getAnalizzatoreNave().scegliComponente(TipoComponente.STIVA_SPECIALE, TipoComponente.STIVA);
+				posizione = nave.getAnalizzatoreNave().scegliComponente(TipoComponente.STIVA_SPECIALE,
+						TipoComponente.STIVA);
 			}
 
 			if (posizione == null) {
@@ -128,7 +127,8 @@ public class GestoreComponenti {
 			if (merce == TipoMerce.ROSSO) {
 				posizione = nave.getAnalizzatoreNave().scegliComponente(TipoComponente.STIVA_SPECIALE);
 			} else {
-				posizione = nave.getAnalizzatoreNave().scegliComponente(TipoComponente.STIVA_SPECIALE, TipoComponente.STIVA);
+				posizione = nave.getAnalizzatoreNave().scegliComponente(TipoComponente.STIVA_SPECIALE,
+						TipoComponente.STIVA);
 			}
 
 			if (posizione == null) {
@@ -209,16 +209,17 @@ public class GestoreComponenti {
 			io.stampa("Scegliere la cabina da cui rimuovere la pedina: ");
 			Coordinate posizione = null;
 			if (pedinaDaRimuovere == TipoPedina.ASTRONAUTA) {
-				posizione = nave.getAnalizzatoreNave().scegliComponente(TipoComponente.CABINA_EQUIPAGGIO, TipoComponente.CABINA_PARTENZA);
+				posizione = nave.getAnalizzatoreNave().scegliComponente(TipoComponente.CABINA_EQUIPAGGIO,
+						TipoComponente.CABINA_PARTENZA);
 			} else {
 				posizione = nave.getAnalizzatoreNave().scegliComponente(TipoComponente.CABINA_EQUIPAGGIO);
 			}
-			
+
 			if (posizione == null) {
 				io.stampa("Il giocatore ha delle cabina contenenti questo tipo di pedina");
 				return false;
 			}
-			
+
 			CabinaDiEquipaggio cabina = (CabinaDiEquipaggio) nave.getOriginaleComponente(posizione);
 
 			if (!cabina.rimuovi(pedinaDaRimuovere)) {
@@ -236,6 +237,14 @@ public class GestoreComponenti {
 
 	}
 
+	/**
+	 * la funzione si occupa di contare il numero di membri dell'equipaggio che
+	 * dovranno essere eliminati, considerando le cabine di equipaggio collegate
+	 * (anche quella di partenza).
+	 * 
+	 * @return membriEquipaggioEliminati: il numero di membri che dovranno essere
+	 *         eliminati
+	 */
 	public int eliminaEquipaggioDaCabineCollegate() {
 		int membriEquipaggioEliminati = 0;
 		List<Coordinate> coordinateGiaEsaminate = new ArrayList<>();
@@ -252,7 +261,8 @@ public class GestoreComponenti {
 					// Se il componente è vuoto non succede nulla, semplicemente non elimino nessun
 					// membro
 				}
-				membriEquipaggioEliminati++;
+				// TODO: testare se la riga sotto era il problema
+//				membriEquipaggioEliminati++;
 
 				List<Componente> adiacenti = nave.getAnalizzatoreNave().ottieniCabineEquipaggioCollegate(cabina);
 				for (Componente adiacente : adiacenti) {
@@ -329,7 +339,8 @@ public class GestoreComponenti {
 
 			try {
 				((CabinaDiEquipaggio) cabina).aggiungi(pedina);
-				io.stampa("" + formattatore.formatta(pedina) + " posizionato in: " + componentiRender.rappresentazioneCompletaComponente(cabina) );
+				io.stampa("" + formattatore.formatta(pedina) + " posizionato in: "
+						+ componentiRender.rappresentazioneCompletaComponente(cabina));
 				return true;
 			} catch (ComponentePienoException e) {
 				io.stampa("Non è possibile posizionare l'alieno in questa cabina");
@@ -352,7 +363,8 @@ public class GestoreComponenti {
 		for (Componente cabina : cabine) {
 			try {
 				((CabinaDiEquipaggio) cabina).aggiungi(TipoPedina.ASTRONAUTA);
-				io.stampa("" + formattatore.formatta(TipoPedina.ASTRONAUTA) + " posizionato in: " + componentiRender.rappresentazioneCompletaComponente(cabina) );
+				io.stampa("" + formattatore.formatta(TipoPedina.ASTRONAUTA) + " posizionato in: "
+						+ componentiRender.rappresentazioneCompletaComponente(cabina));
 				return true;
 			} catch (ComponentePienoException e) {
 			}
@@ -371,7 +383,8 @@ public class GestoreComponenti {
 			io.aCapo();
 			io.stampa("Scegliere da quale vano rimuovere l'energia");
 
-			Coordinate posizioneVanoBatteria = nave.getAnalizzatoreNave().scegliComponente(TipoComponente.VANO_BATTERIA);
+			Coordinate posizioneVanoBatteria = nave.getAnalizzatoreNave()
+					.scegliComponente(TipoComponente.VANO_BATTERIA);
 
 			if (posizioneVanoBatteria == null)
 				return false;
