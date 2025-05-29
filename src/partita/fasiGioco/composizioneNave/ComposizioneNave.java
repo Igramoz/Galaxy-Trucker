@@ -2,8 +2,10 @@ package partita.fasiGioco.composizioneNave;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import io.GestoreIO;
 import model.Giocatore;
@@ -17,22 +19,22 @@ import servizi.ServizioCarte;
 public class ComposizioneNave {
 
 	private final ServizioCarte servizioCarte;
-	private final ManagerTurnoComposizione[] manager;
-	private List<Giocatore> ordineFine;
+	private final ManagerTurnoComposizione[] managers;
+	private Set<Giocatore> ordineFine;
 	private List<Componente> componentiScartati = new ArrayList<>();
 	private final LivelliPartita livello;
 
 	public ComposizioneNave(Giocatore[] giocatori, LivelliPartita livello) {
 
-		this.manager = new ManagerTurnoComposizione[giocatori.length];
-		this.ordineFine = new ArrayList<>();
+		this.managers = new ManagerTurnoComposizione[giocatori.length];
+		this.ordineFine = new LinkedHashSet<>();
 		this.livello = livello;		
 		this.servizioCarte = new ServizioCarte(livello);
 		
 		ServizioAssemblaggio servizioAssemblaggio = new ServizioAssemblaggio(); // Inizializza il servizio di assemblaggio
 		
 		for (int i = 0; i < giocatori.length; i++) {
-			manager[i] = new ManagerTurnoComposizione(componentiScartati, giocatori[i], livello, servizioAssemblaggio, servizioCarte);
+			managers[i] = new ManagerTurnoComposizione(componentiScartati, giocatori[i], livello, servizioAssemblaggio, servizioCarte);
 		}
 	}
 
@@ -48,23 +50,28 @@ public class ComposizioneNave {
 		for (int turno = 0; turno < turniTotali; turno++) {
 			io.stampa("Turno numero: " + (turno + 1) + " di " + turniTotali);
 
-			for (int i = 0; i < manager.length; i++) {
+			for (int i = 0; i < managers.length; i++) {
 
 				// Non eseguo il codice nel caso i giocatori abbiano terminato la composizione
-				if (manager[i].getTurnoTerminato()) {
+				if (managers[i].getTurnoTerminato()) {
 					continue;
 				}
 
 				// Gestisco il turno, se hanno concluso la costruzione aggiungo il giocatore
 				// alla lista dei giocatori che hanno finito
-				if (manager[i].gestisciTurno()) {
-					ordineFine.add(manager[i].getGiocatore());
+				if (managers[i].gestisciTurno()) {
+					ordineFine.add(managers[i].getGiocatore());
 				}
 
-				if (ordineFine.size() == manager.length) {
+				if (ordineFine.size() == managers.length) {
 					return;
 				}
 			}
+		}
+		
+		// Aggiungo i giocatori che non hanno completato il volo al ordine fine
+		for(ManagerTurnoComposizione manager : managers) {
+			ordineFine.add(manager.getGiocatore());
 		}
 	}
 	
@@ -80,7 +87,7 @@ public class ComposizioneNave {
 	public Map<Giocatore, Integer> getNumPezziPrenotati() {
 	    Map<Giocatore, Integer> numPezziDistrutti = new HashMap<>();
 
-	    for (ManagerTurnoComposizione m : manager) {
+	    for (ManagerTurnoComposizione m : managers) {
 	        Giocatore giocatore = m.getGiocatore();
 	        int pezziPrenotati = m.getPezziPrenotatiSize();
 

@@ -48,9 +48,11 @@ public class Volo {
 		// caricare le navi dei giocatori con batteria e equipaggiamento
 
 		for (Giocatore giocatore : giocatori) {
+			io.aCapo();
 			io.stampa("Il giocatore " + formattatore.formatta(giocatore) + " sta preparando la nave al volo");
 			giocatore.getNave().preparaAlVolo();
 		}
+		io.aCapo();
 
 		ordinaManegerDiVolo();
 

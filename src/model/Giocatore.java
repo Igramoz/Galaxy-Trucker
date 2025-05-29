@@ -72,7 +72,7 @@ public class Giocatore implements Formattabile {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(colore, crediti, nave, nome);
+		return Objects.hash(colore, nome);
 	}
 
 	@Override
@@ -84,8 +84,7 @@ public class Giocatore implements Formattabile {
 		if (getClass() != obj.getClass())
 			return false;
 		Giocatore other = (Giocatore) obj;
-		return colore == other.colore && crediti == other.crediti && Objects.equals(nave, other.nave)
-				&& Objects.equals(nome, other.nome);
+		return colore == other.colore && Objects.equals(nome, other.nome);
 	}
 
 	public TipoTitolo getTipoTitolo() {
