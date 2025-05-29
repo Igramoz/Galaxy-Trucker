@@ -27,10 +27,6 @@ public class GestoreComponenti {
 		this.nave = nave;
 	}
 
-<<<<<<< HEAD
-	
-=======
->>>>>>> 54c7fd36d8912d133fcb47f48bc5cfea2b4f966f
 	// restituisce false se non posiziona tutte le merci
 	public boolean posizionaMerciInNave(List<TipoMerce> merci) {
 
@@ -356,12 +352,8 @@ public class GestoreComponenti {
 
 			try {
 				((CabinaDiEquipaggio) cabina).aggiungi(pedina);
-<<<<<<< HEAD
-				io.stampa(" Posizionamento: " + componentiRender.rappresentazioneCompletaComponente(cabina) );
-=======
 				io.stampa("" + formattatore.formatta(pedina) + " posizionato in: "
 						+ componentiRender.rappresentazioneCompletaComponente(cabina));
->>>>>>> 54c7fd36d8912d133fcb47f48bc5cfea2b4f966f
 				return true;
 			} catch (ComponentePienoException e) {
 				io.stampa("Non è possibile posizionare l'alieno in questa cabina");
