@@ -2,12 +2,12 @@ package model.carte;
 
 import java.util.Objects;
 
-import grafica.TextAligner;
-import grafica.formattatori.FormattatoreGrafico;
-import grafica.renderer.CarteRenderer;
-import grafica.renderer.NaveRenderer;
-import io.GestoreIO;
-import partita.fasiGioco.volo.ManagerDiVolo;
+import controller.partita.fasiGioco.volo.ManagerDiVolo;
+import view.TextAligner;
+import view.formattatori.FormattatoreGrafico;
+import view.io.GestoreIO;
+import view.renderer.CarteRenderer;
+import view.renderer.NaveRenderer;
 
 public abstract class Carta {
 	private final TipoCarta tipoCarta;

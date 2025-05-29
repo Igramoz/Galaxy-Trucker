@@ -2,9 +2,9 @@ package model.carte;
 
 import java.util.Objects;
 
+import controller.partita.fasiGioco.volo.ManagerDiVolo;
+import controller.servizi.ServizioDadi;
 import model.carte.criteriEffetti.Criterio;
-import partita.fasiGioco.volo.ManagerDiVolo;
-import servizi.ServizioDadi;
 import util.layout.Coordinate;
 
 public class Sabotaggio extends Carta {

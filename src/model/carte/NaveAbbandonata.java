@@ -2,11 +2,11 @@ package model.carte;
 
 import java.util.Objects;
 
-import grafica.formattatori.FormattatoreGrafico;
-import grafica.renderer.CarteRenderer;
-import io.GestoreIO;
+import controller.partita.fasiGioco.volo.ManagerDiVolo;
 import model.carte.criteriEffetti.Effetto;
-import partita.fasiGioco.volo.ManagerDiVolo;
+import view.formattatori.FormattatoreGrafico;
+import view.io.GestoreIO;
+import view.renderer.CarteRenderer;
 
 public class NaveAbbandonata extends Carta{
 	

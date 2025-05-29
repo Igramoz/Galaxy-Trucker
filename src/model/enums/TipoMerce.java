@@ -1,7 +1,7 @@
 package model.enums;
 
-import grafica.Colore;
-import grafica.formattatori.Formattabile;
+import view.Colore;
+import view.formattatori.Formattabile;
 
 public enum TipoMerce implements Formattabile {
     ROSSO(4, Colore.ROSSO),

@@ -1,8 +1,9 @@
 package model.planciaDiVolo;
-import partita.LivelliPartita;
 import model.Giocatore;
 import java.util.HashMap;
 import java.util.Map;
+
+import controller.partita.LivelliPartita;
 import eccezioni.GiocatoreNonSpostabileException;
 
 /*

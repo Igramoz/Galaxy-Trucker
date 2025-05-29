@@ -3,14 +3,14 @@ package model.carte.nemici;
 import java.util.List;
 import java.util.Objects;
 
-import grafica.TextAligner;
-import grafica.formattatori.FormattatoreGrafico;
-import grafica.renderer.CarteRenderer;
-import io.GestoreIO;
+import controller.partita.fasiGioco.volo.ManagerDiVolo;
 import model.carte.TipoCarta;
 import model.carte.colpo.*;
 import model.carte.criteriEffetti.*;
-import partita.fasiGioco.volo.ManagerDiVolo;
+import view.TextAligner;
+import view.formattatori.FormattatoreGrafico;
+import view.io.GestoreIO;
+import view.renderer.CarteRenderer;
 
 public class Pirati extends Nemico {
 

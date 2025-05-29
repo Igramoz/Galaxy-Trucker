@@ -6,13 +6,15 @@ import java.util.List;
 
 import eccezioni.ComponentePienoException;
 import eccezioni.ComponenteVuotoException;
-import grafica.formattatori.FormattatoreGrafico;
-import grafica.renderer.ComponenteRenderer;
-import io.GestoreIO;
 import model.componenti.*;
+import model.componenti.cabine.CabinaDiEquipaggio;
+import model.componenti.stive.Stiva;
 import model.enums.*;
 import util.layout.Coordinate;
 import util.layout.Direzione;
+import view.formattatori.FormattatoreGrafico;
+import view.io.GestoreIO;
+import view.renderer.ComponenteRenderer;
 
 public class GestoreComponenti {
 // classe che interagisce con i setter e i getter per gestire l'inserimento o la rimozione di merci/energia/equipaggio dalla nave

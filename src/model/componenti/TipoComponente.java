@@ -1,7 +1,7 @@
 package model.componenti;
 
-import grafica.Colore;
-import grafica.formattatori.Formattabile;
+import view.Colore;
+import view.formattatori.Formattabile;
 
 public enum TipoComponente implements Formattabile{
 	CABINA_EQUIPAGGIO("CE", 17, Colore.BIANCO), 

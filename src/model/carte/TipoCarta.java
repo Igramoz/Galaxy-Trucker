@@ -3,7 +3,7 @@ package model.carte;
 import java.util.EnumMap;
 import java.util.Map;
 
-import partita.LivelliPartita;
+import controller.partita.LivelliPartita;
 
 
 public enum TipoCarta {

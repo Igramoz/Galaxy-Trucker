@@ -1,7 +1,7 @@
 package model.carte;
 
+import controller.partita.fasiGioco.volo.ManagerDiVolo;
 import model.Giocatore;
-import partita.fasiGioco.volo.ManagerDiVolo;
 
 public class Epidemia extends Carta {
 

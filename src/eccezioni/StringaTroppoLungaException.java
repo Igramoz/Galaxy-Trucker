@@ -1,6 +1,6 @@
 package eccezioni;
 
-import grafica.GraficaConfig;
+import view.GraficaConfig;
 
 public class StringaTroppoLungaException extends RuntimeException {
 	 

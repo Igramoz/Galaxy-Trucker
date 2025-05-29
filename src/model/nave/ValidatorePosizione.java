@@ -3,6 +3,8 @@ package model.nave;
 import java.util.Map;
 
 import model.componenti.*;
+import model.componenti.cannoni.Cannone;
+import model.componenti.motori.Motore;
 import model.enums.TipoTubo;
 import util.layout.Coordinate;
 import util.layout.Direzione;

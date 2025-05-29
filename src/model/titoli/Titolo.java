@@ -2,9 +2,9 @@ package model.titoli;
 
 import java.util.List;
 
-import grafica.Colore;
+import controller.partita.LivelliPartita;
 import model.Giocatore;
-import partita.LivelliPartita;
+import view.Colore;
 
 public abstract class Titolo {
 

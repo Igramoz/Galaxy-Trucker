@@ -4,11 +4,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import grafica.Colore;
-import grafica.formattatori.Formattabile;
 import model.nave.Nave;
 import model.nave.TipoNave;
 import model.titoli.TipoTitolo;
+import view.Colore;
+import view.formattatori.Formattabile;
 
 public class Giocatore implements Formattabile {
 	private final static int giocatoriMax = 4; // Numero massimo di giocatori

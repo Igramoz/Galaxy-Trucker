@@ -6,7 +6,7 @@ import eccezioni.ComponenteNonIstanziabileException;
 import model.enums.TipoPedina;
 import model.enums.TipoTubo;
 import util.layout.Direzione;
-import grafica.Colore;
+import view.Colore;
 
 public class ModuloSupportoAlieni extends Componente {
 

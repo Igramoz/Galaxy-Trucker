@@ -1,6 +1,6 @@
 package main;
 
-import partita.Partita;
+import controller.partita.Partita;
 
 public class Main {
 

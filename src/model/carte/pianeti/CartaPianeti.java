@@ -3,11 +3,11 @@ package model.carte.pianeti;
 import java.util.ArrayList;
 import java.util.List;
 
+import controller.partita.fasiGioco.volo.ManagerDiVolo;
 import model.Giocatore;
 import model.carte.Carta;
 import model.carte.TipoCarta;
 import model.carte.criteriEffetti.Effetto;
-import partita.fasiGioco.volo.ManagerDiVolo;
 
 public class CartaPianeti extends Carta {
 

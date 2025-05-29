@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import grafica.formattatori.FormattatoreGrafico;
-import grafica.renderer.CarteRenderer;
+import controller.partita.fasiGioco.volo.ManagerDiVolo;
 import model.enums.TipoMerce;
-import partita.fasiGioco.volo.ManagerDiVolo;
-import io.GestoreIO;
+import view.formattatori.FormattatoreGrafico;
+import view.io.GestoreIO;
+import view.renderer.CarteRenderer;
 import model.carte.criteriEffetti.Effetto;
 
 public class StazioneAbbandonata extends Carta {

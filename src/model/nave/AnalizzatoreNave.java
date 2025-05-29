@@ -5,20 +5,20 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-import grafica.formattatori.FormattatoreGrafico;
-import io.GestoreIO;
-import model.componenti.CabinaDiEquipaggio;
-import model.componenti.Cannone;
 import model.componenti.Componente;
-import model.componenti.Stiva;
 import model.componenti.TipoComponente;
 import model.componenti.VanoBatteria;
+import model.componenti.cabine.CabinaDiEquipaggio;
+import model.componenti.cannoni.Cannone;
+import model.componenti.stive.Stiva;
 import model.enums.TipoMerce;
 import model.enums.TipoPedina;
 import model.enums.TipoTubo;
 import util.Util;
 import util.layout.Coordinate;
 import util.layout.Direzione;
+import view.formattatori.FormattatoreGrafico;
+import view.io.GestoreIO;
 
 /**
  * Classe per calcolare le statisciche della nave (connettori esposti)

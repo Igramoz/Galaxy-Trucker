@@ -1,7 +1,5 @@
 package model.nave;
 
-import grafica.renderer.NaveRenderer;
-import io.GestoreIO;
 import java.util.ArrayList;
 import java.util.List;
 import model.componenti.Componente;
@@ -9,6 +7,8 @@ import model.enums.TipoTubo;
 import util.Util;
 import util.layout.Coordinate;
 import util.layout.Direzione;
+import view.io.GestoreIO;
+import view.renderer.NaveRenderer;
 
 //
 

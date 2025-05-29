@@ -2,8 +2,7 @@ package model.nave;
 
 import eccezioni.CaricamentoNonConsentitoException;
 import eccezioni.ComponentePienoException;
-import grafica.Colore;
-import io.GestoreIO;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,10 +10,16 @@ import java.util.Map;
 import java.util.Objects;
 import model.carte.colpo.Colpo;
 import model.componenti.*;
+import model.componenti.cabine.CabinaDiEquipaggio;
+import model.componenti.cabine.CabinaPartenza;
+import model.componenti.cannoni.Cannone;
+import model.componenti.stive.Stiva;
 import model.enums.*;
 import util.*;
 import util.layout.Coordinate;
 import util.layout.Direzione;
+import view.Colore;
+import view.io.GestoreIO;
 
 public class Nave {
 

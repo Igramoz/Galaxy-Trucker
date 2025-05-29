@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import model.Giocatore;
-import model.componenti.CabinaDiEquipaggio;
 import model.componenti.Componente;
 import model.componenti.TipoComponente;
+import model.componenti.cabine.CabinaDiEquipaggio;
 import model.enums.TipoTubo;
 import model.nave.Nave;
 import util.layout.Direzione;

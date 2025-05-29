@@ -1,6 +1,6 @@
 package model.titoli;
 
-import grafica.Colore;
+import view.Colore;
 
 public enum ColoreTitolo {
 

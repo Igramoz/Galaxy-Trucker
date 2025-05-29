@@ -1,16 +1,15 @@
 package model.carte;
 
-import io.GestoreIO;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import grafica.TextAligner;
-import grafica.formattatori.FormattatoreGrafico;
+import controller.partita.fasiGioco.volo.ManagerDiVolo;
 import model.carte.criteriEffetti.Effetto;
-import partita.fasiGioco.volo.ManagerDiVolo;
+import view.TextAligner;
+import view.formattatori.FormattatoreGrafico;
+import view.io.GestoreIO;
 
 public class PolvereStellare extends Carta {
 

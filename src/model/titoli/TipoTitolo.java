@@ -1,7 +1,7 @@
 package model.titoli;
 
-import grafica.Colore;
-import grafica.formattatori.Formattabile;
+import view.Colore;
+import view.formattatori.Formattabile;
 
 public enum TipoTitolo implements Formattabile {
 

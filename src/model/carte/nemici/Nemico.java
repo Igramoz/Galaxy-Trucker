@@ -3,11 +3,11 @@ package model.carte.nemici;
 import java.util.List;
 import java.util.Objects;
 
+import controller.partita.fasiGioco.volo.ManagerDiVolo;
 import model.Giocatore;
 import model.carte.Carta;
 import model.carte.TipoCarta;
 import model.carte.criteriEffetti.Effetto;
-import partita.fasiGioco.volo.ManagerDiVolo;
 
 public abstract class Nemico extends Carta {
 

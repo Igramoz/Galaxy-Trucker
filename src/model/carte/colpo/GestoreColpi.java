@@ -2,13 +2,13 @@ package model.carte.colpo;
 
 import java.util.List;
 
-import grafica.formattatori.FormattatoreGrafico;
-import grafica.renderer.CarteRenderer;
-import grafica.renderer.NaveRenderer;
-import io.GestoreIO;
+import controller.partita.fasiGioco.volo.ManagerDiVolo;
+import controller.servizi.ServizioDadi;
 import model.Giocatore;
-import partita.fasiGioco.volo.ManagerDiVolo;
-import servizi.ServizioDadi;
+import view.formattatori.FormattatoreGrafico;
+import view.io.GestoreIO;
+import view.renderer.CarteRenderer;
+import view.renderer.NaveRenderer;
 
 public class GestoreColpi {
 	GestoreIO io = new GestoreIO();

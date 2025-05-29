@@ -2,8 +2,8 @@ package model.carte.pianeti;
 
 import java.util.List;
 
-import grafica.Colore;
 import model.enums.TipoMerce;
+import view.Colore;
 import model.Giocatore;
 
 public class Pianeta {

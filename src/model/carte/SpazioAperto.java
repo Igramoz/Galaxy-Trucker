@@ -1,8 +1,8 @@
 package model.carte;
 import java.util.Objects;
 
+import controller.partita.fasiGioco.volo.ManagerDiVolo;
 import model.carte.criteriEffetti.Effetto;
-import partita.fasiGioco.volo.ManagerDiVolo;
 
 
 public class SpazioAperto extends Carta {

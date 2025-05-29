@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import controller.partita.fasiGioco.volo.ManagerDiVolo;
 import model.carte.colpo.*;
 import model.carte.criteriEffetti.CriterioConEffetto;
 import model.carte.criteriEffetti.Effetto;
-import partita.fasiGioco.volo.ManagerDiVolo;
 import util.layout.Direzione;
 
 public class PioggiaDiMeteoriti extends Carta{

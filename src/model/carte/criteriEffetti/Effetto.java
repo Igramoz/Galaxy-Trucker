@@ -2,15 +2,15 @@ package model.carte.criteriEffetti;
 
 import java.util.List;
 
+import controller.partita.fasiGioco.volo.ManagerDiVolo;
+import controller.servizi.ServizioDadi;
 import eccezioni.GiocatoreNonSpostabileException;
-import grafica.formattatori.FormattatoreGrafico;
-import grafica.renderer.NaveRenderer;
-import io.GestoreIO;
 import model.Giocatore;
 import model.carte.colpo.Colpo;
 import model.enums.TipoMerce;
-import partita.fasiGioco.volo.ManagerDiVolo;
-import servizi.ServizioDadi;
+import view.formattatori.FormattatoreGrafico;
+import view.io.GestoreIO;
+import view.renderer.NaveRenderer;
 
 public enum Effetto {
 	/**

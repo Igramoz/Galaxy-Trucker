@@ -3,11 +3,11 @@ package model.carte.nemici;
 import java.util.List;
 import java.util.Objects;
 
-import grafica.formattatori.FormattatoreGrafico;
-import io.GestoreIO;
+import controller.partita.fasiGioco.volo.ManagerDiVolo;
 import model.carte.TipoCarta;
 import model.carte.criteriEffetti.Effetto;
-import partita.fasiGioco.volo.ManagerDiVolo;
+import view.formattatori.FormattatoreGrafico;
+import view.io.GestoreIO;
 
 public class Schiavisti extends Nemico {
 

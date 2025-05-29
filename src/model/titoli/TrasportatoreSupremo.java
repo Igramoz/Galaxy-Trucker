@@ -4,8 +4,8 @@ import java.util.List;
 
 import model.Giocatore;
 import model.componenti.Componente;
-import model.componenti.Stiva;
 import model.componenti.TipoComponente;
+import model.componenti.stive.Stiva;
 import model.nave.Nave;
 
 public class TrasportatoreSupremo extends Titolo {

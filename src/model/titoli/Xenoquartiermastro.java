@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Giocatore;
-import model.componenti.CabinaDiEquipaggio;
 import model.componenti.Componente;
 import model.componenti.TipoComponente;
+import model.componenti.cabine.CabinaDiEquipaggio;
 import model.enums.TipoPedina;
 import model.nave.Nave;
 
