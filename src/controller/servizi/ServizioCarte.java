@@ -68,6 +68,7 @@ public class ServizioCarte {
 		mazzoPerLivello.addAll(generaSabotaggio(livelloCarte));
 		mazzoPerLivello.addAll(generaEpidemia(livelloCarte));
 		mazzoPerLivello.addAll(generaNaveAbbandonata(livelloCarte));
+		mazzoPerLivello.addAll(generaSpazioAperto(livelloCarte));
 		// TODO controllare che ci siano tutte le carte
 
 		// mischio le carte
@@ -444,6 +445,22 @@ public class ServizioCarte {
 		}
 		return lista;
 	}
-	
 
+	private List<SpazioAperto> generaSpazioAperto(LivelliPartita livello) {
+		List<SpazioAperto> lista = new ArrayList<>();
+		int numCarte = 0;
+		switch (livello) {
+		case LIVELLO_1:
+			numCarte = 4;
+			break;
+		case LIVELLO_2, LIVELLO_3:
+			numCarte = 3;
+			break;
+		}
+
+		for (int i = 0; i < numCarte; i++) {
+			lista.add(new SpazioAperto());
+		}
+		return lista;
+	}
 }
