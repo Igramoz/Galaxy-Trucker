@@ -64,7 +64,7 @@ public class ManagerDiVolo {
 		
 	}
     
-    public void AbbandonaVolo() {
+    public void abbandonaVolo() {
 		plancia.abbandonaVolo(giocatore); // il giocatore abbandona il volo
 	}
     

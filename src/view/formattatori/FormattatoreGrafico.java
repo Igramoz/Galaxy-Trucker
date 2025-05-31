@@ -1,6 +1,5 @@
 package view.formattatori;
 
-import java.util.List;
 
 import model.enums.TipoMerce;
 import util.layout.Coordinate;
@@ -13,7 +12,7 @@ public class FormattatoreGrafico {
 
 	// ( x , y )
 	public String formatta(Coordinate coord) {
-		return "( " + coord.getX() + " , " + coord.getY() + " )";
+		return "( " + coord.getX()+ GraficaConfig.OFFSET + " , " + coord.getY()+ GraficaConfig.OFFSET + " )";
 	}
 	
 	public <T extends Formattabile> String formatta(T formattabile) {

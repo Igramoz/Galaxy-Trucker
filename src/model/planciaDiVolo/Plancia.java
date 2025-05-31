@@ -1,10 +1,11 @@
 package model.planciaDiVolo;
-import model.Giocatore;
-import java.util.HashMap;
-import java.util.Map;
-
 import controller.partita.LivelliPartita;
 import eccezioni.GiocatoreNonSpostabileException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import model.Giocatore;
 
 /*
  * @throwable GiocatoreNonSpostabile Eccezione lanciata quando un giocatore non può essere spostato
@@ -53,11 +54,14 @@ public class Plancia {
 
 	public Giocatore[] getGiocatori() {
 		// Restituisce i giocatori nella plancia in ordine di giorni di volo chi ha piu giorni di volo è in cima all' array
-		return GiorniDiVoloGiocatori.entrySet()
-            .stream()
-            .sorted((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue())) // Ordina per giorni di volo decrescenti
-            .map(Map.Entry::getKey) // Ottieni solo i giocatori
-            .toArray(Giocatore[]::new); // Converti in array
+		List<Map.Entry<Giocatore, Integer>> entries = new ArrayList<>(GiorniDiVoloGiocatori.entrySet());
+		entries.sort((e1, e2) -> e2.getValue().compareTo(e1.getValue()));
+
+		Giocatore[] ordinati = new Giocatore[entries.size()];
+		for (int i = 0; i < entries.size(); i++) {
+		    ordinati[i] = entries.get(i).getKey();
+		}
+		return ordinati;
 	}
 
 	public float getNumeroGiroGiocatore(Giocatore giocatore) {
@@ -170,6 +174,8 @@ public class Plancia {
 	    if (pos != -1) {
 	        plancia[pos] = null; // Rimuovi il giocatore dalla plancia
 	        GiorniDiVoloGiocatori.remove(giocatore); // Rimuovi il giocatore dalla mappa dei giorni di volo
+	    }else {
+	    	throw new GiocatoreNonSpostabileException("Giocatore non trovato");
 	    }
 		
 		
