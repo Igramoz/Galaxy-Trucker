@@ -152,7 +152,8 @@ public class CarteRenderer {
 		io.stampa("Chi ha almeno: " + stazioneAbbandonata.getNumEquipaggio()
 				+ " membri dell'equipaggio può stipare le seguenti merci:");
 		formattatore.formattaEStampaMerci(stazioneAbbandonata.getMerci());
-		io.stampa("scegliere di stipare la merce comporta la perdita di " + stazioneAbbandonata.getTempoDiVolo());
+		io.stampa("scegliere di stipare la merce comporta la perdita di " + stazioneAbbandonata.getTempoDiVolo()
+				+ " giorni di volo");
 	}
 
 	public void rappresentaCarta(NaveAbbandonata naveAbbandonata) {
@@ -161,22 +162,23 @@ public class CarteRenderer {
 		io.stampa("si può guadagnare " + naveAbbandonata.getCrediti() + " crediti");
 		io.stampa("scegliere guadagnare i crediti comporta la perdita di " + naveAbbandonata.getTempoDiVolo());
 	}
-	
+
 	public void rappresentaCarta(ZonaDiGuerra zonaDiGuerra) {
 		io.aCapo();
 		io.stampa(textAligner.alignCenter("Carta zona di guerra"));
 		io.aCapo();
-		
+
 		io.stampa("la carta ha 3 criteri e 3 effetti");
 		io.stampa("il giocatore che risulta peggiore secondo ciascun criterio");
 		io.stampa("subirà il corrispondente effetto");
-		
-		List<CriterioConEffetto> criteriEdEffetti= zonaDiGuerra.getCriteriEpenalita();
-		for(CriterioConEffetto criterioEdEffetto : criteriEdEffetti) {
-			io.stampa("criterio: " + criterioEdEffetto.getCriterio().name() + " -> effetto: " + criterioEdEffetto.getPenalita().name());
-		io.aCapo();
+
+		List<CriterioConEffetto> criteriEdEffetti = zonaDiGuerra.getCriteriEpenalita();
+		for (CriterioConEffetto criterioEdEffetto : criteriEdEffetti) {
+			io.stampa("criterio: " + criterioEdEffetto.getCriterio().name() + " -> effetto: "
+					+ criterioEdEffetto.getPenalita().name());
+			io.aCapo();
 		}
-		
+
 	}
-	
+
 }

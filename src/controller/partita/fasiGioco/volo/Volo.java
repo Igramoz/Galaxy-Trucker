@@ -136,7 +136,7 @@ public class Volo {
 		for (ManagerDiVolo manager : managerInVolo) {
 			if (manager.isDoppiato()) {
 				managerDaRimuovere.add(manager);
-				manager.AbbandonaVolo();
+				manager.abbandonaVolo();
 				gestoreIO.stampa("Il giocatore " + formattatore.formatta(manager.getGiocatore())
 						+ " ha abbandonato il volo siccome è stato doppiato");
 				gestoreIO.aCapo();
@@ -147,7 +147,7 @@ public class Volo {
 		for (ManagerDiVolo manager : managerInVolo) {
 			if (manager.getGiocatore().getNave().getEquipaggio().isEmpty()) {
 				managerDaRimuovere.add(manager);
-				manager.AbbandonaVolo();
+				manager.abbandonaVolo();
 				gestoreIO.stampa("Il giocatore " + formattatore.formatta(manager.getGiocatore())
 						+ " ha abbandonato il volo siccome ha perso tutti gli umani dell' equipaggio");
 				gestoreIO.aCapo();
@@ -161,7 +161,7 @@ public class Volo {
 			for (ManagerDiVolo manager : managerInVolo) {
 				if (manager.getGiocatore().getNave().getPotenzaMotrice() <= 0) {
 					managerDaRimuovere.add(manager);
-					manager.AbbandonaVolo();
+					manager.abbandonaVolo();
 					gestoreIO.stampa("Il giocatore " + formattatore.formatta(manager.getGiocatore())
 							+ " ha abbandonato il volo siccome è in uno spazio aperto senza potenza motrice");
 					gestoreIO.aCapo();

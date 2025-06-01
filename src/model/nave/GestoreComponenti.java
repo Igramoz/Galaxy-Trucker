@@ -263,8 +263,6 @@ public class GestoreComponenti {
 					// Se il componente è vuoto non succede nulla, semplicemente non elimino nessun
 					// membro
 				}
-				// TODO: testare se la riga sotto era il problema
-//				membriEquipaggioEliminati++;
 
 				List<Componente> adiacenti = nave.getAnalizzatoreNave().ottieniCabineEquipaggioCollegate(cabina);
 				for (Componente adiacente : adiacenti) {
@@ -349,7 +347,7 @@ public class GestoreComponenti {
 			if(!io.leggiBoolean()) {
 				return false;
 			}
-			
+
 			Componente cabina = nave.getOriginaleComponente(cloneCabina.getPosizione());
 
 			try {

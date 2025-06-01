@@ -69,7 +69,7 @@ public class ServizioCarte {
 		mazzoPerLivello.addAll(generaEpidemia(livelloCarte));
 		mazzoPerLivello.addAll(generaNaveAbbandonata(livelloCarte));
 		mazzoPerLivello.addAll(generaSpazioAperto(livelloCarte));
-		// TODO controllare che ci siano tutte le carte
+		mazzoPerLivello.addAll(generaStazioneAbbandonata(livelloCarte));
 
 		// mischio le carte
 		Collections.shuffle(mazzoPerLivello);
@@ -244,7 +244,7 @@ public class ServizioCarte {
 				List<TipoMerce> merci = new ArrayList<>();
 				Colore colorePianeta = colori.get(i);
 
-				Map<Colore, Integer> probabilita = generaProbabilitaMerci(colorePianeta);
+				Map<Colore, Integer> probabilita = generaProbabilitaMerci(colorePianeta, 50, 10);
 				for (int j = 0; j < numeroMerci; j++) {
 					Colore coloreMerce = random.getEnumValueByProbability(probabilita);
 
@@ -274,19 +274,22 @@ public class ServizioCarte {
 	}
 
 	/**
-	 * Associa ad ogni elemento dell'enum colore una probabilità
+	 * Associa ad ogni elemento dell'enum colore una probabilità.
 	 * 
 	 * @param colorePianeta
+	 * @param altaProbabilita
+	 * @param bassaProbabilita
 	 * @return probabilita: l'insieme dei valori dell'enum Colore, a cui è stata
 	 *         associata una probabilità in base al colore
 	 */
-	private Map<Colore, Integer> generaProbabilitaMerci(Colore colorePianeta) {
+	private Map<Colore, Integer> generaProbabilitaMerci(Colore colorePianeta, int altaProbabilita,
+			int bassaProbabilita) {
 		Map<Colore, Integer> probabilita = new HashMap<>();
 		for (Colore colore : Colore.values()) {
 			if (colore == colorePianeta) {
-				probabilita.put(colore, 50); // molto probabile
+				probabilita.put(colore, altaProbabilita); // molto probabile
 			} else {
-				probabilita.put(colore, 10); // poco probabile
+				probabilita.put(colore, bassaProbabilita); // poco probabile
 			}
 		}
 		return probabilita;
@@ -460,6 +463,34 @@ public class ServizioCarte {
 
 		for (int i = 0; i < numCarte; i++) {
 			lista.add(new SpazioAperto());
+		}
+		return lista;
+	}
+
+	/**
+	 * genera due stazioni abbandonate per livello
+	 * 
+	 * @param livello
+	 * @return lista: contiene le carte generate
+	 */
+	private List<StazioneAbbandonata> generaStazioneAbbandonata(LivelliPartita livello) {
+		List<StazioneAbbandonata> lista = new ArrayList<>();
+
+		switch (livello) {
+		case LIVELLO_1:
+			lista.add(new StazioneAbbandonata(List.of(TipoMerce.GIALLO, TipoMerce.VERDE), 1, 5));
+			lista.add(new StazioneAbbandonata(List.of(TipoMerce.ROSSO, TipoMerce.ROSSO), 1, 6));
+			break;
+		case LIVELLO_2:
+			lista.add(new StazioneAbbandonata(List.of(TipoMerce.ROSSO, TipoMerce.GIALLO), 1, 7));
+			lista.add(new StazioneAbbandonata(List.of(TipoMerce.GIALLO, TipoMerce.GIALLO, TipoMerce.VERDE), 2, 8));
+			break;
+		case LIVELLO_3:
+			lista.add(new StazioneAbbandonata(
+					List.of(TipoMerce.ROSSO, TipoMerce.VERDE, TipoMerce.GIALLO, TipoMerce.BLU), 2, 9));
+			lista.add(new StazioneAbbandonata(
+					List.of(TipoMerce.GIALLO, TipoMerce.GIALLO, TipoMerce.VERDE, TipoMerce.VERDE), 2, 10));
+			break;
 		}
 		return lista;
 	}

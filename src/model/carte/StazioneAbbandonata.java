@@ -28,11 +28,8 @@ public class StazioneAbbandonata extends Carta {
 
 	@Override
 	public void eseguiEvento(ManagerDiVolo[] listaManager) {
-		GestoreIO io = new GestoreIO();
-		CarteRenderer renderer = new CarteRenderer();
-		FormattatoreGrafico formattatoreGrafico = new FormattatoreGrafico();
+		carteRenderer.rappresentaCarta(this);
 		
-		renderer.rappresentaCarta(this);
 		for(ManagerDiVolo manager : listaManager) {
 			if(manager.getGiocatore().getNave().getEquipaggio().size() >= numEquipaggio) {
 				io.stampa(formattatoreGrafico.formatta(manager.getGiocatore()) + " premere 1 per prendere la merce.");

@@ -1,9 +1,12 @@
 package view.formattatori;
 
 
+import java.util.List;
+
 import model.enums.TipoMerce;
 import util.layout.Coordinate;
 import view.Colore;
+import view.GraficaConfig;
 import view.io.GestoreIO;
 
 public class FormattatoreGrafico {
