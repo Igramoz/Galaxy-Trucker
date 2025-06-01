@@ -62,6 +62,8 @@ public abstract class Nemico extends Carta {
 
 		for (ManagerDiVolo m : listaManager) {
 			Giocatore giocatore = m.getGiocatore();
+			io.aCapo();
+			io.stampa("Valutazione della potenza di fuoco della nave di: " + formattatoreGrafico.formatta(giocatore));
 			if (giocatore.getNave().getPotenzaFuoco() < getForzaNemico()) {
 				// aggiungo agli sconfitti
 				sconfitti.add(m);

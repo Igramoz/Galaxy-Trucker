@@ -83,14 +83,14 @@ public enum Effetto {
 	 * </p>
 	 * 
 	 * @param manager il gestore del giocatore penalizzato
-	 * @param numero  di giorni di volo da sottrarre
+	 * @param numero di giorni di volo da <strong> sommare algebricamente </strong>
 	 */
 	GIORNI_VOLO {
 		@Override // giocatore che perde i giorni di volo e numero di giorni di volo persi
 		public void applica(ManagerDiVolo manager, Object valore) throws GiocatoreNonSpostabileException {
 			int n = (Integer) valore;
-			io.stampa(formattatoreGrafico.formatta(manager.getGiocatore()) + " perderà " + n + " giorni di volo");
-			manager.spostaGiocatore(-n);
+			io.stampa(formattatoreGrafico.formatta(manager.getGiocatore()) + " si è mosso di " + n + " giorni di volo");
+			manager.spostaGiocatore(n);
 		}
 	},
 	/**

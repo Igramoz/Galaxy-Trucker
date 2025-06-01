@@ -6,9 +6,6 @@ import java.util.Objects;
 
 import controller.partita.fasiGioco.volo.ManagerDiVolo;
 import model.enums.TipoMerce;
-import view.formattatori.FormattatoreGrafico;
-import view.io.GestoreIO;
-import view.renderer.CarteRenderer;
 import model.carte.criteriEffetti.Effetto;
 
 public class StazioneAbbandonata extends Carta {
@@ -35,7 +32,7 @@ public class StazioneAbbandonata extends Carta {
 				io.stampa(formattatoreGrafico.formatta(manager.getGiocatore()) + " premere 1 per prendere la merce.");
 				if(io.leggiIntero() == 1) {
 					effetto.applica(manager, merci);
-					Effetto.GIORNI_VOLO.applica(manager, tempoDiVolo);
+					Effetto.GIORNI_VOLO.applica(manager, -tempoDiVolo);
 					io.stampa("carta Stazione Abbandonata risolta");
 					io.aCapo();
 					return;

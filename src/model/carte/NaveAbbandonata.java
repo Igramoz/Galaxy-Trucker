@@ -42,7 +42,7 @@ public class NaveAbbandonata extends Carta{
 				io.stampa(formattatoreGrafico.formatta(manager.getGiocatore()) + " premere 1 per prendere i crediti.");
 				if(io.leggiIntero() == 1) {
 					effetto.applica(manager, crediti);
-					Effetto.GIORNI_VOLO.applica(manager, tempoDiVolo);
+					Effetto.GIORNI_VOLO.applica(manager, -tempoDiVolo);
 					io.stampa("carta Nave Abbandonata risolta");
 					io.aCapo();
 					return;

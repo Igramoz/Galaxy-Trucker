@@ -33,7 +33,7 @@ public class Schiavisti extends Nemico {
 		// se sì: giocatore arretra e guadagna crediti
 		if (scelta == 1) {
 			super.getEffettoVittoria().applica(manager, numeroCrediti);
-			Effetto.GIORNI_VOLO.applica(manager, super.getPerditaGiorniDiVolo());
+			Effetto.GIORNI_VOLO.applica(manager, -super.getPerditaGiorniDiVolo());
 		}
 		// se no: niente premio, ma niente perdita di giorni
 	}

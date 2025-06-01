@@ -61,7 +61,7 @@ public class CartaPianeti extends Carta {
 					io.stampa(formattatoreGrafico.formatta(g) + " è atterrato sul Pianeta "
 							+ formattatoreGrafico.formatta(scelto.getColore()));
 					effetto.applica(m, scelto.getMerciDisponibili());
-					Effetto.GIORNI_VOLO.applica(m, giorniVoloPersi);
+					Effetto.GIORNI_VOLO.applica(m, -giorniVoloPersi);
 				}
 			} else {
 				io.stampa(formattatoreGrafico.formatta(g) + " ha scelto di non atterrare.");

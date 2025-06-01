@@ -216,7 +216,7 @@ public class GestoreComponenti {
 			} else {
 				posizione = nave.getAnalizzatoreNave().scegliComponente(TipoComponente.CABINA_EQUIPAGGIO);
 			}
-
+			
 			if (posizione == null) {
 				io.stampa("Il giocatore non ha delle cabine contenenti questo tipo di pedina");
 				return false;
@@ -352,8 +352,7 @@ public class GestoreComponenti {
 
 			try {
 				((CabinaDiEquipaggio) cabina).aggiungi(pedina);
-				io.stampa("" + formattatore.formatta(pedina) + " posizionato in: "
-						+ componentiRender.rappresentazioneCompletaComponente(cabina));
+				io.stampa("Posizionamento: " + componentiRender.rappresentazioneCompletaComponente(cabina));
 				return true;
 			} catch (ComponentePienoException e) {
 				io.stampa("Non è possibile posizionare l'alieno in questa cabina");
@@ -376,8 +375,7 @@ public class GestoreComponenti {
 		for (Componente cabina : cabine) {
 			try {
 				((CabinaDiEquipaggio) cabina).aggiungi(TipoPedina.ASTRONAUTA);
-				io.stampa("" + formattatore.formatta(TipoPedina.ASTRONAUTA) + " posizionato in: "
-						+ componentiRender.rappresentazioneCompletaComponente(cabina));
+				io.stampa("Posizionamento: " + componentiRender.rappresentazioneCompletaComponente(cabina));
 				return true;
 			} catch (ComponentePienoException e) {
 			}
@@ -399,13 +397,16 @@ public class GestoreComponenti {
 			Coordinate posizioneVanoBatteria = nave.getAnalizzatoreNave()
 					.scegliComponente(TipoComponente.VANO_BATTERIA);
 
-			if (posizioneVanoBatteria == null)
+			if (posizioneVanoBatteria == null) {
+				io.stampa("la nave non dispone di vani batteria");
 				return false;
+			}
 
 			Componente vanoBatteria = nave.getOriginaleComponente(posizioneVanoBatteria);
 
 			try {
 				((VanoBatteria) vanoBatteria).scaricaBatteria();
+				io.stampa("Energia rimossa da: " + componentiRender.rappresentazioneCompletaComponente(vanoBatteria));
 			} catch (ComponenteVuotoException e) {
 				io.stampa("Non è possibile rimuovere energia da questo vano");
 				io.stampa("scegliere un vano carico");
