@@ -44,8 +44,6 @@ public class Volo {
 
 	public void iniziaVolo() {
 
-		boolean game = true;
-
 		// caricare le navi dei giocatori con batteria e equipaggiamento
 
 		for (Giocatore giocatore : giocatori) {
@@ -56,40 +54,23 @@ public class Volo {
 		io.aCapo();
 
 		ordinaManegerDiVolo();
-
-		while (game) {
+		ManagerDiVolo[] managers = managerInVolo.toArray(new ManagerDiVolo[0]);
+		while (!carte.isEmpty() && !managerInVolo.isEmpty()) {
 			
+			gestoreIO.stampa(planciaRenderer.rappresentaPlancia(plancia));
+			
+			gestoreIO.stampa("premi un tasto per proseguire : ");
+			gestoreIO.leggiTesto();
+			
+			carte.get(0).eseguiEvento(managers);
+			carte.remove(0);
 			
 			rimuoviManagerInVolo(); // controllo i giocatori che hanno abbandonato la corsa
 
 			ordinaManegerDiVolo();  // ripristino l' ordine dei giocatori in base a chi è più avanti nel volo
-			
 
-			// controllo le carte
-		    if (carte.isEmpty()) {
-		        game = false;
-		        break;
-		    }
-			
-		    //controllo se hanno abbandonato tutti il volo
-			if(managerInVolo.isEmpty()) {
-				game = false;
-				break;
-			}
-
-			gestoreIO.stampa(planciaRenderer.rappresentaPlancia(plancia));
-
-			ManagerDiVolo[] managers = managerInVolo.toArray(new ManagerDiVolo[0]);
-
-
-			
-			carte.get(0).eseguiEvento(managers);
-			carte.remove(0);
-
-			gestoreIO.stampa("premi un tasto per proseguire con la prossima carta: ");
-			gestoreIO.leggiTesto();
-			
 		}
+		
 	}
 
 	private void ordinaManegerDiVolo() {

@@ -1,137 +1,134 @@
-```markdown
-src/
-├── main/
-│   └── Main.java
-|
-├── eccezioni/
-│   ├── ComponenteNonIstanziabileException.java
-│   ├── CaricamentoNonConsentitoException.java
-│   ├── ComponentePienoException.java
-│   ├── ComponenteVuotoException.java
-│   └── GiocatoreNonSpostabileException.java
-│
-├── model/
-│   ├── Giocatore.java
-│   ├── carte/
-│   │   ├── TipoCarta.java
-│   │   ├── Carta.java
-│   │   ├── StazioneAbbandonata.java
-│   │   ├── NaveAbbandonata.java
-│   │   ├── SpazioAperto.java
-│   │   ├── PioggiaDiMeteoriti.java
-│   │   ├── ZonaDiGuerra.java
-│   │   ├── PolvereStellare.java
-│   │   ├── Epidemia.java
-│   │   ├── Sabotaggio.java
-│   │   ├── criteriEffetti/
-│   │   |    ├── Criterio.java
-│   │   |    ├── Effetto.java
-│   │   |    └── CriterioConEffetto.java
-│   │   ├── pianeti/
-│   │   |    ├── CartaPianeti.java
-│   │   |    └── Pianeta.java
-│   │   |── nemiciAvanzati/
-│   │   |    ├── Nemico.java
-│   │   |    ├── Pirati.java
-│   │   |    ├── Schiavisti.java
-│   │   |    └── Contrabbandieri.java
-│       └── colpi/
-│   │        ├── Colpo.java
-│   │        └── GestoreColpi.java
-│   ├── componenti/
-│   │   ├── TipoComponente.java
-│   │   ├── Componente.java
-│   │   ├── Tubo.java
-│   │   ├── Cannone.java
-│   │   │   └── CannoneDoppio.java
-│   │   ├── GeneratoreDiScudi.java
-│   │   ├── CabinaEquipaggio.java
-│   │   ├── CabinaPartenza.java
-│   │   ├── Stiva.java
-│   │   │   └── StivaSpeciale.java
-│   │   ├── VanoBatteria.java
-│   │   ├── ModuloSupportoAlieni.java
-│   │   ├── Motore.java
-│   │       └── MotoreDoppio.java
-│   ├── enums/
-│   │   ├── TipoMerce.java
-│   │   ├── TipoTubo.java
-│   │   └── TipoPedina.java
-|   |
-|   ├── nave/
-│   |	├── Nave.java
-│   |	├── TipoNave.java
-│   |	├── ValidatorePosizione.java
-│   |	├── AnalizzatoreNave.java
-│   |	├── GestoreComponenti.java
-│   |	├── VerificatoreImpatti.java
-│   |	└── Distruttore.java
-│	|
-|   └── planciaDiVolo/
-│   |	├── Plancia.java
-│   |	└── TipoPlancia.java
-|   |
-|   └── titoli/
-│   	├── Titolo.java
-│   	├── TipoTitolo.java
-│   	├── ColoreTitolo.java
-│   	├── Xenoquartiermastro.java
-│   	├── CapitanoDaCrociera.java
-│   	├── MastroIngegnere.java
-│   	├── MastroCorridoista.java
-│   	├── TrasportatoreSupremo.java
-│   	└── Batterista.java
-|
-├── partita/
-│   ├── LivelliPartita.java
-│   ├── Partita.java
-│   ├── ModalitaGioco.java
-│   └── fasiGioco/
-│       ├── Inizializzazione.java
-│       ├── Volo.java
-│       ├── FineVolo.java
-│       ├── FineGioco.java
-│       ├── composizioneNave/
-│       |   ├── ComposizioneNave.java
-│       |   └── ManagerTurnoComposizione.java
-|       |
-│       └── volo/
-│           ├── Volo.java
-│           └── ManagerVolo.java
-│
-├── grafica/
-│   ├── Colore.java
-│   ├── CostantiGrafica.java
-│   ├── GraficaConfig.java
-│   ├── TextAligner.java
-│   └── renderer/
-│   |   ├── CarteRenderer.java
-│   |   ├── ComponenteRenderer.java
-│   |   ├── PlanciaRenderer.java
-│   |   └── NaveRenderer.java
-│   └── formattatori/
-│       ├── FormattatoreGrafico.java
-│       └── Formattabile.java
-│
-├── io/
-│   ├── GestoreIO.java
-│   └── InterfacciaUtente.java
-│
-│
-├── servizi/
-│   ├── ServizioAssemblaggio.java
-│   ├── ServizioTitoli.java
-│   ├── ServizioCarte.java
-│   └── SerivizioDadi.java
-│
-└── util/
-    ├── Util.java
-    ├── Coppia.java
-    ├── layout/
-    |   ├── Coordinate.java
-    |   └── Direzione.java
-    └── random/
-        ├── Dado.java
-        └── RandomUtil.java
 
+# Struttura delle cartelle
+
+```
+src/
+  ├── controller/
+  │   ├── partita/
+  │   │   ├── fasiGioco/
+  │   │   │   ├── composizioneNave/
+  │   │   │   │   ├── ComposizioneNave.java
+  │   │   │   │   └── ManagerTurnoComposizione.java
+  │   │   │   ├── FineGioco.java
+  │   │   │   ├── FineVolo.java
+  │   │   │   ├── Inizializzazione.java
+  │   │   │   └── volo/
+  │   │   │       ├── ManagerDiVolo.java
+  │   │   │       └── Volo.java
+  │   │   ├── LivelliPartita.java
+  │   │   ├── ModalitaGioco.java
+  │   │   └── Partita.java
+  │   └── servizi/
+  │       ├── ServizioAssemblaggio.java
+  │       ├── ServizioCarte.java
+  │       ├── ServizioDadi.java
+  │       └── ServizioTitoli.java
+  ├── eccezioni/
+  │   ├── CaricamentoNonConsentitoException.java
+  │   ├── ComponenteNonIstanziabileException.java
+  │   ├── ComponentePienoException.java
+  │   ├── ComponenteVuotoException.java
+  │   ├── GiocatoreNonSpostabileException.java
+  │   └── StringaTroppoLungaException.java
+  ├── main/
+  │   └── Main.java
+  ├── model/
+  │   ├── carte/
+  │   │   ├── Carta.java
+  │   │   ├── colpo/
+  │   │   │   ├── Colpo.java
+  │   │   │   └── GestoreColpi.java
+  │   │   ├── criteriEffetti/
+  │   │   │   ├── Criterio.java
+  │   │   │   ├── CriterioConEffetto.java
+  │   │   │   └── Effetto.java
+  │   │   ├── Epidemia.java
+  │   │   ├── NaveAbbandonata.java
+  │   │   ├── nemici/
+  │   │   │   ├── Contrabbandieri.java
+  │   │   │   ├── Nemico.java
+  │   │   │   ├── Pirati.java
+  │   │   │   └── Schiavisti.java
+  │   │   ├── pianeti/
+  │   │   │   ├── CartaPianeti.java
+  │   │   │   └── Pianeta.java
+  │   │   ├── PioggiaDiMeteoriti.java
+  │   │   ├── PolvereStellare.java
+  │   │   ├── Sabotaggio.java
+  │   │   ├── SpazioAperto.java
+  │   │   ├── StazioneAbbandonata.java
+  │   │   ├── TipoCarta.java
+  │   │   └── ZonaDiGuerra.java
+  │   ├── componenti/
+  │   │   ├── cabine/
+  │   │   │   ├── CabinaDiEquipaggio.java
+  │   │   │   └── CabinaPartenza.java
+  │   │   ├── cannoni/
+  │   │   │   ├── Cannone.java
+  │   │   │   └── CannoneDoppio.java
+  │   │   ├── Componente.java
+  │   │   ├── Contenitore.java
+  │   │   ├── GeneratoreDiScudi.java
+  │   │   ├── ModuloSupportoAlieni.java
+  │   │   ├── motori/
+  │   │   │   ├── Motore.java
+  │   │   │   └── MotoreDoppio.java
+  │   │   ├── stive/
+  │   │   │   ├── Stiva.java
+  │   │   │   └── StivaSpeciale.java
+  │   │   ├── TipoComponente.java
+  │   │   ├── Tubo.java
+  │   │   └── VanoBatteria.java
+  │   ├── enums/
+  │   │   ├── TipoMerce.java
+  │   │   ├── TipoPedina.java
+  │   │   └── TipoTubo.java
+  │   ├── Giocatore.java
+  │   ├── nave/
+  │   │   ├── AnalizzatoreNave.java
+  │   │   ├── Distruttore.java
+  │   │   ├── GestoreComponenti.java
+  │   │   ├── Nave.java
+  │   │   ├── TipoNave.java
+  │   │   ├── ValidatorePosizione.java
+  │   │   └── VerificatoreImpatti.java
+  │   ├── planciaDiVolo/
+  │   │   ├── Plancia.java
+  │   │   └── TipoPlancia.java
+  │   └── titoli/
+  │       ├── Batterista.java
+  │       ├── CapitanoDaCrociera.java
+  │       ├── ColoreTitolo.java
+  │       ├── MastroCorridoista.java
+  │       ├── MastroIngegnere.java
+  │       ├── TipoTitolo.java
+  │       ├── Titolo.java
+  │       ├── TrasportatoreSupremo.java
+  │       └── Xenoquartiermastro.java
+  ├── util/
+  │   ├── Coppia.java
+  │   ├── layout/
+  │   │   ├── Coordinate.java
+  │   │   └── Direzione.java
+  │   ├── random/
+  │   │   ├── Dado.java
+  │   │   └── RandomUtil.java
+  │   └── Util.java
+  └── view/
+      ├── Colore.java
+      ├── CostantiGrafica.java
+      ├── formattatori/
+      │   ├── Formattabile.java
+      │   └── FormattatoreGrafico.java
+      ├── GraficaConfig.java
+      ├── io/
+      │   ├── GestoreIO.java
+      │   └── InterfacciaUtente.java
+      ├── renderer/
+      │   ├── CarteRenderer.java
+      │   ├── ComponenteRenderer.java
+      │   ├── NaveRenderer.java
+      │   ├── PlanciaRenderer.java
+      │   └── TitoliRenderer.java
+      └── TextAligner.java
 ```
