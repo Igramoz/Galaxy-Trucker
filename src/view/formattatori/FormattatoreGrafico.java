@@ -1,6 +1,5 @@
 package view.formattatori;
 
-
 import java.util.List;
 
 import model.enums.TipoMerce;
@@ -15,14 +14,15 @@ public class FormattatoreGrafico {
 
 	// ( x , y )
 	public String formatta(Coordinate coord) {
-		return "( " + coord.getX()+ GraficaConfig.OFFSET + " , " + coord.getY()+ GraficaConfig.OFFSET + " )";
+		return "( " + (coord.getX() + GraficaConfig.OFFSET) + " , " + (coord.getY() + GraficaConfig.OFFSET) + " )";
 	}
-	
+
 	public <T extends Formattabile> String formatta(T formattabile) {
 		return formattabile.getColore().getCodice() + formattabile.getNome() + Colore.DEFAULT.getCodice();
 	}
-	
-	// non posso fare overload perché i generici vengono tolti in compilazione quindi non disingue quela formatta e stampa
+
+	// non posso fare overload perché i generici vengono tolti in compilazione
+	// quindi non disingue quela formatta e stampa
 	public void formattaEStampaMerci(List<TipoMerce> merci) {
 		String out = "";
 		for (TipoMerce merce : merci) {
@@ -30,6 +30,5 @@ public class FormattatoreGrafico {
 		}
 		io.stampa(out);
 	}
-
 
 }

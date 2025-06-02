@@ -41,7 +41,7 @@ public class PolvereStellare extends Carta {
 			int connettoriEsposti = manager.getGiocatore().getNave().getNumConnettoriEsposti();
 			io.aCapo();
 			io.stampa(formattatoreGrafico.formatta(manager.getGiocatore()) + " ha " + connettoriEsposti + " connettori esposti");
-			effetto.applica(manager, connettoriEsposti);
+			effetto.applica(manager, -connettoriEsposti);
 		}
 		io.aCapo();
 		io.stampa("Carta POLVERE DI STELLE risolta");

@@ -10,6 +10,7 @@ import model.Giocatore;
 import model.titoli.TipoTitolo;
 import model.titoli.Titolo;
 import util.random.RandomUtil;
+import view.io.GestoreIO;
 import view.renderer.TitoliRenderer;
 
 /**
@@ -19,7 +20,7 @@ import view.renderer.TitoliRenderer;
 public class ServizioTitoli {
 
 	private final TitoliRenderer  renderer = new TitoliRenderer();
-
+	private final GestoreIO io = new GestoreIO();
 	private final ManagerDiVolo[] tuttiManagers; // tutti i managers (anche quelli che hanno abbandonato il gioco
 	private final List<Giocatore> giocatoriInVolo; // managers che hanno terminato il volo
 	private final LivelliPartita livello; // livello del turno appena finito
@@ -84,6 +85,9 @@ public class ServizioTitoli {
 			giocatore.setTipoTitolo(titolo);
 			renderer.stampaAssegnazioneTitolo(giocatore, titolo);
 		}
+		
+		io.stampa("Premi un qualsiasi tasto per proseguire");
+		io.leggiTesto();
 	}
 
 	private void valutaDifesaTitoli() {
