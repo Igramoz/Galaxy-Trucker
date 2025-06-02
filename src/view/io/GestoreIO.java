@@ -21,7 +21,7 @@ public class GestoreIO implements InterfacciaUtente {
 	private TextAligner aligner = new TextAligner();
 
 	/**
-	 * Legge un numero intero dall'input dell'utente.
+	 * {@inheritDoc}
 	 */
 	public int leggiIntero() {
 		while (true) {
@@ -37,7 +37,7 @@ public class GestoreIO implements InterfacciaUtente {
 	}
 
 	/**
-	 * Legge un input dell'utente, controlla che non sia vuoto
+	 * {@inheritDoc}
 	 */
 	public String leggiTesto() {
 		String input;
@@ -51,9 +51,7 @@ public class GestoreIO implements InterfacciaUtente {
 	}
 
 	/**
-	 * Legge le coordinate X e Y da input dell'utente.
-	 * 
-	 * @return un oggetto Coordinate con le coordinate lette (0 based).
+	 * {@inheritDoc}
 	 */
 	public Coordinate leggiCoordinate() {
 
@@ -82,29 +80,37 @@ public class GestoreIO implements InterfacciaUtente {
 		return valore;
 	}
 
+	/**
+	 * {@inheritDoc}	 *
+	 */
 	public void aCapo() {
 		stampa("");
 	}
 
 	/**
-	 * Metodo che permette all'utente di scegliere o no di eseguire un azione.
-	 * BISOGNA PRIMA STAMPARE L'OUTPUT per indicare all'utente di quale azione si tratta.
-	 * LA funzione stampa solo: <p> Scrivere 1 per eseguire l'azione </p>
+	 * {@inheritDoc}
 	 * 
-	 * @return vero se l'utente ha deciso di eseguire l'azione
+	 * BISOGNA PRIMA STAMPARE L'OUTPUT per indicare all'utente di quale azione si
+	 * tratta. LA funzione stampa solo:
+	 * <p>
+	 * Scrivere 1 per eseguire l'azione
+	 * </p>
+	 * 
 	 */
 	public boolean leggiBoolean() {
 		this.stampa("Scrivere 1 per eseguire l'azione");
 		int scelta = leggiIntero();
-		if(scelta == 1) {
+		if (scelta == 1) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
 	
 	
-	// Metodi da usare per stampare a video
+	/**
+	 * {@inheritDoc}
+	 */
 	public void stampa(String riga) {
 
 		if (riga == null) {
@@ -127,26 +133,16 @@ public class GestoreIO implements InterfacciaUtente {
 	}
 
 	/**
-	 * Stampa un array di stringhe, ciascuna stringa su una riga
+	 * {@inheritDoc}
 	 */
 	public void stampa(String[] righeDaStampare) {
-
-		if (righeDaStampare == null) {
-			System.err.println("Errore: L'array delle righe da stampare è null.");
-			return;
-		}
 		stampa(Arrays.asList(righeDaStampare));
 	}
 
 	/**
-	 * Stampa una lita di righe, ciascuna stringa su una riga
+	 * {@inheritDoc}
 	 */
 	public void stampa(List<String> righeDaStampare) {
-		if (righeDaStampare == null) {
-			// non è un errore così critico da lanciare un eccezione
-			System.err.println("Errore: La lista delle righe da stampare è null.");
-			return;
-		}
 
 		for (String riga : righeDaStampare) {
 			stampa(riga);
@@ -154,10 +150,7 @@ public class GestoreIO implements InterfacciaUtente {
 	}
 
 	/**
-	 * stampa il menu e riporta la risposta dell'utente sia compresa tra 0 e
-	 * menu.length - 1
-	 * 
-	 * @param menu, ciascun elemento dell'array deve essere un'opzione
+	 * {@inheritDoc}
 	 */
 	public int stampaMenu(String[] menu) {
 
@@ -192,9 +185,7 @@ public class GestoreIO implements InterfacciaUtente {
 	}
 
 	/**
-	 * Funzione per fare scegliere all'utente un valore di un enum
-	 * 
-	 * @param enumerato da stampare
+	 * {@inheritDoc}
 	 */
 	public <T extends Enum<T>> T scegliEnum(Class<T> enumerato) {
 		FormattatoreGrafico formattatore = new FormattatoreGrafico();
@@ -212,12 +203,10 @@ public class GestoreIO implements InterfacciaUtente {
 	}
 
 	/**
-	 * Permette all'utente di scegliere un componente da una lista
-	 * 
-	 * @param lista dal quale scegliere un componente
+	 * {@inheritDoc}
 	 */
 	public Componente menuComponenti(List<Componente> componenti) {
-		
+
 		if (componenti == null || componenti.isEmpty()) {
 			return null;
 		} else if (componenti.size() == 1) {
@@ -237,6 +226,12 @@ public class GestoreIO implements InterfacciaUtente {
 		return componenti.get(scelta);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * Suggerisce all'utente come impostare lo schermo
+	 * 
+	 */
 	public void aperturaGioco() {
 		stampa(aligner.alignCenter(
 				"Benvenuti a " + Colore.VIOLA_LILLA.getCodice() + "Galaxy Trucker" + Colore.DEFAULT.getCodice()));
@@ -249,6 +244,11 @@ public class GestoreIO implements InterfacciaUtente {
 		scanner.nextLine();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * ringrazia l'utente e chiude lo scanner. 
+	 */
 	public void chiusuraGioco() {
 		stampa("Grazie per aver giocato.");
 		scanner.close();

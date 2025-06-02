@@ -192,7 +192,7 @@ public class ComponenteRenderer {
 		} else if (componente.getTipo() == TipoComponente.VANO_BATTERIA) {
 			int carica = ((VanoBatteria) componente).getBatterie();
 			if (carica == 0) {
-				output += " scarica";
+				output += " scarico";
 			} else {
 				output += " carica: " + carica;
 			}

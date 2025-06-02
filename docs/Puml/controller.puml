@@ -1,0 +1,61 @@
+@startuml
+
+package controller {
+  package partita {
+    package fasiGioco {
+      class FineGioco
+      class FineVolo
+      class Inizializzazione
+
+      package composizioneNave {
+        class ComposizioneNave
+        class ManagerTurnoComposizione
+      }
+
+      package volo {
+        class ManagerDiVolo
+        class Volo
+      }
+      
+      ' Relazioni tra le fasi
+      Inizializzazione --> ComposizioneNave : utilizza
+      ComposizioneNave --> ManagerTurnoComposizione : gestito da
+      ManagerTurnoComposizione --> ComposizioneNave : controlla
+
+      Inizializzazione --> ManagerTurnoComposizione : avvia
+      FineVolo --> ManagerDiVolo : termina
+      ManagerDiVolo --> Volo : gestisce
+      Volo --> ManagerDiVolo : notifiche/eventi
+      FineGioco --> FineVolo : precede
+
+      FineVolo --> Volo : termina
+
+    }
+    class LivelliPartita
+    class ModalitaGioco
+    class Partita
+
+    ' Relazioni tra Partita e le fasi
+    Partita --> Inizializzazione : gestisce
+    Partita --> FineGioco : chiude
+    Partita --> LivelliPartita : contiene
+    Partita --> ModalitaGioco : imposta
+
+    ' Relazioni tra ModalitaGioco e LivelliPartita
+    ModalitaGioco --> LivelliPartita : usa
+  }
+  package servizi {
+    class ServizioAssemblaggio
+    class ServizioCarte
+    class ServizioDadi
+    class ServizioTitoli
+
+    ' Esempio di uso dei servizi da Partita
+    Partita --> ServizioAssemblaggio : usa
+    Partita --> ServizioCarte : usa
+    Partita --> ServizioDadi : usa
+    Partita --> ServizioTitoli : usa
+  }
+}
+
+@enduml

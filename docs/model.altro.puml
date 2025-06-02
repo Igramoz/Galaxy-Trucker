@@ -1,0 +1,66 @@
+@startuml
+
+package model {
+  package enums {
+    enum TipoMerce
+    enum TipoPedina
+    enum TipoTubo
+  }
+  class Giocatore
+  package nave {
+    class AnalizzatoreNave
+    class Distruttore
+    class GestoreComponenti
+    class Nave
+    enum TipoNave
+    class ValidatorePosizione
+    class VerificatoreImpatti
+  }
+  package planciaDiVolo {
+    class Plancia
+    enum TipoPlancia
+  }
+  package titoli {
+    abstract class Titolo
+    class Batterista
+    class CapitanoDaCrociera
+    enum ColoreTitolo
+    class MastroCorridoista
+    class MastroIngegnere
+    enum TipoTitolo
+    class TrasportatoreSupremo
+    class Xenoquartiermastro
+  }
+}
+
+' Ereditarietà titoli
+Titolo <|-- Batterista
+Titolo <|-- MastroCorridoista
+Titolo <|-- MastroIngegnere
+Titolo <|-- Xenoquartiermastro
+Titolo <|-- TrasportatoreSupremo
+Titolo <|-- CapitanoDaCrociera
+
+' Relazioni Giocatore-Titoli/Nave/Plancia (associazioni tipiche)
+Giocatore "1" o-- "*" Titolo : possiede >
+Giocatore "1" o-- "1" Nave : comanda >
+Plancia "1" o-- "*" Giocatore : contiene >
+Giocatore -- TipoTitolo : usa >
+Giocatore -- ColoreTitolo : usa >
+
+' Relazioni titoli con enums
+Titolo -- TipoTitolo : ha >
+Titolo -- ColoreTitolo : ha >
+
+' Relazioni Plancia con enum
+Plancia -- TipoPlancia : usa >
+
+' Relazioni Nave con altre del suo package
+Nave o-- GestoreComponenti : usa >
+Nave o-- AnalizzatoreNave : analizza >
+Nave o-- Distruttore : può usare >
+Nave o-- ValidatorePosizione : valida >
+Nave o-- VerificatoreImpatti : verifica >
+Nave -- TipoNave : tipo >
+
+@enduml

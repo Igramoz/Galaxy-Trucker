@@ -17,7 +17,11 @@ import view.io.GestoreIO;
 import view.renderer.ComponenteRenderer;
 
 public class GestoreComponenti {
-// classe che interagisce con i setter e i getter per gestire l'inserimento o la rimozione di merci/energia/equipaggio dalla nave
+	/**
+	 * classe che interagisce con i setter e i getter per gestire l'inserimento o la rimozione
+	 * di merci/energia/equipaggio dalla nave
+	 * 
+	 */
 
 	// funzione per scegliere un componente della nave
 	private final Nave nave;
