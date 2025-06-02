@@ -1,0 +1,49 @@
+@startuml
+
+package carte {
+    abstract class Carta
+    package colpo {
+      class Colpo
+      class GestoreColpi
+    }
+    package criteriEffetti {
+      enum Criterio
+      class CriterioConEffetto
+      enum Effetto
+    }
+    class Epidemia
+    class NaveAbbandonata
+    package nemici {
+      class Contrabbandieri
+      abstract class Nemico
+      class Pirati
+      class Schiavisti
+    }
+    package pianeti {
+      class CartaPianeti
+      class Pianeta
+    }
+    class PioggiaDiMeteoriti
+    class PolvereStellare
+    class Sabotaggio
+    class SpazioAperto
+    class StazioneAbbandonata
+    enum TipoCarta
+    class ZonaDiGuerra
+}
+
+Carta <|-- Epidemia
+Carta <|-- SpazioAperto
+Carta <|-- ZonaDiGuerra
+Carta <|-- PioggiaDiMeteoriti
+Carta <|-- NaveAbbandonata
+Carta <|-- Nemico
+Carta <|-- StazioneAbbandonata
+Carta <|-- PolvereStellare
+Carta <|-- Sabotaggio
+Carta <|-- CartaPianeti
+Nemico <|-- Contrabbandieri
+Nemico <|-- Pirati
+Nemico <|-- Schiavisti
+
+@enduml

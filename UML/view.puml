@@ -1,0 +1,27 @@
+@startuml
+
+package view {
+  enum Colore
+  class CostantiGrafica
+  package formattatori {
+    interface Formattabile
+    class FormattatoreGrafico
+  }
+  class GraficaConfig
+  package io {
+    class GestoreIO
+    interface InterfacciaUtente
+  }
+  package renderer {
+    class CarteRenderer
+    class ComponenteRenderer
+    class NaveRenderer
+    class PlanciaRenderer
+    class TitoliRenderer
+  }
+  class TextAligner
+}
+
+Formattabile <|.. Colore
+
+@enduml

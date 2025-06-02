@@ -1,0 +1,43 @@
+@startuml
+
+package model {
+    package enums {
+    enum TipoMerce
+    enum TipoPedina
+    enum TipoTubo
+  }
+  class Giocatore
+  package nave {
+    class AnalizzatoreNave
+    class Distruttore
+    class GestoreComponenti
+    class Nave
+    enum TipoNave
+    class ValidatorePosizione
+    class VerificatoreImpatti
+  }
+  package planciaDiVolo {
+    class Plancia
+    enum TipoPlancia
+  }
+  package titoli {
+    abstract class Titolo
+    class Batterista
+    class CapitanoDaCrociera
+    enum ColoreTitolo
+    class MastroCorridoista
+    class MastroIngegnere
+    enum TipoTitolo
+    class TrasportatoreSupremo
+    class Xenoquartiermastro
+  }
+}
+
+Titolo <|-- Batterista
+Titolo <|-- MastroCorridoista
+Titolo <|-- MastroIngegnere
+Titolo <|-- Xenoquartiermastro
+Titolo <|-- TrasportatoreSupremo
+Titolo <|-- CapitanoDaCrociera
+
+@enduml

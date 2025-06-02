@@ -1,0 +1,209 @@
+@startuml
+
+package controller {
+  package partita {
+    package fasiGioco {
+      class FineGioco
+      class FineVolo
+      class Inizializzazione
+      package composizioneNave {
+        class ComposizioneNave
+        class ManagerTurnoComposizione
+      }
+      package volo {
+        class ManagerDiVolo
+        class Volo
+      }
+    }
+    class LivelliPartita
+    class ModalitaGioco
+    class Partita
+  }
+  package servizi {
+    class ServizioAssemblaggio
+    class ServizioCarte
+    class ServizioDadi
+    class ServizioTitoli
+  }
+}
+
+package eccezioni {
+  class CaricamentoNonConsentitoException
+  class ComponenteNonIstanziabileException
+  class ComponentePienoException
+  class ComponenteVuotoException
+  class GiocatoreNonSpostabileException
+  class StringaTroppoLungaException
+}
+
+package main {
+  class Main
+}
+
+package model {
+  package carte {
+    abstract class Carta
+    package colpo {
+      class Colpo
+      class GestoreColpi
+    }
+    package criteriEffetti {
+      enum Criterio
+      class CriterioConEffetto
+      enum Effetto
+    }
+    class Epidemia
+    class NaveAbbandonata
+    package nemici {
+      class Contrabbandieri
+      abstract class Nemico
+      class Pirati
+      class Schiavisti
+    }
+    package pianeti {
+      class CartaPianeti
+      class Pianeta
+    }
+    class PioggiaDiMeteoriti
+    class PolvereStellare
+    class Sabotaggio
+    class SpazioAperto
+    class StazioneAbbandonata
+    enum TipoCarta
+    class ZonaDiGuerra
+  }
+  package componenti {
+    abstract class Componente
+    package cabine {
+      class CabinaDiEquipaggio
+      class CabinaPartenza
+    }
+    package cannoni {
+      class Cannone
+      class CannoneDoppio
+    }
+    package motori {
+      class Motore
+      class MotoreDoppio
+    }
+    package stive {
+      class Stiva
+      class StivaSpeciale
+    }
+    interface Contenitore
+    class GeneratoreDiScudi
+    class ModuloSupportoAlieni
+    enum TipoComponente
+    class Tubo
+    class VanoBatteria
+  }
+  package enums {
+    enum TipoMerce
+    enum TipoPedina
+    enum TipoTubo
+  }
+  class Giocatore
+  package nave {
+    class AnalizzatoreNave
+    class Distruttore
+    class GestoreComponenti
+    class Nave
+    enum TipoNave
+    class ValidatorePosizione
+    class VerificatoreImpatti
+  }
+  package planciaDiVolo {
+    class Plancia
+    enum TipoPlancia
+  }
+  package titoli {
+    abstract class Titolo
+    class Batterista
+    class CapitanoDaCrociera
+    enum ColoreTitolo
+    class MastroCorridoista
+    class MastroIngegnere
+    enum TipoTitolo
+    class TrasportatoreSupremo
+    class Xenoquartiermastro
+  }
+}
+
+package util {
+  class Coppia
+  class Util
+  package layout {
+    class Coordinate
+    enum Direzione
+  }
+  package random {
+    class Dado
+    class RandomUtil
+  }
+}
+
+package view {
+  enum Colore
+  class CostantiGrafica
+  package formattatori {
+    interface Formattabile
+    class FormattatoreGrafico
+  }
+  class GraficaConfig
+  package io {
+    class GestoreIO
+    interface InterfacciaUtente
+  }
+  package renderer {
+    class CarteRenderer
+    class ComponenteRenderer
+    class NaveRenderer
+    class PlanciaRenderer
+    class TitoliRenderer
+  }
+  class TextAligner
+}
+
+
+Carta <|-- Epidemia
+Carta <|-- SpazioAperto
+Carta <|-- ZonaDiGuerra
+Carta <|-- PioggiaDiMeteoriti
+Carta <|-- NaveAbbandonata
+Carta <|-- Nemico
+Carta <|-- StazioneAbbandonata
+Carta <|-- PolvereStellare
+Carta <|-- Sabotaggio
+Carta <|-- CartaPianeti
+Nemico <|-- Contrabbandieri
+Nemico <|-- Pirati
+Nemico <|-- Schiavisti
+Componente <|-- CabinaDiEquipaggio
+Componente <|-- Cannone
+Componente <|-- Motore
+Componente <|-- Stiva
+Componente <|-- GeneratoreDiScudi
+Componente <|-- ModuloSupportoAlieni
+Componente <|-- Tubo
+Componente <|-- VanoBatteria
+Cannone <|-- CannoneDoppio
+Motore <|-- MotoreDoppio
+CabinaDiEquipaggio <|-- CabinaPartenza
+Stiva <|-- StivaSpeciale
+Titolo <|-- Batterista
+Titolo <|-- MastroCorridoista
+Titolo <|-- MastroIngegnere
+Titolo <|-- Xenoquartiermastro
+Titolo <|-- TrasportatoreSupremo
+Titolo <|-- CapitanoDaCrociera
+
+Contenitore <|.. CabinaDiEquipaggio
+Contenitore <|.. Stiva
+Formattabile <|.. Colore
+Formattabile <|.. Giocatore
+Formattabile <|.. TipoComponente
+Formattabile <|.. TipoMerce
+Formattabile <|.. TipoPedina
+Formattabile <|.. TipoTitolo
+
+@enduml

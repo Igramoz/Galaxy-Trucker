@@ -1,0 +1,44 @@
+@startuml
+
+package componenti {
+    abstract class Componente
+    package cabine {
+      class CabinaDiEquipaggio
+      class CabinaPartenza
+    }
+    package cannoni {
+      class Cannone
+      class CannoneDoppio
+    }
+    package motori {
+      class Motore
+      class MotoreDoppio
+    }
+    package stive {
+      class Stiva
+      class StivaSpeciale
+    }
+    interface Contenitore
+    class GeneratoreDiScudi
+    class ModuloSupportoAlieni
+    enum TipoComponente
+    class Tubo
+    class VanoBatteria
+}
+
+Componente <|-- CabinaDiEquipaggio
+Componente <|-- Cannone
+Componente <|-- Motore
+Componente <|-- Stiva
+Componente <|-- GeneratoreDiScudi
+Componente <|-- ModuloSupportoAlieni
+Componente <|-- Tubo
+Componente <|-- VanoBatteria
+Cannone <|-- CannoneDoppio
+Motore <|-- MotoreDoppio
+CabinaDiEquipaggio <|-- CabinaPartenza
+Stiva <|-- StivaSpeciale
+Contenitore <|.. CabinaDiEquipaggio
+Contenitore <|.. Stiva
+
+@enduml

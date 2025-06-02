@@ -1,0 +1,27 @@
+@startuml
+
+package eccezioni {
+  class CaricamentoNonConsentitoException
+  class ComponenteNonIstanziabileException
+  class ComponentePienoException
+  class ComponenteVuotoException
+  class GiocatoreNonSpostabileException
+  class StringaTroppoLungaException
+}
+package main {
+  class Main
+}
+package util {
+  class Coppia
+  class Util
+  package layout {
+    class Coordinate
+    enum Direzione
+  }
+  package random {
+    class Dado
+    class RandomUtil
+  }
+}
+
+@enduml
