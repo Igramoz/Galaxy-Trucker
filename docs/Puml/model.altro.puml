@@ -44,7 +44,7 @@ Titolo <|-- CapitanoDaCrociera
 ' Relazioni Giocatore-Titoli/Nave/Plancia (associazioni tipiche)
 Giocatore "1" o-- "*" Titolo : possiede >
 Giocatore "1" o-- "1" Nave : comanda >
-Giocatore "1" o-- "1" Plancia : ha >
+Plancia "1" o-- "*" Giocatore : contiene >
 Giocatore -- TipoTitolo : usa >
 Giocatore -- ColoreTitolo : usa >
 

@@ -1,5 +1,3 @@
-scrivere il file .puml basandosi su questo sito: https://plantuml.com/class-diagram
-
 # Galaxy Trucker - Gruppo 38
 
 **Galaxy Trucker** è un gioco da tavolo in cui i giocatori costruiscono astronavi al fine di trasportare e vendere merci nell'universo, affrontando imprevisti e pericoli.  
@@ -76,5 +74,5 @@ Gruppo 38
 1. Clona la repository 
 2. Apri il terminale e naviga nella cartella del progetto
 3. Entra nella cartella scripts tramite il comando ```cd scripts/```
-3. Esegui ```chmod +x esegui.sh``` (per rendere eseguibile lo script)
-4. Esegui lo script con ```./esegui.sh```
+4. Esegui ```chmod +x esegui.sh``` (per rendere eseguibile lo script)
+5. Esegui lo script con ```./esegui.sh```
