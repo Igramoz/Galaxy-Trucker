@@ -4,11 +4,10 @@ setlocal EnableDelayedExpansion
 
 echo Compilazione dei sorgenti...
 
-REM Crea la cartella bin se non esiste
-if not exist bin mkdir bin
-
 REM Costruisce una variabile contenente tutti i .java
 set "sources="
+
+cd ..
 
 for /R src %%f in (*.java) do (
     set "sources=!sources! %%f"

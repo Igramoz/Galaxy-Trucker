@@ -64,9 +64,17 @@ Gruppo 38
 
 ---
 
+## Come eseguire il progetto (Windows)
+
+1. Clona la repository 
+2. Apri la cartella del progetto
+3. Entra nella cartella scripts 
+4. Esegui il file ```esegui.bat```
+
 ## Come eseguire il progetto (MacOS/Linux)
 
-1. Clona il repository 
+1. Clona la repository 
 2. Apri il terminale e naviga nella cartella del progetto
+3. Entra nella cartella scripts tramite il comando ```cd scripts/```
 3. Esegui ```chmod +x esegui.sh``` (per rendere eseguibile lo script)
 4. Esegui lo script con ```./esegui.sh```

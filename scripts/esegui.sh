@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Compila
-
+cd ..
 javac -d bin $(find src -name "*.java")
 
 
@@ -11,6 +11,9 @@ if [ $? -ne 0 ]; then
 fi
 
 # Leggi i nomi (max 4, min 2)
+
+
+
 noms=()
 for i in 1 2 3 4; do
   read -p "Inserisci il nome del giocatore $i (invio per fermarti): " nome
