@@ -110,52 +110,39 @@ public class Volo {
 	}
 
 	private void rimuoviManagerInVolo() {
+	    Set<ManagerDiVolo> managerDaRimuovere = new HashSet<>();
 
-		Set<ManagerDiVolo> managerDaRimuovere = new HashSet<>();
+	    // Unico ciclo per tutte le condizioni
+	    for (ManagerDiVolo manager : managerInVolo) {
+	        boolean daRimuovere = false;
 
-		// controllo se i giocatori sono doppiati
-		for (ManagerDiVolo manager : managerInVolo) {
-			if (manager.isDoppiato()) {
-				managerDaRimuovere.add(manager);
-				manager.abbandonaVolo();
-				gestoreIO.stampa("Il giocatore " + formattatore.formatta(manager.getGiocatore())
-						+ " ha abbandonato il volo siccome è stato doppiato");
-				gestoreIO.aCapo();
+	        if (manager.isDoppiato()) {
+	            gestoreIO.stampa("Il giocatore " + formattatore.formatta(manager.getGiocatore())
+	                    + " ha abbandonato il volo siccome è stato doppiato");
+	            gestoreIO.aCapo();
+	            daRimuovere = true;
+	        }
+	        else if (manager.getGiocatore().getNave().getEquipaggio().isEmpty()) {
+	            gestoreIO.stampa("Il giocatore " + formattatore.formatta(manager.getGiocatore())
+	                    + " ha abbandonato il volo siccome ha perso tutti gli umani dell' equipaggio");
+	            gestoreIO.aCapo();
+	            daRimuovere = true;
+	        }
+	        else if (!carte.isEmpty() && carte.get(0).getTipoCarta() == TipoCarta.SPAZIO_APERTO &&
+	            manager.getGiocatore().getNave().getPotenzaMotrice() <= 0) {
+	            gestoreIO.stampa("Il giocatore " + formattatore.formatta(manager.getGiocatore())
+	                    + " ha abbandonato il volo siccome è in uno spazio aperto senza potenza motrice");
+	            gestoreIO.aCapo();
+	            daRimuovere = true;
+	        }
 
-			}
-		}
-		// se perdi tutti gli umani dell' equipaggio
-		for (ManagerDiVolo manager : managerInVolo) {
-			if (manager.getGiocatore().getNave().getEquipaggio().isEmpty()) {
-				managerDaRimuovere.add(manager);
-				manager.abbandonaVolo();
-				gestoreIO.stampa("Il giocatore " + formattatore.formatta(manager.getGiocatore())
-						+ " ha abbandonato il volo siccome ha perso tutti gli umani dell' equipaggio");
-				gestoreIO.aCapo();
-			}
-		}
+	        if (daRimuovere) {
+	            manager.abbandonaVolo();
+	            managerDaRimuovere.add(manager);
+	        }
+	    }
 
-		// se ti imbatti in un’avventura Spazio Aperto, devi dichiarare una potenza
-		// motrice maggiore di zero o abbandonare la corsa.
-		if (!carte.isEmpty() && carte.get(0).getTipoCarta() == TipoCarta.SPAZIO_APERTO) {
-
-			for (ManagerDiVolo manager : managerInVolo) {
-				if (manager.getGiocatore().getNave().getPotenzaMotrice() <= 0) {
-					managerDaRimuovere.add(manager);
-					manager.abbandonaVolo();
-					gestoreIO.stampa("Il giocatore " + formattatore.formatta(manager.getGiocatore())
-							+ " ha abbandonato il volo siccome è in uno spazio aperto senza potenza motrice");
-					gestoreIO.aCapo();
-				}
-			}
-		}
-		// rimuovo effettivamente i manager di volo da managerInVolo
-
-		for (ManagerDiVolo manager : managerDaRimuovere) {
-			managerInVolo.remove(manager);
-
-		}
-
+	    managerInVolo.removeAll(managerDaRimuovere);
 	}
 
 }
