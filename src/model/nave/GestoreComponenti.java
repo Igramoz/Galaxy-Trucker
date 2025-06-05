@@ -2,7 +2,9 @@ package model.nave;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import eccezioni.ComponentePienoException;
 import eccezioni.ComponenteVuotoException;
@@ -18,8 +20,8 @@ import view.renderer.ComponenteRenderer;
 
 public class GestoreComponenti {
 	/**
-	 * classe che interagisce con i setter e i getter per gestire l'inserimento o la rimozione
-	 * di merci/energia/equipaggio dalla nave
+	 * classe che interagisce con i setter e i getter per gestire l'inserimento o la
+	 * rimozione di merci/energia/equipaggio dalla nave
 	 * 
 	 */
 
@@ -210,7 +212,7 @@ public class GestoreComponenti {
 			io.stampa("Scegliere la pedina da rimuovere: ");
 			TipoPedina pedinaDaRimuovere = io.scegliEnum(TipoPedina.class);
 			// rimuovo le pedine del tipo scelto dall'utente
-			
+
 			// lascio scegliere all'utente da quale cabina rimuovere la pedina
 			io.stampa("Scegliere la cabina da cui rimuovere la pedina: ");
 			Coordinate posizione = null;
@@ -220,7 +222,7 @@ public class GestoreComponenti {
 			} else {
 				posizione = nave.getAnalizzatoreNave().scegliComponente(TipoComponente.CABINA_EQUIPAGGIO);
 			}
-			
+
 			if (posizione == null) {
 				io.stampa("Il giocatore non ha delle cabine contenenti questo tipo di pedina");
 				return false;
@@ -253,33 +255,31 @@ public class GestoreComponenti {
 	 */
 	public int eliminaEquipaggioDaCabineCollegate() {
 		int membriEquipaggioEliminati = 0;
-		List<Coordinate> coordinateGiaEsaminate = new ArrayList<>();
+		Set<Coordinate> coordinateGiaEsaminate = new HashSet<>();
 		List<Componente> cabine = new ArrayList<>();
 		cabine.addAll(nave.getComponentiOriginali(TipoComponente.CABINA_EQUIPAGGIO));
 		cabine.addAll(nave.getComponentiOriginali(TipoComponente.CABINA_PARTENZA));
 
 		for (Componente cabina : cabine) {
 			if (!coordinateGiaEsaminate.contains(cabina.getPosizione())) {
-				coordinateGiaEsaminate.add(cabina.getPosizione());
-				try {
-					((CabinaDiEquipaggio) cabina).rimuoviUnMembro();
-				} catch (ComponenteVuotoException e) {
-					// Se il componente è vuoto non succede nulla, semplicemente non elimino nessun
-					// membro
-				}
+				List<Componente> gruppoCollegato = nave.getAnalizzatoreNave().ottieniCabineEquipaggioCollegate(cabina);
 
-				List<Componente> adiacenti = nave.getAnalizzatoreNave().ottieniCabineEquipaggioCollegate(cabina);
-				for (Componente adiacente : adiacenti) {
-					if (!coordinateGiaEsaminate.contains(adiacente.getPosizione())) {
-						coordinateGiaEsaminate.add(adiacente.getPosizione());
-						try {
-							((CabinaDiEquipaggio) adiacente).rimuoviUnMembro();
-						} catch (ComponenteVuotoException e) {
-							// Se il componente è vuoto non succede nulla, semplicemente non elimino nessun
-							// membro
+				// Se il gruppo è composto da almeno due cabine
+				if (gruppoCollegato.size() > 1) {
+					for (Componente c : gruppoCollegato) {
+						if (!coordinateGiaEsaminate.contains(c.getPosizione())) {
+							coordinateGiaEsaminate.add(c.getPosizione());
+							try {
+								((CabinaDiEquipaggio) c).rimuoviUnMembro();
+								membriEquipaggioEliminati++;
+							} catch (ComponenteVuotoException e) {
+								// se non trovo nessun membro da rimuovere, non faccio nulla
+							}
 						}
-						membriEquipaggioEliminati++;
 					}
+				} else {
+					// Anche se è una sola cabina collegata a sé stessa, la segniamo come esaminata
+					coordinateGiaEsaminate.add(cabina.getPosizione());
 				}
 			}
 		}
@@ -321,12 +321,13 @@ public class GestoreComponenti {
 
 		// salvo le cabine collegate, se non sono già state salvate
 		for (Componente sovrastruttura : sovrastrutture) {
-			List<Componente> componentiDaAggiungere = nave.getAnalizzatoreNave().ottieniCabineEquipaggioCollegate(sovrastruttura);
+			List<Componente> componentiDaAggiungere = nave.getAnalizzatoreNave()
+					.ottieniCabineEquipaggioCollegate(sovrastruttura);
 			// aggiungo solo le stive non già salvate
-			while(!componentiDaAggiungere.isEmpty()) {
+			while (!componentiDaAggiungere.isEmpty()) {
 				Componente cabina = componentiDaAggiungere.remove(0);
-				if(!cabineCollegate.contains(cabina))
-					cabineCollegate.add(cabina);				
+				if (!cabineCollegate.contains(cabina))
+					cabineCollegate.add(cabina);
 			}
 		}
 
@@ -341,14 +342,14 @@ public class GestoreComponenti {
 		do {
 			// lascio all'utente la possibilità di scegliere in quale cabina posizionare
 			// l'alieno
-			
+
 			Componente cloneCabina = io.menuComponenti(cabineCollegate);
 			if (cloneCabina == null) {
 				return false;
 			}
-			
+
 			io.stampa("Vuoi posizionare un: " + formattatore.formatta(pedina));
-			if(!io.leggiBoolean()) {
+			if (!io.leggiBoolean()) {
 				return false;
 			}
 
