@@ -21,21 +21,7 @@ Particolare attenzione è stata rivolta all'organizzazione delle classi e alla g
 
 ---
 
-## Struttura del progetto
-
-Il progetto è suddiviso in package con responsabilità distinte:
-
-- `model`: contiene le entità principali del gioco  
-- `grafica`: gestione della visualizzazione testuale e della formattazione  
-- `io`: input/output e interazione con l’utente  
-- `partita`: gestione del flusso di gioco  
-- `servizi`: calssi di supporto (mazzo, dadi, titoli, componenti, ecc.)  
-- `util`: classi di utilità generiche  
-- `eccezioni`: eccezioni personalizzate
-
----
-
-## Come giocare
+## Come eseguire il progetto da IDE
 
 1. Clona il repository  
    ```sh
@@ -47,20 +33,6 @@ Il progetto è suddiviso in package con responsabilità distinte:
 3. Esegui la classe `main.Main` per giocare.
 
 4. Regolare lo zoom per nascondere la linea verticale a destra, oppure modificare il valore della costante `LARGHEZZA_SCHERMO` nella classe `GraficaConfig`, appartenente al package `grafica`.
-
----
-
-## Cranio Creations
-
-Per maggiori informazioni sul gioco originale, consultare la pagina ufficiale:  
-[https://www.craniocreations.it/prodotto/galaxy-trucker](https://www.craniocreations.it/prodotto/galaxy-trucker)
-
----
-
-Progetto sviluppato per l’esame di Programmazione ad Oggetti presso l'[Università degli Studi di Bergamo](https://www.unibg.it/)  
-Gruppo 38
-
----
 
 ## Come eseguire il progetto (Windows)
 
@@ -76,3 +48,26 @@ Gruppo 38
 3. Entra nella cartella scripts tramite il comando ```cd scripts/```
 4. Esegui ```chmod +x esegui.sh``` (per rendere eseguibile lo script)
 5. Esegui lo script con ```./esegui.sh```
+
+---
+
+## Cranio Creations
+
+Per maggiori informazioni sul gioco originale, consultare la pagina ufficiale:  
+[https://www.craniocreations.it/prodotto/galaxy-trucker](https://www.craniocreations.it/prodotto/galaxy-trucker)
+
+---
+
+## Struttura del progetto
+
+Per visionare la struttura del progetto guardare la cartella `docs` dove sono presenti:
+
+- [Tree](./docs/tree/README.md): per visualizzare la struttura ad albero del progetto.
+- [UML](./docs/UML-completo/UML-completo.png): per visualizzare il diagramma UML completo.
+
+![Diagramma UML](./docs/UML-completo/UML-completo.png)
+
+---
+
+Progetto sviluppato per l’esame di Programmazione ad Oggetti presso l'[Università degli Studi di Bergamo](https://www.unibg.it/)  
+Gruppo 38
