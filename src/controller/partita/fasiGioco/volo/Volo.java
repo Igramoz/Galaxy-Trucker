@@ -6,7 +6,6 @@ import java.util.Set;
 
 import controller.partita.LivelliPartita;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import model.Giocatore;
 import model.planciaDiVolo.Plancia;
@@ -22,8 +21,8 @@ public class Volo {
 	private Giocatore[] giocatori;
 	private final Plancia plancia;
 	private List<Carta> carte;
-	private List<ManagerDiVolo> managerInVolo; // manager di volo che gestisce solo giocatori in volo
-	private List<ManagerDiVolo> managerDiVolo; // manager di volo che gestisce tutti i giocatori
+	private Set<ManagerDiVolo> managerInVolo; // manager di volo che gestisce solo giocatori in volo
+	private Set<ManagerDiVolo> managerDiVolo; // manager di volo che gestisce tutti i giocatori
 	PlanciaRenderer planciaRenderer = new PlanciaRenderer();
 	GestoreIO gestoreIO = new GestoreIO();
 	FormattatoreGrafico formattatore = new FormattatoreGrafico();
@@ -32,8 +31,8 @@ public class Volo {
 		this.giocatori = giocatori;
 		this.plancia = new Plancia(giocatori, livello);
 		this.carte = carte;
-		this.managerInVolo = new ArrayList<>();
-		this.managerDiVolo = new ArrayList<>();
+		this.managerInVolo = new HashSet<>();
+		this.managerDiVolo = new HashSet<>();
 		for (Giocatore giocatore : giocatori) {
 			ManagerDiVolo manager = new ManagerDiVolo(giocatore, plancia);
 			managerInVolo.add(manager);
@@ -54,14 +53,14 @@ public class Volo {
 		io.aCapo();
 
 		ordinaManegerDiVolo();
-		ManagerDiVolo[] managers = managerInVolo.toArray(new ManagerDiVolo[0]);
 		while (!carte.isEmpty() && !managerInVolo.isEmpty()) {
-			
+				
 			gestoreIO.stampa(planciaRenderer.rappresentaPlancia(plancia));
 			
 			gestoreIO.stampa("premi un tasto per proseguire : ");
 			gestoreIO.leggiTesto();
 			
+			ManagerDiVolo[] managers = managerInVolo.toArray(new ManagerDiVolo[0]);
 			carte.get(0).eseguiEvento(managers);
 			carte.remove(0);
 			
@@ -75,7 +74,7 @@ public class Volo {
 
 	private void ordinaManegerDiVolo() {
 		// ordina i manager di volo in base alla posizione dei giocatori nella plancia
-		List<ManagerDiVolo> ordinati = new ArrayList<>();
+		Set<ManagerDiVolo> ordinati = new HashSet<>();
 		Giocatore[] giocatoriOrdinati = plancia.getGiocatori();
 
 		for (Giocatore g : giocatoriOrdinati) {
@@ -112,7 +111,6 @@ public class Volo {
 	private void rimuoviManagerInVolo() {
 	    Set<ManagerDiVolo> managerDaRimuovere = new HashSet<>();
 
-	    // Unico ciclo per tutte le condizioni
 	    for (ManagerDiVolo manager : managerInVolo) {
 	        boolean daRimuovere = false;
 

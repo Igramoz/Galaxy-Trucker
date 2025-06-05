@@ -106,7 +106,6 @@ src/
   │       ├── TrasportatoreSupremo.java
   │       └── Xenoquartiermastro.java
   ├── util/
-  │   ├── Coppia.java
   │   ├── layout/
   │   │   ├── Coordinate.java
   │   │   └── Direzione.java

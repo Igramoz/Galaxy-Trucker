@@ -1,5 +1,7 @@
 package controller.partita.fasiGioco.volo;
 
+import java.util.Objects;
+
 import model.Giocatore;
 import model.planciaDiVolo.*;
 
@@ -78,5 +80,22 @@ public class ManagerDiVolo {
     	else 
     		return true;
     }
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(giocatore);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ManagerDiVolo other = (ManagerDiVolo) obj;
+		return Objects.equals(giocatore, other.giocatore);
+	}
     
 }
