@@ -62,7 +62,7 @@ Per maggiori informazioni sul gioco originale, consultare la pagina ufficiale:
 
 Per visionare la struttura del progetto guardare la cartella `docs` dove sono presenti:
 
-- [Tree](./docs/tree): per visualizzare la struttura ad albero del progetto.
+- [Tree](./docs/tree.md): per visualizzare la struttura ad albero del progetto.
 - [UML](./docs/UML-completo.png): per visualizzare il diagramma UML completo.
 
 ![Diagramma UML](./docs/UML-completo.png)
