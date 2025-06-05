@@ -49,7 +49,7 @@ public class NaveAbbandonata extends Carta{
 				}
 				
 			}else {
-				io.stampa(formattatoreGrafico.formatta(manager.getGiocatore()) + " equipaggio insufficiente");
+				io.stampa(formattatoreGrafico.formatta(manager.getGiocatore()) + " ha un equipaggio insufficiente");
 			}
 		}	
 	}

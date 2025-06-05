@@ -158,9 +158,10 @@ public class CarteRenderer {
 
 	public void rappresentaCarta(NaveAbbandonata naveAbbandonata) {
 		io.stampa(textAligner.alignCenter("Carta nave abbandonata"));
-		io.stampa("Perdendo " + naveAbbandonata.getEquipaggioPerso() + " membri dell'equipaggio");
-		io.stampa("si può guadagnare " + naveAbbandonata.getCrediti() + " crediti");
-		io.stampa("scegliere guadagnare i crediti comporta la perdita di " + naveAbbandonata.getTempoDiVolo());
+		io.stampa("Perdendo " + naveAbbandonata.getEquipaggioPerso() + " membri dell'equipaggio si possono guadagnare "
+				+ naveAbbandonata.getCrediti() + " crediti");
+		io.stampa("scegliere guadagnare i crediti comporta la perdita di " + naveAbbandonata.getTempoDiVolo()
+				+ " giorni di volo");
 	}
 
 	public void rappresentaCarta(ZonaDiGuerra zonaDiGuerra) {

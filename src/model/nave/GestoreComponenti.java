@@ -261,14 +261,26 @@ public class GestoreComponenti {
 		cabine.addAll(nave.getComponentiOriginali(TipoComponente.CABINA_PARTENZA));
 
 		for (Componente cabina : cabine) {
-			if (!coordinateGiaEsaminate.contains(cabina.getPosizione())) {
-				List<Componente> gruppoCollegato = nave.getAnalizzatoreNave().ottieniCabineEquipaggioCollegate(cabina);
+			Coordinate posCabina = cabina.getPosizione();
+			if (!coordinateGiaEsaminate.contains(posCabina)) {
+				List<Componente> adiacenti = nave.getAnalizzatoreNave().ottieniCabineEquipaggioCollegate(cabina);
 
-				// Se il gruppo è composto da almeno due cabine
-				if (gruppoCollegato.size() > 1) {
-					for (Componente c : gruppoCollegato) {
-						if (!coordinateGiaEsaminate.contains(c.getPosizione())) {
-							coordinateGiaEsaminate.add(c.getPosizione());
+				// Se c'è almeno una cabina adiacente
+				if (!adiacenti.isEmpty()) {
+					
+					// Rimuovo dalla cabina di partenza
+					try {
+						((CabinaDiEquipaggio) cabina).rimuoviUnMembro();
+						membriEquipaggioEliminati++;
+					} catch (ComponenteVuotoException e) {
+						// se non trovo nessun membro da rimuovere, non faccio nulla
+					}
+					coordinateGiaEsaminate.add(posCabina);
+
+					for (Componente c : adiacenti) {
+						Coordinate posAdiacente = c.getPosizione();
+						if (!coordinateGiaEsaminate.contains(posAdiacente)) {
+							coordinateGiaEsaminate.add(posAdiacente);
 							try {
 								((CabinaDiEquipaggio) c).rimuoviUnMembro();
 								membriEquipaggioEliminati++;
@@ -278,8 +290,8 @@ public class GestoreComponenti {
 						}
 					}
 				} else {
-					// Anche se è una sola cabina collegata a sé stessa, la segniamo come esaminata
-					coordinateGiaEsaminate.add(cabina.getPosizione());
+					// Anche se non ho cabine adiacenti, devo contarla
+					coordinateGiaEsaminate.add(posCabina);
 				}
 			}
 		}
