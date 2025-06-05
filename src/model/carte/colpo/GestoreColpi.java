@@ -34,6 +34,8 @@ public class GestoreColpi {
 			for (ManagerDiVolo m : listaManager) {
 				Giocatore giocatore = m.getGiocatore();
 
+				io.aCapo();
+				io.stampa("stiamo valutando se la nave di " + formattatoreGrafico.formatta(giocatore) + " è stata colpita...");
 				// nave colpita
 				int pezziDistrutti = giocatore.getNave().subisciImpatto(colpo, posizioneColpo);
 				// se la nave è cambiata stampare:
