@@ -25,7 +25,7 @@ Particolare attenzione è stata rivolta all'organizzazione delle classi e alla g
 
 1. Clona il repository  
    ```sh
-   git clone https://github.com/michele-bisignano/Galaxy-Trucker.git
+   git clone https://github.com/Igramoz/Galaxy-Trucker.git
    ```
 
 2. Importa il progetto in un IDE compatibile con Java.
