@@ -3,6 +3,9 @@
 **Galaxy Trucker** è un gioco da tavolo in cui i giocatori costruiscono astronavi al fine di trasportare e vendere merci nell'universo, affrontando imprevisti e pericoli.  
 Questo repository contiene una versione digitale del gioco, realizzata come progetto per il corso di Programmazione ad Oggetti presso l’[Università degli Studi di Bergamo](https://www.unibg.it/).
 
+L’obiettivo principale è stato quello di applicare il paradigma della programmazione ad oggetti per modellizzare il gioco “Galaxy Trucker”.  
+Particolare attenzione è stata rivolta all'organizzazione delle classi e alla gestione delle relazioni tra oggetti.
+
 ---
 
 ## Autori – Gruppo 38
@@ -11,13 +14,6 @@ Questo repository contiene una versione digitale del gioco, realizzata come prog
 - Marco Magri (Igramoz)
 - Henry Iannella Jones (HenryIannella) 
 - Michele Messina (8TB-Available)
-
----
-
-## Obiettivo del progetto
-
-L’obiettivo principale è stato quello di applicare il paradigma della programmazione ad oggetti per modellizzare il gioco “Galaxy Trucker”.  
-Particolare attenzione è stata rivolta all'organizzazione delle classi e alla gestione delle relazioni tra oggetti.
 
 ---
 
@@ -40,14 +36,14 @@ Di seguito sono riportate le istruzioni per eseguire il progetto in diversi ambi
 
 ### Da Windows
 
-1. Clona la repository 
+1. Clona il repository 
 2. Apri la cartella del progetto
 3. Entra nella cartella scripts 
 4. Esegui il file ```esegui.bat```
 
 ### Da MacOS e Linux
 
-1. Clona la repository 
+1. Clona il repository 
 2. Apri il terminale e naviga nella cartella del progetto
 3. Entra nella cartella scripts tramite il comando ```cd scripts/```
 4. Esegui ```chmod +x esegui.sh``` (per rendere eseguibile lo script)
@@ -71,7 +67,7 @@ Per visionare la struttura del progetto guardare la cartella `docs` dove sono pr
 Per maggiori informazioni sul gioco originale, consultare la pagina ufficiale:  
 [https://www.craniocreations.it/prodotto/galaxy-trucker](https://www.craniocreations.it/prodotto/galaxy-trucker)
 
---
+---
 
 ## Note finali
 
