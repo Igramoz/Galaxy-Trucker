@@ -21,7 +21,11 @@ Particolare attenzione è stata rivolta all'organizzazione delle classi e alla g
 
 ---
 
-## Come eseguire il progetto da IDE
+## Come eseguire il progetto
+
+Di seguito sono riportate le istruzioni per eseguire il progetto in diversi ambienti.
+
+### Da IDE
 
 1. Clona il repository  
    ```sh
@@ -34,27 +38,20 @@ Particolare attenzione è stata rivolta all'organizzazione delle classi e alla g
 
 4. Regolare lo zoom per nascondere la linea verticale a destra, oppure modificare il valore della costante `LARGHEZZA_SCHERMO` nella classe `GraficaConfig`, appartenente al package `grafica`.
 
-## Come eseguire il progetto (Windows)
+### Da Windows
 
 1. Clona la repository 
 2. Apri la cartella del progetto
 3. Entra nella cartella scripts 
 4. Esegui il file ```esegui.bat```
 
-## Come eseguire il progetto (MacOS/Linux)
+### Da MacOS e Linux
 
 1. Clona la repository 
 2. Apri il terminale e naviga nella cartella del progetto
 3. Entra nella cartella scripts tramite il comando ```cd scripts/```
 4. Esegui ```chmod +x esegui.sh``` (per rendere eseguibile lo script)
 5. Esegui lo script con ```./esegui.sh```
-
----
-
-## Cranio Creations
-
-Per maggiori informazioni sul gioco originale, consultare la pagina ufficiale:  
-[https://www.craniocreations.it/prodotto/galaxy-trucker](https://www.craniocreations.it/prodotto/galaxy-trucker)
 
 ---
 
@@ -68,6 +65,15 @@ Per visionare la struttura del progetto guardare la cartella `docs` dove sono pr
 ![Diagramma UML](./docs/UML-completo.png)
 
 ---
+
+## Cranio Creations
+
+Per maggiori informazioni sul gioco originale, consultare la pagina ufficiale:  
+[https://www.craniocreations.it/prodotto/galaxy-trucker](https://www.craniocreations.it/prodotto/galaxy-trucker)
+
+--
+
+## Note finali
 
 Progetto sviluppato per l’esame di Programmazione ad Oggetti presso l'[Università degli Studi di Bergamo](https://www.unibg.it/)  
 Gruppo 38
