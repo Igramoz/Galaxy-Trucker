@@ -1,11 +1,12 @@
 package controller.partita.fasiGioco.volo;
 
 import java.util.List;
+
 import java.util.Map;
 import java.util.Set;
-
+import model.componenti.Componente;
+import model.componenti.TipoComponente;
 import controller.partita.LivelliPartita;
-
 import java.util.HashSet;
 import model.Giocatore;
 import model.planciaDiVolo.Plancia;
@@ -13,6 +14,7 @@ import view.formattatori.FormattatoreGrafico;
 import view.io.GestoreIO;
 import view.renderer.PlanciaRenderer;
 import model.carte.TipoCarta;
+import model.nave.Nave;
 import model.carte.Carta;
 
 public class Volo {
@@ -62,12 +64,12 @@ public class Volo {
 			
 			ManagerDiVolo[] managers = managerInVolo.toArray(new ManagerDiVolo[0]);
 			carte.get(0).eseguiEvento(managers);
-			carte.remove(0);
+			
 			
 			rimuoviManagerInVolo(); // controllo i giocatori che hanno abbandonato la corsa
 
 			ordinaManegerDiVolo();  // ripristino l' ordine dei giocatori in base a chi è più avanti nel volo
-
+			carte.remove(0);
 		}
 		
 	}
@@ -120,14 +122,15 @@ public class Volo {
 	            gestoreIO.aCapo();
 	            daRimuovere = true;
 	        }
+	        
 	        else if (manager.getGiocatore().getNave().getEquipaggio().isEmpty()) {
 	            gestoreIO.stampa("Il giocatore " + formattatore.formatta(manager.getGiocatore())
 	                    + " ha abbandonato il volo siccome ha perso tutti gli umani dell' equipaggio");
 	            gestoreIO.aCapo();
 	            daRimuovere = true;
 	        }
-	        else if (!carte.isEmpty() && carte.get(0).getTipoCarta() == TipoCarta.SPAZIO_APERTO &&
-	            manager.getGiocatore().getNave().getPotenzaMotrice() <= 0) {
+	        
+	        else if (!carte.isEmpty() && carte.get(0).getTipoCarta() == TipoCarta.SPAZIO_APERTO && !potenzaMotrice(manager.getGiocatore().getNave())) {
 	            gestoreIO.stampa("Il giocatore " + formattatore.formatta(manager.getGiocatore())
 	                    + " ha abbandonato il volo siccome è in uno spazio aperto senza potenza motrice");
 	            gestoreIO.aCapo();
@@ -142,5 +145,16 @@ public class Volo {
 
 	    managerInVolo.removeAll(managerDaRimuovere);
 	}
+	
+	private boolean potenzaMotrice(Nave nave) {
+		List<Componente> ms = nave.getCopiaComponenti(TipoComponente.MOTORE_SINGOLO);
+		List<Componente> md = nave.getCopiaComponenti(TipoComponente.MOTORE_DOPPIO);
+		
+		if(ms.isEmpty() && md.isEmpty()) {
+			return false; // Se non ha motori singoli o doppi, non può volare
+		}
+		return true; // Altrimenti ha motori e può volare
+	}
+	
 
 }
