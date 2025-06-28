@@ -71,3 +71,4 @@ Per visionare la struttura del progetto guardare la cartella `docs` dove sono pr
 
 Progetto sviluppato per l’esame di Programmazione ad Oggetti presso l'[Università degli Studi di Bergamo](https://www.unibg.it/)  
 Gruppo 38
+Il progetto ha conseguito la valutazione massima
